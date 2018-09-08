@@ -1,0 +1,96 @@
+1) Signup Api: 
+
+159.89.171.16:9000/user_auth/signup
+
+Method Type: POST
+
+Json request from frontend:
+
+{
+	"username": "unique_user1",
+	"first_name": "Mantu",
+	"sur_name": "Kumar",
+	"email": "ad@gmail.com",
+	"password": "test123",
+	"dob": "12 Aug 2011"
+}
+
+Json Response from backend:
+
+In Case of Success:
+{
+    "status": "success",
+    "username": "unique_user1",
+    "msg": "User Successfully Created"
+}
+
+In Case of Failure:
+
+{
+    "status": "failure",
+    "msg": "User already exists"
+}
+
+
+
+###########################
+2) Signin/Login Api:
+###########################
+
+159.89.171.16:9000/user_auth/login
+
+Method Type: POST
+
+Json request from frontend:
+
+
+{
+	"username": "unique_user2",
+	"password": "test123"
+}
+
+Json Response from backend:
+
+In Case of Success:
+{
+    "sur_name": "Kumar",
+    "username": "unique_user2",
+    "status": "success",
+    "msg": "Successfully logged in",
+    "first_name": "Mantu",
+    "dob": "12 Aug 2011",
+    "email": "ad@gmail.com"
+}
+
+In Case of Failure:
+
+{
+    "msg": "User name or password is incorrect.",
+    "status": "failure"
+}
+
+
+
+#####################
+3) Logout Api:
+####################
+
+159.89.171.16:9000/user_auth/logout
+
+Method Type: POST / GET
+- No Json request needs to be sent
+
+Json Response:
+
+In Case of Success:
+{
+    "msg": "Logged Out Successfully",
+    "status": "success"
+}
+
+In Case Of Failure:
+{"status": "failure", "msg": "Could Not Log Out"}
+
+or
+
+{"status": "failure", "msg": "No Session Exists"}

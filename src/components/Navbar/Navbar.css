@@ -1,0 +1,18 @@
+.navbar {
+  background: #fefefe;
+  height: 50px;
+  box-shadow: 0 0 5px #0003;
+}
+
+.navbar a {
+  color: #333;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5em;
+}
