@@ -10,6 +10,7 @@ class Register extends Component {
 
   getData(formData) {
     this.props.registerUser(formData, this.props.history);
+    // console.log(formData);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,36 +24,71 @@ class Register extends Component {
   render() {
     const { handleSubmit } = this.props;
     const { errors } = this.state;
-
     return (
       <div>
         <div className="mt-3">
-          <h2>Register</h2>
+          <h2 className="font-weight-bold">Register</h2>
           <div className="row">
             <div className="col-md-5">
               <form
                 autoComplete="off"
                 onSubmit={handleSubmit(this.getData.bind(this))}
               >
-                {errors.message && (
-                  <div className="alert alert-danger"> {errors.message} </div>
+                {errors.msg && (
+                  <div className="alert alert-danger"> {errors.msg} </div>
                 )}
                 <div className="form-group">
-                  <label htmlFor="user-name">Name</label>
+                  <label htmlFor="username">Username:</label>
                   <Field
                     component="input"
                     type="text"
-                    name="name"
+                    name="username"
                     className={classnames("form-control", {
                       "is-invalid": errors.name
                     })}
-                    id="user-name"
-                    placeholder="Enter Name"
+                    id="username"
+                    placeholder="Enter Username"
                     autoComplete="off"
                   />
                   {errors.name && (
                     <div className="invalid-feedback"> {errors.name} </div>
                   )}
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="first_name">First Name:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="first_name"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.name
+                      })}
+                      id="first_name"
+                      placeholder="Enter First Name"
+                      autoComplete="off"
+                    />
+                    {errors.name && (
+                      <div className="invalid-feedback"> {errors.name} </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="sur_name">Sur Name:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="sur_name"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.name
+                      })}
+                      id="sur_name"
+                      placeholder="Enter Sur Name"
+                      autoComplete="off"
+                    />
+                    {errors.name && (
+                      <div className="invalid-feedback"> {errors.name} </div>
+                    )}
+                  </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -71,34 +107,58 @@ class Register extends Component {
                     <div className="invalid-feedback"> {errors.email} </div>
                   )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Field
-                    component="input"
-                    type="password"
-                    name="password"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.password
-                    })}
-                    id="password"
-                    placeholder="Enter Password"
-                    autoComplete="off"
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback"> {errors.password} </div>
-                  )}
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="password">Password</label>
+                    <Field
+                      component="input"
+                      type="password"
+                      name="password"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.password
+                      })}
+                      id="password"
+                      placeholder="Enter Password"
+                      autoComplete="off"
+                    />
+                    {errors.password && (
+                      <div className="invalid-feedback">
+                        {" "}
+                        {errors.password}{" "}
+                      </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="confirm-password">Confirm Password</label>
+                    <Field
+                      component="input"
+                      type="password"
+                      name="password2"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.password2
+                      })}
+                      id="confirm-password"
+                      placeholder="Confirm Password"
+                      autoComplete="off"
+                    />
+                    {errors.password2 && (
+                      <div className="invalid-feedback">
+                        {" "}
+                        {errors.password2}{" "}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="confirm-password">Confirm Password</label>
+                  <label htmlFor="dob">Date Of Birth:</label>
                   <Field
                     component="input"
-                    type="password"
-                    name="password2"
-                    className={classnames("form-control", {
+                    type="date"
+                    name="dob"
+                    className={classnames("form-control ", {
                       "is-invalid": errors.password2
                     })}
-                    id="confirm-password"
-                    placeholder="Confirm Password"
+                    id="dob"
                     autoComplete="off"
                   />
                   {errors.password2 && (

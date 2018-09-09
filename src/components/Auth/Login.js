@@ -27,7 +27,7 @@ class Register extends Component {
     return (
       <div>
         <div className="mt-3">
-          <h2>Login</h2>
+          <h2 className="font-weight-bold">Login</h2>
           <div className="row">
             <div className="col-md-5">
               <form
