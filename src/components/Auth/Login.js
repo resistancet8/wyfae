@@ -38,7 +38,7 @@ class Register extends Component {
                   <div className="alert alert-danger"> {errors.message} </div>
                 )}
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="username">Username:</label>
                   <Field
                     component="input"
                     type="text"
@@ -55,7 +55,7 @@ class Register extends Component {
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">Password:</label>
                   <Field
                     component="input"
                     type="password"

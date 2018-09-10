@@ -44,14 +44,14 @@ class Register extends Component {
                     type="text"
                     name="username"
                     className={classnames("form-control", {
-                      "is-invalid": errors.name
+                      "is-invalid": errors.username
                     })}
                     id="username"
                     placeholder="Enter Username"
                     autoComplete="off"
                   />
-                  {errors.name && (
-                    <div className="invalid-feedback"> {errors.name} </div>
+                  {errors.username && (
+                    <div className="invalid-feedback"> {errors.username} </div>
                   )}
                 </div>
                 <div className="form-row">
@@ -62,14 +62,17 @@ class Register extends Component {
                       type="text"
                       name="first_name"
                       className={classnames("form-control", {
-                        "is-invalid": errors.name
+                        "is-invalid": errors.first_name
                       })}
                       id="first_name"
                       placeholder="Enter First Name"
                       autoComplete="off"
                     />
-                    {errors.name && (
-                      <div className="invalid-feedback"> {errors.name} </div>
+                    {errors.first_name && (
+                      <div className="invalid-feedback">
+                        {" "}
+                        {errors.first_name}{" "}
+                      </div>
                     )}
                   </div>
                   <div className="form-group col-md-6">
@@ -79,19 +82,22 @@ class Register extends Component {
                       type="text"
                       name="sur_name"
                       className={classnames("form-control", {
-                        "is-invalid": errors.name
+                        "is-invalid": errors.sur_name
                       })}
                       id="sur_name"
                       placeholder="Enter Sur Name"
                       autoComplete="off"
                     />
-                    {errors.name && (
-                      <div className="invalid-feedback"> {errors.name} </div>
+                    {errors.sur_name && (
+                      <div className="invalid-feedback">
+                        {" "}
+                        {errors.sur_name}{" "}
+                      </div>
                     )}
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">Email:</label>
                   <Field
                     component="input"
                     type="email"
@@ -109,7 +115,7 @@ class Register extends Component {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Password:</label>
                     <Field
                       component="input"
                       type="password"
@@ -129,7 +135,7 @@ class Register extends Component {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="confirm-password">Confirm Password</label>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
                     <Field
                       component="input"
                       type="password"
@@ -156,13 +162,13 @@ class Register extends Component {
                     type="date"
                     name="dob"
                     className={classnames("form-control ", {
-                      "is-invalid": errors.password2
+                      "is-invalid": errors.dob
                     })}
                     id="dob"
                     autoComplete="off"
                   />
-                  {errors.password2 && (
-                    <div className="invalid-feedback"> {errors.password2} </div>
+                  {errors.dob && (
+                    <div className="invalid-feedback"> {errors.dob} </div>
                   )}
                 </div>
                 <button type="submit" className="btn btn-dark">

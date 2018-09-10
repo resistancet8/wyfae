@@ -1,0 +1,64 @@
+.avatar img {
+  max-width: 200px;
+  height: 200px;
+}
+
+.rounded {
+  border-radius: 10px !important;
+}
+
+@media screen and (min-width: 800px) {
+  .border-left-overridden {
+    border-left-width: 0.6em !important;
+    border-left-color: #eee !important;
+    border-left-style: solid;
+  }
+  .rounded-left {
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+  }
+
+  .rounded-right {
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+  }
+}
+
+.navtabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+}
+
+.nav-tabs .nav-item {
+  background: #eee !important;
+  border: none;
+  color: #333;
+  border-bottom: 3px solid transparent !important;
+}
+
+.nav-tabs .nav-item:hover {
+  background: #e1e1e1 !important;
+}
+
+.nav-tabs .active {
+  border: 0;
+  border-bottom: 3px solid #111 !important;
+}
+
+.nav-item.active {
+  background: #e1e1e1 !important;
+  position: relative;
+}
+
+.nav-item.active::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #111;
+  position: absolute;
+  left: 50%;
+  top: 96%;
+  transform: translateX(-50%) rotate(45deg);
+}
