@@ -34,7 +34,7 @@ export function loginUser(userData, history) {
       .then(response => {
         if (response.data.status == "failure") {
           alert("Failed");
-        } else alert("Success");
+        } else history.push("/");
         // history.push("/posts");
         // const { token } = response.data;
         // set default axios header for all subsequent requests
