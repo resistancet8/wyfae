@@ -7,14 +7,14 @@ class User extends Component {
       <div>
         <div className="avatar row">
           <img
-            src="https://pbs.twimg.com/profile_images/496824857368072193/flaqCCcX_400x400.png"
+            src={this.props.user.avatar}
             alt=""
             className="img-fluid rounded-circle mx-auto"
           />
         </div>
         <div className="details text-center mt-3">
-          <h2 className="font-weight-bold">Naveen N</h2>
-          <h3>From: Earth</h3>
+          <h2 className="font-weight-bold">{this.props.user.name}</h2>
+          <p>{this.props.user.from}</p>
         </div>
       </div>
     );

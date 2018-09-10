@@ -7,14 +7,14 @@ class Feelings extends Component {
     return (
       <div>
         <nav>
-          <div class="" id="nav-tab" role="tablist">
+          <div className="" id="nav-tab" role="tablist">
             <h5 className="text-muted font-weight-bold mb-4">
               Give Soul To Your Feelings And Experiences With Creative Art
               Styles.
             </h5>
             <div className="nav nav-tabs navtabs" id="nav-tab" role="tablist">
               <a
-                class="nav-item nav-link active"
+                className="nav-item nav-link active"
                 id="nav-poem-tab"
                 data-toggle="tab"
                 href="#nav-poem"
@@ -23,7 +23,7 @@ class Feelings extends Component {
                 Poem
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-story-tab"
                 data-toggle="tab"
                 href="#nav-story"
@@ -32,7 +32,7 @@ class Feelings extends Component {
                 Story
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-quotes-tab"
                 data-toggle="tab"
                 href="#nav-quotes"
@@ -41,7 +41,7 @@ class Feelings extends Component {
                 Quotes
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-gazal-tab"
                 data-toggle="tab"
                 href="#nav-gazal"
@@ -50,7 +50,7 @@ class Feelings extends Component {
                 Gazal
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-rap-tab"
                 data-toggle="tab"
                 href="#nav-rap"
@@ -59,7 +59,7 @@ class Feelings extends Component {
                 Rap
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-singing-tab"
                 data-toggle="tab"
                 href="#nav-singing"
@@ -68,7 +68,7 @@ class Feelings extends Component {
                 Signing
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-comedy-tab"
                 data-toggle="tab"
                 href="#nav-comedy"
@@ -77,7 +77,7 @@ class Feelings extends Component {
                 Comedy
               </a>
               <a
-                class="nav-item nav-link"
+                className="nav-item nav-link"
                 id="nav-dance-tab"
                 data-toggle="tab"
                 href="#nav-dance"
@@ -88,29 +88,33 @@ class Feelings extends Component {
             </div>
           </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-poem" role="tabpanel">
+        <div className="tab-content" id="nav-tabContent">
+          <div
+            className="tab-pane fade show active"
+            id="nav-poem"
+            role="tabpanel"
+          >
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-story" role="tabpanel">
+          <div className="tab-pane fade" id="nav-story" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-quotes" role="tabpanel">
+          <div className="tab-pane fade" id="nav-quotes" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-gazal" role="tabpanel">
+          <div className="tab-pane fade" id="nav-gazal" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-rap" role="tabpanel">
+          <div className="tab-pane fade" id="nav-rap" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-singing" role="tabpanel">
+          <div className="tab-pane fade" id="nav-singing" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-comedy" role="tabpanel">
+          <div className="tab-pane fade" id="nav-comedy" role="tabpanel">
             <Form />
           </div>
-          <div class="tab-pane fade" id="nav-dance" role="tabpanel">
+          <div className="tab-pane fade" id="nav-dance" role="tabpanel">
             <Form />
           </div>
         </div>

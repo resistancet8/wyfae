@@ -18,21 +18,21 @@ export default class Form extends Component {
             <input
               type="file"
               name="image-video"
-              class="form-control"
+              className="form-control"
               id="image-video"
             />
           </div>
           <div className="controls mr-auto">
-            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
               Share
             </button>
-            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
               Share Anonymously
             </button>
-            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
               Compete
             </button>
-            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
               Save
             </button>
           </div>

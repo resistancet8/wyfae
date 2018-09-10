@@ -7,25 +7,33 @@ class About extends Component {
       <div>
         <div className="row border-bottom">
           <h5 className="text-muted font-weight-bold">About</h5>
-          <p className="font-italic">
-            success is not final failure is not fatal - Winston Churchill
-          </p>
+          <p className="font-italic"> {this.props.user.about}</p>
         </div>
         <div className="row pt-3">
           <p>
-            <strong>DOB:</strong> 10/11/1999
+            <strong>DOB:</strong>
+            &nbsp;
+            {this.props.user.dob}
           </p>
           <p>
-            <strong>Languages Known:</strong> English, Hindi
+            <strong>Languages Known:</strong>
+            &nbsp;
+            {this.props.user.langs}
           </p>
           <p>
-            <strong>Contact:</strong> 7003804266
+            <strong>Contact:</strong>
+            &nbsp;
+            {this.props.user.contact}
           </p>
           <p>
-            <strong>Email:</strong> codingzap07@gmail.com
+            <strong>Email:</strong>
+            &nbsp;
+            {this.props.user.email}
           </p>
           <p>
-            <strong>Favorite Artform:</strong> Writing, Singing and Dancing
+            <strong>Favorite Artform:</strong>
+            &nbsp;
+            {this.props.user.favorite_art}
           </p>
         </div>
       </div>
