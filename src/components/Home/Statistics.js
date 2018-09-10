@@ -6,8 +6,9 @@ class Stats extends Component {
     return (
       <div>
         <h5 className="font-weight-bold text-muted">STATISTICS:</h5>
-        <div className="content-shared">
+        <div className="content-shared stats">
           <label className="text-muted">Total Number of Content Shared:</label>
+          <label className="float-right text-muted">2000</label>
           <div class="progress">
             <div
               class="progress-bar text-white progress-bar-animated bg-success progress-bar-striped"
@@ -21,9 +22,10 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        <div className="no-of-likes">
+        <div className="no-of-likes stats">
           <div className="content-shared">
             <label className="text-muted">Total Number of Likes:</label>
+            <label className="float-right text-muted">100</label>
             <div class="progress">
               <div
                 class="progress-bar text-white progress-bar-animated bg-dark progress-bar-striped"
@@ -38,9 +40,10 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        <div className="no-of-wins">
+        <div className="no-of-wins stats">
           <div className="content-shared">
             <label className="text-muted">Total Number of Wins:</label>
+            <label className="float-right text-muted">600</label>
             <div class="progress">
               <div
                 class="progress-bar text-white progress-bar-animated bg-danger progress-bar-striped"
@@ -55,9 +58,10 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        <div className="no-of-comments">
+        <div className="no-of-comments stats">
           <div className="content-shared">
             <label className="text-muted">Total Number of Comments:</label>
+            <label className="float-right text-muted">233</label>
             <div class="progress">
               <div
                 class="progress-bar text-white progress-bar-animated bg-primary progress-bar-striped"
@@ -72,11 +76,12 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        <div className="content-share-anonymous">
+        <div className="content-share-anonymous stats">
           <div className="content-shared">
             <label className="text-muted">
-              Number of times content shared Anonymously:
+              No. Of Times Content Shared Anonymously:
             </label>
+            <label className="float-right text-muted">225</label>
             <div class="progress">
               <div
                 class="progress-bar text-white progress-bar-animated bg-warning progress-bar-striped"
@@ -91,7 +96,7 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        <div className="best-shared">
+        {/* <div className="best-shared">
           <div className="content-shared">
             <label className="text-muted">Best content shared till now:</label>
             <div class="progress">
@@ -107,7 +112,7 @@ class Stats extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

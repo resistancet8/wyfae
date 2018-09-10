@@ -46,6 +46,10 @@
   transform: translateX(-50%) rotate(45deg);
 }
 
+.stats {
+  margin-top: 0.5em !important;
+}
+
 /* desktop */
 @media screen and (min-width: 800px) {
   .border-left-overridden {
