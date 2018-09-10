@@ -67,6 +67,24 @@ class Feelings extends Component {
               >
                 Signing
               </a>
+              <a
+                class="nav-item nav-link"
+                id="nav-comedy-tab"
+                data-toggle="tab"
+                href="#nav-comedy"
+                role="tab"
+              >
+                Stand-up Comedy
+              </a>
+              <a
+                class="nav-item nav-link"
+                id="nav-dance-tab"
+                data-toggle="tab"
+                href="#nav-dance"
+                role="tab"
+              >
+                Dance
+              </a>
             </div>
           </div>
         </nav>
@@ -87,6 +105,12 @@ class Feelings extends Component {
             <Form />
           </div>
           <div class="tab-pane fade" id="nav-singing" role="tabpanel">
+            <Form />
+          </div>
+          <div class="tab-pane fade" id="nav-comedy" role="tabpanel">
+            <Form />
+          </div>
+          <div class="tab-pane fade" id="nav-dance" role="tabpanel">
             <Form />
           </div>
         </div>
