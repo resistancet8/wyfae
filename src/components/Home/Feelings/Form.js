@@ -11,6 +11,7 @@ export default class Form extends Component {
             cols="30"
             rows="10"
             className="form-control my-2"
+            placeholder="Share Your Feelings/ Experience"
           />
           <div className="form-group">
             <label>Select Image/Video:</label>
@@ -21,18 +22,20 @@ export default class Form extends Component {
               id="image-video"
             />
           </div>
-          <button type="button" class="btn btn-outline-dark rounded">
-            Share
-          </button>
-          <button type="button" class="btn btn-outline-dark rounded ml-2">
-            Share Anonymously
-          </button>
-          <button type="button" class="btn btn-outline-dark rounded ml-2">
-            Compete
-          </button>
-          <button type="button" class="btn btn-outline-dark rounded ml-2">
-            Save
-          </button>
+          <div className="controls mr-auto">
+            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+              Share
+            </button>
+            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+              Share Anonymously
+            </button>
+            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+              Compete
+            </button>
+            <button type="button" class="btn btn-outline-dark mr-2 mb-2">
+              Save
+            </button>
+          </div>
         </div>
       </div>
     );

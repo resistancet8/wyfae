@@ -15,7 +15,7 @@ class Home extends Component {
           <div className="col-md-4 bg-white rounded-left p-3">
             <User />
           </div>
-          <div className="col-md-8 bg-white rounded-right border-left-overridden p-3">
+          <div className="col-md-8 bg-white rounded-right border-left-overridden border-top-overridden p-3">
             <Stats />
           </div>
         </div>
@@ -24,7 +24,7 @@ class Home extends Component {
           <div className="col-md-4 bg-white rounded-left p-3 px-5">
             <About />
           </div>
-          <div className="col-md-8 bg-white rounded-right border-left-overridden p-3">
+          <div className="col-md-8 bg-white rounded-right border-left-overridden border-top-overridden p-3">
             <Feelings />
           </div>
         </div>

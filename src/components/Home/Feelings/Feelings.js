@@ -8,7 +8,7 @@ class Feelings extends Component {
       <div>
         <nav>
           <div class="" id="nav-tab" role="tablist">
-            <h5 className="text-muted font-weight-bold">
+            <h5 className="text-muted font-weight-bold mb-4">
               Give Soul To Your Feelings And Experiences With Creative Art
               Styles.
             </h5>
@@ -74,7 +74,7 @@ class Feelings extends Component {
                 href="#nav-comedy"
                 role="tab"
               >
-                Stand-up Comedy
+                Comedy
               </a>
               <a
                 class="nav-item nav-link"
