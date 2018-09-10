@@ -16,3 +16,13 @@
   font-weight: bold;
   font-size: 1.5em;
 }
+
+.banner {
+  color: #000;
+  font-size: 1.3em;
+}
+
+.banner:hover {
+  text-decoration: none;
+  color: #000;
+}
