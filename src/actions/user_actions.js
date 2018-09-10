@@ -30,6 +30,56 @@ let dummyData = {
       total: 225,
       percent: "30%"
     }
+  },
+  journal: {
+    quotes: [
+      {
+        author: "Oscar Wilde",
+        quote: "Be yourself; everyone else is already taken."
+      },
+      {
+        author: "Mahatma Gandhi",
+        quote: "Be the change that you wish to see in the world."
+      },
+      {
+        author: "Eleanor Roosevelt",
+        quote: "No one can make you feel inferior without your consent."
+      },
+      {
+        author: "Friedrich Nietzsche",
+        quote: "Without music, life would be a mistake."
+      }
+    ],
+    goals: [
+      {
+        title:
+          "Curabitur urna nisi, imperdiet eget libero aliquet, feugiat dapibus metus.",
+        completed: false
+      },
+      {
+        title: "Sed porta efficitur est ut scelerisque.",
+        completed: false
+      },
+      {
+        title: "Donec tincidunt nulla in feugiat interdum.",
+        completed: false
+      }
+    ],
+    todos: [
+      {
+        title:
+          "Donec vehicula, lacus ut efficitur pretium, ligula odio feugiat odio.",
+        completed: true
+      },
+      {
+        title: "Rutrum tincidunt quam. Vivamus ac lacinia tellus.",
+        completed: false
+      },
+      {
+        title: "Lorem ipsum dolor sit amet.",
+        completed: false
+      }
+    ]
   }
 };
 

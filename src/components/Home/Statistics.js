@@ -5,7 +5,10 @@ class Stats extends Component {
   render() {
     return (
       <div>
-        <h5 className="font-weight-bold text-muted">STATISTICS:</h5>
+        <h5 className="font-weight-bold text-muted">
+          <i className="material-icons float-left mr-2">assessment</i>{" "}
+          STATISTICS:
+        </h5>
         <div className="content-shared stats">
           <label className="text-muted">Total Number of Content Shared:</label>
           <label className="float-right text-muted">

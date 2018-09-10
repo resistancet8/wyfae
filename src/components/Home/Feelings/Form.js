@@ -23,16 +23,32 @@ export default class Form extends Component {
             />
           </div>
           <div className="controls mr-auto">
-            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
+            <button
+              type="button"
+              className="btn btn-outline-dark mr-2 mb-2 font-weight-normal"
+            >
+              <i class="fas fa-share mx-1" />
               Share
             </button>
-            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
+            <button
+              type="button"
+              className="btn btn-outline-dark mr-2 mb-2 font-weight-normal"
+            >
+              <i class="fas fa-share mx-1" />
               Share Anonymously
             </button>
-            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
+            <button
+              type="button"
+              className="btn btn-outline-dark mr-2 mb-2 font-weight-normal"
+            >
+              <i class="fas fa-medal mx-1" />
               Compete
             </button>
-            <button type="button" className="btn btn-outline-dark mr-2 mb-2">
+            <button
+              type="button"
+              className="btn btn-outline-dark mr-2 mb-2 font-weight-normal"
+            >
+              <i class="fas fa-save mx-1" />
               Save
             </button>
           </div>

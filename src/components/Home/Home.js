@@ -7,6 +7,7 @@ import About from "./About";
 import Feelings from "./Feelings/Feelings";
 import { connect } from "react-redux";
 import { fetchUserDetails } from "./../../actions/user_actions";
+import Journal from "./Journal/Journal";
 
 class Home extends Component {
   componentDidMount() {
@@ -35,6 +36,10 @@ class Home extends Component {
           <div className="col-md-8 bg-white rounded-right border-left-overridden border-top-overridden p-3">
             <Feelings />
           </div>
+        </div>
+        {/* Private Journal */}
+        <div className="row mt-2">
+          {user.journal && <Journal journal={user.journal} />}
         </div>
       </div>
     );
