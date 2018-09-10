@@ -56,6 +56,30 @@ module.exports = function validateRegisterInput(data) {
     errors.dob = "DOB field is required";
   }
 
+  if (!Validator.isLength(data.state || "", { min: 2, max: 20 })) {
+    errors.state = "State must be between 2 and 20 characters";
+  }
+
+  if (Validator.isEmpty(data.state || "")) {
+    errors.state = "State field is required";
+  }
+
+  if (!Validator.isLength(data.country || "", { min: 2, max: 20 })) {
+    errors.country = "Country must be between 2 and 20 characters";
+  }
+
+  if (Validator.isEmpty(data.country || "")) {
+    errors.country = "Country field is required";
+  }
+
+  if (!Validator.isLength(data.city || "", { min: 2, max: 20 })) {
+    errors.city = "City must be between 2 and 20 characters";
+  }
+
+  if (Validator.isEmpty(data.city || "")) {
+    errors.city = "City field is required";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

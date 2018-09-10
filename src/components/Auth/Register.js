@@ -26,7 +26,7 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <div className="mt-3">
+        <div className="my-3">
           <h2 className="font-weight-bold">Register</h2>
           <div className="row">
             <div className="col-md-5">
@@ -155,6 +155,61 @@ class Register extends Component {
                     )}
                   </div>
                 </div>
+
+                <div className="form-row">
+                  <div className="form-group col-md-4">
+                    <label htmlFor="password">City:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="city"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.city
+                      })}
+                      id="city"
+                      placeholder="Enter city"
+                      autoComplete="off"
+                    />
+                    {errors.city && (
+                      <div className="invalid-feedback"> {errors.city} </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="confirm-password">State:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="state"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.state
+                      })}
+                      id="confirm-state"
+                      placeholder="Enter State"
+                      autoComplete="off"
+                    />
+                    {errors.state && (
+                      <div className="invalid-feedback"> {errors.state} </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="confirm-password">Country:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="country"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.country
+                      })}
+                      id="confirm-country"
+                      placeholder="Enter Country"
+                      autoComplete="off"
+                    />
+                    {errors.country && (
+                      <div className="invalid-feedback"> {errors.country} </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="dob">Date Of Birth:</label>
                   <Field
