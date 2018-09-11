@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Scrollbars } from "react-custom-scrollbars";
 
 class Quotes extends Component {
   constructor(props) {
@@ -43,7 +44,11 @@ class Quotes extends Component {
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
         </div>
-        <div className="row quotes-holder mt-3">{Quotes}</div>
+        <div className="row quotes-holder mt-3">
+          <Scrollbars autoHeight autoHeightMax={250} autoHide>
+            {Quotes}
+          </Scrollbars>
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             <h2>Add New Quote</h2>

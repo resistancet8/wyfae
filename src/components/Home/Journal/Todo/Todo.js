@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./Todo.css";
 import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Scrollbars } from "react-custom-scrollbars";
 
 class Todo extends Component {
   constructor(props) {
@@ -46,7 +47,11 @@ class Todo extends Component {
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
         </div>
-        <div className="row goals-holder mt-3">{Todos}</div>
+        <div className="row goals-holder mt-3">
+          <Scrollbars autoHeight autoHeightMax={250} autoHide>
+            {Todos}
+          </Scrollbars>
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             <h2>Add New Todo</h2>

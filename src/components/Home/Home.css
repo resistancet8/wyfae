@@ -63,6 +63,16 @@
   cursor: pointer;
 }
 
+.journal {
+  overflow: hidden;
+}
+
+.quotes,
+.todo,
+.goals {
+  max-height: 350px;
+}
+
 /* desktop */
 @media screen and (min-width: 800px) {
   .border-left-overridden {

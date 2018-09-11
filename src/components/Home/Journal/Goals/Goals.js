@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Scrollbars } from "react-custom-scrollbars";
 
 class Goals extends Component {
   constructor(props) {
@@ -40,7 +41,11 @@ class Goals extends Component {
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
         </div>
-        <div className="row goals-holder mt-3">{Goals}</div>
+        <div className="row goals-holder mt-3">
+          <Scrollbars autoHeight autoHeightMax={250} autoHide>
+            {Goals}
+          </Scrollbars>
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             <h2 className="font-weight-bold">Add New Goal</h2>
