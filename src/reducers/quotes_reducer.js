@@ -10,6 +10,10 @@ export default function(state = initialState, { type, payload }) {
       return {
         quotes: payload
       };
+    case "ADD_QUOTE":
+      return {
+        quotes: [payload, ...state.quotes]
+      };
     default:
       return state;
   }

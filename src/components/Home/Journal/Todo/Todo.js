@@ -5,6 +5,8 @@ import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import { addTodo } from "./../../../../actions/journal_actions";
 
 class Todo extends Component {
   constructor(props) {
@@ -16,6 +18,17 @@ class Todo extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  getData(formData) {
+    this.props.addTodo(
+      {
+        title: formData.title,
+        completed: false,
+        created_at: new Date().toLocaleDateString()
+      },
+      this.props.history
+    );
+  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
@@ -23,12 +36,14 @@ class Todo extends Component {
   }
 
   render() {
+    const { handleSubmit } = this.props;
+
     let Todos = this.props.todos.map(todo => {
       return (
         <div className="bg-secondary p-2 mb-1 rounded todo-item">
           <p
             className={classnames({
-              "line-through": !todo.completed
+              "line-through": todo.completed
             })}
           >
             {todo.title}
@@ -60,28 +75,30 @@ class Todo extends Component {
           </Scrollbars>
         </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            <h2>Add New Todo</h2>
-          </ModalHeader>
-          <ModalBody>
-            <form>
+          <form onSubmit={handleSubmit(this.getData.bind(this))}>
+            <ModalHeader toggle={this.toggle}>
+              <h2>Add New Todo</h2>
+            </ModalHeader>
+            <ModalBody>
               <div class="form-group">
-                <textarea
+                <Field
+                  component="textarea"
                   class="form-control"
                   id="todo-field"
+                  name="title"
                   placeholder="Add Todo Title"
                 />
               </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
-              Add
-            </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button type="submit" color="primary" onClick={this.toggle}>
+                Add
+              </Button>{" "}
+              <Button color="secondary" onClick={this.toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </form>
         </Modal>
       </React.Fragment>
     );
@@ -94,7 +111,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Todo);
+export default reduxForm({
+  form: "todo-add"
+})(
+  connect(
+    mapStateToProps,
+    { addTodo }
+  )(Todo)
+);

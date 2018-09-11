@@ -10,6 +10,10 @@ export default function(state = initialState, { type, payload }) {
       return {
         goals: payload
       };
+    case "ADD_GOAL":
+      return {
+        goals: [payload, ...state.goals]
+      };
     default:
       return state;
   }

@@ -3,6 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import { addQuote } from "./../../../../actions/journal_actions";
 
 class Quotes extends Component {
   constructor(props) {
@@ -14,6 +16,10 @@ class Quotes extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  getData(formData) {
+    this.props.addQuote(formData, this.props.history);
+  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
@@ -21,7 +27,8 @@ class Quotes extends Component {
   }
 
   render() {
-    console.log(this.props);
+    const { handleSubmit } = this.props;
+
     let Quotes = this.props.quotes.map(quote => {
       return (
         <p>
@@ -52,36 +59,40 @@ class Quotes extends Component {
           </Scrollbars>
         </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            <h2>Add New Quote</h2>
-          </ModalHeader>
-          <ModalBody>
-            <form>
+          <form onSubmit={handleSubmit(this.getData.bind(this))}>
+            <ModalHeader toggle={this.toggle}>
+              <h2>Add New Quote</h2>
+            </ModalHeader>
+            <ModalBody>
               <div class="form-group">
-                <textarea
+                <Field
+                  component="textarea"
                   class="form-control"
                   id="quote-field"
                   placeholder="Enter Quote"
+                  name="quote"
                 />
               </div>
               <div class="form-group">
-                <input
+                <Field
+                  component="input"
                   type="text"
                   class="form-control"
                   id="author-name"
+                  name="author"
                   placeholder="Enter Author Name"
                 />
               </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
-              Add
-            </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button type="submit" color="primary" onClick={this.toggle}>
+                Add
+              </Button>{" "}
+              <Button color="secondary" onClick={this.toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </form>
         </Modal>
       </React.Fragment>
     );
@@ -94,7 +105,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Quotes);
+export default reduxForm({
+  form: "quote-add"
+})(
+  connect(
+    mapStateToProps,
+    { addQuote }
+  )(Quotes)
+);

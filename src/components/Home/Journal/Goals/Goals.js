@@ -4,6 +4,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
 import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import { addGoal } from "./../../../../actions/journal_actions";
 
 class Goals extends Component {
   constructor(props) {
@@ -15,6 +17,10 @@ class Goals extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  getData(formData) {
+    this.props.addGoal(formData, this.props.history);
+  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
@@ -22,16 +28,23 @@ class Goals extends Component {
   }
 
   render() {
+    const { handleSubmit } = this.props;
+
     let Goals = this.props.goals.map(goal => {
       return (
         <div className="bg-secondary p-2 mb-1 rounded todo-item">
           <p
             className={classnames({
-              "line-through": !goal.completed
+              "line-through": goal.completed
             })}
           >
             {goal.title}
           </p>
+          <div className="d-flex">
+            <small className="font-italic ml-auto mr-1 p-0 m-0">
+              By: {goal.date}
+            </small>
+          </div>
         </div>
       );
     });
@@ -54,31 +67,40 @@ class Goals extends Component {
           </Scrollbars>
         </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            <h2 className="font-weight-bold">Add New Goal</h2>
-          </ModalHeader>
-          <ModalBody>
-            <form>
+          <form onSubmit={handleSubmit(this.getData.bind(this))}>
+            <ModalHeader toggle={this.toggle}>
+              <h2 className="font-weight-bold">Add New Goal</h2>
+            </ModalHeader>
+            <ModalBody>
               <div class="form-group">
-                <textarea
+                <Field
+                  component="textarea"
                   class="form-control"
                   id="goal-field"
+                  name="title"
                   placeholder="Type Your Goal"
                 />
               </div>
               <div class="form-group">
-                <input type="date" class="form-control" id="goal-date" />
+                <label>Plan To Complete By:</label>
+                <Field
+                  component="input"
+                  type="date"
+                  name="date"
+                  class="form-control"
+                  id="goal-date"
+                />
               </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
-              Add
-            </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button type="submit" color="primary" onClick={this.toggle}>
+                Add
+              </Button>{" "}
+              <Button color="secondary" onClick={this.toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </form>
         </Modal>
       </React.Fragment>
     );
@@ -91,7 +113,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Goals);
+export default reduxForm({
+  form: "goal-add"
+})(
+  connect(
+    mapStateToProps,
+    { addGoal }
+  )(Goals)
+);
