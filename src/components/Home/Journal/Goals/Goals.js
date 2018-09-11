@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
+import classnames from "classnames";
 
 class Goals extends Component {
   constructor(props) {
@@ -22,10 +23,15 @@ class Goals extends Component {
   render() {
     let Goals = this.props.goals.map(goal => {
       return (
-        <p>
-          {goal.title}
-          <strong className="font-italic" key={goal.title} />
-        </p>
+        <div className="bg-secondary p-2 mb-1 rounded todo-item">
+          <p
+            className={classnames({
+              "line-through": !goal.completed
+            })}
+          >
+            {goal.title}
+          </p>
+        </div>
       );
     });
 

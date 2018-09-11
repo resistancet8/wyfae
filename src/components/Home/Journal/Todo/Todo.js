@@ -24,14 +24,20 @@ class Todo extends Component {
   render() {
     let Todos = this.props.todos.map(todo => {
       return (
-        <p
-          className={classnames("bg-secondary p-2 todo-item", {
-            "line-through": !todo.completed
-          })}
-        >
-          {todo.title}
-          <strong className="font-italic" key={todo.title} />
-        </p>
+        <div className="bg-secondary p-2 mb-1 rounded todo-item">
+          <p
+            className={classnames({
+              "line-through": !todo.completed
+            })}
+          >
+            {todo.title}
+          </p>
+          <div className="d-flex">
+            <small className="font-italic ml-auto mr-1 p-0 m-0">
+              Created At: {todo.created_at}
+            </small>
+          </div>
+        </div>
       );
     });
 
@@ -47,7 +53,7 @@ class Todo extends Component {
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
         </div>
-        <div className="row goals-holder mt-3">
+        <div className="row todos-holder mt-3">
           <Scrollbars autoHeight autoHeightMax={250} autoHide>
             {Todos}
           </Scrollbars>

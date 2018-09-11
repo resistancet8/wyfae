@@ -1,11 +1,3 @@
-.todo-item:hover {
-  cursor: pointer;
-}
-
-.todo-item:active {
-  background: #fafafa !important;
-}
-
 .line-through {
   text-decoration: line-through;
 }

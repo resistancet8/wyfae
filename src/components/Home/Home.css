@@ -73,6 +73,14 @@
   max-height: 350px;
 }
 
+.todo-item:hover {
+  cursor: pointer;
+}
+
+.todo-item:active {
+  background: #e1e1e1 !important;
+}
+
 /* desktop */
 @media screen and (min-width: 800px) {
   .border-left-overridden {

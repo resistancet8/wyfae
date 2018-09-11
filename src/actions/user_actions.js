@@ -38,6 +38,10 @@ let dummyData = {
         quote: "Be yourself; everyone else is already taken."
       },
       {
+        author: "Oscar Wilde",
+        quote: "Be yourself; everyone else is already taken."
+      },
+      {
         author: "Mahatma Gandhi",
         quote: "Be the change that you wish to see in the world."
       },
@@ -57,6 +61,16 @@ let dummyData = {
         completed: false
       },
       {
+        title:
+          "Curabitur urna nisi, imperdiet eget libero aliquet, feugiat dapibus metus.",
+        completed: false
+      },
+      {
+        title:
+          "Curabitur urna nisi, imperdiet eget libero aliquet, feugiat dapibus metus.",
+        completed: false
+      },
+      {
         title: "Sed porta efficitur est ut scelerisque.",
         completed: false
       },
@@ -69,30 +83,36 @@ let dummyData = {
       {
         title:
           "Donec vehicula, lacus ut efficitur pretium, ligula odio feugiat odio.",
-        completed: true
+        completed: true,
+        created_at: 1
       },
       {
         title:
           "Donec vehila, lacus ut efficitur pretium, ligula odio feugiat odio.",
-        completed: true
+        completed: true,
+        created_at: 2
       },
       {
         title:
           "Donec veicula, lacus ut efficitur pretium, ligula odio feugiat odio.",
-        completed: true
+        completed: true,
+        created_at: 3
       },
       {
         title:
           "Donec vehicula, lacus ut efficitur pretium, ligula odio feugiat odio.",
-        completed: true
+        completed: true,
+        created_at: 4
       },
       {
         title: "Rutrum tincidunt quam. Vivamus ac lacinia tellus.",
-        completed: false
+        completed: false,
+        created_at: 5
       },
       {
         title: "Lorem ipsum dolor sit amet.",
-        completed: false
+        completed: false,
+        created_at: 6
       }
     ]
   }
