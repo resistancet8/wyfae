@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "./../../actions/auth_actions";
+import brand_icon from "./../../assets/img/wyfae_main logo.svg";
 
 import "./Navbar.css";
 
@@ -17,8 +18,8 @@ class NavbarComponent extends Component {
     return (
       <header>
         <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-          <NavLink className="my-0 mr-md-auto font-weight-bold banner" to="/">
-            Wyfae
+          <NavLink className="my-0 mr-md-auto banner" to="/">
+            <img src={brand_icon} alt="Wyfae Brand" />
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
             {!isAuth && (
