@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import Todo from "./Todo/Todo";
+import Todos from "./Todos/Todos";
 import Goals from "./Goals/Goals";
 import Quotes from "./Quotes/Quotes";
 
@@ -12,7 +11,7 @@ class Journal extends Component {
           <Quotes />
         </div>
         <div className="todo col-md-4 bg-white border-left-overridden border-top-overridden p-3 px-5">
-          <Todo />
+          <Todos />
         </div>
         <div className="goals col-md-4 bg-white rounded-right border-left-overridden border-top-overridden p-3 px-5">
           <Goals />

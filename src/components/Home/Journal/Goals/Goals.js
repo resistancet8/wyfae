@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
@@ -30,9 +29,9 @@ class Goals extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Goals = this.props.goals.map(goal => {
+    let Goals = this.props.goals.map((goal, index) => {
       return (
-        <div className="bg-secondary p-2 mb-1 rounded todo-item">
+        <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
           <p
             className={classnames({
               "line-through": goal.completed

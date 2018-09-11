@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import User from "./User";
 import Stats from "./Statistics";
 import About from "./About";

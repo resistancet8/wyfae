@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
 import Form from "./Form";
 
 class Feelings extends Component {

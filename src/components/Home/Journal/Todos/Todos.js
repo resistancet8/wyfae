@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import "./Todo.css";
+import "./Todos.css";
 import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
-import { addTodo } from "./../../../../actions/journal_actions";
+import { addTodo } from "../../../../actions/journal_actions";
 
-class Todo extends Component {
+class Todos extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,9 +37,9 @@ class Todo extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Todos = this.props.todos.map(todo => {
+    let Todos = this.props.todos.map((todo, index) => {
       return (
-        <div className="bg-secondary p-2 mb-1 rounded todo-item">
+        <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
           <p
             className={classnames({
               "line-through": todo.completed
@@ -117,5 +116,5 @@ export default reduxForm({
   connect(
     mapStateToProps,
     { addTodo }
-  )(Todo)
+  )(Todos)
 );

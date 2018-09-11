@@ -13,7 +13,7 @@ class NavbarComponent extends Component {
   }
 
   render() {
-    const { user, isAuthenticated: isAuth } = this.props.auth;
+    const { isAuthenticated: isAuth } = this.props.auth;
 
     return (
       <header>

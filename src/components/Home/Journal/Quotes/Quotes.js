@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
@@ -29,9 +28,9 @@ class Quotes extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Quotes = this.props.quotes.map(quote => {
+    let Quotes = this.props.quotes.map((quote, index) => {
       return (
-        <p>
+        <p key={index}>
           {quote.quote}
           <strong className="font-italic" key={quote}>
             {" - "}
