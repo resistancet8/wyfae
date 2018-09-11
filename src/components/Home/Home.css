@@ -50,6 +50,19 @@
   margin-top: 0.5em !important;
 }
 
+.button-custom {
+  border: none;
+  background: transparent;
+}
+
+.fa-plus-circle {
+  color: #aaa !important;
+}
+
+.fa-plus-circle:hover {
+  cursor: pointer;
+}
+
 /* desktop */
 @media screen and (min-width: 800px) {
   .border-left-overridden {

@@ -11,10 +11,10 @@ class Journal extends Component {
         <div className="quotes col-md-4 bg-white rounded-left p-3 px-5">
           <Quotes quotes={this.props.journal.quotes} />
         </div>
-        <div className="todo col-md-4 bg-white border-left-overridden p-3 px-5">
+        <div className="todo col-md-4 bg-white border-left-overridden border-top-overridden p-3 px-5">
           <Todo todos={this.props.journal.todos} />
         </div>
-        <div className="goals col-md-4 bg-white rounded-right border-left-overridden p-3 px-5">
+        <div className="goals col-md-4 bg-white rounded-right border-left-overridden border-top-overridden p-3 px-5">
           <Goals goals={this.props.journal.goals} />
         </div>
       </React.Fragment>

@@ -31,6 +31,7 @@ export function loginUser(userData, history) {
     axios
       .post("http://159.89.171.16:9000/user_auth/login", userData)
       .then(response => {
+        console.log(response.data);
         history.push("/");
         const { token } = response.data;
         // set default axios header for all subsequent requests
