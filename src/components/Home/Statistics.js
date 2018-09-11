@@ -6,8 +6,7 @@ class Stats extends Component {
     return (
       <div>
         <h5 className="font-weight-bold text-muted">
-          <i className="material-icons float-left mr-2">assessment</i>{" "}
-          STATISTICS:
+          <i className="fas fa-chart-pie mr-1" /> STATISTICS:
         </h5>
         <div className="content-shared stats">
           <label className="text-muted">Total Number of Content Shared:</label>

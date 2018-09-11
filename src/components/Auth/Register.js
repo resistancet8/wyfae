@@ -10,7 +10,6 @@ class Register extends Component {
 
   getData(formData) {
     this.props.registerUser(formData, this.props.history);
-    // console.log(formData);
   }
 
   componentWillReceiveProps(nextProps) {

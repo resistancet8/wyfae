@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import User from "./User";
 import Stats from "./Statistics";
 import About from "./About";
@@ -16,7 +16,11 @@ class Home extends Component {
 
   render() {
     let { user } = this.props;
+    let { isAuthenticated: isAuth } = this.props.auth;
 
+    if (!isAuth) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="home-wrapper bg-secondary px-4 py-2 mb-5">
         {/* user avatar,details and statistics */}
@@ -48,7 +52,8 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    auth: state.auth
   };
 }
 

@@ -21,12 +21,25 @@ class NavbarComponent extends Component {
             Wyfae
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
-            <NavLink className="p-2 text-dark" to="/register">
-              Register
-            </NavLink>
-            <NavLink className="p-2 text-dark" to="/login">
-              Login
-            </NavLink>
+            {!isAuth && (
+              <React.Fragment>
+                <NavLink className="p-2 text-dark" to="/register">
+                  Register
+                </NavLink>
+                <NavLink className="p-2 text-dark" to="/login">
+                  Login
+                </NavLink>
+              </React.Fragment>
+            )}
+            {isAuth && (
+              <a
+                href=""
+                onClick={this.logoutUser.bind(this)}
+                className="p-2 text-dark"
+              >
+                Logout
+              </a>
+            )}
           </nav>
         </div>
       </header>
