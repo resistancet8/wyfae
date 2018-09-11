@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
+import { connect } from "react-redux";
 
 class Goals extends Component {
   constructor(props) {
@@ -84,4 +85,13 @@ class Goals extends Component {
   }
 }
 
-export default Goals;
+function mapStateToProps(state) {
+  return {
+    goals: state.goals.goals
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Goals);

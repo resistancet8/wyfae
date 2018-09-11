@@ -42,9 +42,7 @@ class Home extends Component {
           </div>
         </div>
         {/* Private Journal */}
-        <div className="row mt-2 journal">
-          {user.journal && <Journal journal={user.journal} />}
-        </div>
+        <div className="row mt-2 journal">{user.journal && <Journal />}</div>
       </div>
     );
   }

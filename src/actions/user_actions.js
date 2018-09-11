@@ -120,6 +120,12 @@ let dummyData = {
 
 export function fetchUserDetails() {
   return function(dispatch) {
-    dispatch({ type: "FETCH_USER_DETAILS", payload: dummyData });
+    dispatch({
+      type: "FETCH_USER_DETAILS",
+      payload: Object.assign({}, dummyData, { journal: {} })
+    });
+    dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
+    dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
+    dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
   };
 }

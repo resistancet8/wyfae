@@ -9,13 +9,13 @@ class Journal extends Component {
     return (
       <React.Fragment>
         <div className="quotes col-md-4 bg-white rounded-left p-3 px-5">
-          <Quotes quotes={this.props.journal.quotes} />
+          <Quotes />
         </div>
         <div className="todo col-md-4 bg-white border-left-overridden border-top-overridden p-3 px-5">
-          <Todo todos={this.props.journal.todos} />
+          <Todo />
         </div>
         <div className="goals col-md-4 bg-white rounded-right border-left-overridden border-top-overridden p-3 px-5">
-          <Goals goals={this.props.journal.goals} />
+          <Goals />
         </div>
       </React.Fragment>
     );

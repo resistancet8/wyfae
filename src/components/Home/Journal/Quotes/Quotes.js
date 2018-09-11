@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
+import { connect } from "react-redux";
 
 class Quotes extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Quotes extends Component {
   }
 
   render() {
+    console.log(this.props);
     let Quotes = this.props.quotes.map(quote => {
       return (
         <p>
@@ -86,4 +88,13 @@ class Quotes extends Component {
   }
 }
 
-export default Quotes;
+function mapStateToProps(state) {
+  return {
+    quotes: state.quotes.quotes
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Quotes);

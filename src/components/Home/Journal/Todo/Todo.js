@@ -4,6 +4,7 @@ import "./Todo.css";
 import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
+import { connect } from "react-redux";
 
 class Todo extends Component {
   constructor(props) {
@@ -87,4 +88,13 @@ class Todo extends Component {
   }
 }
 
-export default Todo;
+function mapStateToProps(state) {
+  return {
+    todos: state.todos.todos
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Todo);
