@@ -33,13 +33,18 @@ class NavbarComponent extends Component {
               </React.Fragment>
             )}
             {isAuth && (
-              <a
-                href=""
-                onClick={this.logoutUser.bind(this)}
-                className="p-2 text-dark"
-              >
-                Logout
-              </a>
+              <React.Fragment>
+                <NavLink className="p-2 text-dark" to="/profile">
+                  Profile
+                </NavLink>
+                <a
+                  href=""
+                  onClick={this.logoutUser.bind(this)}
+                  className="p-2 text-dark"
+                >
+                  Logout
+                </a>
+              </React.Fragment>
             )}
           </nav>
         </div>

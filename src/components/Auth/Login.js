@@ -34,8 +34,8 @@ class Register extends Component {
                 autoComplete="off"
                 onSubmit={handleSubmit(this.getData.bind(this))}
               >
-                {errors.message && (
-                  <div className="alert alert-danger"> {errors.message} </div>
+                {errors.msg && (
+                  <div className="alert alert-danger"> {errors.msg} </div>
                 )}
                 <div className="form-group">
                   <label htmlFor="username">Username:</label>

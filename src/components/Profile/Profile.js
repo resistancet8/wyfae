@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import "./Home.css";
+import "./Profile.css";
 import { Redirect } from "react-router-dom";
 import User from "./User";
 import Stats from "./Statistics";
 import About from "./About";
 import Feelings from "./Feelings/Feelings";
 import { connect } from "react-redux";
-import { fetchUserDetails } from "./../../actions/user_actions";
+import { fetchUserDetails } from "../../actions/user_actions";
 import Journal from "./Journal/Journal";
 
-class Home extends Component {
+class Profile extends Component {
   componentDidMount() {
     this.props.fetchUserDetails();
   }
@@ -58,4 +58,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { fetchUserDetails }
-)(Home);
+)(Profile);
