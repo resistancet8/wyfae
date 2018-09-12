@@ -8,6 +8,7 @@ import Feelings from "./Feelings/Feelings";
 import { connect } from "react-redux";
 import { fetchUserDetails } from "../../actions/user_actions";
 import Journal from "./Journal/Journal";
+import Memory from "./Memory/Memory";
 
 class Profile extends Component {
   componentDidMount() {
@@ -43,6 +44,12 @@ class Profile extends Component {
         </div>
         {/* Private Journal */}
         <div className="row mt-2 journal">{user.journal && <Journal />}</div>
+        {/* Memory Book */}
+        <div className="row mt-2 memory-book">
+          <div className="col-md-8 bg-white rounded border-top-overridden p-3">
+            <Memory />
+          </div>
+        </div>
       </div>
     );
   }
