@@ -2,23 +2,25 @@
 
 const initialState = {
   goals: []
-}
+};
 
-export default function(state = initialState , { type, payload }) {
+export default function(state = initialState, { type, payload }) {
   switch (type) {
-    case 'INSERT_GOALS':
+    case "INSERT_GOALS":
       return {
         goals: payload
-      }
-    case 'ADD_GOAL':
+      };
+    case "ADD_GOAL":
       return {
         goals: [payload, ...state.goals]
-      }
-    case 'DELETE_GOAL':
+      };
+    case "DELETE_GOAL":
       return {
-        goals: state.goals.splice(0, payload).concat(state.goals.slice(payload + 1, state.goals.length))
-      }
+        goals: state.goals
+          .splice(0, payload)
+          .concat(state.goals.slice(payload + 1, state.goals.length))
+      };
     default:
-      return state
+      return state;
   }
 }
