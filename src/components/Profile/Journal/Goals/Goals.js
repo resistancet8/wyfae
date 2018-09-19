@@ -5,6 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { addGoal } from "./../../../../actions/journal_actions";
+import PropTypes from "prop-types";
 
 class Goals extends Component {
   constructor(props) {
@@ -105,6 +106,11 @@ class Goals extends Component {
     );
   }
 }
+
+Goals.propTypes = {
+  goals: PropTypes.array,
+  addGoal: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {

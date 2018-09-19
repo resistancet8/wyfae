@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "./../../actions/auth_actions";
 import brand_icon from "./../../assets/img/wyfae_main logo.svg";
+import PropTypes from "prop-types";
 
 import "./Navbar.css";
 
@@ -52,6 +53,12 @@ class NavbarComponent extends Component {
     );
   }
 }
+
+NavbarComponent.propTypes = {
+  auth: PropTypes.object,
+  logoutUser: PropTypes.func,
+  handleSubmit: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {

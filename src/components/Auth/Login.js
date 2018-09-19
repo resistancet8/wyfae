@@ -4,8 +4,9 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
+import PropTypes from "prop-types";
 
-class Register extends Component {
+class Login extends Component {
   state = { errors: {} };
 
   getData(formData) {
@@ -83,6 +84,12 @@ class Register extends Component {
   }
 }
 
+Login.propTypes = {
+  errors: PropTypes.object,
+  loginUser: PropTypes.func,
+  handleSubmit: PropTypes.func
+};
+
 function mapStateToProps(state) {
   return {
     errors: state.errors.errors
@@ -95,5 +102,5 @@ export default reduxForm({
   connect(
     mapStateToProps,
     { loginUser }
-  )(withRouter(Register))
+  )(withRouter(Login))
 );

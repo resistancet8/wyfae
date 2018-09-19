@@ -4,6 +4,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { addQuote } from "./../../../../actions/journal_actions";
+import PropTypes from "prop-types";
 
 class Quotes extends Component {
   constructor(props) {
@@ -97,6 +98,11 @@ class Quotes extends Component {
     );
   }
 }
+
+Quotes.propTypes = {
+  quotes: PropTypes.array,
+  addQuote: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {

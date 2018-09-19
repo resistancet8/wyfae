@@ -6,6 +6,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { addTodo } from "../../../../actions/journal_actions";
+import PropTypes from "prop-types";
 
 class Todos extends Component {
   constructor(props) {
@@ -103,6 +104,11 @@ class Todos extends Component {
     );
   }
 }
+
+Todos.propTypes = {
+  todos: PropTypes.array,
+  addTodo: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {

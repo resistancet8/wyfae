@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { fetchUserDetails } from "../../actions/user_actions";
 import Journal from "./Journal/Journal";
 import Memory from "./Memory/Memory";
+import PropTypes from "prop-types";
 
 class Profile extends Component {
   componentDidMount() {
@@ -54,6 +55,12 @@ class Profile extends Component {
     );
   }
 }
+
+Profile.propTypes = {
+  auth: PropTypes.object,
+  user: PropTypes.object,
+  fetchUserDetails: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {
