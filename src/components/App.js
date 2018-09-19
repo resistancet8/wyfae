@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
@@ -22,19 +22,27 @@ class App extends Component {
         <Navbar />
         <div className="adjustment mt-1" />
         <div className="container">
-          {isAuth && (
-            <div className="d-flex">
-              <div className="ml-auto">
-                <Feelbar />
-              </div>
-            </div>
-          )}
+          {isAuth && <Feelbar />}
           <Switch>
             <Route path="/" exact component={Public} />
-            <Route path="/profile" exact component={Profile} />
+            <Route
+              path="/profile"
+              exact
+              render={() => {
+                if (isAuth) return <Profile />;
+                else return <Redirect to="/login" />;
+              }}
+            />
             <Route path="/register" exact component={Register} />
             <Route path="/login" exact component={Login} />
-            <Route path="/journal" exact component={Journal} />
+            <Route
+              path="/journal"
+              exact
+              render={() => {
+                if (isAuth) return <Journal />;
+                else return <Redirect to="/login" />;
+              }}
+            />
             <Route component={NotFound} />
           </Switch>
         </div>
