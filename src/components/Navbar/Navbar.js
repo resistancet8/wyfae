@@ -35,6 +35,9 @@ class NavbarComponent extends Component {
             )}
             {isAuth && (
               <React.Fragment>
+                <NavLink className="p-2 text-dark" to="/">
+                  The Trending Feel
+                </NavLink>
                 <NavLink className="p-2 text-dark" to="/profile">
                   Profile
                 </NavLink>

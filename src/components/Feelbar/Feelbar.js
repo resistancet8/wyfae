@@ -6,12 +6,15 @@ class Feelbar extends Component {
   render() {
     return (
       <div className="Feelbar bg-secondary p-2">
-        <NavLink className="p-2 text-dark" to="/profile">
-          Profile
+        <NavLink className="p-2 text-dark" to="/friends">
+          Friend Circle
         </NavLink>
-        <a href="" className="p-2 text-dark">
-          Logout
-        </a>
+        <NavLink className="p-2 text-dark" to="/requests">
+          Requests
+        </NavLink>
+        <NavLink className="p-2 text-dark" to="/journal">
+          Journal
+        </NavLink>
       </div>
     );
   }

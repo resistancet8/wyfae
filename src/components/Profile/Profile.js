@@ -44,7 +44,7 @@ class Profile extends Component {
           </div>
         </div>
         {/* Private Journal */}
-        <div className="row mt-2 journal">{user.journal && <Journal />}</div>
+        {/* <div className="row mt-2 journal">{user.journal && <Journal />}</div> */}
         {/* Memory Book */}
         <div className="row mt-2 memory-book">
           <div className="col-md-8 bg-white rounded border-top-overridden p-3">

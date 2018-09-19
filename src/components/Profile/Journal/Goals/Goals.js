@@ -21,6 +21,11 @@ class Goals extends Component {
     this.props.addGoal(formData, this.props.history);
   }
 
+  componentDidMount() {
+    this.props.dispatch({ type: "FETCH_USER_DETAILS", payload: null });
+    this.props.dispatch({ type: "INSERT_QUOTES", payload: null });
+  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
