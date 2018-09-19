@@ -26,13 +26,32 @@ export function addQuote (quote) {
 }
 
 // delete todo 
-
-export function deleteTodo (todo) {
-  console.log(todo)
+export function deleteTodo (index) {
+  // here update at the endpoint code. then dispatch action locally.
   return (dispatch) => {
     dispatch({
       type: 'DELETE_TODO',
-      payload: todo
+      payload: index
     })
   }
 }
+export function deleteQuotes (index) {
+  // here update at the endpoint code. then dispatch action locally.
+  return (dispatch) => {
+    dispatch({
+      type: 'DELETE_QUOTE',
+      payload: index
+    })
+  }
+}
+export function deleteGoals (index) {
+  // here update at the endpoint code. then dispatch action locally.
+  return (dispatch) => {
+    dispatch({
+      type: 'DELETE_GOAL',
+      payload: index
+    })
+  }
+}
+
+// also add delete for quotes, goals.ok great.bye bye gn. be bro

@@ -7,8 +7,8 @@ import About from "./About";
 import Feelings from "./Feelings/Feelings";
 import { connect } from "react-redux";
 import { fetchUserDetails } from "../../actions/user_actions";
-import Journal from "./Journal/Journal";
 import Memory from "./Memory/Memory";
+import PropTypes from "prop-types";
 
 class Profile extends Component {
   componentDidMount() {
@@ -17,11 +17,7 @@ class Profile extends Component {
 
   render() {
     let { user } = this.props;
-    let { isAuthenticated: isAuth } = this.props.auth;
 
-    if (!isAuth) {
-      return <Redirect to="/login" />;
-    }
     return (
       <div className="home-wrapper bg-secondary px-4 py-2 mb-5">
         {/* user avatar,details and statistics */}
@@ -43,10 +39,10 @@ class Profile extends Component {
           </div>
         </div>
         {/* Private Journal */}
-        <div className="row mt-2 journal">{user.journal && <Journal />}</div>
+        {/* <div className="row mt-2 journal">{user.journal && <Journal />}</div> */}
         {/* Memory Book */}
         <div className="row mt-2 memory-book">
-          <div className="col-md-8 bg-white rounded border-top-overridden p-3">
+          <div className="col-md-6 bg-white rounded border-top-overridden p-3">
             <Memory />
           </div>
         </div>
@@ -55,10 +51,14 @@ class Profile extends Component {
   }
 }
 
+Profile.propTypes = {
+  user: PropTypes.object,
+  fetchUserDetails: PropTypes.func
+};
+
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
-    auth: state.auth
+    user: state.user.user
   };
 }
 

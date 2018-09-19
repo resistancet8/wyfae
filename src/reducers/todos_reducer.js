@@ -16,18 +16,12 @@ export default function(state = initialState , { type, payload }) {
       }
 
     case 'DELETE_TODO': {
-      return {...state, state: this.setNewTodo(...state, payload)} ;
+      return {
+        todos: state.todos.splice(0, payload).concat(state.todos.slice(payload + 1, state.todos.length))
+      };
     }
     default:
       return state
   }
 }
 
-const setNewTodo = (todoList, payload) => {
-  todoList.forEach((element) => {
-    if (element.id === payload.id) {
-      element.isDeleted = true;
-    }
-  })
-  return todoList
-}

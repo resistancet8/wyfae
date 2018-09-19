@@ -6,6 +6,7 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { addTodo, deleteTodo } from '../../../../actions/journal_actions'
+import PropTypes from 'prop-types'
 
 class Todos extends Component {
   constructor (props) {
@@ -34,34 +35,16 @@ class Todos extends Component {
     })
   }
 
-  // removeTodo (todo) {
-  //   this.props.deleteTodo(todo)
-  // const {todos} = this.props
-  // let filterArr = []
-  //  todos.forEach(element => {
-  //   if (element.id !== todo.id) {
-  //     filterArr.push(element)
-  //   }
-  // })
-  // console.log(filterArr)
-  // this.setState({
-  //   ...this.state,
-  //   todos: filterArr
-  // })
-  // }
-
   render () {
     const { handleSubmit } = this.props
 
     let Todos = this.props.todos.map((todo, index) => {
       return (
         <div className='bg-secondary p-2 mb-1 rounded todo-item' key={index}>
-            <button 
-            className='remove-todo-btn'
-            onClick={this.props.deleteTodo(todo)}
-            >
-              Remove
-            </button>
+        {/* from here. */}
+          <button className='remove-todo-btn' onClick={event => this.props.deleteTodo(index)}>
+            Remove
+          </button>
           <p className={classnames({
                           'line-through': todo.completed
                         })}>
@@ -118,6 +101,12 @@ class Todos extends Component {
   }
 }
 
+Todos.propTypes = {
+  todos: PropTypes.array,
+  addTodo: PropTypes.func,
+  deleteTodo: PropTypes.func
+}
+
 function mapStateToProps (state) {
   return {
     todos: state.todos.todos
@@ -129,6 +118,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addTodo}
+    { addTodo, deleteTodo}
   )(Todos)
 )
