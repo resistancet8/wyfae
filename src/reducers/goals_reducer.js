@@ -16,9 +16,10 @@ export default function(state = initialState, { type, payload }) {
       };
     case "DELETE_GOAL":
       return {
+        ...state.goals,
         goals: state.goals
           .splice(0, payload)
-          .concat(state.goals.slice(payload + 1, state.goals.length))
+          .concat(state.goals.slice(1, state.goals.length))
       };
     default:
       return state;

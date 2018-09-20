@@ -18,7 +18,7 @@ export default function(state = initialState, { type, payload }) {
       return {
         quotes: state.quotes
           .splice(0, payload)
-          .concat(state.quotes.slice(payload + 1, state.quotes.length))
+          .concat(state.quotes.slice(1, state.quotes.length))
       };
     }
     default:

@@ -19,7 +19,7 @@ export default function(state = initialState, { type, payload }) {
       return {
         todos: state.todos
           .splice(0, payload)
-          .concat(state.todos.slice(payload + 1, state.todos.length))
+          .concat(state.todos.slice(1, state.todos.length))
       };
     }
     default:
