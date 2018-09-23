@@ -19,9 +19,10 @@ Json Response from backend:
 
 In Case of Success:
 {
+    "msg": "User Successfully Created",
     "status": "success",
-    "username": "unique_user1",
-    "msg": "User Successfully Created"
+    "code": "45",
+    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVuaXF1ZV91c2VyOCIsImV4cCI6MTUzNjYwNDk5NH0.Qt7t1J1r9nfaeZ4sPUAIeatYzP0t_stK669lfmeifebQSe2NBmprqiZtuKPwaGrDhPglEVX0aLlVKiVY4M-5MQ"
 }
 
 In Case of Failure:
@@ -53,23 +54,33 @@ Json Response from backend:
 
 In Case of Success:
 {
-    "sur_name": "Kumar",
-    "username": "unique_user2",
-    "status": "success",
-    "msg": "Successfully logged in",
+    "code": "54",
     "first_name": "Mantu",
+    "sur_name": "Kumar",
     "dob": "12 Aug 2011",
-    "email": "ad@gmail.com"
+    "username": "unique_user",
+    "msg": "Successfully logged in",
+    "email": "ad@gmail.com",
+    "gender": "Male",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MzY2MDU0NjEsInVzZXJuYW1lIjoidW5pcXVlX3VzZXIifQ.7GNn1nikPFKwpEO5Uro2oYdNOHeeFVb29uh1Rjslr-za66kpIAu1MHrV9SA0gimsAmoNTLPtEseVohdjCkvyfA",
+    "status": "success"
 }
 
 In Case of Failure:
 
+Case1: If user does not exists
 {
-    "msg": "User name or password is incorrect.",
-    "status": "failure"
+    "status": "failure",
+    "msg": "User does not exists",
+    "code": "53"
 }
 
-
+Case2: If Password is wrong
+{
+    "status": "failure",
+    "msg": "Password is incorrect",
+    "code": "55"
+}
 
 #####################
 3) Logout Api:
@@ -77,20 +88,122 @@ In Case of Failure:
 
 159.89.171.16:9000/user_auth/logout
 
-Method Type: POST / GET
-- No Json request needs to be sent
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Method Type: POST 
 
 Json Response:
 
 In Case of Success:
 {
     "msg": "Logged Out Successfully",
+    "code": "70",
     "status": "success"
 }
 
 In Case Of Failure:
-{"status": "failure", "msg": "Could Not Log Out"}
 
-or
+1. If no token supplied in headers
+{
+    "status": "failure",
+    "msg": "No Token Supplied",
+    "code": "72"
+}
 
-{"status": "failure", "msg": "No Session Exists"}
+2. If token does not exists
+{
+    "status": "failure",
+    "msg": "You are already logged out",
+    "code": "71"
+}
+
+
+
+##########################
+4) Reset Password
+##########################
+--------------------------------------------------------------------------------------
+Step1: Send username that will trigger OTP mail to email associated with the username
+--------------------------------------------------------------------------------------
+
+api: 159.89.171.16:9000/user_auth/forgot_password
+
+Method Type: POST
+
+Json Request:
+{
+	"username": "unique_user12"
+}
+
+Json Response:
+
+In Case of Success:
+{
+    "status": "success",
+    "msg": "Please check for OTP in your asssociated email",
+    "code": "82"
+}
+
+status: 200
+
+In Case of failure:
+
+1. If username is not valid i.e. blank
+{"status": "failure", "code": "50", "msg": "Username cannot be blank"}
+status: 400
+
+2. If username does not exists
+{"status": "failure", "code": "80", "msg": "User does not exists"}
+status: 400
+
+-------------------------------------------------------
+Step2: Send username, password, otp to reset password
+-------------------------------------------------------
+
+api: 159.89.171.16:9000/user_auth/reset_password
+
+Method Type: POST
+
+Json Request:
+{
+	"username": "unique_user12",
+	"otp": 659913,
+	"password_1":"test_123"
+}
+
+Json Response:
+
+In case of success:
+{
+    "status": "success",
+    "msg": "Successfully Reset Password",
+    "code": "89"
+}
+status: 200
+
+In Case of Failure:
+
+1. if username is not valid
+{"status": "failure", "code": "50", "msg": "Username cannot be blank"}
+status: 400
+
+2. If OTP is not valid
+{"status": "failure", "code": "84", "msg": "OTP cannot be blank"}
+status: 400
+
+
+3. If password is not valid
+{"status": "failure", "code": "43", "msg": "Password must be betwenn 6 to 20 character"}
+
+4. If OTP is not valid
+{"status": "failure", "code": "85", "msg": "Not a Valid OTP"}
+status: 400
+
+5. In case passwrod reset unsuccessfull
+{"status": "failure", "code": "88", "msg": "Password Reset Unsuccessfull"}
+status: 400
