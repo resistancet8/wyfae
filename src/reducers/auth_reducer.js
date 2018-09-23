@@ -2,7 +2,8 @@ import isEmpty from "./../helpers/isEmpty";
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  forgotPassword: false
 };
 
 export default function(state = initialState, { type, payload }) {
@@ -11,6 +12,11 @@ export default function(state = initialState, { type, payload }) {
       return {
         isAuthenticated: !isEmpty(payload),
         user: payload
+      };
+    case "FORGOT_PASSWORD":
+      return {
+        ...state,
+        forgotPassword: payload
       };
     default:
       return state;

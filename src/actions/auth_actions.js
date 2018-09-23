@@ -31,6 +31,7 @@ export function loginUser(userData, history) {
     axios
       .post("http://159.89.171.16:9000/user_auth/login", userData)
       .then(response => {
+        dispatch({ type: "GET_ERRORS", payload: {} });
         history.push("/");
         const { token } = response.data;
         // set default axios header for all subsequent requests
@@ -49,7 +50,6 @@ export function loginUser(userData, history) {
       })
       .catch(err => {
         dispatch({ type: "GET_ERRORS", payload: err.response.data });
-        // console.log("errors", err);
       });
   };
 }
@@ -58,10 +58,39 @@ export function logoutUser() {
   return dispatch => {
     localStorage.removeItem("jToken");
     setAuthHeader(false);
-
+    dispatch({ type: "GET_ERRORS", payload: {} });
     dispatch({
       type: "SET_CURRENT_USER",
       payload: null
     });
+  };
+}
+
+export function forgotPassword(payload) {
+  return dispatch => {
+    axios
+      .post("http://159.89.171.16:9000/user_auth/forgot_password", payload)
+      .then(resp => {
+        dispatch({ type: "GET_ERRORS", payload: {} });
+        dispatch({ type: "FORGOT_PASSWORD", payload: true });
+      })
+      .catch(err => {
+        dispatch({ type: "GET_ERRORS", payload: err.response.data });
+      });
+  };
+}
+
+export function verifyOTP(payload, history) {
+  return dispatch => {
+    axios
+      .post("http://159.89.171.16:9000/user_auth/reset_password", payload)
+      .then(resp => {
+        dispatch({ type: "GET_ERRORS", payload: {} });
+        dispatch({ type: "FORGOT_PASSWORD", payload: false });
+        history.push("/login");
+      })
+      .catch(err => {
+        dispatch({ type: "GET_ERRORS", payload: err.response.data });
+      });
   };
 }

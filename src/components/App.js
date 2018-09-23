@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
+import Forgot from "./Auth/Forgot";
 import Profile from "./Profile/Profile";
 import Public from "./Public/Public";
 import Feelbar from "./Feelbar/Feelbar";
@@ -15,7 +16,10 @@ const NotFound = () => <div> Not Found </div>;
 
 class App extends Component {
   render() {
-    const { isAuthenticated: isAuth } = this.props.auth;
+    const {
+      isAuthenticated: isAuth,
+      forgotPassword: isForgot
+    } = this.props.auth;
 
     return (
       <div className="App">
@@ -43,6 +47,7 @@ class App extends Component {
                 else return <Redirect to="/login" />;
               }}
             />
+            <Route path="/forgot" exact component={Forgot} />
             <Route component={NotFound} />
           </Switch>
         </div>

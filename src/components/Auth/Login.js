@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
@@ -50,6 +50,7 @@ class Login extends Component {
                     id="username"
                     placeholder="Username"
                     autoComplete="off"
+                    required
                   />
                   {errors.email && (
                     <div className="invalid-feedback"> {errors.email} </div>
@@ -67,6 +68,7 @@ class Login extends Component {
                     id="password"
                     placeholder="Enter Password"
                     autoComplete="off"
+                    required
                   />
                   {errors.password && (
                     <div className="invalid-feedback"> {errors.password} </div>
@@ -75,6 +77,11 @@ class Login extends Component {
                 <button type="submit" className="btn btn-dark">
                   Login
                 </button>
+                <div className="mt-2">
+                  <NavLink to="forgot" className="text-dark">
+                    forgot password?
+                  </NavLink>
+                </div>
               </form>
             </div>
           </div>
