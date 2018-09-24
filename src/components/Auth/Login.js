@@ -5,18 +5,35 @@ import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import Spinner from "./../Loader/Spinner";
+import Button from "@material-ui/core/Button";
 
 class Login extends Component {
-  state = { errors: {} };
+  constructor(props) {
+    super();
+    this.getData = this.getData.bind(this);
+  }
+
+  state = { errors: {}, loading: false };
 
   getData(formData) {
-    this.props.loginUser(formData, this.props.history);
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        setTimeout(() => {
+          this.props.loginUser(formData, this.props.history);
+        }, 300);
+      }
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
+    if (nextProps.errors && nextProps.errors.msg) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
+        loading: false
       });
     }
   }
@@ -31,10 +48,7 @@ class Login extends Component {
           <h2 className="font-weight-bold">Login</h2>
           <div className="row">
             <div className="col-md-5">
-              <form
-                autoComplete="off"
-                onSubmit={handleSubmit(this.getData.bind(this))}
-              >
+              <form autoComplete="off" onSubmit={handleSubmit(this.getData)}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
@@ -74,9 +88,18 @@ class Login extends Component {
                     <div className="invalid-feedback"> {errors.password} </div>
                   )}
                 </div>
-                <button type="submit" className="btn btn-dark">
-                  Login
-                </button>
+                <div className="loader-holder">
+                  {/* <button type="submit" className="btn btn-dark">
+                    {this.state.loading ? <Spinner /> : "Login"}
+                  </button> */}
+                  <Button
+                    variant="outlined"
+                    type="submit"
+                    disabled={this.state.loading}
+                  >
+                    {this.state.loading ? <Spinner /> : "Login"}
+                  </Button>
+                </div>
                 <div className="mt-2">
                   <NavLink to="forgot" className="text-dark">
                     forgot password?
