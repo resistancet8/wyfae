@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Todos.css";
 import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
@@ -42,12 +43,16 @@ class Todos extends Component {
       return (
         <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
           {/* from here. */}
-          <button
+          <DeleteIcon
+            className="remove-todo-btn"
+            onClick={event => this.props.deleteTodo(index)}
+          />
+          {/* <button
             className="remove-todo-btn"
             onClick={event => this.props.deleteTodo(index)}
           >
             Remove
-          </button>
+          </button> */}
           <p
             className={classnames({
               "line-through": todo.completed

@@ -10,6 +10,7 @@ import Public from "./Public/Public";
 import Feelbar from "./Feelbar/Feelbar";
 import PropTypes from "prop-types";
 import Journal from "./Profile/Journal/Journal";
+import UpdateProfile from "./Profile/Update-Profile/Update-profile";
 
 const NotFound = () => <div> Not Found </div>;
 
@@ -34,6 +35,11 @@ class App extends Component {
               }}
             />
             <Route path="/register" exact component={Register} />
+            <Route
+              exact={true}
+              path="/update/:userName"
+              component={UpdateProfile}
+            />
             <Route path="/login" exact component={Login} />
             <Route
               path="/journal"

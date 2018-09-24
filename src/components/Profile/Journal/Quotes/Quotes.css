@@ -1,5 +1,6 @@
 .remove-quote-btn {
-    float: left;
+    float: right;
+    color: red;
 }
 
 .quote-height-120 {

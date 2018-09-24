@@ -5,6 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { addGoal, deleteGoals } from "./../../../../actions/journal_actions";
+import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
 import "./Goals.css";
 
@@ -39,6 +40,10 @@ class Goals extends Component {
     let Goals = this.props.goals.map((goal, index) => {
       return (
         <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
+          <DeleteIcon
+              className="remove-goals-btn"
+              onClick={event => this.props.deleteGoals(index)}
+            />
           <p
             className={classnames({
               "line-through": goal.completed
@@ -47,13 +52,14 @@ class Goals extends Component {
             {goal.title}
           </p>
           <div className="d-flex">
-            <button
+          
+            {/* <button
               className="remove-goals-btn"
               color="secondary"
-              onClick={event => this.props.deleteGoals(index)}
+             
             >
               Remove
-            </button>
+            </button> */}
             <small className="font-italic ml-auto mr-1 p-0 m-0">
               By: {goal.date}
             </small>
