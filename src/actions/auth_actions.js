@@ -2,7 +2,6 @@ import axios from "axios";
 import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
-// import loginValidator from "./../helpers/login_validator";
 
 export function registerUser(userData, history) {
   return function(dispatch) {
@@ -14,6 +13,7 @@ export function registerUser(userData, history) {
           if (response.data.status === "failure") {
             dispatch({ type: "GET_ERRORS", payload: response.data });
           } else {
+            dispatch({ type: "GET_ERRORS", payload: {} });
             history.push("/login");
           }
         })

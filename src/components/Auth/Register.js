@@ -5,18 +5,30 @@ import { connect } from "react-redux";
 import { registerUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import Spinner from "./../Loader/Spinner";
+import Button from "@material-ui/core/Button";
 
 class Register extends Component {
-  state = { errors: {} };
+  state = { errors: {}, loading: false };
 
   getData(formData) {
-    this.props.registerUser(formData, this.props.history);
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        setTimeout(() => {
+          this.props.registerUser(formData, this.props.history);
+        }, 300);
+      }
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
+    if (nextProps.errors || nextProps.errors.msg) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
+        loading: false
       });
     }
   }
@@ -30,10 +42,7 @@ class Register extends Component {
           <h2 className="font-weight-bold">Register</h2>
           <div className="row">
             <div className="col-md-5">
-              <form
-                autoComplete="off"
-                onSubmit={handleSubmit(this.getData.bind(this))}
-              >
+              <form onSubmit={handleSubmit(this.getData.bind(this))}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
@@ -48,7 +57,7 @@ class Register extends Component {
                     })}
                     id="username"
                     placeholder="Enter Username"
-                    autoComplete="off"
+                    required
                   />
                   {errors.username && (
                     <div className="invalid-feedback"> {errors.username} </div>
@@ -66,7 +75,7 @@ class Register extends Component {
                       })}
                       id="first_name"
                       placeholder="Enter First Name"
-                      autoComplete="off"
+                      required
                     />
                     {errors.first_name && (
                       <div className="invalid-feedback">
@@ -86,7 +95,7 @@ class Register extends Component {
                       })}
                       id="sur_name"
                       placeholder="Enter Sur Name"
-                      autoComplete="off"
+                      required
                     />
                     {errors.sur_name && (
                       <div className="invalid-feedback">
@@ -107,7 +116,7 @@ class Register extends Component {
                     })}
                     id="email"
                     placeholder="Enter Email"
-                    autoComplete="off"
+                    required
                   />
                   {errors.email && (
                     <div className="invalid-feedback"> {errors.email} </div>
@@ -125,7 +134,7 @@ class Register extends Component {
                       })}
                       id="password"
                       placeholder="Enter Password"
-                      autoComplete="off"
+                      required
                     />
                     {errors.password && (
                       <div className="invalid-feedback">
@@ -145,7 +154,7 @@ class Register extends Component {
                       })}
                       id="confirm-password"
                       placeholder="Confirm Password"
-                      autoComplete="off"
+                      required
                     />
                     {errors.password2 && (
                       <div className="invalid-feedback">
@@ -168,7 +177,7 @@ class Register extends Component {
                       })}
                       id="city"
                       placeholder="Enter city"
-                      autoComplete="off"
+                      required
                     />
                     {errors.city && (
                       <div className="invalid-feedback"> {errors.city} </div>
@@ -185,7 +194,7 @@ class Register extends Component {
                       })}
                       id="confirm-state"
                       placeholder="Enter State"
-                      autoComplete="off"
+                      required
                     />
                     {errors.state && (
                       <div className="invalid-feedback"> {errors.state} </div>
@@ -202,7 +211,7 @@ class Register extends Component {
                       })}
                       id="confirm-country"
                       placeholder="Enter Country"
-                      autoComplete="off"
+                      required
                     />
                     {errors.country && (
                       <div className="invalid-feedback"> {errors.country} </div>
@@ -220,15 +229,21 @@ class Register extends Component {
                       "is-invalid": errors.dob
                     })}
                     id="dob"
-                    autoComplete="off"
+                    required
                   />
                   {errors.dob && (
                     <div className="invalid-feedback"> {errors.dob} </div>
                   )}
                 </div>
-                <button type="submit" className="btn btn-dark">
-                  Register
-                </button>
+                <div className="loader-holder">
+                  <Button
+                    variant="outlined"
+                    type="submit"
+                    disabled={this.state.loading}
+                  >
+                    {this.state.loading ? <Spinner /> : "Register"}
+                  </Button>
+                </div>
               </form>
             </div>
           </div>

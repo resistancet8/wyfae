@@ -89,9 +89,6 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="loader-holder">
-                  {/* <button type="submit" className="btn btn-dark">
-                    {this.state.loading ? <Spinner /> : "Login"}
-                  </button> */}
                   <Button
                     variant="outlined"
                     type="submit"
