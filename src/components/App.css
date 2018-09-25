@@ -7,3 +7,7 @@ input:focus,
 textarea:focus {
   border: 1px solid #444 !important;
 }
+
+.loader-holder {
+  width: 100px;
+}
