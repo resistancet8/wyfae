@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export default function(state = initialState, { type, payload }) {
+  console.log(payload);
   switch (type) {
     case "SET_CURRENT_USER":
       return {
@@ -18,6 +19,18 @@ export default function(state = initialState, { type, payload }) {
         ...state,
         forgotPassword: payload
       };
+    case "UPDATE_PROFILE": {
+      return {
+        ...state,
+        user: {
+          ...this.user,
+          fname: payload.fname,
+          sname: payload.sur_name,
+          email: payload.email,
+          dob: payload.dob
+        }
+      };
+    }
     default:
       return state;
   }

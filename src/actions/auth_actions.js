@@ -113,3 +113,22 @@ export function verifyOTP(payload, history) {
       });
   };
 }
+
+export function updateProfile(payload, history) {
+  return dispatch => {
+    axios
+      //need to add update api
+      .put(``, payload)
+      .then(response => {
+        if (response.data.status === "failure") {
+          dispatch({ type: "GET_ERRORS", payload: response.data });
+        } else {
+          dispatch({ type: "UPDATE_PROFILE", payload: response.data });
+          history.push("/");
+        }
+      })
+      .catch(error => {
+        dispatch({ type: "GET_ERRORS", payload: error.response.data });
+      });
+  };
+}

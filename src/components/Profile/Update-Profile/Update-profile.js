@@ -4,10 +4,15 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import Spinner from "../../Loader/Spinner";
+import Button from "@material-ui/core/Button";
+import "./Update-profile.css";
+import { updateProfile } from "../../../actions/auth_actions";
 
 class UpdateProfile extends Component {
   state = {
-    errors: {}
+    errors: {},
+    isLoading: false
   };
 
   componentDidMount() {
@@ -22,9 +27,23 @@ class UpdateProfile extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
+        loading: false
       });
     }
+  }
+
+  updateUserInfo(userInfo) {
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        setTimeout(() => {
+          this.props.updateProfile(userInfo, this.props.history);
+        }, 300);
+      }
+    );
   }
 
   render() {
@@ -37,7 +56,10 @@ class UpdateProfile extends Component {
           <h2 className="font-weight-bold">Update Profile</h2>
           <div className="row">
             <div className="col-md-5">
-              <form autoComplete="on">
+              <form
+                autoComplete="on"
+                onSubmit={handleSubmit(this.updateUserInfo.bind(this))}
+              >
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
@@ -53,8 +75,8 @@ class UpdateProfile extends Component {
                       })}
                       id="fname"
                       placeholder="Enter First Name"
-                      autoComplete="on"
-                      value="hello"
+                      autoComplete="off"
+                      value=""
                     />
                     {errors.name && (
                       <div className="invalid-feedback"> {errors.name} </div>
@@ -71,7 +93,7 @@ class UpdateProfile extends Component {
                       })}
                       id="sur_name"
                       placeholder="Enter Sur Name"
-                      autoComplete="on"
+                      autoComplete="off"
                     />
                     {errors.sur_name && (
                       <div className="invalid-feedback">
@@ -114,9 +136,9 @@ class UpdateProfile extends Component {
                     <div className="invalid-feedback"> {errors.dob} </div>
                   )}
                 </div>
-                <button type="submit" className="btn btn-dark">
-                  Save Changes
-                </button>
+                <Button type="submit" className="btn btn-dark update-btn">
+                  {this.state.loading ? <Spinner /> : "Save Changes"}
+                </Button>
               </form>
             </div>
           </div>
@@ -128,7 +150,8 @@ class UpdateProfile extends Component {
 
 UpdateProfile.propTypes = {
   errors: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  handleSubmit: PropTypes.func
 };
 
 function mapStateToProps(state) {
