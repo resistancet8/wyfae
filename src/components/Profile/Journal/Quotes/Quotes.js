@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import "./Quotes.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { addQuote, deleteQuotes } from "./../../../../actions/journal_actions";
 import PropTypes from "prop-types";
-// import { withStyles } from '@material-ui/core/styles'
 import Button from "@material-ui/core/Button";
-
-// const styles = theme => ({
-
-// })
 
 class Quotes extends Component {
   constructor(props) {
@@ -39,19 +35,23 @@ class Quotes extends Component {
     let Quotes = this.props.quotes.map((quote, index) => {
       return (
         <div key={index} className="quote-height-120 margin-bottom">
+          <DeleteIcon
+            className="remove-quote-btn"
+            onClick={event => this.props.deleteQuotes(index)}
+          />
           <p>
             {quote.quote}
             <strong className="font-italic" key={quote}>
               {" - "} {quote.author}
             </strong>
           </p>
-          <button
+          {/* <button
             className="remove-quote-btn"
             color="secondary"
             onClick={event => this.props.deleteQuotes(index)}
           >
             Remove
-          </button>
+          </button> */}
         </div>
       );
     });
@@ -121,6 +121,7 @@ Quotes.propTypes = {
 };
 
 function mapStateToProps(state) {
+  console.log("Map", state);
   return {
     quotes: state.quotes.quotes
   };

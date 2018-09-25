@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import "./Profile.css";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import "./Profile.css";
+import Icon from "@material-ui/core/Icon";
 import User from "./User";
 import Stats from "./Statistics";
 import About from "./About";
 import Feelings from "./Feelings/Feelings";
-import { connect } from "react-redux";
-import { fetchUserDetails } from "../../actions/user_actions";
 import Memory from "./Memory/Memory";
-import PropTypes from "prop-types";
 
 class Profile extends Component {
-  componentDidMount() {
-    this.props.fetchUserDetails();
-  }
-
   render() {
     let { user } = this.props;
 
@@ -24,6 +21,11 @@ class Profile extends Component {
         <div className="row">
           <div className="col-md-4 bg-white rounded-left p-3">
             {user && <User user={user} />}
+            <div className="edit-profile">
+              <Link to={`/update/${user.fname.toLowerCase()}`}>
+                <Icon>edit</Icon>
+              </Link>
+            </div>
           </div>
           <div className="col-md-8 bg-white rounded-right border-left-overridden border-top-overridden p-3">
             {user.stats && <Stats stats={user.stats} />}
@@ -52,8 +54,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  user: PropTypes.object,
-  fetchUserDetails: PropTypes.func
+  user: PropTypes.object
 };
 
 function mapStateToProps(state) {
@@ -64,5 +65,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchUserDetails }
+  {}
 )(Profile);

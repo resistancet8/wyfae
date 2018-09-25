@@ -2,6 +2,7 @@ import axios from "axios";
 import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
+import { dummyData } from "./user_actions";
 
 export function registerUser(userData, history) {
   return function(dispatch) {
@@ -45,6 +46,15 @@ export function loginUser(userData, history) {
           payload: decodedUser
         });
 
+        dispatch({
+          type: "FETCH_USER_DETAILS",
+          payload: Object.assign({}, dummyData, { journal: {} })
+        });
+
+        dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
+        dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
+        dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
+
         // navigate user to /
         history.push("/");
       })
@@ -63,6 +73,15 @@ export function logoutUser() {
       type: "SET_CURRENT_USER",
       payload: null
     });
+
+    dispatch({
+      type: "FETCH_USER_DETAILS",
+      payload: {}
+    });
+
+    dispatch({ type: "INSERT_QUOTES", payload: [] });
+    dispatch({ type: "INSERT_GOALS", payload: [] });
+    dispatch({ type: "INSERT_TODOS", payload: [] });
   };
 }
 

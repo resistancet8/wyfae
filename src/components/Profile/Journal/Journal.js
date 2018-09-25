@@ -2,16 +2,8 @@ import React, { Component } from "react";
 import Todos from "./Todos/Todos";
 import Goals from "./Goals/Goals";
 import Quotes from "./Quotes/Quotes";
-import { fetchUserDetails } from "../../../actions/user_actions";
-import PropTypes from "prop-types";
-import { withRouter, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 
 class Journal extends Component {
-  componentDidMount() {
-    this.props.fetchUserDetails();
-  }
-
   render() {
     return (
       <div className="row bg-secondary p-1 journal">
@@ -29,13 +21,4 @@ class Journal extends Component {
   }
 }
 
-Journal.propTypes = {
-  fetchUserDetails: PropTypes.func
-};
-
-export default withRouter(
-  connect(
-    null,
-    { fetchUserDetails }
-  )(Journal)
-);
+export default Journal;
