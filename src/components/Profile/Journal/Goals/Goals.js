@@ -23,11 +23,6 @@ class Goals extends Component {
     this.props.addGoal(formData, this.props.history);
   }
 
-  componentDidMount() {
-    this.props.dispatch({ type: "FETCH_USER_DETAILS", payload: null });
-    this.props.dispatch({ type: "INSERT_QUOTES", payload: null });
-  }
-
   toggle() {
     this.setState({
       modal: !this.state.modal
@@ -41,9 +36,9 @@ class Goals extends Component {
       return (
         <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
           <DeleteIcon
-              className="remove-goals-btn"
-              onClick={event => this.props.deleteGoals(index)}
-            />
+            className="remove-goals-btn"
+            onClick={event => this.props.deleteGoals(index)}
+          />
           <p
             className={classnames({
               "line-through": goal.completed
@@ -52,7 +47,6 @@ class Goals extends Component {
             {goal.title}
           </p>
           <div className="d-flex">
-          
             {/* <button
               className="remove-goals-btn"
               color="secondary"

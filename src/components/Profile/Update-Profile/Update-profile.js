@@ -4,46 +4,33 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import { fetchUserDetails } from "../../../actions/user_actions";
 
 class UpdateProfile extends Component {
   state = {
-    errors: {},
-    fname: "",
-    lname: "",
-    email: "",
-    dob: ""
+    errors: {}
   };
 
   componentDidMount() {
-    this.props.fetchUserDetails();
+    this.props.initialize({
+      fname: this.props.user.fname,
+      sur_name: this.props.user.sname,
+      email: this.props.user.email,
+      dob: this.props.user.dob
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
     }
-    this.setDefaultState(nextProps);
-  }
-
-  // Prefill input fields with the available data by setting default state.
-  setDefaultState(value) {
-    // Set state using data.
-    this.setState({
-      fname: value.user.name,
-      lname: value.user.sur_name,
-      email: value.user.email,
-      dob: value.user.dob
-    });
   }
 
   render() {
     let { handleSubmit } = this.props;
-    const { errors, fname, lname, email, dob } = this.state;
-    console.log(fname, lname, email, dob);
+    const { errors } = this.state;
+
     return (
       <div>
         <div className="my-3">
@@ -55,7 +42,6 @@ class UpdateProfile extends Component {
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
                 <div className="form-row">
-                asdjasd
                   <div className="form-group col-md-6">
                     <label htmlFor="fname">First Name:</label>
                     <Field
@@ -68,10 +54,11 @@ class UpdateProfile extends Component {
                       id="fname"
                       placeholder="Enter First Name"
                       autoComplete="on"
+                      value="hello"
                     />
-                    {/* {errors.name && (
+                    {errors.name && (
                       <div className="invalid-feedback"> {errors.name} </div>
-                    )} */}
+                    )}
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="sur_name">Sur Name:</label>
@@ -85,7 +72,6 @@ class UpdateProfile extends Component {
                       id="sur_name"
                       placeholder="Enter Sur Name"
                       autoComplete="on"
-                      value={lname}
                     />
                     {errors.sur_name && (
                       <div className="invalid-feedback">
@@ -107,7 +93,6 @@ class UpdateProfile extends Component {
                     id="email"
                     placeholder="Enter Email"
                     autoComplete="off"
-                    value={email}
                   />
                   {errors.email && (
                     <div className="invalid-feedback"> {errors.email} </div>
@@ -124,7 +109,6 @@ class UpdateProfile extends Component {
                     })}
                     id="dob"
                     autoComplete="off"
-                    value={dob}
                   />
                   {errors.dob && (
                     <div className="invalid-feedback"> {errors.dob} </div>
@@ -144,8 +128,7 @@ class UpdateProfile extends Component {
 
 UpdateProfile.propTypes = {
   errors: PropTypes.object,
-  user: PropTypes.object,
-  fetchUserDetails: PropTypes.func
+  user: PropTypes.object
 };
 
 function mapStateToProps(state) {
@@ -159,6 +142,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { fetchUserDetails }
+    {}
   )(UpdateProfile)
 );

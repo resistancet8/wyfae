@@ -1,8 +1,9 @@
-let dummyData = {
-  name: "Naveen",
+export let dummyData = {
+  fname: "Naveen",
+  sname: "Kumar",
   from: "Bangalore, Karnataka, India, Earth",
   about: "Success is not final failure is not fatal - Winston Churchill",
-  dob: "10-10-2010",
+  dob: "2010-10-10",
   langs: "Kannada, English",
   contact: "9945126164",
   email: "resistancet8@gmail.com",
@@ -129,15 +130,3 @@ let dummyData = {
     ]
   }
 };
-
-export function fetchUserDetails() {
-  return function(dispatch) {
-    dispatch({
-      type: "FETCH_USER_DETAILS",
-      payload: Object.assign({}, dummyData, { journal: {} })
-    });
-    dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
-    dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
-    dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
-  };
-}
