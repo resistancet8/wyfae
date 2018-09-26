@@ -6,7 +6,6 @@ import Brand from "./../../assets/img/wyfae_main logo.svg";
 import TrendingFeel from "./../../assets/img/trending feel icon.svg";
 import PropTypes from "prop-types";
 import IconButton from "@material-ui/core/IconButton";
-
 import "./Navbar.css";
 
 class NavbarComponent extends Component {
@@ -38,7 +37,7 @@ class NavbarComponent extends Component {
             {isAuth && (
               <React.Fragment>
                 <NavLink className="p-2 text-dark" to="/">
-                  <IconButton color="" className="icon-holder">
+                  <IconButton color="default" className="icon-holder">
                     <img src={TrendingFeel} alt="" />
                   </IconButton>
                 </NavLink>
