@@ -4,9 +4,6 @@ import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
 import updateValidator from "./../helpers/update_validator";
 import { dummyData } from "./user_actions";
-import * as t from "io-ts";
-import { ThrowReporter } from "io-ts/lib/ThrowReporter";
-import { DateFromISOString } from "io-ts-types/lib/Date/DateFromISOString";
 
 const apiBasePath = "http://159.89.171.16:9000";
 

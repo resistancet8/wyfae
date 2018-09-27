@@ -12,7 +12,7 @@ class User extends Component {
           />
         </div>
         <div className="details text-center mt-3">
-          <h2 className="font-weight-bold">{this.props.user.name}</h2>
+          <h2 className="font-weight-bold">{this.props.user.fname}</h2>
           <p>{this.props.user.from}</p>
         </div>
       </div>
