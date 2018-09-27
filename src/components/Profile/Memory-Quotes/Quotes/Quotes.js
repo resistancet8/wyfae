@@ -32,22 +32,26 @@ class Quotes extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Quotes = this.props.quotes.map((quote, index) => {
-      return (
-        <div key={index} className="bg-secondary p-2 mb-1">
-          <DeleteIcon
-            className="remove-quote-btn"
-            onClick={event => this.props.deleteQuotes(index)}
-          />
-          <p>
-            {quote.quote}
-            <strong className="font-italic" key={quote}>
-              {" - "} {quote.author}
-            </strong>
-          </p>
-        </div>
-      );
-    });
+    let Quotes = this.props.quotes.length ? (
+      this.props.quotes.map((quote, index) => {
+        return (
+          <div key={index} className="bg-secondary p-2 mb-1">
+            <DeleteIcon
+              className="remove-quote-btn"
+              onClick={event => this.props.deleteQuotes(index)}
+            />
+            <p>
+              {quote.quote}
+              <strong className="font-italic" key={quote}>
+                {" - "} {quote.author}
+              </strong>
+            </p>
+          </div>
+        );
+      })
+    ) : (
+      <small className="text-muted">No Quotes Available</small>
+    );
 
     return (
       <React.Fragment>

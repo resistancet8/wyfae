@@ -33,28 +33,32 @@ class Goals extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Goals = this.props.goals.map((goal, index) => {
-      return (
-        <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
-          <DeleteIcon
-            className="remove-goals-btn"
-            onClick={event => this.props.deleteGoals(index)}
-          />
-          <p
-            className={classnames({
-              "line-through": goal.completed
-            })}
-          >
-            {goal.title}
-          </p>
-          <div className="d-flex">
-            <small className="font-italic ml-auto mr-1 p-0 m-0">
-              By: {goal.date}
-            </small>
+    let Goals = this.props.goals.length ? (
+      this.props.goals.map((goal, index) => {
+        return (
+          <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
+            <DeleteIcon
+              className="remove-goals-btn"
+              onClick={event => this.props.deleteGoals(index)}
+            />
+            <p
+              className={classnames({
+                "line-through": goal.completed
+              })}
+            >
+              {goal.title}
+            </p>
+            <div className="d-flex">
+              <small className="font-italic ml-auto mr-1 p-0 m-0">
+                By: {goal.date}
+              </small>
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      })
+    ) : (
+      <small className="text-muted">No Goals Available</small>
+    );
 
     return (
       <React.Fragment>

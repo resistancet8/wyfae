@@ -37,29 +37,33 @@ class Todos extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Todos = this.props.todos.map((todo, index) => {
-      return (
-        <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
-          {/* from here. */}
-          <DeleteIcon
-            className="remove-todo-btn"
-            onClick={event => this.props.deleteTodo(index)}
-          />
-          <p
-            className={classnames({
-              "line-through": todo.completed
-            })}
-          >
-            {todo.title}
-          </p>
-          <div className="d-flex">
-            <small className="font-italic ml-auto mr-1 p-0 m-0">
-              Created At: {todo.created_at}
-            </small>
+    let Todos = this.props.todos.length ? (
+      this.props.todos.map((todo, index) => {
+        return (
+          <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
+            {/* from here. */}
+            <DeleteIcon
+              className="remove-todo-btn"
+              onClick={event => this.props.deleteTodo(index)}
+            />
+            <p
+              className={classnames({
+                "line-through": todo.completed
+              })}
+            >
+              {todo.title}
+            </p>
+            <div className="d-flex">
+              <small className="font-italic ml-auto mr-1 p-0 m-0">
+                Created At: {todo.created_at}
+              </small>
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      })
+    ) : (
+      <small className="text-muted">No Todos Available</small>
+    );
 
     return (
       <React.Fragment>

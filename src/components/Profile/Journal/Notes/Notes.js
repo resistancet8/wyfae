@@ -38,23 +38,27 @@ class Notes extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Notes = this.props.notes.map((note, index) => {
-      return (
-        <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
-          <DeleteIcon
-            className="remove-todo-btn"
-            onClick={event => this.props.deleteNotes(index)}
-          />
-          <p
-            className={classnames({
-              "line-through": note.completed
-            })}
-          >
-            {note.title}
-          </p>
-        </div>
-      );
-    });
+    let Notes = this.props.notes.length ? (
+      this.props.notes.map((note, index) => {
+        return (
+          <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
+            <DeleteIcon
+              className="remove-todo-btn"
+              onClick={event => this.props.deleteNotes(index)}
+            />
+            <p
+              className={classnames({
+                "line-through": note.completed
+              })}
+            >
+              {note.title}
+            </p>
+          </div>
+        );
+      })
+    ) : (
+      <small className="text-muted">No Notes Available</small>
+    );
 
     return (
       <React.Fragment>
