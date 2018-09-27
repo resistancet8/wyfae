@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
-import { Button } from "reactstrap";
+import { NavLink } from "react-router-dom";
 import "./Feelbar.css";
+import FeelCircle from "./../../assets/img/feelcircle.svg";
+import JournalCircle from "./../../assets/img/journal icon.svg";
+import FeelRequest from "./../../assets/img/feelRequest.svg";
+import IconButton from "@material-ui/core/IconButton";
 
 class Feelbar extends Component {
   render() {
@@ -9,19 +12,19 @@ class Feelbar extends Component {
       <div className="Feelbar d-flex mb-3">
         <div className="ml-auto">
           <NavLink className="p-2 text-dark" to="/friends">
-            <Button outline color="primary">
-              Friend Circle
-            </Button>
+            <IconButton color="default" className="icon-holder">
+              <img src={FeelCircle} alt="" />
+            </IconButton>
           </NavLink>
           <NavLink className="p-2 text-dark" to="/requests">
-            <Button outline color="info">
-              Requests
-            </Button>
+            <IconButton color="default" className="icon-holder">
+              <img src={FeelRequest} alt="" />
+            </IconButton>
           </NavLink>
           <NavLink className="p-2 text-dark" to="/journal">
-            <Button outline color="success">
-              Journal
-            </Button>
+            <IconButton color="default" className="icon-holder">
+              <img src={JournalCircle} alt="" />
+            </IconButton>
           </NavLink>
         </div>
       </div>

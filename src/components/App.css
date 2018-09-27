@@ -11,3 +11,8 @@ textarea:focus {
 .loader-holder {
   width: 100px;
 }
+
+.icon-holder img {
+  width: 25px;
+  height: 25px;
+}

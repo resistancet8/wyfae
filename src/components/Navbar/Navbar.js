@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "./../../actions/auth_actions";
-import brand_icon from "./../../assets/img/wyfae_main logo.svg";
+import Brand from "./../../assets/img/wyfae_main logo.svg";
+import TrendingFeel from "./../../assets/img/trending feel icon.svg";
 import PropTypes from "prop-types";
-
+import IconButton from "@material-ui/core/IconButton";
 import "./Navbar.css";
 
 class NavbarComponent extends Component {
@@ -20,7 +21,7 @@ class NavbarComponent extends Component {
       <header>
         <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
           <NavLink className="my-0 mr-md-auto banner" to="/">
-            <img src={brand_icon} alt="Wyfae Brand" />
+            <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
             {!isAuth && (
@@ -36,7 +37,9 @@ class NavbarComponent extends Component {
             {isAuth && (
               <React.Fragment>
                 <NavLink className="p-2 text-dark" to="/">
-                  The Trending Feel
+                  <IconButton color="default" className="icon-holder">
+                    <img src={TrendingFeel} alt="" />
+                  </IconButton>
                 </NavLink>
                 <NavLink className="p-2 text-dark" to="/profile">
                   Profile
