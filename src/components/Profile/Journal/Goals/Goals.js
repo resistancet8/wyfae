@@ -34,7 +34,7 @@ class Goals extends Component {
 
     let Goals = this.props.goals.map((goal, index) => {
       return (
-        <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
+        <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
           <DeleteIcon
             className="remove-goals-btn"
             onClick={event => this.props.deleteGoals(index)}

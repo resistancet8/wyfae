@@ -41,7 +41,7 @@ class Todos extends Component {
 
     let Todos = this.props.todos.map((todo, index) => {
       return (
-        <div className="bg-secondary p-2 mb-1 rounded todo-item" key={index}>
+        <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
           {/* from here. */}
           <DeleteIcon
             className="remove-todo-btn"
