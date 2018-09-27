@@ -18,6 +18,7 @@ export default function(state = initialState, { type, payload }) {
         ...state,
         forgotPassword: payload
       };
+
     default:
       return state;
   }
