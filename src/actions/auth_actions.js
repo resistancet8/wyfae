@@ -57,6 +57,7 @@ export function loginUser(userData, history) {
         dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
         dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
         dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
+        dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
 
         // navigate user to /
         history.push("/");
@@ -85,6 +86,7 @@ export function logoutUser() {
     dispatch({ type: "INSERT_QUOTES", payload: [] });
     dispatch({ type: "INSERT_GOALS", payload: [] });
     dispatch({ type: "INSERT_TODOS", payload: [] });
+    dispatch({ type: "INSERT_NOTES", payload: [] });
   };
 }
 
@@ -134,6 +136,3 @@ export function updateUserProfile(userInfo, history) {
     }
   };
 }
-
-// fine?yes.. any doubts?no its great. okay commit and push.okay...
-//  bye bye bye thanks naveen. np let me know if you face any issues again. okay......

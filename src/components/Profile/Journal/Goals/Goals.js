@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, reset } from "redux-form";
 import { addGoal, deleteGoals } from "./../../../../actions/journal_actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
@@ -21,6 +21,7 @@ class Goals extends Component {
 
   getData(formData) {
     this.props.addGoal(formData, this.props.history);
+    this.props.dispatch(reset("goal-add"));
   }
 
   toggle() {
@@ -47,13 +48,6 @@ class Goals extends Component {
             {goal.title}
           </p>
           <div className="d-flex">
-            {/* <button
-              className="remove-goals-btn"
-              color="secondary"
-             
-            >
-              Remove
-            </button> */}
             <small className="font-italic ml-auto mr-1 p-0 m-0">
               By: {goal.date}
             </small>

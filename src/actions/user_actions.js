@@ -33,6 +33,11 @@ export let dummyData = {
     }
   },
   journal: {
+    notes: [
+      {
+        title: "First Note Taken"
+      }
+    ],
     quotes: [
       {
         author: "Oscar Wilde",

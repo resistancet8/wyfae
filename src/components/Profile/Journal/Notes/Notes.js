@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import "./Todos.css";
 import classnames from "classnames";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { addTodo, deleteTodo } from "../../../../actions/journal_actions";
+import { addNotes, deleteNotes } from "../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 
-class Todos extends Component {
+class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +19,14 @@ class Todos extends Component {
   }
 
   getData(formData) {
-    this.props.addTodo({
-      title: formData.title,
-      completed: false,
-      created_at: new Date().toLocaleDateString()
-    });
-    this.props.dispatch(reset("todo-add"));
+    this.props.addNotes(
+      {
+        title: formData.title,
+        created_at: new Date().toLocaleDateString()
+      },
+      this.props.history
+    );
+    this.props.dispatch(reset("note-add"));
   }
 
   toggle() {
@@ -37,26 +38,20 @@ class Todos extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-    let Todos = this.props.todos.map((todo, index) => {
+    let Notes = this.props.notes.map((note, index) => {
       return (
         <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
-          {/* from here. */}
           <DeleteIcon
             className="remove-todo-btn"
-            onClick={event => this.props.deleteTodo(index)}
+            onClick={event => this.props.deleteNotes(index)}
           />
           <p
             className={classnames({
-              "line-through": todo.completed
+              "line-through": note.completed
             })}
           >
-            {todo.title}
+            {note.title}
           </p>
-          <div className="d-flex">
-            <small className="font-italic ml-auto mr-1 p-0 m-0">
-              Created At: {todo.created_at}
-            </small>
-          </div>
         </div>
       );
     });
@@ -64,7 +59,7 @@ class Todos extends Component {
     return (
       <React.Fragment>
         <div className="row">
-          <h5 className="text-muted font-weight-bold">Todos</h5>
+          <h5 className="text-muted font-weight-bold">Notes</h5>
           <button
             type="button"
             className="ml-auto button-custom"
@@ -73,24 +68,24 @@ class Todos extends Component {
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
         </div>
-        <div className="row todos-holder mt-3">
+        <div className="row notes-holder mt-3">
           <Scrollbars autoHeight autoHeightMax={250} autoHide>
-            {Todos}
+            {Notes}
           </Scrollbars>
         </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <form onSubmit={handleSubmit(this.getData.bind(this))}>
             <ModalHeader toggle={this.toggle}>
-              <h2>Add New Todo</h2>
+              <h2>Add A Note</h2>
             </ModalHeader>
             <ModalBody>
               <div class="form-group">
                 <Field
                   component="textarea"
                   class="form-control"
-                  id="todo-field"
+                  id="note-field"
                   name="title"
-                  placeholder="Add Todo Title"
+                  placeholder="Add New Note"
                 />
               </div>
             </ModalBody>
@@ -109,23 +104,22 @@ class Todos extends Component {
   }
 }
 
-Todos.propTypes = {
-  todos: PropTypes.array,
-  addTodo: PropTypes.func,
-  deleteTodo: PropTypes.func
+Notes.propTypes = {
+  notes: PropTypes.array,
+  addNotes: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos.todos
+    notes: state.notes.notes
   };
 }
 
 export default reduxForm({
-  form: "todo-add"
+  form: "note-add"
 })(
   connect(
     mapStateToProps,
-    { addTodo, deleteTodo }
-  )(Todos)
+    { addNotes, deleteNotes }
+  )(Notes)
 );

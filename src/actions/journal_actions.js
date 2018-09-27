@@ -25,9 +25,16 @@ export function addQuote(quote) {
   };
 }
 
-// delete todo
+export function addNotes(note) {
+  return function(dispatch) {
+    dispatch({
+      type: "ADD_NOTE",
+      payload: note
+    });
+  };
+}
+
 export function deleteTodo(index) {
-  // here update at the endpoint code. then dispatch action locally.
   return dispatch => {
     dispatch({
       type: "DELETE_TODO",
@@ -36,7 +43,6 @@ export function deleteTodo(index) {
   };
 }
 export function deleteQuotes(index) {
-  // here update at the endpoint code. then dispatch action locally.
   return dispatch => {
     dispatch({
       type: "DELETE_QUOTE",
@@ -44,8 +50,8 @@ export function deleteQuotes(index) {
     });
   };
 }
+
 export function deleteGoals(index) {
-  // here update at the endpoint code. then dispatch action locally.
   return dispatch => {
     dispatch({
       type: "DELETE_GOAL",
@@ -54,4 +60,11 @@ export function deleteGoals(index) {
   };
 }
 
-// also add delete for quotes, goals.ok great.bye bye gn. be bro
+export function deleteNotes(index) {
+  return dispatch => {
+    dispatch({
+      type: "DELETE_NOTE",
+      payload: index
+    });
+  };
+}

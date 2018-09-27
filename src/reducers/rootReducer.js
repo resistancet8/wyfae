@@ -5,6 +5,7 @@ import userReducer from "./users_reducer";
 import todosReducer from "./todos_reducer";
 import goalsReducer from "./goals_reducer";
 import quotesReducer from "./quotes_reducer";
+import notesReducer from "./notes_reducer";
 import { reducer as form } from "redux-form";
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   user: userReducer,
   quotes: quotesReducer,
   goals: goalsReducer,
-  todos: todosReducer
+  todos: todosReducer,
+  notes: notesReducer
 });
