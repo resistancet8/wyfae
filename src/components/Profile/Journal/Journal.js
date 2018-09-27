@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import Todos from "./Todos/Todos";
 import Goals from "./Goals/Goals";
-import Quotes from "./Quotes/Quotes";
 
 class Journal extends Component {
   render() {
     return (
       <div className="row bg-secondary p-1 journal">
-        <div className="quotes col-md-4 bg-white p-3 px-5">
-          <Quotes />
-        </div>
         <div className="todo col-md-4 bg-white border-left p-3 px-5">
           <Todos />
         </div>

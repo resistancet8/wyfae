@@ -34,7 +34,7 @@ class Quotes extends Component {
 
     let Quotes = this.props.quotes.map((quote, index) => {
       return (
-        <div key={index} className="quote-height-120 margin-bottom">
+        <div key={index} className="bg-secondary p-2 mb-1">
           <DeleteIcon
             className="remove-quote-btn"
             onClick={event => this.props.deleteQuotes(index)}
@@ -45,13 +45,6 @@ class Quotes extends Component {
               {" - "} {quote.author}
             </strong>
           </p>
-          {/* <button
-            className="remove-quote-btn"
-            color="secondary"
-            onClick={event => this.props.deleteQuotes(index)}
-          >
-            Remove
-          </button> */}
         </div>
       );
     });
@@ -69,7 +62,7 @@ class Quotes extends Component {
           </button>
         </div>
         <div className="row quotes-holder mt-3">
-          <Scrollbars autoHeight autoHeightMax={250} autoHide>
+          <Scrollbars autoHeight autoHeightMax={350} autoHide>
             {Quotes}
           </Scrollbars>
         </div>
