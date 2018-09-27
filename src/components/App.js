@@ -42,7 +42,10 @@ class App extends Component {
             <Route
               exact={true}
               path="/update/:userName"
-              component={UpdateProfile}
+              render={() => {
+                if (isAuth) return <UpdateProfile />;
+                else return <Redirect to="/login" />;
+              }}
             />
             <Route path="/login" exact component={Login} />
             <Route

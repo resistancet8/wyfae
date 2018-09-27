@@ -117,7 +117,7 @@ export function verifyOTP(payload, history) {
   };
 }
 
-export function updateUserProfile(userInfo) {
+export function updateUserProfile(userInfo, history) {
   return dispatch => {
     let { isValid, errors } = updateValidator(userInfo);
 
@@ -128,6 +128,7 @@ export function updateUserProfile(userInfo) {
 
       // state update - redux
       dispatch({ type: "UPDATE_PROFILE", payload: userInfo });
+      history.push("/profile");
     } else {
       dispatch({ type: "GET_ERRORS", payload: errors });
     }

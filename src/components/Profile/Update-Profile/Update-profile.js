@@ -40,7 +40,7 @@ class UpdateProfile extends Component {
       },
       () => {
         setTimeout(() => {
-          this.props.updateUserProfile(userInfo);
+          this.props.updateUserProfile(userInfo, this.props.history);
         }, 300);
       }
     );
@@ -167,5 +167,5 @@ export default reduxForm({
   connect(
     mapStateToProps,
     { updateUserProfile }
-  )(UpdateProfile)
+  )(withRouter(UpdateProfile))
 );
