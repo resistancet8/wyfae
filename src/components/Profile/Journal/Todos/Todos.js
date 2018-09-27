@@ -6,7 +6,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { addTodo, deleteTodo } from "../../../../actions/journal_actions";
+import {
+  addTodo,
+  deleteTodo,
+  toggleTodo
+} from "../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 
 class Todos extends Component {
@@ -40,11 +44,19 @@ class Todos extends Component {
     let Todos = this.props.todos.length ? (
       this.props.todos.map((todo, index) => {
         return (
-          <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
-            {/* from here. */}
+          <div
+            className="bg-secondary p-2 mb-1 todo-item"
+            key={index}
+            onClick={event => {
+              this.props.toggleTodo(index);
+            }}
+          >
             <DeleteIcon
               className="remove-todo-btn"
-              onClick={event => this.props.deleteTodo(index)}
+              onClick={event => {
+                event.stopPropagation();
+                this.props.deleteTodo(index);
+              }}
             />
             <p
               className={classnames({
@@ -130,6 +142,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addTodo, deleteTodo }
+    { addTodo, deleteTodo, toggleTodo }
   )(Todos)
 );

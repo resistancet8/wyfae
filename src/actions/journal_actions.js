@@ -7,11 +7,29 @@ export function addTodo(todo) {
   };
 }
 
+export function toggleTodo(index) {
+  return function(dispatch) {
+    dispatch({
+      type: "TOGGLE_TODO",
+      payload: index
+    });
+  };
+}
+
 export function addGoal(goal) {
   return function(dispatch) {
     dispatch({
       type: "ADD_GOAL",
       payload: goal
+    });
+  };
+}
+
+export function toggleGoal(index) {
+  return function(dispatch) {
+    dispatch({
+      type: "TOGGLE_GOAL",
+      payload: index
     });
   };
 }

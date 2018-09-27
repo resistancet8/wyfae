@@ -22,6 +22,14 @@ export default function(state = initialState, { type, payload }) {
           .concat(state.todos.slice(1, state.todos.length))
       };
     }
+    case "TOGGLE_TODO": {
+      let updatedTodos = state.todos.slice();
+      updatedTodos[payload].completed = !updatedTodos[payload].completed;
+
+      return {
+        todos: updatedTodos
+      };
+    }
     default:
       return state;
   }

@@ -4,7 +4,11 @@ import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { addGoal, deleteGoals } from "./../../../../actions/journal_actions";
+import {
+  addGoal,
+  deleteGoals,
+  toggleGoal
+} from "./../../../../actions/journal_actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
 import "./Goals.css";
@@ -36,10 +40,19 @@ class Goals extends Component {
     let Goals = this.props.goals.length ? (
       this.props.goals.map((goal, index) => {
         return (
-          <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
+          <div
+            className="bg-secondary p-2 mb-1 todo-item"
+            key={index}
+            onClick={event => {
+              this.props.toggleGoal(index);
+            }}
+          >
             <DeleteIcon
               className="remove-goals-btn"
-              onClick={event => this.props.deleteGoals(index)}
+              onClick={event => {
+                event.stopPropagation();
+                this.props.deleteGoals(index);
+              }}
             />
             <p
               className={classnames({
@@ -135,6 +148,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addGoal, deleteGoals }
+    { addGoal, deleteGoals, toggleGoal }
   )(Goals)
 );

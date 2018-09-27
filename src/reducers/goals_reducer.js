@@ -1,5 +1,3 @@
-// import isEmpty from "../helpers/isEmpty"
-
 const initialState = {
   goals: []
 };
@@ -21,6 +19,14 @@ export default function(state = initialState, { type, payload }) {
           .splice(0, payload)
           .concat(state.goals.slice(1, state.goals.length))
       };
+    case "TOGGLE_GOAL": {
+      let updatedGoals = state.goals.slice();
+      updatedGoals[payload].completed = !updatedGoals[payload].completed;
+
+      return {
+        goals: updatedGoals
+      };
+    }
     default:
       return state;
   }
