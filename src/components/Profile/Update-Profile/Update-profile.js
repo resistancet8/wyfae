@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import Spinner from "../../Loader/Spinner";
 import Button from "@material-ui/core/Button";
 import "./Update-profile.css";
-import { updateProfile } from "../../../actions/auth_actions";
+import { updateUserProfile } from "../../../actions/auth_actions";
 
 class UpdateProfile extends Component {
   state = {
@@ -40,7 +40,7 @@ class UpdateProfile extends Component {
       },
       () => {
         setTimeout(() => {
-          this.props.updateProfile(userInfo, this.props.history);
+          this.props.updateUserProfile(userInfo);
         }, 300);
       }
     );
@@ -71,15 +71,15 @@ class UpdateProfile extends Component {
                       type="text"
                       name="fname"
                       className={classnames("form-control", {
-                        "is-invalid": errors.name
+                        "is-invalid": errors.fname
                       })}
                       id="fname"
                       placeholder="Enter First Name"
                       autoComplete="off"
                       value=""
                     />
-                    {errors.name && (
-                      <div className="invalid-feedback"> {errors.name} </div>
+                    {errors.fname && (
+                      <div className="invalid-feedback"> {errors.fname} </div>
                     )}
                   </div>
                   <div className="form-group col-md-6">
@@ -156,7 +156,8 @@ UpdateProfile.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    errors: state.errors.errors
   };
 }
 
@@ -165,6 +166,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    {}
+    { updateUserProfile }
   )(UpdateProfile)
 );

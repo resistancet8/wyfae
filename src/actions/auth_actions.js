@@ -2,14 +2,20 @@ import axios from "axios";
 import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
+import updateValidator from "./../helpers/update_validator";
 import { dummyData } from "./user_actions";
+import * as t from "io-ts";
+import { ThrowReporter } from "io-ts/lib/ThrowReporter";
+import { DateFromISOString } from "io-ts-types/lib/Date/DateFromISOString";
+
+const apiBasePath = "http://159.89.171.16:9000";
 
 export function registerUser(userData, history) {
   return function(dispatch) {
     let validator = registerValidator(userData);
     if (validator.isValid) {
       axios
-        .post("http://159.89.171.16:9000/user_auth/signup", userData)
+        .post(`${apiBasePath}/user_auth/signup`, userData)
         .then(response => {
           if (response.data.status === "failure") {
             dispatch({ type: "GET_ERRORS", payload: response.data });
@@ -30,7 +36,7 @@ export function registerUser(userData, history) {
 export function loginUser(userData, history) {
   return function(dispatch) {
     axios
-      .post("http://159.89.171.16:9000/user_auth/login", userData)
+      .post(`${apiBasePath}/user_auth/login`, userData)
       .then(response => {
         dispatch({ type: "GET_ERRORS", payload: {} });
         history.push("/");
@@ -114,21 +120,19 @@ export function verifyOTP(payload, history) {
   };
 }
 
-export function updateProfile(payload, history) {
+export function updateUserProfile(userInfo) {
   return dispatch => {
-    axios
-      //need to add update api
-      .put(``, payload)
-      .then(response => {
-        if (response.data.status === "failure") {
-          dispatch({ type: "GET_ERRORS", payload: response.data });
-        } else {
-          dispatch({ type: "UPDATE_PROFILE", payload: response.data });
-          history.push("/");
-        }
-      })
-      .catch(error => {
-        dispatch({ type: "GET_ERRORS", payload: error.response.data });
-      });
+    let { isValid, errors } = updateValidator(userInfo);
+
+    if (isValid) {
+      dispatch({ type: "GET_ERRORS", payload: {} });
+
+      // api update
+
+      // state update - redux
+      dispatch({ type: "UPDATE_PROFILE", payload: userInfo });
+    } else {
+      dispatch({ type: "GET_ERRORS", payload: errors });
+    }
   };
 }
