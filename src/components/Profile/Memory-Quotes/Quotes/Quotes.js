@@ -118,7 +118,6 @@ Quotes.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log("Map", state);
   return {
     quotes: state.quotes.quotes
   };

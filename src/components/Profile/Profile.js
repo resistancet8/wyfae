@@ -9,7 +9,7 @@ import User from "./User";
 import Stats from "./Statistics";
 import About from "./About";
 import Feelings from "./Feelings/Feelings";
-import Memory from "./Memory/Memory";
+import Memory from "./Memory-Quotes/Memory";
 import Quotes from "./Memory-Quotes/Quotes/Quotes";
 
 class Profile extends Component {
@@ -41,9 +41,6 @@ class Profile extends Component {
             <Feelings />
           </div>
         </div>
-        {/* Private Journal */}
-        {/* <div className="row mt-2 journal">{user.journal && <Journal />}</div> */}
-        {/* Memory Book */}
         <div className="row mt-2">
           <div className="col-md-6 bg-white border-top-overridden p-3">
             <Memory />

@@ -24,13 +24,13 @@ class NavbarComponent extends Component {
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
+            <NavLink className="p-2 text-dark" to="/">
+              <IconButton color="default" className="icon-holder">
+                <img src={TrendingFeel} alt="" />
+              </IconButton>
+            </NavLink>
             {!isAuth && (
               <React.Fragment>
-                <NavLink className="p-2 text-dark" to="/">
-                  <IconButton color="default" className="icon-holder">
-                    <img src={TrendingFeel} alt="" />
-                  </IconButton>
-                </NavLink>
                 <NavLink className="p-2 text-dark" to="/register">
                   Register
                 </NavLink>

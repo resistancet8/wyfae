@@ -22,6 +22,7 @@ export function addGoal(goal) {
       type: "ADD_GOAL",
       payload: goal
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Goal Added" });
   };
 }
 
