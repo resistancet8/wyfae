@@ -54,17 +54,12 @@ Json Response from backend:
 
 In Case of Success:
 {
-    "code": "54",
-    "first_name": "Mantu",
-    "sur_name": "Kumar",
-    "dob": "12 Aug 2011",
-    "username": "unique_user",
     "msg": "Successfully logged in",
-    "email": "ad@gmail.com",
-    "gender": "Male",
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MzY2MDU0NjEsInVzZXJuYW1lIjoidW5pcXVlX3VzZXIifQ.7GNn1nikPFKwpEO5Uro2oYdNOHeeFVb29uh1Rjslr-za66kpIAu1MHrV9SA0gimsAmoNTLPtEseVohdjCkvyfA",
+    "code": "54",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1Mzc2ODk4MjAsInVzZXJuYW1lIjoidW5pcXVlX3VzZXIxNyJ9.KW1-0m5eSbDQ7xeQjRiPWyf2gqGYlDkqUHX9-pZLoRKn7en5hgr5Ud4ObDr-zODgfjd1HdwAHI21LeEMcoS_KQ",
     "status": "success"
 }
+
 
 In Case of Failure:
 
@@ -207,3 +202,129 @@ status: 400
 5. In case passwrod reset unsuccessfull
 {"status": "failure", "code": "88", "msg": "Password Reset Unsuccessfull"}
 status: 400
+
+
+
+####################
+Profile Page
+####################
+-------------------------------------------
+----------- Update about section ----------
+-------------------------------------------
+
+159.89.171.16:9000/user/update_about
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Json Request:
+{
+  "first_name" : "mantu",
+  "sur_name": "kumar",
+  "from": "Bangalore, Karnataka, India, Earth",
+  "about": "Success is not final failure is not fatal - Winston Churchill",
+  "dob": "10-10-2010",
+  "langs": "Kannada, English",
+  "contact": "9945126164",
+  "email": "resistancet8@gmail.com",
+  "favorite_art": "Writing"
+}
+
+Json Response:
+
+Note: Everytime you update_about a new token is generated and the previous one is deleted.
+      So you need to pass this token in header on next call.
+
+In case of Success:
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6InVuaXF1ZV91c2VyMTciLCJleHAiOjE1Mzc3MTUyMzJ9.fkHFv3ITjWXQetHssI_GFT4EJeya_PwnLf9srgH93ghJMMZWoBzdurng7Ff2BxKXvX2voln5DTG5Yj4bkYL6OA",
+    "status": "success",
+    "code": "51",
+    "msg": "Successfully Updated Profile"
+}
+
+status: 200
+
+In case of Failure:
+
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+2. If profile is not updated
+{
+    "status": "failure", 
+    "code": "50", 
+    "msg": "Could now Update Profile"
+}
+
+status: 400
+
+-------------------------------------------
+----------- Get Profile Page Data ---------
+-------------------------------------------
+
+159.89.171.16:9000/user_auth/get_profile
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Json Response:
+
+Note: Everytime you call 'get_profile' a new token is generated and the previous one is deleted.
+      So you need to pass this token in header on next call.
+
+Note: All the data will be returned in "profile_data" key. But for now only these things are returned
+
+In Case of Success:
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1Mzc3MTYwMzUsInVzZXJuYW1lIjoidW5pcXVlX3VzZXIxNyJ9.pBOZDr8YIFQqLGa6L7Jog9LQwFLwyywGjQwxm2UzQTWJg5UzVRzXphLlYhfQSxncwJ7_XTUsgjMFbX94SdqXDQ",
+    "msg": "Fetched Data Successfully",
+    "code": "20",
+    "status": "success",
+    "profile_data": {
+        "mantu": "dummy",
+        "creation_time": "2018-09-23T06:59:01.160",
+        "sur_name": "kumar",
+        "about": "Success is not final failure is not fatal - Winston Churchill",
+        "langs": "Kannada, English",
+        "first_name": "mantu",
+        "dob": "10-10-2010",
+        "from": "Bangalore, Karnataka, India, Earth",
+        "email": "resistancet8@gmail.com",
+        "contact": "9945126164",
+        "favorite_art": "Writing"
+    }
+}
+
+
+In Case of Failure:
+
+1. If not a valid token in supplied
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+
+2. If no profile data found
+{
+    "status": "failure", 
+    "code": "21", 
+    "msg": "No Profile Data Found"
+}
