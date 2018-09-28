@@ -4,6 +4,7 @@ export function addTodo(todo) {
       type: "ADD_TODO",
       payload: todo
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Todo Added" });
   };
 }
 
@@ -41,6 +42,7 @@ export function addQuote(quote) {
       type: "ADD_QUOTE",
       payload: quote
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Quote Added" });
   };
 }
 
@@ -50,6 +52,7 @@ export function addNotes(note) {
       type: "ADD_NOTE",
       payload: note
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Note Added" });
   };
 }
 
@@ -59,6 +62,7 @@ export function deleteTodo(index) {
       type: "DELETE_TODO",
       payload: index
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Todo Deleted" });
   };
 }
 export function deleteQuotes(index) {
@@ -67,6 +71,7 @@ export function deleteQuotes(index) {
       type: "DELETE_QUOTE",
       payload: index
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Quote Deleted" });
   };
 }
 
@@ -76,6 +81,7 @@ export function deleteGoals(index) {
       type: "DELETE_GOAL",
       payload: index
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Goal Deleted" });
   };
 }
 
@@ -85,5 +91,6 @@ export function deleteNotes(index) {
       type: "DELETE_NOTE",
       payload: index
     });
+    dispatch({ type: "SHOW_TOAST", payload: "Note Deleted" });
   };
 }

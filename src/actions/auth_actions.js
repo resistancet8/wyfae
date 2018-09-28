@@ -18,6 +18,7 @@ export function registerUser(userData, history) {
             dispatch({ type: "GET_ERRORS", payload: response.data });
           } else {
             dispatch({ type: "GET_ERRORS", payload: {} });
+            dispatch({ type: "SHOW_TOAST", payload: "Registration Success" });
             history.push("/login");
           }
         })
@@ -59,6 +60,8 @@ export function loginUser(userData, history) {
         dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
         dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
 
+        dispatch({ type: "SHOW_TOAST", payload: "Login Success" });
+
         // navigate user to /
         history.push("/");
       })
@@ -87,6 +90,7 @@ export function logoutUser() {
     dispatch({ type: "INSERT_GOALS", payload: [] });
     dispatch({ type: "INSERT_TODOS", payload: [] });
     dispatch({ type: "INSERT_NOTES", payload: [] });
+    dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
   };
 }
 
@@ -130,6 +134,7 @@ export function updateUserProfile(userInfo, history) {
 
       // state update - redux
       dispatch({ type: "UPDATE_PROFILE", payload: userInfo });
+      dispatch({ type: "SHOW_TOAST", payload: "Updated" });
       history.push("/profile");
     } else {
       dispatch({ type: "GET_ERRORS", payload: errors });
