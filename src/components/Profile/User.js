@@ -13,7 +13,9 @@ class User extends Component {
         </div>
         <div className="details text-center mt-3">
           <h2 className="font-weight-bold">{this.props.user.fname}</h2>
-          <p>{this.props.user.from}</p>
+          <p>{`${this.props.user.from.city}, ${this.props.user.from.state}, ${
+            this.props.user.from.country
+          }, Earth`}</p>
         </div>
       </div>
     );

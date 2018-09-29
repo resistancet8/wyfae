@@ -11,9 +11,18 @@ function userReducer(state = initialState, { type, payload }) {
         user: {
           ...state.user,
           fname: payload.fname,
-          sname: payload.sur_name,
+          sname: payload.sname,
           dob: payload.dob,
-          email: payload.email
+          email: payload.email,
+          from: {
+            state: payload.state,
+            city: payload.city,
+            country: payload.country
+          },
+          contact: payload.contact,
+          about: payload.about,
+          langs: payload.langs,
+          favorite_art: payload.favorite_art
         }
       };
     default:

@@ -18,9 +18,16 @@ class UpdateProfile extends Component {
   componentDidMount() {
     this.props.initialize({
       fname: this.props.user.fname,
-      sur_name: this.props.user.sname,
+      sname: this.props.user.sname,
       email: this.props.user.email,
-      dob: this.props.user.dob
+      dob: this.props.user.dob,
+      city: this.props.user.from.city,
+      state: this.props.user.from.state,
+      country: this.props.user.from.country,
+      about: this.props.user.about,
+      contact: this.props.user.contact,
+      langs: this.props.user.langs,
+      favorite_art: this.props.user.favorite_art
     });
   }
 
@@ -83,23 +90,20 @@ class UpdateProfile extends Component {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="sur_name">Sur Name:</label>
+                    <label htmlFor="sname">Sur Name:</label>
                     <Field
                       component="input"
                       type="text"
-                      name="sur_name"
+                      name="sname"
                       className={classnames("form-control", {
-                        "is-invalid": errors.sur_name
+                        "is-invalid": errors.sname
                       })}
-                      id="sur_name"
+                      id="sname"
                       placeholder="Enter Sur Name"
                       autoComplete="off"
                     />
-                    {errors.sur_name && (
-                      <div className="invalid-feedback">
-                        {" "}
-                        {errors.sur_name}{" "}
-                      </div>
+                    {errors.sname && (
+                      <div className="invalid-feedback"> {errors.sname} </div>
                     )}
                   </div>
                 </div>
@@ -136,7 +140,132 @@ class UpdateProfile extends Component {
                     <div className="invalid-feedback"> {errors.dob} </div>
                   )}
                 </div>
-                <Button type="submit" className="btn btn-dark update-btn">
+                <div className="form-row">
+                  <div className="form-group col-md-4">
+                    <label htmlFor="password">City:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="city"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.city
+                      })}
+                      id="city"
+                      placeholder="Enter city"
+                      required
+                    />
+                    {errors.city && (
+                      <div className="invalid-feedback"> {errors.city} </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="confirm-password">State:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="state"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.state
+                      })}
+                      id="confirm-state"
+                      placeholder="Enter State"
+                      required
+                    />
+                    {errors.state && (
+                      <div className="invalid-feedback"> {errors.state} </div>
+                    )}
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="confirm-password">Country:</label>
+                    <Field
+                      component="input"
+                      type="text"
+                      name="country"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.country
+                      })}
+                      id="confirm-country"
+                      placeholder="Enter Country"
+                      required
+                    />
+                    {errors.country && (
+                      <div className="invalid-feedback"> {errors.country} </div>
+                    )}
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="about">About:</label>
+                  <Field
+                    component="textarea"
+                    name="about"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.about
+                    })}
+                    id="about"
+                    placeholder="Enter About"
+                    autoComplete="off"
+                  />
+                  {errors.about && (
+                    <div className="invalid-feedback"> {errors.about} </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact">Contact:</label>
+                  <Field
+                    component="input"
+                    type="number"
+                    name="contact"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.contact
+                    })}
+                    id="contact"
+                    placeholder="Enter Contact No."
+                    autoComplete="off"
+                  />
+                  {errors.contact && (
+                    <div className="invalid-feedback"> {errors.contact} </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="langs">Languages:</label>
+                  <Field
+                    component="input"
+                    type="text"
+                    name="langs"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.langs
+                    })}
+                    id="langs"
+                    placeholder="Languages Known"
+                    autoComplete="off"
+                  />
+                  {errors.langs && (
+                    <div className="invalid-feedback"> {errors.langs} </div>
+                  )}
+                  <small className="text-muted"> Separated by comma. </small>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="favorite_art">Favorite Artform:</label>
+                  <Field
+                    component="input"
+                    type="text"
+                    name="favorite_art"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.favorite_art
+                    })}
+                    id="favorite_art"
+                    placeholder="Favorite Artform"
+                    autoComplete="off"
+                  />
+                  {errors.favorite_art && (
+                    <div className="invalid-feedback">
+                      {" "}
+                      {errors.favorite_art}{" "}
+                    </div>
+                  )}
+                  <small className="text-muted"> Separated by comma. </small>
+                </div>
+                <Button type="submit" variant="outlined">
                   {this.state.loading ? <Spinner /> : "Save Changes"}
                 </Button>
               </form>

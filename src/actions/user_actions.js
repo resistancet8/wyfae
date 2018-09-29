@@ -1,7 +1,11 @@
 export let dummyData = {
   fname: "Naveen",
   sname: "Kumar",
-  from: "Bangalore, Karnataka, India, Earth",
+  from: {
+    city: "Bangalore",
+    state: "Karnataka",
+    country: "India"
+  },
   about: "Success is not final failure is not fatal - Winston Churchill",
   dob: "2010-10-10",
   langs: "Kannada, English",
@@ -133,5 +137,7 @@ export let dummyData = {
         created_at: 6
       }
     ]
-  }
+  },
+  memory: [{ content: "First Memory Book Content" }],
+  art: [{ content: "First Poem", type: "poem" }]
 };
