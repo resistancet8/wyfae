@@ -58,39 +58,36 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="adjustment mt-1" />
+        <div className="container">{isAuth && <Feelbar />}</div>
+        <Route path="/" exact component={Public} />
         <div className="container">
-          {isAuth && <Feelbar />}
-          <Switch>
-            <Route path="/" exact component={Public} />
-            <Route
-              path="/profile"
-              exact
-              render={() => {
-                if (isAuth) return <Profile />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-            <Route path="/register" exact component={Register} />
-            <Route
-              exact={true}
-              path="/update/:userName"
-              render={() => {
-                if (isAuth) return <UpdateProfile />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-            <Route path="/login" exact component={Login} />
-            <Route
-              path="/journal"
-              exact
-              render={() => {
-                if (isAuth) return <Journal />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-            <Route path="/forgot" exact component={Forgot} />
-            <Route component={NotFound} />
-          </Switch>
+          <Route
+            path="/profile"
+            exact
+            render={() => {
+              if (isAuth) return <Profile />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route path="/register" exact component={Register} />
+          <Route
+            exact={true}
+            path="/update/:userName"
+            render={() => {
+              if (isAuth) return <UpdateProfile />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route path="/login" exact component={Login} />
+          <Route
+            path="/journal"
+            exact
+            render={() => {
+              if (isAuth) return <Journal />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route path="/forgot" exact component={Forgot} />
         </div>
         <Snackbar
           anchorOrigin={{
