@@ -56,6 +56,7 @@ class Forgot extends Component {
                       "is-invalid": errors.username
                     })}
                     id="username"
+                    required
                     placeholder="Username"
                     autoComplete="off"
                   />

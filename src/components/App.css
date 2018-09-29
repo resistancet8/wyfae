@@ -16,3 +16,12 @@ textarea:focus {
   width: 28px;
   height: 28px;
 }
+
+.icon-holder2 img {
+  width: 25px;
+  height: 25px;
+}
+
+a.profile {
+  text-decoration: none !important;
+}

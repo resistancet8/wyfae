@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Todos.css";
 import classnames from "classnames";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
@@ -12,6 +12,7 @@ import {
   toggleTodo
 } from "../../../../actions/journal_actions";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 
 class Todos extends Component {
   constructor(props) {
@@ -111,10 +112,14 @@ class Todos extends Component {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button type="submit" color="primary" onClick={this.toggle}>
+              <Button type="submit" variant="outlined" onClick={this.toggle}>
                 Add
               </Button>{" "}
-              <Button color="secondary" onClick={this.toggle}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.toggle}
+              >
                 Cancel
               </Button>
             </ModalFooter>

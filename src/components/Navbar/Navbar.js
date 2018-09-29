@@ -6,15 +6,32 @@ import Brand from "./../../assets/img/wyfae_main logo.svg";
 import TrendingFeel from "./../../assets/img/trending feel icon.svg";
 import PropTypes from "prop-types";
 import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import AccessAlarmIcon from "@material-ui/icons/AccountCircle";
+
 import "./Navbar.css";
 
 class NavbarComponent extends Component {
-  logoutUser(e) {
-    e.preventDefault();
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  logoutUser() {
     this.props.logoutUser();
   }
 
   render() {
+    const { anchorEl } = this.state;
     const { isAuthenticated: isAuth } = this.props.auth;
 
     return (
@@ -25,7 +42,7 @@ class NavbarComponent extends Component {
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
             <NavLink className="p-2 text-dark" to="/">
-              <IconButton color="default" className="icon-holder">
+              <IconButton color="default" className="icon-holder2">
                 <img src={TrendingFeel} alt="" />
               </IconButton>
             </NavLink>
@@ -41,16 +58,30 @@ class NavbarComponent extends Component {
             )}
             {isAuth && (
               <React.Fragment>
-                <NavLink className="p-2 text-dark" to="/profile">
-                  Profile
-                </NavLink>
-                <a
-                  href=""
-                  onClick={this.logoutUser.bind(this)}
-                  className="p-2 text-dark"
+                <Button onClick={this.handleClick}>
+                  Profile &nbsp;
+                  <AccessAlarmIcon />
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
                 >
-                  Logout
-                </a>
+                  <MenuItem onClick={this.handleClose}>
+                    <NavLink className="p-2 text-dark profile" to="/profile">
+                      Profile
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      this.handleClose();
+                      this.logoutUser.bind(this)();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
               </React.Fragment>
             )}
           </nav>

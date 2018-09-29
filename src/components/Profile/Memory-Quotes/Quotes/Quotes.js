@@ -97,10 +97,14 @@ class Quotes extends Component {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button type="submit" color="primary" onClick={this.toggle}>
+              <Button type="submit" variant="outlined" onClick={this.toggle}>
                 Add
               </Button>{" "}
-              <Button color="secondary" onClick={this.toggle}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={this.toggle}
+              >
                 Cancel
               </Button>
             </ModalFooter>

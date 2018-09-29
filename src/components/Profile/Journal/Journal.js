@@ -6,7 +6,7 @@ import Notes from "./Notes/Notes";
 class Journal extends Component {
   render() {
     return (
-      <div className="journal bg-secondary">
+      <div className="journal bg-secondary mb-5">
         <div className="row first-row-journal m-1">
           <div className="todo col-md-4 bg-white border-left p-3 px-5">
             <Todos />

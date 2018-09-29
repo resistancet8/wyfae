@@ -63,7 +63,6 @@ class Login extends Component {
                     })}
                     id="username"
                     placeholder="Username"
-                    autoComplete="off"
                     required
                   />
                   {errors.email && (
@@ -81,7 +80,6 @@ class Login extends Component {
                     })}
                     id="password"
                     placeholder="Enter Password"
-                    autoComplete="off"
                     required
                   />
                   {errors.password && (

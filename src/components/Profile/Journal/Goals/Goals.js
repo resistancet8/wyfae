@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import classnames from "classnames";
 import { connect } from "react-redux";
@@ -9,6 +9,7 @@ import {
   deleteGoals,
   toggleGoal
 } from "./../../../../actions/journal_actions";
+import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
 import "./Goals.css";
@@ -117,10 +118,14 @@ class Goals extends Component {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button type="submit" color="primary" onClick={this.toggle}>
+              <Button type="submit" variant="outlined" onClick={this.toggle}>
                 Add
               </Button>{" "}
-              <Button color="secondary" onClick={this.toggle}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.toggle}
+              >
                 Cancel
               </Button>
             </ModalFooter>
