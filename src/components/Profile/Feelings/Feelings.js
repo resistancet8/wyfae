@@ -1,8 +1,48 @@
 import React, { Component } from "react";
 import Form from "./Form";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
+let art_styles = [
+  "Poem",
+  "Story",
+  "Quotes",
+  "Gazal",
+  "Rap",
+  "Singing",
+  "Comedy",
+  "Dance"
+];
+
+const styles = theme => ({
+  root: {
+    backgroundColor: "theme.palette.background.red"
+  }
+});
 
 class Feelings extends Component {
+  state = {
+    value: 0
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
+    const { value } = this.state;
+
     return (
       <div>
         <nav>
@@ -11,115 +51,34 @@ class Feelings extends Component {
               Give Soul To Your Feelings And Experiences With Creative Art
               Styles.
             </h5>
-            <div className="nav nav-tabs navtabs" id="nav-tab" role="tablist">
-              <a
-                className="nav-item nav-link active"
-                id="nav-poem-tab"
-                data-toggle="tab"
-                href="#nav-poem"
-                role="tab"
-              >
-                Poem
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-story-tab"
-                data-toggle="tab"
-                href="#nav-story"
-                role="tab"
-              >
-                Story
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-quotes-tab"
-                data-toggle="tab"
-                href="#nav-quotes"
-                role="tab"
-              >
-                Quotes
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-gazal-tab"
-                data-toggle="tab"
-                href="#nav-gazal"
-                role="tab"
-              >
-                Gazal
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-rap-tab"
-                data-toggle="tab"
-                href="#nav-rap"
-                role="tab"
-              >
-                Rap
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-singing-tab"
-                data-toggle="tab"
-                href="#nav-singing"
-                role="tab"
-              >
-                Signing
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-comedy-tab"
-                data-toggle="tab"
-                href="#nav-comedy"
-                role="tab"
-              >
-                Comedy
-              </a>
-              <a
-                className="nav-item nav-link"
-                id="nav-dance-tab"
-                data-toggle="tab"
-                href="#nav-dance"
-                role="tab"
-              >
-                Dance
-              </a>
-            </div>
           </div>
         </nav>
-        <div className="tab-content" id="nav-tabContent">
-          <div
-            className="tab-pane fade show active"
-            id="nav-poem"
-            role="tabpanel"
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            scrollable
+            scrollButtons="auto"
           >
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-story" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-quotes" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-gazal" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-rap" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-singing" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-comedy" role="tabpanel">
-            <Form />
-          </div>
-          <div className="tab-pane fade" id="nav-dance" role="tabpanel">
-            <Form />
-          </div>
-        </div>
+            {art_styles.map((el, index) => {
+              return <Tab label={el} />;
+            })}
+          </Tabs>
+        </AppBar>
+        {art_styles.map((el, index) => {
+          return (
+            value === index && (
+              <TabContainer>
+                <Form />
+              </TabContainer>
+            )
+          );
+        })}
       </div>
     );
   }
 }
 
-export default Feelings;
+export default withStyles(styles)(Feelings);

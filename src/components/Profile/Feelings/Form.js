@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Button from "@material-ui/core/Button";
 
 export default class Form extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class Form extends Component {
             name="thoughts-feelings"
             id="thoughts-feelings"
             cols="30"
-            rows="10"
+            rows="7"
             className="form-control my-2"
             placeholder="Share Your Feelings/ Experience"
           />
@@ -23,34 +24,22 @@ export default class Form extends Component {
             />
           </div>
           <div className="controls mr-auto">
-            <button
-              type="button"
-              className="btn btn-dark mr-2 mb-2 font-weight-normal"
-            >
+            <Button variant="outlined" className="mr-2 mb-2 font-weight-normal">
               <i className="fas fa-share mx-1" />
               Share
-            </button>
-            <button
-              type="button"
-              className="btn btn-dark mr-2 mb-2 font-weight-normal"
-            >
+            </Button>
+            <Button variant="outlined" className="mr-2 mb-2 font-weight-normal">
               <i className="fas fa-share mx-1" />
               Share Anonymously
-            </button>
-            <button
-              type="button"
-              className="btn btn-dark mr-2 mb-2 font-weight-normal"
-            >
+            </Button>
+            <Button variant="outlined" className="mr-2 mb-2 font-weight-normal">
               <i className="fas fa-medal mx-1" />
               Compete
-            </button>
-            <button
-              type="button"
-              className="btn btn-dark mr-2 mb-2 font-weight-normal"
-            >
+            </Button>
+            <Button variant="outlined" className="mr-2 mb-2 font-weight-normal">
               <i className="fas fa-save mx-1" />
               Save
-            </button>
+            </Button>
           </div>
         </div>
       </div>

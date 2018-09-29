@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Form from "../Feelings/Form";
+import Button from "@material-ui/core/Button";
 
 class Memory extends Component {
   render() {
@@ -26,34 +27,34 @@ class Memory extends Component {
               />
             </div>
             <div className="controls mr-auto">
-              <button
-                type="button"
-                className="btn btn-dark mr-2 mb-2 font-weight-normal"
+              <Button
+                variant="outlined"
+                className="mr-2 mb-2 font-weight-normal"
               >
                 <i className="fas fa-share mx-1" />
                 Share
-              </button>
-              <button
-                type="button"
-                className="btn btn-dark mr-2 mb-2 font-weight-normal"
+              </Button>
+              <Button
+                variant="outlined"
+                className="mr-2 mb-2 font-weight-normal"
               >
                 <i className="fas fa-share mx-1" />
                 Share Anonymously
-              </button>
-              <button
-                type="button"
-                className="btn btn-dark mr-2 mb-2 font-weight-normal"
+              </Button>
+              <Button
+                variant="outlined"
+                className="mr-2 mb-2 font-weight-normal"
               >
                 <i className="fas fa-medal mx-1" />
                 Compete
-              </button>
-              <button
-                type="button"
-                className="btn btn-dark mr-2 mb-2 font-weight-normal"
+              </Button>
+              <Button
+                variant="outlined"
+                className="mr-2 mb-2 font-weight-normal"
               >
                 <i className="fas fa-save mx-1" />
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         </div>
