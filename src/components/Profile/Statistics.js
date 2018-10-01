@@ -92,23 +92,6 @@ class Stats extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="best-shared">
-          <div className="content-shared">
-            <label className="text-muted">Best content shared till now:</label>
-            <div class="progress">
-              <div
-                class="progress-bar text-white progress-bar-animated bg-info progress-bar-striped"
-                role="progressbar"
-                aria-valuenow="0"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style={{ width: "60%" }}
-              >
-                60%
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }

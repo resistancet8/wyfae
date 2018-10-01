@@ -21,10 +21,13 @@ if (token) {
     type: "FETCH_USER_DETAILS",
     payload: Object.assign({}, dummyData, { journal: {} })
   });
+
   store.dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
   store.dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
   store.dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
   store.dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
+  store.dispatch({ type: "INSERT_MEMORY", payload: dummyData.memory });
+  store.dispatch({ type: "INSERT_ARTS", payload: dummyData.arts });
 }
 
 ReactDOM.render(

@@ -7,6 +7,8 @@ import goalsReducer from "./goals_reducer";
 import quotesReducer from "./quotes_reducer";
 import notesReducer from "./notes_reducer";
 import generalReducer from "./general_reducer";
+import artReducer from "./art_reducer";
+import memoryReducer from "./memory_reducer";
 import { reducer as form } from "redux-form";
 
 export default combineReducers({
@@ -18,5 +20,7 @@ export default combineReducers({
   goals: goalsReducer,
   todos: todosReducer,
   notes: notesReducer,
-  general: generalReducer
+  general: generalReducer,
+  arts: artReducer,
+  memory: memoryReducer
 });

@@ -59,6 +59,8 @@ export function loginUser(userData, history) {
         dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
         dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
         dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
+        dispatch({ type: "INSERT_MEMORY", payload: dummyData.memory });
+        dispatch({ type: "INSERT_ARTS", payload: dummyData.arts });
 
         dispatch({ type: "SHOW_TOAST", payload: "Login Success" });
 
@@ -90,6 +92,8 @@ export function logoutUser() {
     dispatch({ type: "INSERT_GOALS", payload: [] });
     dispatch({ type: "INSERT_TODOS", payload: [] });
     dispatch({ type: "INSERT_NOTES", payload: [] });
+    dispatch({ type: "INSERT_MEMORY", payload: [] });
+    dispatch({ type: "INSERT_ARTS", payload: [] });
     dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
   };
 }
