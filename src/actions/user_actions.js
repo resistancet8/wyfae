@@ -1,5 +1,6 @@
 import updateValidator from "./../helpers/update_validator";
 import axios from "axios";
+import {logoutUser} from './auth_actions';
 
 const apiBasePath = "http://159.89.171.16:9000";
 
@@ -19,7 +20,10 @@ export function updateUserProfile(userInfo, history) {
           history.push("/profile");
         })
         .catch(err => {
-          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          if(err.response.data){
+            dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+            logoutUser(true)(dispatch);
+          }
         });
     } else {
       dispatch({ type: "GET_ERRORS", payload: errors });
@@ -48,8 +52,10 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
       
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: "GET_ERRORS", payload: err.response.data });
+      if(err.response.data){
+        dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+        logoutUser(true)(dispatch);
+      }
     });
 }
 
@@ -77,7 +83,9 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
 
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: "GET_ERRORS", payload: err.response.data });
+      if(err.response.data){
+        dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+        logoutUser(true)(dispatch);
+      }
     });
 }

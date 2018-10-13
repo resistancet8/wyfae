@@ -57,7 +57,7 @@ export function loginUser(userData, history) {
   };
 }
 
-export function logoutUser() {
+export function logoutUser(showToast) {
   return dispatch => {
     localStorage.removeItem("jToken");
     setAuthHeader(false);
@@ -78,7 +78,8 @@ export function logoutUser() {
     dispatch({ type: "INSERT_NOTES", payload: [] });
     dispatch({ type: "INSERT_MEMORY", payload: [] });
     dispatch({ type: "INSERT_ARTS", payload: [] });
-    dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
+    if(!showToast)
+      dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
   };
 }
 
