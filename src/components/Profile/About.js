@@ -4,33 +4,33 @@ class About extends Component {
   render() {
     return (
       <div>
-        <div className="row border-bottom">
+        <div className="border-bottom">
           <h5 className="text-muted font-weight-bold">About</h5>
           <p className="font-italic"> {this.props.user.about}</p>
         </div>
         <div className="row pt-3">
           <p>
-            <strong>DOB:</strong>
+            <strong class="text-muted">DOB:</strong>
             &nbsp;
             {this.props.user.dob}
           </p>
           <p>
-            <strong>Languages Known:</strong>
+            <strong class="text-muted">Languages Known:</strong>
             &nbsp;
             {this.props.user.langs}
           </p>
           <p>
-            <strong>Contact:</strong>
+            <strong class="text-muted">Contact:</strong>
             &nbsp;
             {this.props.user.contact}
           </p>
           <p>
-            <strong>Email:</strong>
+            <strong class="text-muted">Email:</strong>
             &nbsp;
             {this.props.user.email}
           </p>
           <p>
-            <strong>Favorite Artform:</strong>
+            <strong class="text-muted">Favorite Artform:</strong>
             &nbsp;
             {this.props.user.favorite_art}
           </p>
