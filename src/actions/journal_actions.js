@@ -8,32 +8,33 @@ export function saveJournal(type, data){
     };
 
     axios.post(`http://159.89.171.16:9000/user/save_journal`, data_to_send).then(d => {
+      let to_save = d.data.journal_content;
       
       if(type === 'quotes') {
         dispatch({
           type: "ADD_QUOTE",
-          payload: data
+          payload: to_save
         });
       }
   
       if(type === 'goals') {
         dispatch({
           type: "ADD_GOAL",
-          payload: data
+          payload: to_save
         });
       }
 
       if(type === 'todos') {
         dispatch({
           type: "ADD_TODO",
-          payload: data
+          payload: to_save
         });
       }
 
       if(type === 'notes') {
         dispatch({
           type: "ADD_NOTE",
-          payload: data
+          payload: to_save
         });
       }
   
