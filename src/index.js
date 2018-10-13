@@ -16,6 +16,12 @@ const token = localStorage.getItem("jToken");
 if (token) {
   setAuthHeader(token);
   const decodedUser = token_decoder(token);
+  
+  store.dispatch({
+    type: "SET_CURRENT_USER",
+    payload: decodedUser
+  });
+
   getUserProfile(store.dispatch, null, false, decodedUser);
 }
 

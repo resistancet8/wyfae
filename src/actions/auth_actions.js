@@ -110,7 +110,7 @@ export function verifyOTP(payload, history) {
   };
 }
 
-export function getUserProfile(dispatch, history, redirect, decodedUser) {
+export function getUserProfile(dispatch, history, redirect, decodedUser, path) {
   axios
     .post(`${apiBasePath}/user/get_profile`, {
       profile_username: decodedUser.username,
@@ -143,8 +143,9 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
         payload: journal.notes
       });
 
-      if (redirect) history.push("/");
-      else {
+      if (redirect) {
+        history.push("/");
+      } else {
         dispatch({
           type: "SET_CURRENT_USER",
           payload: decodedUser

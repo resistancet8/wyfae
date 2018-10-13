@@ -1,3 +1,31 @@
+.avatar {
+    position: relative;
+    cursor: pointer;
+}
+
+.avatar-choose {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.avatar:hover label {
+    display: inline-block;
+}
+
+.avatar-choose label {
+    cursor: pointer;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: none;
+    background: #fffe;
+    padding: 10px 20px;
+    border: 1px solid #888;
+    transition: .3s;
+}
+
 .avatar img {
     max-width: 200px;
     height: 200px;
@@ -112,4 +140,8 @@
 .edit-profile {
     text-align: center;
     color: gray;
+}
+
+img.img-fluid + label {
+    display: none !important;
 }

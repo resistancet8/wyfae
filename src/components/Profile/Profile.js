@@ -16,7 +16,6 @@ import Timeline from "./Timeline/Timeline";
 class Profile extends Component {
   render() {
 
-    console.log("Profile", this.props)
     let { user } = this.props;
 
     return (
@@ -26,11 +25,11 @@ class Profile extends Component {
           <div className="row">
             <div className="col-md-4 bg-white p-3">
               {user && <User user={user} />}
-              <div className="edit-profile">
-                <Link to={`/update/${user.first_name.toLowerCase()}`}>
+              {user&& <div className="edit-profile">
+                <Link to={`/update/user`}>
                   <Icon>edit</Icon>
                 </Link>
-              </div>
+              </div>}
             </div>
             <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
               {user.stats && <Stats stats={user.stats} />}
