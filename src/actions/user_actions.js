@@ -4,7 +4,6 @@ import axios from "axios";
 const apiBasePath = "http://159.89.171.16:9000";
 
 export function updateUserProfile(userInfo, history) {
-  alert('sd')
   return dispatch => {
     let { isValid, errors } = updateValidator(userInfo);
 
@@ -23,7 +22,6 @@ export function updateUserProfile(userInfo, history) {
           dispatch({ type: "GET_ERRORS", payload: err.response.data });
         });
     } else {
-      console.log(isValid, errors)
       dispatch({ type: "GET_ERRORS", payload: errors });
     }
   };

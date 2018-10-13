@@ -41,17 +41,16 @@ class UpdateProfile extends Component {
   }
 
   updateUserInfo(userInfo) {
-    // this.setState(
-    //   {
-    //     loading: true
-    //   },
-    //   () => {
-    //     setTimeout(() => {
-    //       this.props.updateUserProfile(userInfo, this.props.history);
-    //     }, 300);
-    //   }
-    // );
-    console.log(userInfo)
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        setTimeout(() => {
+          this.props.updateUserProfile(userInfo, this.props.history);
+        }, 300);
+      }
+    );
   }
 
   render() {
