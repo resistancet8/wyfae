@@ -5,8 +5,8 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
 import {
-  addGoal,
-  deleteGoals,
+  saveJournal,
+  deleteJournal,
   toggleGoal
 } from "./../../../../actions/journal_actions";
 import Button from "@material-ui/core/Button";
@@ -25,7 +25,7 @@ class Goals extends Component {
   }
 
   getData(formData) {
-    this.props.addGoal(formData, this.props.history);
+    this.props.saveJournal('goals', {...formData, completed: false});
     this.props.dispatch(reset("goal-add"));
   }
 
@@ -52,7 +52,7 @@ class Goals extends Component {
               className="remove-goals-btn"
               onClick={event => {
                 event.stopPropagation();
-                this.props.deleteGoals(index);
+                this.props.deleteJournal("goals", goal._id);
               }}
             />
             <p
@@ -138,8 +138,8 @@ class Goals extends Component {
 
 Goals.propTypes = {
   goals: PropTypes.array,
-  addGoal: PropTypes.func,
-  deleteGoals: PropTypes.func
+  saveJournal: PropTypes.func,
+  deleteJournal: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -153,6 +153,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addGoal, deleteGoals, toggleGoal }
+    { saveJournal, deleteJournal, toggleGoal }
   )(Goals)
 );

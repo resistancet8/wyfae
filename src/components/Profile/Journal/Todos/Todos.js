@@ -7,8 +7,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
 import {
-  addTodo,
-  deleteTodo,
+  saveJournal,
+  deleteJournal,
   toggleTodo
 } from "../../../../actions/journal_actions";
 import PropTypes from "prop-types";
@@ -25,10 +25,9 @@ class Todos extends Component {
   }
 
   getData(formData) {
-    this.props.addTodo({
+    this.props.saveJournal('todos', {
       title: formData.title,
-      completed: false,
-      created_at: new Date().toLocaleDateString()
+      completed: false
     });
     this.props.dispatch(reset("todo-add"));
   }
@@ -56,7 +55,7 @@ class Todos extends Component {
               className="remove-todo-btn"
               onClick={event => {
                 event.stopPropagation();
-                this.props.deleteTodo(index);
+                this.props.deleteJournal("todos", todo._id);
               }}
             />
             <p
@@ -132,8 +131,8 @@ class Todos extends Component {
 
 Todos.propTypes = {
   todos: PropTypes.array,
-  addTodo: PropTypes.func,
-  deleteTodo: PropTypes.func
+  saveJournal: PropTypes.func,
+  deleteJournal: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -147,6 +146,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addTodo, deleteTodo, toggleTodo }
+    { saveJournal, deleteJournal, toggleTodo }
   )(Todos)
 );

@@ -16,9 +16,7 @@ export default function(state = initialState, { type, payload }) {
       };
     case "DELETE_QUOTE": {
       return {
-        quotes: state.quotes
-          .splice(0, payload)
-          .concat(state.quotes.slice(1, state.quotes.length))
+        quotes: state.quotes.filter(quote => quote._id !== payload)
       };
     }
     default:

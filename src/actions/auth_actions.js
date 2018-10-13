@@ -3,7 +3,7 @@ import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
 import { journal } from "../dummyData";
-
+import { getUserProfile, getJournalData} from "./user_actions";
 const apiBasePath = "http://159.89.171.16:9000";
 
 export function registerUser(userData, history) {
@@ -49,6 +49,7 @@ export function loginUser(userData, history) {
         });
 
         getUserProfile(dispatch, history, true, decodedUser);
+        getJournalData(dispatch, history, false, decodedUser);
       })
       .catch(err => {
         dispatch({ type: "GET_ERRORS", payload: err.response.data });
@@ -108,52 +109,4 @@ export function verifyOTP(payload, history) {
         dispatch({ type: "GET_ERRORS", payload: err.response.data });
       });
   };
-}
-
-export function getUserProfile(dispatch, history, redirect, decodedUser, path) {
-  axios
-    .post(`${apiBasePath}/user/get_profile`, {
-      profile_username: decodedUser.username,
-      skip_count: 0
-    })
-    .then(response => {
-      dispatch({ type: "GET_ERRORS", payload: {} });
-      let profile_data = response.data;
-
-      dispatch({
-        type: "FETCH_USER_DETAILS",
-        payload: Object.assign({}, profile_data.profile_data, { journal: {} })
-      });
-
-      dispatch({
-        type: "INSERT_QUOTES",
-        payload: journal.quotes
-      });
-
-      dispatch({
-        type: "INSERT_GOALS",
-        payload: journal.goals
-      });
-      dispatch({
-        type: "INSERT_TODOS",
-        payload: journal.todos
-      });
-      dispatch({
-        type: "INSERT_NOTES",
-        payload: journal.notes
-      });
-
-      if (redirect) {
-        history.push("/");
-      } else {
-        dispatch({
-          type: "SET_CURRENT_USER",
-          payload: decodedUser
-        });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({ type: "GET_ERRORS", payload: err.response.data });
-    });
 }

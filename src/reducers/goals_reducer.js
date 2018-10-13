@@ -14,10 +14,7 @@ export default function(state = initialState, { type, payload }) {
       };
     case "DELETE_GOAL":
       return {
-        ...state.goals,
-        goals: state.goals
-          .splice(0, payload)
-          .concat(state.goals.slice(1, state.goals.length))
+        goals: state.goals.filter(goal => goal._id !== payload)
       };
     case "TOGGLE_GOAL": {
       let updatedGoals = state.goals.slice();

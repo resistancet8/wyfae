@@ -5,7 +5,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { addNotes, deleteNotes } from "../../../../actions/journal_actions";
+import { saveJournal, deleteJournal } from "../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 
@@ -20,13 +20,7 @@ class Notes extends Component {
   }
 
   getData(formData) {
-    this.props.addNotes(
-      {
-        title: formData.title,
-        created_at: new Date().toLocaleDateString()
-      },
-      this.props.history
-    );
+    this.props.saveJournal("notes", formData);
     this.props.dispatch(reset("note-add"));
   }
 
@@ -45,7 +39,7 @@ class Notes extends Component {
           <div className="bg-secondary p-2 mb-1 todo-item" key={index}>
             <DeleteIcon
               className="remove-todo-btn"
-              onClick={event => this.props.deleteNotes(index)}
+              onClick={event => this.props.deleteJournal("notes", note._id)}
             />
             <p
               className={classnames({
@@ -115,7 +109,7 @@ class Notes extends Component {
 
 Notes.propTypes = {
   notes: PropTypes.array,
-  addNotes: PropTypes.func
+  saveJournal: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -129,6 +123,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addNotes, deleteNotes }
+    { saveJournal, deleteJournal }
   )(Notes)
 );

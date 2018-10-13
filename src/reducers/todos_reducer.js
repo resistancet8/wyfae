@@ -17,9 +17,7 @@ export default function(state = initialState, { type, payload }) {
 
     case "DELETE_TODO": {
       return {
-        todos: state.todos
-          .splice(0, payload)
-          .concat(state.todos.slice(1, state.todos.length))
+        todos: state.todos.filter(todo => todo._id !== payload)
       };
     }
     case "TOGGLE_TODO": {

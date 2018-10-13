@@ -5,7 +5,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
-import { addQuote, deleteQuotes } from "./../../../../actions/journal_actions";
+import { saveJournal, deleteJournal } from "./../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 
@@ -20,7 +20,7 @@ class Quotes extends Component {
   }
 
   getData(formData) {
-    this.props.addQuote(formData, this.props.history);
+    this.props.saveJournal('quotes', formData);
   }
 
   toggle() {
@@ -38,7 +38,7 @@ class Quotes extends Component {
           <div key={index} className="bg-secondary p-2 mb-1">
             <DeleteIcon
               className="remove-quote-btn"
-              onClick={event => this.props.deleteQuotes(index)}
+              onClick={event => this.props.deleteJournal("quotes", quote._id)}
             />
             <p>
               {quote.quote}
@@ -117,8 +117,8 @@ class Quotes extends Component {
 
 Quotes.propTypes = {
   quotes: PropTypes.array,
-  addQuote: PropTypes.func,
-  deleteQuotes: PropTypes.func
+  saveJournal: PropTypes.func,
+  deleteJournal: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -132,6 +132,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { addQuote, deleteQuotes }
+    { saveJournal, deleteJournal }
   )(Quotes)
 );

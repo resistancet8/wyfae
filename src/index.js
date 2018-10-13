@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import token_decoder from "jwt-decode";
 import { profile, journal } from "./dummyData";
-import { getUserProfile } from "./actions/auth_actions";
+import {getUserProfile, getJournalData} from './actions/user_actions';
 import setAuthHeader from './helpers/setAuthTokens';
 
 // check for login status and dispatch action.
@@ -23,6 +23,8 @@ if (token) {
   });
 
   getUserProfile(store.dispatch, null, false, decodedUser);
+  getJournalData(store.dispatch, null, false, decodedUser);
+
 }
 
 ReactDOM.render(

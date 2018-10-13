@@ -14,10 +14,7 @@ export default function(state = initialState, { type, payload }) {
       };
     case "DELETE_NOTE":
       return {
-        ...state.notes,
-        notes: state.notes
-          .splice(0, payload)
-          .concat(state.notes.slice(1, state.notes.length))
+        notes: state.notes.filter(note => note._id !== payload)
       };
     default:
       return state;

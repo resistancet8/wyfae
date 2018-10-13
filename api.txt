@@ -730,9 +730,10 @@ status: 400
 
 
 
----------------------- -----------------------------
----------------------- Get Journal ----------------
----------------------------------------------------
+---------------------- ------------------------------
+---------------------- Get Journal ------------------
+--- Gets goals, todos, notes, quotes individually ---
+-----------------------------------------------------
 
 159.89.171.16:9000/user/get_journal
 
@@ -749,10 +750,12 @@ Json Request:
 {
 	"journal_type": "quotes",
 	"profile_username": "unique_user1",
-	"skip_count": 0
+	"skip_count": 0,
+        "limit_count": 5
 }
 Note: journal_type - can be 'quotes', 'todos', 'notes', 'goals'
 Note: skip_count - it is the number of journal which you want to skip while getting journal
+Note: limit_count - the number of post which you wan to be returned
 
 Json Response:
 
@@ -799,6 +802,100 @@ status: 400
 }
 status: 400
 
+
+---------------------- --------------------------------
+---------------------- Get All Journal ----------------
+--- Gets todos, notes, quotes, goals all at once ------
+-------------------------------------------------------
+
+159.89.171.16:9000/user/get_all_journal
+
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Json Request:
+{
+        "profile_username": "unique_user1",
+        "skip_count": 0,
+        "limit_count": 5
+}
+Note: skip_count - it is the number of journal which you want to skip while getting journal
+Note: limit_count - the number of post which you wan to be returned
+
+Json Response:
+
+In case of success:
+{
+    "goals": [],
+    "todos": [
+        {
+            "journal_type": "todos",
+            "text": "This is the first journal",
+            "_id": "5bc197b73412653d53b45769",
+            "username": "unique_user1",
+            "creation_time": "2018-10-13T06:59:03.187"
+        }
+    ],
+    "notes": [
+        {
+            "text": "This is the second journal",
+            "journal_type": "notes",
+            "_id": "5bbcc15434126575dcc715bb",
+            "username": "unique_user1",
+            "creation_time": "2018-10-09T14:55:16.254"
+        },
+        {
+            "journal_type": "notes",
+            "text": "This is the first journal",
+            "_id": "5bbcc07934126575ced6110e",
+            "username": "unique_user1",
+            "creation_time": "2018-10-09T14:51:37.500"
+        }
+    ],
+    "status": "success",
+    "msg": "Fetched data Successfully",
+    "quotes": [
+        {
+            "journal_type": "quotes",
+            "text": "This is the first journal",
+            "_id": "5bc19cdb3412653fabaee4a7",
+            "username": "unique_user1",
+            "creation_time": "2018-10-13T07:20:59.501"
+        },
+        {
+            "journal_type": "quotes",
+            "text": "This is the first journal",
+            "_id": "5bc19cda3412653fabaee4a4",
+            "username": "unique_user1",
+            "creation_time": "2018-10-13T07:20:58.565"
+        },
+        {
+            "text": "This is the second journal",
+            "journal_type": "quotes",
+            "_id": "5bbcc16134126575dcc715be",
+            "username": "unique_user1",
+            "creation_time": "2018-10-09T14:55:29.572"
+        }
+    ]
+}
+status: 200
+
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
 
 ---------------------- -----------------------------
 ---------------------- Delete Journal ----------------
@@ -856,6 +953,102 @@ status: 400
 3. If not able to delete journal
 {
     "msg": "Not Able to Delete Journal",
+    "status": "failure"
+}
+status: 400
+
+
+
+#################################################################
+############################# Trending / Home Page ##############
+#################################################################
+
+
+-----------------------------------------------------------------
+----------------- Get Currently Shared Post ---------------------
+-----------------------------------------------------------------
+
+159.89.171.16:9001/user/get_all_trending
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Json Request:
+{
+	"skip_count": 3,
+	"limit_count":5
+}
+
+
+Json Response:
+
+In case of Success:
+{
+    "all_content": [
+        {
+            "_id": "5bc195493412653bc2ffb467",
+            "username": "unique_user1",
+            "text": "This is dummy text5",
+            "creation_time": "2018-10-13T06:48:41.209",
+            "url": "static/unique_user1/art/a4466e3f-faeb-415e-b763-02d0b5079c07.jpg",
+            "art_type": "hate",
+            "post_type": "art",
+            "shared_type": "public"
+        },
+        {
+            "_id": "5bc195343412653bc2ffb463",
+            "username": "unique_user1",
+            "text": "This is dummy text5",
+            "creation_time": "2018-10-13T06:48:20.960",
+            "url": "static/unique_user1/art/2d530451-4e8a-4045-9b1e-3ae66846170b.jpg",
+            "art_type": "hate",
+            "post_type": "art",
+            "shared_type": "public"
+        },
+        {
+            "_id": "5bc191de3412653ac07c0213",
+            "username": "unique_user1",
+            "text": "This is dummy text5",
+            "creation_time": "2018-10-13T06:34:06.775",
+            "url": "static/unique_user1/art/8cfa0aa5-afc6-46b8-b11c-2e083155673a.jpg",
+            "art_type": "hate",
+            "post_type": "art",
+            "shared_type": "public"
+        },
+        {
+            "_id": "5bc191b83412653ac07c0210",
+            "text": "This is dummy text5",
+            "creation_time": "2018-10-13T06:33:28.689",
+            "url": "static/unique_user1/memory_book/751feeb0-0f4c-47b8-b131-1083e668cbde.jpg",
+            "username": "unique_user1",
+            "post_type": "memory_book",
+            "shared_type": "anonymous"
+        },
+        {
+            "_id": "5bc187e93412653836ebbb4c",
+            "text": "This is dummy text5",
+            "creation_time": "2018-10-13T05:51:37.447",
+            "post_type": "memory_book",
+            "username": "unique_user1",
+            "url": "static/unique_user1/memory_book/df59e0f8-8ce3-45b3-ac53-6a43acf35e68.jpg",
+            "shared_type": "anonymous"
+        }
+    ],
+    "status": "success",
+    "msg": "Fetched Data Successfully"
+}
+status: 200
+
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
     "status": "failure"
 }
 status: 400

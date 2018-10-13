@@ -1,11 +1,93 @@
-export function addTodo(todo) {
-  return function(dispatch) {
-    dispatch({
-      type: "ADD_TODO",
-      payload: todo
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Todo Added" });
-  };
+import axios from 'axios';
+
+export function saveJournal(type, data){
+  return function(dispatch){
+    let data_to_send = {
+      ...data,
+      journal_type: type
+    };
+
+    axios.post(`http://159.89.171.16:9000/user/save_journal`, data_to_send).then(d => {
+      
+      if(type === 'quotes') {
+        dispatch({
+          type: "ADD_QUOTE",
+          payload: data
+        });
+      }
+  
+      if(type === 'goals') {
+        dispatch({
+          type: "ADD_GOAL",
+          payload: data
+        });
+      }
+
+      if(type === 'todos') {
+        dispatch({
+          type: "ADD_TODO",
+          payload: data
+        });
+      }
+
+      if(type === 'notes') {
+        dispatch({
+          type: "ADD_NOTE",
+          payload: data
+        });
+      }
+  
+      dispatch({ type: "SHOW_TOAST", payload: "Added" });
+    })
+    .catch(e => {
+      console.log(e.response);
+    })
+  }
+}
+
+export function deleteJournal(type, id){
+  return function(dispatch){
+
+    let data_to_send = {
+      journal_id: id
+    };
+
+    axios.post(`http://159.89.171.16:9000/user/delete_journal`, data_to_send).then(d => {
+      
+      if(type === 'quotes') {
+        dispatch({
+          type: "DELETE_QUOTE",
+          payload: id
+        });
+      }
+  
+      if(type === 'goals') {
+        dispatch({
+          type: "DELETE_GOAL",
+          payload: id
+        });
+      }
+
+      if(type === 'todos') {
+        dispatch({
+          type: "DELETE_TODO",
+          payload: id
+        });
+      }
+
+      if(type === 'notes') {
+        dispatch({
+          type: "DELETE_NOTE",
+          payload: id
+        });
+      }
+  
+      dispatch({ type: "SHOW_TOAST", payload: "Deleted" });
+    })
+    .catch(e => {
+      console.log(e.response);
+    })
+  }
 }
 
 export function toggleTodo(index) {
@@ -17,80 +99,11 @@ export function toggleTodo(index) {
   };
 }
 
-export function addGoal(goal) {
-  return function(dispatch) {
-    dispatch({
-      type: "ADD_GOAL",
-      payload: goal
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Goal Added" });
-  };
-}
-
 export function toggleGoal(index) {
   return function(dispatch) {
     dispatch({
       type: "TOGGLE_GOAL",
       payload: index
     });
-  };
-}
-
-export function addQuote(quote) {
-  return function(dispatch) {
-    dispatch({
-      type: "ADD_QUOTE",
-      payload: quote
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Quote Added" });
-  };
-}
-
-export function addNotes(note) {
-  return function(dispatch) {
-    dispatch({
-      type: "ADD_NOTE",
-      payload: note
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Note Added" });
-  };
-}
-
-export function deleteTodo(index) {
-  return dispatch => {
-    dispatch({
-      type: "DELETE_TODO",
-      payload: index
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Todo Deleted" });
-  };
-}
-export function deleteQuotes(index) {
-  return dispatch => {
-    dispatch({
-      type: "DELETE_QUOTE",
-      payload: index
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Quote Deleted" });
-  };
-}
-
-export function deleteGoals(index) {
-  return dispatch => {
-    dispatch({
-      type: "DELETE_GOAL",
-      payload: index
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Goal Deleted" });
-  };
-}
-
-export function deleteNotes(index) {
-  return dispatch => {
-    dispatch({
-      type: "DELETE_NOTE",
-      payload: index
-    });
-    dispatch({ type: "SHOW_TOAST", payload: "Note Deleted" });
   };
 }
