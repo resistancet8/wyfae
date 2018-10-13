@@ -6,15 +6,15 @@ class User extends Component {
       <div>
         <div className="avatar row">
           <img
-            src={this.props.user.avatar}
+            src={`http://159.89.171.16:9000/${this.props.user.url}`}
             alt=""
             className="img-fluid rounded-circle mx-auto"
           />
         </div>
         <div className="details text-center mt-3">
-          <h2 className="font-weight-bold">{this.props.user.fname}</h2>
-          <p>{`${this.props.user.from.city}, ${this.props.user.from.state}, ${
-            this.props.user.from.country
+          <h2 className="font-weight-bold">{this.props.user.first_name}</h2>
+          <p>{`${this.props.user.city}, ${this.props.user.state}, ${
+            this.props.user.country
           }, Earth`}</p>
         </div>
       </div>

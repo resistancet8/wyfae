@@ -3,7 +3,7 @@ import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
 import updateValidator from "./../helpers/update_validator";
-import { dummyData } from "./user_actions";
+import { profile, journal } from "../dummyData";
 
 const apiBasePath = "http://159.89.171.16:9000";
 
@@ -36,36 +36,20 @@ export function loginUser(userData, history) {
     axios
       .post(`${apiBasePath}/user_auth/login`, userData)
       .then(response => {
-        dispatch({ type: "GET_ERRORS", payload: {} });
-        history.push("/");
         const { token } = response.data;
-        // set default axios header for all subsequent requests
+        dispatch({ type: "GET_ERRORS", payload: {} });
+
         setAuthHeader(token);
-        // set token in localstorage
+
         localStorage.setItem("jToken", token);
-        // decode token and set current user
         const decodedUser = token_decoder(token);
+
         dispatch({
           type: "SET_CURRENT_USER",
           payload: decodedUser
         });
 
-        dispatch({
-          type: "FETCH_USER_DETAILS",
-          payload: Object.assign({}, dummyData, { journal: {} })
-        });
-
-        dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
-        dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
-        dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
-        dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
-        dispatch({ type: "INSERT_MEMORY", payload: dummyData.memory });
-        dispatch({ type: "INSERT_ARTS", payload: dummyData.arts });
-
-        dispatch({ type: "SHOW_TOAST", payload: "Login Success" });
-
-        // navigate user to /
-        history.push("/");
+        getUserProfile(dispatch, history, true, decodedUser);
       })
       .catch(err => {
         dispatch({ type: "GET_ERRORS", payload: err.response.data });
@@ -144,4 +128,51 @@ export function updateUserProfile(userInfo, history) {
       dispatch({ type: "GET_ERRORS", payload: errors });
     }
   };
+}
+
+export function getUserProfile(dispatch, history, redirect, decodedUser) {
+  axios
+    .post(`${apiBasePath}/user/get_profile`, {
+      profile_username: decodedUser.username,
+      skip_count: 0
+    })
+    .then(response => {
+      dispatch({ type: "GET_ERRORS", payload: {} });
+      let profile_data = response.data;
+
+      dispatch({
+        type: "FETCH_USER_DETAILS",
+        payload: Object.assign({}, profile_data.profile_data, { journal: {} })
+      });
+
+      dispatch({
+        type: "INSERT_QUOTES",
+        payload: journal.quotes
+      });
+
+      dispatch({
+        type: "INSERT_GOALS",
+        payload: journal.goals
+      });
+      dispatch({
+        type: "INSERT_TODOS",
+        payload: journal.todos
+      });
+      dispatch({
+        type: "INSERT_NOTES",
+        payload: journal.notes
+      });
+
+      if (redirect) history.push("/");
+      else {
+        dispatch({
+          type: "SET_CURRENT_USER",
+          payload: decodedUser
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: "GET_ERRORS", payload: err.response.data });
+    });
 }

@@ -237,9 +237,6 @@ Json Request:
 
 Json Response:
 
-Note: Everytime you update_about a new token is generated and the previous one is deleted.
-      So you need to pass this token in header on next call.
-
 In case of Success:
 {
     "status": "success",
@@ -277,6 +274,72 @@ status: 400
 
 status: 400
 
+
+-------------------------------------------
+---------- Update Memory Book Privacy -----
+-------------------------------------------
+
+-------------------------------------------
+----------- Update about section ----------
+-------------------------------------------
+
+159.89.171.16:9000/user/update_about
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Json Request:
+{
+  "memory_book_privacy": "privacy_type"
+}
+
+Note: privacy_type can be 'public' or 'private'
+
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "code": "51",
+    "msg": "Successfully Updated Profile"
+}
+
+status: 200
+
+In case of Failure:
+
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+
+
+3. If profile is not updated
+{
+    "status": "failure",
+    "code": "50",
+    "msg": "Could now Update Profile"
+}
+status: 400
+
+
 -------------------------------------------
 ----------- Get Profile Page Data ---------
 -------------------------------------------
@@ -290,33 +353,84 @@ key: token
 value: generated_token_value
 i.e. token = value
 
+Json Request:
+{
+	"profile_username": "unique_user1",
+	"skip_count": 0
+}
+
+
+Note: "profile_username": the profile which you want to view
+Note: Maximum 10 records are returned
+Note: Memory book is not returned if "memory_book_privacy" is "private"
+      and the user requesting for profile_data is not the logged in user.
+
 Json Response:
-
-Note: Everytime you call 'get_profile' a new token is generated and the previous one is deleted.
-      So you need to pass this token in header on next call.
-
-Note: All the data will be returned in "profile_data" key. But for now only these things are returned
 
 In Case of Success:
 {
-    "msg": "Fetched Data Successfully",
-    "code": "20",
     "status": "success",
     "profile_data": {
-        "mantu": "dummy",
-        "creation_time": "2018-09-23T06:59:01.160",
-        "sur_name": "kumar",
-        "about": "Success is not final failure is not fatal - Winston Churchill",
-        "langs": "Kannada, English",
+        "memory_book_privacy": "public",
         "first_name": "mantu",
+        "creation_time": "2018-10-06T10:13:38.436",
+        "memory_book_privacry": "public",
+        "stats": {
+            "no_of_wins": 0,
+            "content_shared": 0,
+            "anonymous_shared": 0,
+            "no_of_comments": 0,
+            "no_of_likes": 0
+        },
+        "about": "Success is not final failure is not fatal - Winston Churchill",
+        "sur_name": "kumar",
         "dob": "10-10-2010",
-        "from": "Bangalore, Karnataka, India, Earth",
-        "email": "resistancet8@gmail.com",
-        "contact": "9945126164",
-        "favorite_art": "Writing"
-    }
+        "langs": "Kannada, English, kennedy",
+        "favorite_art": "Writing, Singing, dancing, running",
+        "from": "Bangalore, Karnataka, India, Earth"
+    },
+    "memory_book": [
+        {
+            "text": "This is dummy text",
+            "url": "static/unique_user1/memory_book/afc7d04c-07e5-43d6-bb7f-4c301ead37a6.jpg",
+            "shared_type": "public",
+            "username": "unique_user1",
+            "post_type": "memory_book",
+            "_id": "5bb88b183412654cdd47779c"
+        }
+    ],
+    "code": "20",
+    "msg": "Fetched Data Successfully",
+    "art_content": [
+        {
+            "text": "This is dummy text",
+            "url": "static/unique_user1/art/f554b02a-0aca-490a-bead-e977cafc1e1f.jpg",
+            "shared_type": "public",
+            "post_type": "art",
+            "username": "unique_user1",
+            "art_type": "gazal",
+            "_id": "5bb88b0c3412654cdd477796"
+        },
+        {
+            "text": "This is dummy text",
+            "url": "static/unique_user1/art/310b1172-6091-4a56-ad1c-2230c9f13e26.jpg",
+            "shared_type": "public",
+            "post_type": "art",
+            "username": "unique_user1",
+            "art_type": "song",
+            "_id": "5bb88b053412654cdd477793"
+        },
+        {
+            "text": "This is dummy text",
+            "url": "static/unique_user1/art/973c71f1-71a5-4652-8e89-5307c411d6a8.jpg",
+            "shared_type": "public",
+            "post_type": "art",
+            "username": "unique_user1",
+            "art_type": "poem",
+            "_id": "5bb88b003412654cdd477790"
+        }
+    ]
 }
-
 
 In Case of Failure:
 
@@ -334,3 +448,414 @@ In Case of Failure:
     "code": "21", 
     "msg": "No Profile Data Found"
 }
+
+
+-------------------------------------
+------- Update Profile Pic ----------
+-------------------------------------
+
+159.89.171.16:9000/user/update_profile_pic
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Request:
+
+form-data
+key: pic
+value: uploaded_pic
+
+
+Json Response:
+
+In case of Success:
+{
+    "url": "static/unique_user1/profile/68d09ecf-8ac1-4172-ac82-3a9da30d47f9.jpg",
+    "status": "success",
+    "msg": "Profile pic uploaded successfully"
+}
+status: 200
+
+Note: You can show the image by appending "159.89.171.16:9000/static/unique_user1/profile/url"
+      eg: 159.89.171.16:9000/static/unique_user1/profile/68d09ecf-8ac1-4172-ac82-3a9da30d47f9.jpg
+
+
+In case of Failure:
+
+
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+3. If no 'pic' is supplied
+{
+    "status": "failure",
+    "msg": "No pic supplied"
+}
+status: 400
+
+4. If profile is not updated with 'url'
+{
+    "status": "failure",
+    "code": "50",
+    "msg": "Could now Update Profile"
+}
+
+status: 400
+
+
+##############################
+##### Insert Post ############
+##############################
+
+159.89.171.16:9000/user/insert_post
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Request:
+
+form-data
+key: pic
+value: uploaded_pic
+
+key: text
+value: "Post Text"
+
+key: post_type
+value: art (can be 'memory_book' or 'art')
+
+key: shared_type
+value: 'public' (can be: "public", "anonymous", "compete", "save")
+
+
+key: art_type
+value: 'poem' (can be: "poem", "story", "quotes", "gazal", "rap", "singing", "comedy", "dance")
+
+
+Json Response:
+
+In Case of Success:
+{
+    "status": "success",
+    "msg": "Post Inserted Successfully."
+}
+
+In Case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+3. If no 'pic' is supplied
+{
+    "status": "failure",
+    "msg": "No pic supplied"
+}
+status: 400
+
+4. If Plagarised content
+{"status": "failure", "msg": "plagarised content"}
+
+
+
+###################################################
+######## Load More memory_book/art Post ###########
+###################################################
+
+159.89.171.16:9000/user/load_profile_post
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Json Request:
+{
+	"profile_username": "unique_user1",
+	"post_type": "memory_book", 
+	"skip_count": 2
+}
+
+Note: skip_count - Number of post you want to skip.
+Note: Maximum 10 Post will be returned.
+Note: 'post_type' - can be 'memory_book' or 'art'
+
+
+In case of Success:
+{
+    "memory_book": [
+        {
+            "username": "unique_user1",
+            "post_type": "memory_book",
+            "_id": "5bb9afbc3412655d35c54337",
+            "url": "static/unique_user1/memory_book/64451662-35a1-4603-82e8-173f92b07902.jpg",
+            "shared_type": "public",
+            "text": "This is dummy text2",
+            "creation_time": "2018-10-07T07:03:24.577"
+        },
+        {
+            "username": "unique_user1",
+            "post_type": "memory_book",
+            "_id": "5bb9afb93412655d35c54334",
+            "url": "static/unique_user1/memory_book/9e71cfe6-2dbc-4f73-b204-05c16ed4d838.jpg",
+            "shared_type": "public",
+            "text": "This is dummy text1",
+            "creation_time": "2018-10-07T07:03:21.508"
+        }
+    ],
+    "msg": "Fetched Data Successfully",
+    "status": "success"
+}
+status: 200
+
+
+In case of Failure:
+f not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+
+3. In case memory book is private and
+   user other then logged_user trying to view it
+
+{
+    "status": "failure",
+    "msg": "You are not authorized to view memory book."
+}
+status: 400
+
+
+###########################################################
+######### Journal: Notes, todos, quotes and goals #########
+###########################################################
+
+---------------------- -----------------------------
+---------------------- Save Journal ----------------
+---------------------------------------------------
+
+159.89.171.16:9000/user/save_journal
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Json Request:
+{
+	"journal_type": "quotes",
+	"text": "This is the first journal"
+}
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "msg": "Post Inserted Successfully."
+}
+status: 200
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+
+
+---------------------- -----------------------------
+---------------------- Get Journal ----------------
+---------------------------------------------------
+
+159.89.171.16:9000/user/get_journal
+
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Json Request:
+{
+	"journal_type": "quotes",
+	"profile_username": "unique_user1",
+	"skip_count": 0
+}
+Note: journal_type - can be 'quotes', 'todos', 'notes', 'goals'
+Note: skip_count - it is the number of journal which you want to skip while getting journal
+
+Json Response:
+
+In case of success:
+{
+    "msg": "Fetched Data Successfully",
+    "journal_content": [
+        {
+            "_id": "5bbcc16534126575dcc715c1",
+            "creation_time": "2018-10-09T14:55:33.992",
+            "journal_type": "quotes",
+            "text": "This is the first journal",
+            "username": "unique_user1"
+        },
+        {
+            "_id": "5bbcc16134126575dcc715be",
+            "creation_time": "2018-10-09T14:55:29.572",
+            "journal_type": "quotes",
+            "text": "This is the second journal",
+            "username": "unique_user1"
+        }
+    ],
+    "status": "success"
+}
+status: 200
+
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+
+---------------------- -----------------------------
+---------------------- Delete Journal ----------------
+---------------------------------------------------
+
+159.89.171.16:9000/user/delete_journal
+
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+
+Json Request:
+{
+	"journal_id": "5bbcc16534126575dcc715c1"
+}
+
+Note: journal_id - it is the which you will see when you do get_journal
+
+
+Json Response:
+
+In case of success:
+{
+    "status": "success", 
+    "msg": "Journal Deleted Successfully"
+}
+status: 200
+
+
+In case of failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+
+status: 400
+
+
+
+2. If session expired
+{
+    "msg": "Session Expired. You must login again",
+    "status": "failure"
+}
+status: 400
+
+
+3. If not able to delete journal
+{
+    "msg": "Not Able to Delete Journal",
+    "status": "failure"
+}
+status: 400

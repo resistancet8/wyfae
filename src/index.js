@@ -6,28 +6,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import token_decoder from "jwt-decode";
-import { dummyData } from "./actions/user_actions";
+import { profile, journal } from "./dummyData";
+import { getUserProfile } from "./actions/auth_actions";
+import setAuthHeader from './helpers/setAuthTokens';
 
 // check for login status and dispatch action.
 const token = localStorage.getItem("jToken");
+
 if (token) {
+  setAuthHeader(token);
   const decodedUser = token_decoder(token);
-  store.dispatch({
-    type: "SET_CURRENT_USER",
-    payload: decodedUser
-  });
-
-  store.dispatch({
-    type: "FETCH_USER_DETAILS",
-    payload: Object.assign({}, dummyData, { journal: {} })
-  });
-
-  store.dispatch({ type: "INSERT_QUOTES", payload: dummyData.journal.quotes });
-  store.dispatch({ type: "INSERT_GOALS", payload: dummyData.journal.goals });
-  store.dispatch({ type: "INSERT_TODOS", payload: dummyData.journal.todos });
-  store.dispatch({ type: "INSERT_NOTES", payload: dummyData.journal.notes });
-  store.dispatch({ type: "INSERT_MEMORY", payload: dummyData.memory });
-  store.dispatch({ type: "INSERT_ARTS", payload: dummyData.arts });
+  getUserProfile(store.dispatch, null, false, decodedUser);
 }
 
 ReactDOM.render(

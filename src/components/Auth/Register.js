@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
@@ -34,6 +34,12 @@ class Register extends Component {
   }
 
   render() {
+    const { isAuthenticated: isAuth } = this.props.auth;
+
+    if(isAuth) {
+      return <Redirect to="/" />
+    }
+
     const { handleSubmit } = this.props;
     const { errors } = this.state;
     return (
@@ -256,12 +262,14 @@ class Register extends Component {
 Register.propTypes = {
   errors: PropTypes.object,
   registerUser: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  auth: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    errors: state.errors.errors
+    errors: state.errors.errors,
+    auth: state.auth
   };
 }
 

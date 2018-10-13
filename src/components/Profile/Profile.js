@@ -15,6 +15,8 @@ import Timeline from "./Timeline/Timeline";
 
 class Profile extends Component {
   render() {
+
+    console.log("Profile", this.props)
     let { user } = this.props;
 
     return (
@@ -25,7 +27,7 @@ class Profile extends Component {
             <div className="col-md-4 bg-white p-3">
               {user && <User user={user} />}
               <div className="edit-profile">
-                <Link to={`/update/${user.fname.toLowerCase()}`}>
+                <Link to={`/update/${user.first_name.toLowerCase()}`}>
                   <Icon>edit</Icon>
                 </Link>
               </div>

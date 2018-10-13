@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { withRouter, NavLink } from "react-router-dom";
+import { withRouter, NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
@@ -39,6 +39,12 @@ class Login extends Component {
   }
 
   render() {
+    const { isAuthenticated: isAuth } = this.props.auth;
+
+    if(isAuth) {
+      return <Redirect to="/" />
+    }
+
     const { handleSubmit } = this.props;
     const { errors } = this.state;
 
@@ -111,13 +117,15 @@ class Login extends Component {
 
 Login.propTypes = {
   errors: PropTypes.object,
+  auth: PropTypes.object,
   loginUser: PropTypes.func,
   handleSubmit: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    errors: state.errors.errors
+    errors: state.errors.errors,
+    auth: state.auth
   };
 }
 
