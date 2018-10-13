@@ -2,8 +2,7 @@ import axios from "axios";
 import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
-import updateValidator from "./../helpers/update_validator";
-import { profile, journal } from "../dummyData";
+import { journal } from "../dummyData";
 
 const apiBasePath = "http://159.89.171.16:9000";
 
@@ -108,25 +107,6 @@ export function verifyOTP(payload, history) {
       .catch(err => {
         dispatch({ type: "GET_ERRORS", payload: err.response.data });
       });
-  };
-}
-
-export function updateUserProfile(userInfo, history) {
-  return dispatch => {
-    let { isValid, errors } = updateValidator(userInfo);
-
-    if (isValid) {
-      dispatch({ type: "GET_ERRORS", payload: {} });
-
-      // api update
-
-      // state update - redux
-      dispatch({ type: "UPDATE_PROFILE", payload: userInfo });
-      dispatch({ type: "SHOW_TOAST", payload: "Updated" });
-      history.push("/profile");
-    } else {
-      dispatch({ type: "GET_ERRORS", payload: errors });
-    }
   };
 }
 

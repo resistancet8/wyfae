@@ -10,15 +10,13 @@ function userReducer(state = initialState, { type, payload }) {
       return {
         user: {
           ...state.user,
-          fname: payload.fname,
-          sname: payload.sname,
+          first_name: payload.first_name,
+          sur_name: payload.sur_name,
           dob: payload.dob,
           email: payload.email,
-          from: {
-            state: payload.state,
-            city: payload.city,
-            country: payload.country
-          },
+          state: payload.state,
+          city: payload.city,
+          country: payload.country,
           contact: payload.contact,
           about: payload.about,
           langs: payload.langs,

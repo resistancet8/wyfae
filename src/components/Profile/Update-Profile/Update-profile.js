@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import Spinner from "../../Loader/Spinner";
 import Button from "@material-ui/core/Button";
 import "./Update-profile.css";
-import { updateUserProfile } from "../../../actions/auth_actions";
+import { updateUserProfile } from "../../../actions/user_actions";
 
 class UpdateProfile extends Component {
   state = {
@@ -17,13 +17,13 @@ class UpdateProfile extends Component {
 
   componentDidMount() {
     this.props.initialize({
-      fname: this.props.user.fname,
-      sname: this.props.user.sname,
+      first_name: this.props.user.first_name,
+      sur_name: this.props.user.sur_name,
       email: this.props.user.email,
       dob: this.props.user.dob,
-      city: this.props.user.from.city,
-      state: this.props.user.from.state,
-      country: this.props.user.from.country,
+      city: this.props.user.city,
+      state: this.props.user.state,
+      country: this.props.user.country,
       about: this.props.user.about,
       contact: this.props.user.contact,
       langs: this.props.user.langs,
@@ -72,38 +72,38 @@ class UpdateProfile extends Component {
                 )}
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="fname">First Name:</label>
+                    <label htmlFor="first_name">First Name:</label>
                     <Field
                       component="input"
                       type="text"
-                      name="fname"
+                      name="first_name"
                       className={classnames("form-control", {
-                        "is-invalid": errors.fname
+                        "is-invalid": errors.first_name
                       })}
-                      id="fname"
+                      id="first_name"
                       placeholder="Enter First Name"
                       autoComplete="off"
                       value=""
                     />
-                    {errors.fname && (
-                      <div className="invalid-feedback"> {errors.fname} </div>
+                    {errors.first_name && (
+                      <div className="invalid-feedback"> {errors.first_name} </div>
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="sname">Sur Name:</label>
+                    <label htmlFor="sur_name">Sur Name:</label>
                     <Field
                       component="input"
                       type="text"
-                      name="sname"
+                      name="sur_name"
                       className={classnames("form-control", {
-                        "is-invalid": errors.sname
+                        "is-invalid": errors.sur_name
                       })}
-                      id="sname"
+                      id="sur_name"
                       placeholder="Enter Sur Name"
                       autoComplete="off"
                     />
-                    {errors.sname && (
-                      <div className="invalid-feedback"> {errors.sname} </div>
+                    {errors.sur_name && (
+                      <div className="invalid-feedback"> {errors.sur_name} </div>
                     )}
                   </div>
                 </div>
