@@ -4,7 +4,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, reset } from "redux-form";
 import { saveJournal, deleteJournal } from "./../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
@@ -21,6 +21,7 @@ class Quotes extends Component {
 
   getData(formData) {
     this.props.saveJournal('quotes', formData);
+    this.props.dispatch(reset("quote-add"));
   }
 
   toggle() {
@@ -41,8 +42,8 @@ class Quotes extends Component {
               onClick={event => this.props.deleteJournal("quotes", quote._id)}
             />
             <p>
-              {quote.quote}
-              <strong className="font-italic" key={quote}>
+              {quote.text}
+              <strong className="font-italic">
                 {" - "} {quote.author}
               </strong>
             </p>
@@ -82,7 +83,7 @@ class Quotes extends Component {
                   class="form-control"
                   id="quote-field"
                   placeholder="Enter Quote"
-                  name="quote"
+                  name="text"
                 />
               </div>
               <div class="form-group">

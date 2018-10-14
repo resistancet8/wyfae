@@ -60,7 +60,7 @@ class Goals extends Component {
                 "line-through": goal.completed
               })}
             >
-              {goal.title}
+              {goal.text}
             </p>
             <div className="d-flex">
               <small className="font-italic ml-auto mr-1 p-0 m-0">
@@ -102,7 +102,7 @@ class Goals extends Component {
                   component="textarea"
                   class="form-control"
                   id="goal-field"
-                  name="title"
+                  name="text"
                   placeholder="Type Your Goal"
                 />
               </div>
@@ -114,6 +114,7 @@ class Goals extends Component {
                   name="date"
                   class="form-control"
                   id="goal-date"
+                  required
                 />
               </div>
             </ModalBody>

@@ -556,6 +556,12 @@ key: art_type
 value: 'poem' (can be: "poem", "story", "quotes", "gazal", "rap", "singing", "comedy", "dance")
 
 
+key: post_title
+value: "Some Good Title"
+
+key: author
+value: "Name of the user"
+
 Json Response:
 
 In Case of Success:
@@ -697,8 +703,13 @@ i.e. token = value
 Json Request:
 {
 	"journal_type": "quotes",
-	"text": "This is the first journal"
+	"text": "This is the first journal",
+        "completed" : "Yes",
+        "author" : "someone"
 }
+
+Note: completed - can be 'Yes' / 'No'. Valid only for 'todos' and 'goals'
+Note: author - valid only for "quotes"
 
 Json Response:
 
@@ -957,6 +968,59 @@ status: 400
 }
 status: 400
 
+
+----------------------------------------------------------------
+--------- Flagging todos/goals ---------------------------------
+----------------------------------------------------------------
+
+159.89.171.16:9000/user/flag_todos_goals
+
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Josn Request:
+{
+	"journal_id": "5bc216433412656796a1410b",
+	"completed": "Yes"
+}
+
+Json Response:
+
+In case of Success:
+{
+	"journal_id": "5bc216433412656796a1410b",
+	"completed": "Yes"
+}
+status:200
+
+
+In case of Failure:
+1. If "journal_id" does not exists.
+{
+       "status": "failure", 
+        "msg": "Flagging Unsuccessfull."
+}
+status: 400
+
+2. If "journal_id" is not a valid "object_id"
+{
+    "status": "failure", 
+    "msg": "Not a valid journal_id is passed"
+}
+status:400
+
+3. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+status: 400
 
 
 #################################################################

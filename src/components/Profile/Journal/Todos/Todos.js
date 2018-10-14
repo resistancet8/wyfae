@@ -26,7 +26,7 @@ class Todos extends Component {
 
   getData(formData) {
     this.props.saveJournal('todos', {
-      title: formData.title,
+      ...formData,
       completed: false
     });
     this.props.dispatch(reset("todo-add"));
@@ -63,7 +63,7 @@ class Todos extends Component {
                 "line-through": todo.completed
               })}
             >
-              {todo.title}
+              {todo.text}
             </p>
             <div className="d-flex">
               <small className="font-italic ml-auto mr-1 p-0 m-0">
@@ -105,7 +105,7 @@ class Todos extends Component {
                   component="textarea"
                   class="form-control"
                   id="todo-field"
-                  name="title"
+                  name="text"
                   placeholder="Add Todo Title"
                 />
               </div>

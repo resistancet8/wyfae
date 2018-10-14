@@ -9,6 +9,7 @@ import notesReducer from "./notes_reducer";
 import generalReducer from "./general_reducer";
 import artReducer from "./art_reducer";
 import memoryReducer from "./memory_reducer";
+import homepageReducer from "./homepage_reducer";
 import { reducer as form } from "redux-form";
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   notes: notesReducer,
   general: generalReducer,
   arts: artReducer,
-  memory: memoryReducer
+  memory: memoryReducer,
+  home: homepageReducer
 });

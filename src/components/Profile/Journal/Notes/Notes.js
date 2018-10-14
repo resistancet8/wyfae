@@ -46,7 +46,7 @@ class Notes extends Component {
                 "line-through": note.completed
               })}
             >
-              {note.title}
+              {note.text}
             </p>
           </div>
         );
@@ -83,7 +83,7 @@ class Notes extends Component {
                   component="textarea"
                   class="form-control"
                   id="note-field"
-                  name="title"
+                  name="text"
                   placeholder="Add New Note"
                 />
               </div>
