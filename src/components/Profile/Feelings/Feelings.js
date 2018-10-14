@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
+import axios from "axios";
 
 function TabContainer(props) {
   return (
@@ -40,6 +41,21 @@ class Feelings extends Component {
     this.setState({ value });
   };
 
+  submitArt(formData) {
+    formData.append("art_type", art_styles[this.state.value]);
+    axios({
+      method: "post",
+      url: "http://159.89.171.16:9000/user/insert_post",
+      data: formData,
+      config: { headers: { "Content-Type": "multipart/form-data" } }
+    })
+    .then(function(response) {
+    })
+    .catch(function(response) {
+      console.log(response);
+    });
+  }
+  
   render() {
     const { value } = this.state;
 
@@ -71,7 +87,7 @@ class Feelings extends Component {
           return (
             value === index && (
               <TabContainer>
-                <Form />
+                <Form submitArt={this.submitArt.bind(this)}/>
               </TabContainer>
             )
           );

@@ -54,7 +54,7 @@ class Login extends Component {
           <h2 className="font-weight-bold">Login</h2>
           <div className="row">
             <div className="col-md-5">
-              <form autoComplete="off" onSubmit={handleSubmit(this.getData)}>
+              <form onSubmit={handleSubmit(this.getData)}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}

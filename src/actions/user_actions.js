@@ -88,8 +88,6 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
       dispatch({ type: "INSERT_GOALS", payload: journal_data.goals });
       dispatch({ type: "INSERT_TODOS", payload: journal_data.todos });
       dispatch({ type: "INSERT_NOTES", payload: journal_data.notes });
-      // store.dispatch({ type: "INSERT_MEMORY", payload: dummyData.memory });
-      // store.dispatch({ type: "INSERT_ARTS", payload: dummyData.arts });
 
       if (redirect) {
         history.push("/");
