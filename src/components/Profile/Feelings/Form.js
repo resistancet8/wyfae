@@ -10,12 +10,62 @@ import $ from "jquery";
 import "./text.js";
 let fontsize = 20;
 
+function imagedraw (ctx, img, x, y, w, h, offsetX, offsetY) {
+
+  if (arguments.length === 2) {
+      x = y = 0;
+      w = ctx.canvas.width;
+      h = ctx.canvas.height;
+  }
+
+  // default offset is center
+  offsetX = typeof offsetX === "number" ? offsetX : 0.5;
+  offsetY = typeof offsetY === "number" ? offsetY : 0.5;
+
+  // keep bounds [0.0, 1.0]
+  if (offsetX < 0) offsetX = 0;
+  if (offsetY < 0) offsetY = 0;
+  if (offsetX > 1) offsetX = 1;
+  if (offsetY > 1) offsetY = 1;
+
+  var iw = img.width,
+      ih = img.height,
+      r = Math.min(w / iw, h / ih),
+      nw = iw * r,   // new prop. width
+      nh = ih * r,   // new prop. height
+      cx, cy, cw, ch, ar = 1;
+
+  // decide which gap to fill    
+  if (nw < w) ar = w / nw;                             
+  if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;  // updated
+  nw *= ar;
+  nh *= ar;
+
+  // calc source rectangle
+  cw = iw / (nw / w);
+  ch = ih / (nh / h);
+
+  cx = (iw - cw) * offsetX;
+  cy = (ih - ch) * offsetY;
+
+  // make sure source rectangle is valid
+  if (cx < 0) cx = 0;
+  if (cy < 0) cy = 0;
+  if (cw > iw) cw = iw;
+  if (ch > ih) ch = ih;
+
+  // fill image in dest. rectangle
+  ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+} 
+
 class Form extends Component {
   constructor(props) {
     super();
     this.getData = this.getData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.previewImage = this.previewImage.bind(this);
+    this.colorChange = this.colorChange.bind(this);
   }
 
   toggle() {
@@ -29,13 +79,27 @@ class Form extends Component {
     loading: false,
     shared_type: "",
     image: "",
-    modal: 0
+    modal: 0,
+    previewUrl: "",
+    color: "#0000ff"
   };
+
+  getPreviewURL(){
+    let reader  = new FileReader();
+    reader.onloadend = () => {
+      this.setState({
+        previewUrl: reader.result
+      });
+    }
+    reader.readAsDataURL(this.state.image);
+  }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({
       image: e.target.files[0]
+    }, () => {
+      this.getPreviewURL();
     });
   }
 
@@ -55,12 +119,11 @@ class Form extends Component {
     canvas.width = $("img#preview").width();
     canvas.crossOrigin = "Anonymous";
     canvas.height = $("img#preview").height();
-    ctx.drawImage($("img#preview").get(0), 0, 0);
     ctx.font = fontsize + "px Arial";
-    //redraw image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage($("img#preview").get(0), 0, 0);
+    imagedraw(ctx, $("img#preview").get(0), 0, 0, canvas.width, canvas.height);
     ctx.lineWidth = 1;
+    ctx.fillStyle = this.state.color;
+
     if (document.getElementById("text").value != "")
       ctx.mlFillText(
         document.getElementById("text").value,
@@ -72,7 +135,6 @@ class Form extends Component {
         "center",
         fontsize
       );
-    ctx.fillStyle = "red";
   }
 
   getData(formData) {
@@ -99,34 +161,32 @@ class Form extends Component {
             type: "image/jpg",
             lastModified: Date.now()
           })
+        }, () => {
+          this.getPreviewURL();
         });
       });
   }
 
+  colorChange(color){
+    this.setState({
+      color: color
+    }, ()=> {
+    this.previewImage();
+    })
+  }
+
   render() {
     const { handleSubmit } = this.props;
-    let { imagePreviewUrl } = this.state;
+    let { previewUrl } = this.state;
 
-    let img_tag = null;
-    if (imagePreviewUrl) {
-      img_tag = (
+    let img_tag = img_tag = (
         <img
-          src={defaultPic}
+          src={previewUrl}
           className="img-fluid mx-auto d-none"
           style={{ height: "400px", width: "400px" }}
           id="preview"
         />
       );
-    } else {
-      img_tag = (
-        <img
-          src={defaultPic}
-          className="img-fluid mx-auto d-none"
-          style={{ height: "400px", width: "400px" }}
-          id="preview"
-        />
-      );
-    }
 
     return (
       <div>
@@ -141,6 +201,8 @@ class Form extends Component {
                   handleFontSize={this.handleFontSize}
                   previewImage={this.previewImage}
                   img_tag={img_tag}
+                  colorChange={this.colorChange}
+                  color={this.state.color}
                 />
               </div>
             ) : (

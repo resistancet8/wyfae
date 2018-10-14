@@ -40,6 +40,10 @@ class Preview extends Component {
                     </button>
                   </div>
                 </div>
+                <input type="color" name="color" id="color" value={this.props.color} onChange={(e)=>{
+                  e.preventDefault(); 
+                  this.props.colorChange(e.target.value);
+                }}/>
               </div>
             </ModalBody>
             <ModalFooter>
