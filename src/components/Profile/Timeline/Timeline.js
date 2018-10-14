@@ -48,11 +48,11 @@ class Timeline extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             <h2 className="font-weight-bold text-uppercase">
-              {this.state.currentPost.title}
+              {this.state.currentPost.post_title}
             </h2>
           </ModalHeader>
           <ModalBody>
-            {this.state.currentPost.content}
+            {this.state.currentPost.text}
             <br />
             <p className="text-muted font-weight-bold mt-3">
               By: {this.state.currentPost.author}

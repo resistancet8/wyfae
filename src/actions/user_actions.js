@@ -20,9 +20,11 @@ export function updateUserProfile(userInfo, history) {
           history.push("/profile");
         })
         .catch(err => {
-          if(err.response.data){
+          if(err.response && err.response.data){
             dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
             logoutUser(true)(dispatch);
+          } else {
+            dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
           }
         });
     } else {
@@ -46,15 +48,27 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
         payload: Object.assign({}, profile_data.profile_data, { journal: {} })
       });
 
+      dispatch({
+        type: "INSERT_ARTS",
+        payload: profile_data.art_content
+      });
+
+      dispatch({
+        type: "INSERT_MEMORY",
+        payload: profile_data.memory_book
+      });
+
       if (redirect) {
         history.push("/");
       }
       
     })
     .catch(err => {
-      if(err.response.data){
+      if(err.response && err.response.data){
         dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
         logoutUser(true)(dispatch);
+      } else {
+        dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
       }
     });
 }
@@ -83,9 +97,11 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
 
     })
     .catch(err => {
-      if(err.response.data){
+      if(err.response && err.response.data){
         dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
         logoutUser(true)(dispatch);
+      } else {
+        dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
       }
     });
 }

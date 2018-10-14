@@ -2,8 +2,7 @@ import axios from "axios";
 import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
-import { journal } from "../dummyData";
-import { getUserProfile, getJournalData} from "./user_actions";
+import { getUserProfile, getJournalData } from "./user_actions";
 const apiBasePath = "http://159.89.171.16:9000";
 
 export function registerUser(userData, history) {
@@ -22,7 +21,12 @@ export function registerUser(userData, history) {
           }
         })
         .catch(err => {
-          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          if (err.response && err.response.data) {
+            dispatch({ type: "GET_ERRORS", payload: err.response.data });
+            dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+          } else {
+            dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
+          }
         });
     } else {
       dispatch({ type: "GET_ERRORS", payload: validator.errors });
@@ -52,7 +56,12 @@ export function loginUser(userData, history) {
         getJournalData(dispatch, history, false, decodedUser);
       })
       .catch(err => {
-        dispatch({ type: "GET_ERRORS", payload: err.response.data });
+        if (err.response && err.response.data) {
+          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+        } else {
+          dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
+        }
       });
   };
 }
@@ -78,8 +87,7 @@ export function logoutUser(showToast) {
     dispatch({ type: "INSERT_NOTES", payload: [] });
     dispatch({ type: "INSERT_MEMORY", payload: [] });
     dispatch({ type: "INSERT_ARTS", payload: [] });
-    if(!showToast)
-      dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
+    if (!showToast) dispatch({ type: "SHOW_TOAST", payload: "Logout Success" });
   };
 }
 
@@ -92,7 +100,12 @@ export function forgotPassword(payload) {
         dispatch({ type: "FORGOT_PASSWORD", payload: true });
       })
       .catch(err => {
-        dispatch({ type: "GET_ERRORS", payload: err.response.data });
+        if (err.response && err.response.data) {
+          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+        } else {
+          dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
+        }
       });
   };
 }
@@ -107,7 +120,12 @@ export function verifyOTP(payload, history) {
         history.push("/login");
       })
       .catch(err => {
-        dispatch({ type: "GET_ERRORS", payload: err.response.data });
+        if (err.response && err.response.data) {
+          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+        } else {
+          dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
+        }
       });
   };
 }

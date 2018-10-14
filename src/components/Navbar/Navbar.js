@@ -69,7 +69,7 @@ class NavbarComponent extends Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose}>
-                    <NavLink className="p-2 text-dark profile" to="/profile">
+                    <NavLink className="text-dark profile" to="/profile">
                       Profile
                     </NavLink>
                   </MenuItem>
