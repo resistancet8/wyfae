@@ -6,6 +6,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import axios from "axios";
+import { connect } from "react-redux";
+import {reset} from 'redux-form';
 
 function TabContainer(props) {
   return (
@@ -43,19 +45,22 @@ class Feelings extends Component {
 
   submitArt(formData) {
     formData.append("art_type", art_styles[this.state.value]);
+    this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
       method: "post",
       url: "http://159.89.171.16:9000/user/insert_post",
       data: formData,
       config: { headers: { "Content-Type": "multipart/form-data" } }
     })
-    .then(function(response) {
-    })
-    .catch(function(response) {
-      console.log(response);
-    });
+      .then(response => {
+        this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
+        this.props.dispatch(reset("art-form"));
+      })
+      .catch(err => {
+        this.props.dispatch({ type: "SHOW_TOAST", payload: "Errored!" });
+      });
   }
-  
+
   render() {
     const { value } = this.state;
 
@@ -87,7 +92,7 @@ class Feelings extends Component {
           return (
             value === index && (
               <TabContainer>
-                <Form submitArt={this.submitArt.bind(this)}/>
+                <Form submitArt={this.submitArt.bind(this)} />
               </TabContainer>
             )
           );
@@ -97,4 +102,4 @@ class Feelings extends Component {
   }
 }
 
-export default withStyles(styles)(Feelings);
+export default connect()(withStyles(styles)(Feelings));
