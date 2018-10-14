@@ -66,6 +66,7 @@ class Form extends Component {
     this.toggle = this.toggle.bind(this);
     this.previewImage = this.previewImage.bind(this);
     this.colorChange = this.colorChange.bind(this);
+    this.handleFontSize = this.handleFontSize.bind(this);
   }
 
   toggle() {
@@ -81,7 +82,7 @@ class Form extends Component {
     image: "",
     modal: 0,
     previewUrl: "",
-    color: "#0000ff"
+    color: "#333333"
   };
 
   getPreviewURL(){
@@ -89,6 +90,8 @@ class Form extends Component {
     reader.onloadend = () => {
       this.setState({
         previewUrl: reader.result
+      }, () => {
+        this.previewImage();
       });
     }
     reader.readAsDataURL(this.state.image);
@@ -138,21 +141,27 @@ class Form extends Component {
   }
 
   getData(formData) {
-    let bodyFormData = new FormData();
-    bodyFormData.append("text", formData.text);
-    bodyFormData.append("post_type", formData.post_type);
-    bodyFormData.append("shared_type", this.state.shared_type);
-    bodyFormData.append("post_title", formData.post_title);
-    bodyFormData.append("pic", this.state.image);
+    let canvas = document.getElementById('canvas');
+    canvas.toBlob((blob)=>{
+      let bodyFormData = new FormData();
+      bodyFormData.append("text", formData.text);
+      bodyFormData.append("post_type", formData.post_type);
+      bodyFormData.append("shared_type", this.state.shared_type);
+      bodyFormData.append("post_title", formData.post_title);
+      bodyFormData.append("pic", new File([blob], "default.jpg", {
+        type: "image/jpg",
+        lastModified: Date.now()
+      }));
 
-    this.props.submitArt(bodyFormData);
+      this.props.submitArt(bodyFormData);
+    })
   }
 
   componentDidMount() {
     this.props.initialize({
       post_type: "art"
     });
-
+    
     fetch(defaultPic)
       .then(d => d.blob())
       .then(d => {
@@ -193,21 +202,17 @@ class Form extends Component {
         <form>
           <div className="data-holder">
             {img_tag}
-            {this.state.modal ? (
-              <div className="preview">
-                <Preview
-                  modal={this.state.modal}
-                  toggle={this.toggle}
-                  handleFontSize={this.handleFontSize}
-                  previewImage={this.previewImage}
-                  img_tag={img_tag}
-                  colorChange={this.colorChange}
-                  color={this.state.color}
-                />
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="preview">
+              <Preview
+                modal={this.state.modal}
+                toggle={this.toggle}
+                handleFontSize={this.handleFontSize}
+                img_tag={img_tag}
+                colorChange={this.colorChange}
+                color={this.state.color}
+                show={this.state.modal}
+              />
+            </div>
             <div className="form-group">
               <label>Title:</label>
               <Field
@@ -227,6 +232,7 @@ class Form extends Component {
               id="text"
               cols="30"
               rows="7"
+              onChange={this.previewImage}
               className="form-control my-2"
               placeholder="Share Your Feelings/ Experience"
             />
