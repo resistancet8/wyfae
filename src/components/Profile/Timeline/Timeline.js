@@ -29,7 +29,7 @@ class Timeline extends Component {
     return (
       <div>
         <h2 className=" p-2 font-weight-bold text-center">Timeline</h2>
-        {arts.length && memory.length ? (
+        {arts.length || memory.length ? (
           <div className="p-2">
             <div>
               <h2 className="font-weight-bold">Arts: </h2>

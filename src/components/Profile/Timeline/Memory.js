@@ -12,7 +12,12 @@ export default class Memory extends Component {
           <h2 className="font-weight-bold font-italic text-uppercase">
             {memory.post_title}
           </h2>
-          {truncate(memory.text, 350)}
+          <div className="img-responsive">
+            <img src={`http://159.89.171.16:9000/${memory.url}`} alt="Image"/>
+          </div>
+          <p>
+            {truncate(memory.text, 250)}
+          </p>
           <div className="mt-2">
             <Button
               variant="outlined"

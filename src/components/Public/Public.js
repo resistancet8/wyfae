@@ -7,6 +7,7 @@ import Trending from "./Trending/Trending";
 import { connect } from "react-redux";
 import { getPosts } from './../../actions/homepage_actions';
 import PropTypes from 'prop-types';
+import './Public.css'
 
 const styles = theme => ({
   root: {
@@ -33,11 +34,11 @@ class Public extends Component {
 
     return (
       <div className="public-page p-2">
-        <Grid container className={classes.root} spacing={16}>
-          <Grid item xs={12} md={2} >
+        <Grid container className={classes.root} spacing={8}>
+          <Grid item xs={12} md={3} >
             <Competition className={classes.public} />
           </Grid>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={6}>
             <Main className={classes.public} posts={this.props.posts}/>
           </Grid>
           <Grid item xs={12} md={3}>

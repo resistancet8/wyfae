@@ -12,7 +12,12 @@ export default class Art extends Component {
           <h2 className="font-weight-bold font-italic text-uppercase">
             {art.post_title}
           </h2>
-          {truncate(art.text, 350)}
+          <div className="img-responsive">
+            <img src={`http://159.89.171.16:9000/${art.url}`} alt="Image"/>
+          </div>
+          <p>
+            {truncate(art.text, 250)}
+          </p>
           <div className="mt-2">
             <Button
               variant="outlined"

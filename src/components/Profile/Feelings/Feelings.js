@@ -45,6 +45,7 @@ class Feelings extends Component {
 
   submitArt(formData) {
     formData.append("art_type", art_styles[this.state.value]);
+    formData.append("author", this.props.user.firstname);
     this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
       method: "post",
@@ -63,6 +64,7 @@ class Feelings extends Component {
 
   render() {
     const { value } = this.state;
+    console.log(this.props);
 
     return (
       <div>
@@ -102,4 +104,10 @@ class Feelings extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(Feelings));
+function mapStateToProps(state) {
+  return {
+    user: state.user.user 
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Feelings));
