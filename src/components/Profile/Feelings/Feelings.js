@@ -7,7 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import axios from "axios";
 import { connect } from "react-redux";
-import {reset} from 'redux-form';
+import { reset } from "redux-form";
+import {publishArt} from './../../../actions/posts_actions';
 
 function TabContainer(props) {
   return (
@@ -45,7 +46,7 @@ class Feelings extends Component {
 
   submitArt(formData) {
     formData.append("art_type", art_styles[this.state.value]);
-    formData.append("author", this.props.user.firstname);
+    formData.append("author", this.props.user.first_name);
     this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
       method: "post",
@@ -55,6 +56,7 @@ class Feelings extends Component {
     })
       .then(response => {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
+        this.props.dispatch({ type: "PUBLISH_ART", payload: response.data.post_content });
         this.props.dispatch(reset("art-form"));
       })
       .catch(err => {
@@ -64,7 +66,6 @@ class Feelings extends Component {
 
   render() {
     const { value } = this.state;
-    console.log(this.props);
 
     return (
       <div>
@@ -106,8 +107,8 @@ class Feelings extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user 
-  }
+    user: state.user.user
+  };
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(Feelings));

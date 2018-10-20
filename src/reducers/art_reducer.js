@@ -4,7 +4,7 @@ function artReducer(state = initialState, { type, payload }) {
   switch (type) {
     case "PUBLISH_ART":
       return {
-        arts: [...state.arts, payload]
+        arts: [payload, ...state.arts]
       };
     case "INSERT_ARTS":
       return {

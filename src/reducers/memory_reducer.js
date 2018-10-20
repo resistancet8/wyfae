@@ -4,7 +4,7 @@ function memoryReducer(state = initialState, { type, payload }) {
   switch (type) {
     case "PUBLISH_MEMORY":
       return {
-        memory: [...state.memory, payload]
+        memory: [payload, ...state.memory]
       };
     case "INSERT_MEMORY":
       return {

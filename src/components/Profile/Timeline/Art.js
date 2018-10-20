@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import truncate from "truncate";
 import Button from "@material-ui/core/Button";
-import moment from 'moment';
+import moment from "moment";
 
 export default class Art extends Component {
   render() {
@@ -12,12 +12,12 @@ export default class Art extends Component {
           <h2 className="font-weight-bold font-italic text-uppercase">
             {art.post_title}
           </h2>
-          <div className="img-responsive">
-            <img src={`http://159.89.171.16:9000/${art.url}`} alt="Image"/>
-          </div>
-          <p>
-            {truncate(art.text, 250)}
-          </p>
+          {art.url && (
+            <div className="img-responsive">
+              <img src={`http://159.89.171.16:9000/${art.url}`} alt="Image" />
+            </div>
+          )}
+          <p>{truncate(art.text, 250)}</p>
           <div className="mt-2">
             <Button
               variant="outlined"
