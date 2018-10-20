@@ -6,10 +6,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import truncate from "truncate";
 import moment from "moment";
+import like from "./../../../assets/img/liked feel icon.svg";
+import unlike from "./../../../assets/img/unliked feel icon.svg";
+import { connect } from "react-redux";
+import axios from "axios";
 
 const styles = {
   card: {
@@ -29,46 +33,95 @@ const styles = {
   media: {
     marginTop: "30",
     height: "50%",
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
     backgroundSize: "contain"
   }
 };
 
-function SimpleCard(props) {
-  const { classes } = props;
+class PublicCard extends React.Component {
+  handleLikeClick(event, id) {
+    if (document.querySelector(".animate")) {
+      document.querySelector(".animate").classList.remove("animate");
+    }
 
-  return (
-    <Card className={classes.card + " mb-2"}>
-      <CardHeader
-        title={props.post.post_title}
-        subheader={moment(props.post.creation_time).format("DD/MM/YYYY")}
-      />
-      {props.post.url && (
-        <div id="image-container">
-          <CardMedia
-            className={classes.media}
-            image={`http://159.89.171.16:9000/${props.post.url}`}
-            title="Contemplative Reptile"
-          />
-        </div>
-      )}
-      <CardContent>
-        <Typography component="p">{truncate(props.post.text, 150)}</Typography>
-        <Typography component="p">
-          <strong class="font-italic">By: {props.post.author}</strong>
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" variant="outlined">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-  );
+    if (event.target.src.indexOf("unliked") !== -1) {
+      event.target.src = like;
+      event.target.classList.add("animate");
+    } else {
+      event.target.src = unlike;
+      event.target.classList.add("animate");
+    }
+
+    axios
+      .post("http://159.89.171.16:9000/user/update_signal", {
+        post_id: id,
+        signal_type: "like"
+      })
+      .then(response => {
+
+      })
+      .catch(err => {
+        this.props.dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+      });
+  }
+
+  render() {
+    const { classes } = this.props;
+    console.log(this.props.post.user_liked);
+    console.log(this.props.user)
+    return (
+      <Card className={classes.card + " mb-2"}>
+        <CardHeader
+          title={this.props.post.post_title}
+          subheader={moment(this.props.post.creation_time).format("DD/MM/YYYY")}
+        />
+        {this.props.post.url && (
+          <div id="image-container">
+            <CardMedia
+              className={classes.media}
+              image={`http://159.89.171.16:9000/${this.props.post.url}`}
+            />
+          </div>
+        )}
+        <CardContent>
+          <Typography component="p">
+            {truncate(this.props.post.text, 150)}
+          </Typography>
+          <Typography component="p">
+            <strong class="font-italic">By: {this.props.post.author}</strong>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          {this.props.post.user_liked && (
+            <img
+              src={
+                !!this.props.post.user_liked.filter(
+                  o => o.username === this.props.user.username
+                ).length
+                  ? like
+                  : unlike
+              }
+              alt=""
+              id="like-unlike-button"
+              onClick={e => {
+                this.handleLikeClick(e, this.props.post._id);
+              }}
+            />
+          )}
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
-SimpleCard.propTypes = {
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user
+  };
+}
+
+PublicCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleCard);
+export default connect(mapStateToProps)(withStyles(styles)(PublicCard));
