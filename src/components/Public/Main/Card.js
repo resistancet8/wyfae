@@ -50,8 +50,10 @@ class PublicCard extends React.Component {
 
     let string = flag ? "You" : "";
 
-    if(likes.length === 2){
-      return `${string} and ${likes[0].name} like this post.`
+    if(flag && likes.length === 2){
+      return `You and ${likes[0].name} like this post.`;
+    } else if(!flag && likes.length === 2){
+      return `${likes[0].name} and ${likes[1].name} like this post.`
     } else if(likes.length >= 2) {
       return `${string}, ${likes[0].name} and ${likes.length - 2} others like this post.`
     } else if(likes.length === 1){
