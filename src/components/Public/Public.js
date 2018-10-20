@@ -39,7 +39,7 @@ class Public extends Component {
             <Competition className={classes.public} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Main className={classes.public} posts={this.props.posts}/>
+            {this.props.posts && <Main className={classes.public} posts={this.props.posts}/>}
           </Grid>
           <Grid item xs={12} md={3}>
             <Trending className={classes.public} />

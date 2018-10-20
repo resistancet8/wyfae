@@ -3,8 +3,8 @@ import Card from "./Card";
 
 class Main extends Component {
   render() {
-    let Posts = this.props.posts.map(obj => {
-      return <Card post={obj} />;
+    let Posts = this.props.posts.map(post => {
+      return post.shared_type !== 'compete' && post.shared_type !== 'save' ? <Card post={post} /> : "";
     });
 
     return (

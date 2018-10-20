@@ -39,6 +39,28 @@ const styles = {
 };
 
 class PublicCard extends React.Component {
+  generateLikeMessage(likes){
+    let flag = false;
+
+    if(!!this.props.post.user_liked.filter(
+      o => o.username === this.props.user.username
+    ).length){
+      flag = true;
+    }
+
+    let string = flag ? "You" : "";
+
+    if(likes.length === 2){
+      return `${string} and ${likes[0].name} like this post.`
+    } else if(likes.length >= 2) {
+      return `${string}, ${likes[0].name} and ${likes.length - 2} others like this post.`
+    } else if(likes.length === 1){
+      return `${likes[0].name} likes this post.`
+    }
+
+    return string.length ? `${string} like this post.`: ""; 
+  }
+
   handleLikeClick(event, id) {
     if (document.querySelector(".animate")) {
       document.querySelector(".animate").classList.remove("animate");
@@ -67,8 +89,6 @@ class PublicCard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.props.post.user_liked);
-    console.log(this.props.user)
     return (
       <Card className={classes.card + " mb-2"}>
         <CardHeader
@@ -84,11 +104,14 @@ class PublicCard extends React.Component {
           </div>
         )}
         <CardContent>
-          <Typography component="p">
+          <Typography component="p" gutterBottom>
             {truncate(this.props.post.text, 150)}
           </Typography>
-          <Typography component="p">
+          <Typography component="p" gutterBottom>
             <strong class="font-italic">By: {this.props.post.author}</strong>
+          </Typography>
+          <Typography component="p" gutterBottom variant="caption">
+            {this.generateLikeMessage(this.props.post.user_liked.length ? this.props.post.user_liked: [] )}
           </Typography>
         </CardContent>
         <CardActions>
@@ -109,6 +132,7 @@ class PublicCard extends React.Component {
             />
           )}
         </CardActions>
+        
       </Card>
     );
   }

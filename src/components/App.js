@@ -59,7 +59,14 @@ class App extends Component {
         <Navbar />
         <div className="adjustment mt-1" />
         <div className="container">{isAuth && <Feelbar />}</div>
-        <Route path="/" exact component={Public} />
+        <Route
+          path="/"
+          exact
+          render={() => {
+            if (isAuth) return <Public />;
+            else return <Redirect to="/login" />;
+          }}
+        />
         <div className="container">
           <Route
             path="/profile"
