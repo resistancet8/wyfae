@@ -41,7 +41,7 @@ class NavbarComponent extends Component {
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
-            <NavLink className="p-2 text-dark" to="/">
+            <NavLink className="p-2 text-dark" to="/trending">
               <IconButton color="default" className="icon-holder2">
                 <img src={TrendingFeel} alt="" />
               </IconButton>

@@ -7,7 +7,20 @@ import Trending from "./Trending/Trending";
 import { connect } from "react-redux";
 import { getPosts } from './../../actions/homepage_actions';
 import PropTypes from 'prop-types';
+import { Route, withRouter } from 'react-router-dom';
+import navigationHome from "./../../helpers/navigation";
 import './Public.css'
+
+let rap = function () {
+  return <div> Rap </div>
+}
+
+let rap1 = function () {
+  return <div> Rap1 </div>
+}
+
+
+
 
 const styles = theme => ({
   root: {
@@ -25,7 +38,7 @@ const styles = theme => ({
 
 class Public extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getPosts();
   }
 
@@ -39,10 +52,14 @@ class Public extends Component {
             <Competition className={classes.public} />
           </Grid>
           <Grid item xs={12} md={6}>
-            {this.props.posts && <Main className={classes.public} posts={this.props.posts}/>}
+            {this.props.posts.length && navigationHome.map(route => {
+              return <Route path={route.path} exact render={() => {
+                return <Main posts={this.props.posts} className={classes.public} posts_tr={route.key} />
+              }} key={route.key} />
+            })}
           </Grid>
           <Grid item xs={12} md={3}>
-            <Trending className={classes.public} />
+            <Trending className={classes.public + " p-6"} />
           </Grid>
         </Grid>
       </div>
@@ -54,10 +71,10 @@ Public.propTypes = {
   posts: PropTypes.array
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     posts: state.home.posts
   }
 }
 
-export default connect(mapStateToProps, { getPosts })(withStyles(styles)(Public));
+export default withRouter(connect(mapStateToProps, { getPosts })(withStyles(styles)(Public)));

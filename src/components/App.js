@@ -60,8 +60,7 @@ class App extends Component {
         <div className="adjustment mt-1" />
         <div className="container">{isAuth && <Feelbar />}</div>
         <Route
-          path="/"
-          exact
+          path="/trending"
           render={() => {
             if (isAuth) return <Public />;
             else return <Redirect to="/login" />;
