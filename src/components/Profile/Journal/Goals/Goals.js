@@ -25,7 +25,7 @@ class Goals extends Component {
   }
 
   getData(formData) {
-    this.props.saveJournal('goals', {...formData, completed: false});
+    this.props.saveJournal('goals', {...formData, completed: "No"});
     this.props.dispatch(reset("goal-add"));
   }
 
@@ -45,7 +45,7 @@ class Goals extends Component {
             className="bg-secondary p-2 mb-1 todo-item"
             key={index}
             onClick={event => {
-              this.props.toggleGoal(index);
+              this.props.toggleGoal(goal._id, goal.completed, index);
             }}
           >
             <DeleteIcon
@@ -56,9 +56,7 @@ class Goals extends Component {
               }}
             />
             <p
-              className={classnames({
-                "line-through": goal.completed
-              })}
+              className={goal.completed === "Yes" ? "line-through": "" }
             >
               {goal.text}
             </p>

@@ -27,7 +27,7 @@ class Todos extends Component {
   getData(formData) {
     this.props.saveJournal('todos', {
       ...formData,
-      completed: false
+      completed: "No"
     });
     this.props.dispatch(reset("todo-add"));
   }
@@ -39,6 +39,7 @@ class Todos extends Component {
   }
 
   render() {
+
     const { handleSubmit } = this.props;
 
     let Todos = this.props.todos.length ? (
@@ -46,9 +47,9 @@ class Todos extends Component {
         return (
           <div
             className="bg-secondary p-2 mb-1 todo-item"
-            key={index}
+            key={todo._id}
             onClick={event => {
-              this.props.toggleTodo(index);
+              this.props.toggleTodo(todo._id, todo.completed, index);
             }}
           >
             <DeleteIcon
@@ -59,9 +60,7 @@ class Todos extends Component {
               }}
             />
             <p
-              className={classnames({
-                "line-through": todo.completed
-              })}
+              className={todo.completed === "Yes" ? "line-through": "" }
             >
               {todo.text}
             </p>
