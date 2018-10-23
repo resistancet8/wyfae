@@ -59,7 +59,7 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
       });
 
       if (redirect) {
-        history.push("/");
+        history.push("/trending");
       }
       
     })
@@ -90,7 +90,7 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
       dispatch({ type: "INSERT_NOTES", payload: journal_data.notes });
 
       if (redirect) {
-        history.push("/");
+        history.push("/trending");
       }
 
     })
