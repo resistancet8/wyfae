@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import { reduxForm, Field, reset } from "redux-form";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import validateMemoryinput from "./../../../helpers/memory_validator";
+import classnames from "classnames";
 import axios from "axios";
 
 class Memory extends Component {
@@ -17,6 +19,13 @@ class Memory extends Component {
   };
 
   getData(formData) {
+    let { isValid, errors } = validateMemoryinput(formData);
+
+    if (!isValid) {
+      this.setState({ errors: errors });
+      return;
+    }
+
     let newFormData = new FormData();
     newFormData.append("post_title", formData.title);
     newFormData.append("text", formData.text);
@@ -32,7 +41,10 @@ class Memory extends Component {
     })
       .then(response => {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
-        this.props.dispatch({ type: "PUBLISH_MEMORY", payload: response.data.post_content });
+        this.props.dispatch({
+          type: "PUBLISH_MEMORY",
+          payload: response.data.post_content
+        });
         this.props.dispatch(reset("memory-form"));
       })
       .catch(err => {
@@ -54,10 +66,21 @@ class Memory extends Component {
                 component="input"
                 type="text"
                 name="title"
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": this.state.errors.title
+                })}
                 id="title"
+                required
+                min="10"
                 placeholder="Title"
               />
+              {this.state.errors.title && (
+                <div className="invalid-feedback">
+                  {" "}
+                  {this.state.errors.title}{" "}
+                </div>
+              )}
+              <small className="text-muted">Minimun 10 characters</small>
             </div>
             <Field
               component="textarea"
@@ -65,9 +88,17 @@ class Memory extends Component {
               id="text"
               cols="30"
               rows="10"
-              className="form-control my-2"
+              className={classnames("form-control", {
+                "is-invalid": this.state.errors.text
+              })}
+              required
+              min="100"
               placeholder="Visited Some Place? Met Someone? Share What Are You Feeling?"
             />
+            {this.state.errors.text && (
+              <div className="invalid-feedback"> {this.state.errors.text} </div>
+            )}
+            <small className="text-muted">Minimun 100 characters</small>
             <div className="controls mr-auto">
               <Button
                 variant="outlined"
@@ -145,10 +176,10 @@ class Memory extends Component {
   }
 }
 
-function mapStoP(state){
+function mapStoP(state) {
   return {
     user: state.user.user
-  }
+  };
 }
 
 export default reduxForm({

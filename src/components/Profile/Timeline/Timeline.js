@@ -33,12 +33,20 @@ class Timeline extends Component {
           <div className="p-2">
             <div>
               <h2 className="font-weight-bold">Arts: </h2>
-              <Art arts={arts} modalToggle={this.toggle} />
+              {arts.length ? (
+                <Art arts={arts} modalToggle={this.toggle} />
+              ) : (
+                <div> No Arts </div>
+              )}
             </div>
             <hr />
             <div>
               <h2 className="font-weight-bold">Memory: </h2>
-              <Memory memories={memory} modalToggle={this.toggle} />
+              {memory.length ? (
+                <Memory memories={memory} modalToggle={this.toggle} />
+              ) : (
+                <div>No Memories</div>
+              )}
             </div>
           </div>
         ) : (

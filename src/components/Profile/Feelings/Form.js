@@ -6,16 +6,17 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Preview from "./Preview";
 import defaultPic from "./../../../assets/img/default.jpg";
+import validateFeelingsinput from "./../../../helpers/feelings_validator";
+import classnames from "classnames";
 import $ from "jquery";
 import "./text.js";
 let fontsize = 20;
 
-function imagedraw (ctx, img, x, y, w, h, offsetX, offsetY) {
-
+function imagedraw(ctx, img, x, y, w, h, offsetX, offsetY) {
   if (arguments.length === 2) {
-      x = y = 0;
-      w = ctx.canvas.width;
-      h = ctx.canvas.height;
+    x = y = 0;
+    w = ctx.canvas.width;
+    h = ctx.canvas.height;
   }
 
   // default offset is center
@@ -29,15 +30,19 @@ function imagedraw (ctx, img, x, y, w, h, offsetX, offsetY) {
   if (offsetY > 1) offsetY = 1;
 
   var iw = img.width,
-      ih = img.height,
-      r = Math.min(w / iw, h / ih),
-      nw = iw * r,   // new prop. width
-      nh = ih * r,   // new prop. height
-      cx, cy, cw, ch, ar = 1;
+    ih = img.height,
+    r = Math.min(w / iw, h / ih),
+    nw = iw * r, // new prop. width
+    nh = ih * r, // new prop. height
+    cx,
+    cy,
+    cw,
+    ch,
+    ar = 1;
 
-  // decide which gap to fill    
-  if (nw < w) ar = w / nw;                             
-  if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;  // updated
+  // decide which gap to fill
+  if (nw < w) ar = w / nw;
+  if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh; // updated
   nw *= ar;
   nh *= ar;
 
@@ -55,8 +60,8 @@ function imagedraw (ctx, img, x, y, w, h, offsetX, offsetY) {
   if (ch > ih) ch = ih;
 
   // fill image in dest. rectangle
-  ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
-} 
+  ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
+}
 
 class Form extends Component {
   constructor(props) {
@@ -85,25 +90,31 @@ class Form extends Component {
     color: "#333333"
   };
 
-  getPreviewURL(){
-    let reader  = new FileReader();
+  getPreviewURL() {
+    let reader = new FileReader();
     reader.onloadend = () => {
-      this.setState({
-        previewUrl: reader.result
-      }, () => {
-        this.previewImage();
-      });
-    }
+      this.setState(
+        {
+          previewUrl: reader.result
+        },
+        () => {
+          this.previewImage();
+        }
+      );
+    };
     reader.readAsDataURL(this.state.image);
   }
 
   handleChange(e) {
     e.preventDefault();
-    this.setState({
-      image: e.target.files[0]
-    }, () => {
-      this.getPreviewURL();
-    });
+    this.setState(
+      {
+        image: e.target.files[0]
+      },
+      () => {
+        this.getPreviewURL();
+      }
+    );
   }
 
   handleFontSize(tag) {
@@ -141,61 +152,77 @@ class Form extends Component {
   }
 
   getData(formData) {
-    let canvas = document.getElementById('canvas');
-    canvas.toBlob((blob)=>{
+    let { isValid, errors } = validateFeelingsinput(formData);
+
+    if (!isValid) {
+      this.setState({ errors: errors });
+      return;
+    }
+
+    let canvas = document.getElementById("canvas");
+    canvas.toBlob(blob => {
       let bodyFormData = new FormData();
       bodyFormData.append("text", formData.text);
       bodyFormData.append("post_type", formData.post_type);
       bodyFormData.append("shared_type", this.state.shared_type);
       bodyFormData.append("post_title", formData.post_title);
-      bodyFormData.append("pic", new File([blob], "default.jpg", {
-        type: "image/jpg",
-        lastModified: Date.now()
-      }));
+      bodyFormData.append(
+        "pic",
+        new File([blob], "default.jpg", {
+          type: "image/jpg",
+          lastModified: Date.now()
+        })
+      );
 
       this.props.submitArt(bodyFormData);
-    })
+    });
   }
 
   componentDidMount() {
     this.props.initialize({
       post_type: "art"
     });
-    
+
     fetch(defaultPic)
       .then(d => d.blob())
       .then(d => {
-        this.setState({
-          image: new File([d], "default.jpg", {
-            type: "image/jpg",
-            lastModified: Date.now()
-          })
-        }, () => {
-          this.getPreviewURL();
-        });
+        this.setState(
+          {
+            image: new File([d], "default.jpg", {
+              type: "image/jpg",
+              lastModified: Date.now()
+            })
+          },
+          () => {
+            this.getPreviewURL();
+          }
+        );
       });
   }
 
-  colorChange(color){
-    this.setState({
-      color: color
-    }, ()=> {
-    this.previewImage();
-    })
+  colorChange(color) {
+    this.setState(
+      {
+        color: color
+      },
+      () => {
+        this.previewImage();
+      }
+    );
   }
 
   render() {
     const { handleSubmit } = this.props;
     let { previewUrl } = this.state;
 
-    let img_tag = img_tag = (
-        <img
-          src={previewUrl}
-          className="img-fluid mx-auto d-none"
-          style={{ height: "400px", width: "400px" }}
-          id="preview"
-        />
-      );
+    let img_tag = (img_tag = (
+      <img
+        src={previewUrl}
+        className="img-fluid mx-auto d-none"
+        style={{ height: "400px", width: "400px" }}
+        id="preview"
+      />
+    ));
 
     return (
       <div>
@@ -219,10 +246,19 @@ class Form extends Component {
                 component="input"
                 type="text"
                 name="post_title"
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": this.state.errors.post_title
+                })}
                 id="post_title"
                 placeholder="Title to your art"
               />
+              {this.state.errors.post_title && (
+                <div className="invalid-feedback">
+                  {" "}
+                  {this.state.errors.post_title}{" "}
+                </div>
+              )}
+              <small className="text-muted">Minimun 10 characters</small>
             </div>
             <Field component="input" type="hidden" name="post_type" />
             <img src={defaultPic} class="d-none" id="default-pic" />
@@ -233,9 +269,15 @@ class Form extends Component {
               cols="30"
               rows="7"
               onChange={this.previewImage}
-              className="form-control my-2"
+              className={classnames("form-control", {
+                "is-invalid": this.state.errors.text
+              })}
               placeholder="Share Your Feelings/ Experience"
             />
+            {this.state.errors.text && (
+              <div className="invalid-feedback"> {this.state.errors.text} </div>
+            )}
+            <small className="text-muted">Minimun 100 characters</small>
             <div className="form-group">
               <label>Select an image:</label>
               <input

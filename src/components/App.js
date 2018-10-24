@@ -60,6 +60,12 @@ class App extends Component {
         <div className="adjustment mt-1" />
         <div className="container">{isAuth && <Feelbar />}</div>
         <Route
+          path="/"
+          render={() => {
+            return <Redirect to="/trending" />;
+          }}
+        />
+        <Route
           path="/trending"
           render={() => {
             if (isAuth) return <Public />;
@@ -96,16 +102,11 @@ class App extends Component {
           <Route path="/forgot" exact component={Forgot} />
         </div>
         <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={this.state.toast.show}
           autoHideDuration={3000}
           onClose={this.handleClose}
-          ContentProps={{
-            "aria-describedby": "message-id"
-          }}
+          ContentProps={{ "aria-describedby": "message-id" }}
           message={<span id="message-id">{this.state.toast.message}</span>}
           action={[
             <IconButton
