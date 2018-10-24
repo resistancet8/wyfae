@@ -31,6 +31,10 @@ class Memory extends Component {
     newFormData.append("text", formData.text);
     newFormData.append("author", this.props.user.first_name);
     newFormData.append("shared_type", this.state.shared_type);
+    let pic = document.querySelector("#pic").files[0];
+    if (pic) {
+      newFormData.append("pic", pic);
+    }
     newFormData.append("post_type", "memory_book");
 
     axios({
@@ -99,6 +103,10 @@ class Memory extends Component {
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
             <small className="text-muted">Minimun 100 characters</small>
+            <div className="form-group">
+              <label>Select an image:</label>
+              <input type="file" className="form-control" id="pic" />
+            </div>
             <div className="controls mr-auto">
               <Button
                 variant="outlined"
