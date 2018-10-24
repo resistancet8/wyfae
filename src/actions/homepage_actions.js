@@ -9,7 +9,7 @@ export function getPosts() {
         limit_count: 50
       })
       .then(response => {
-        let posts = response.data.all_content || []
+        let posts = response.data.all_content || [];
         dispatch({ type: "INSERT_POSTS", payload: posts });
       })
       .catch(err => {

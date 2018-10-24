@@ -17,19 +17,19 @@ try {
   decodedUser = token_decoder(token);
 } catch (e) {
   flag = 0;
-  localStorage.removeItem("jToken")
+  localStorage.removeItem("jToken");
 }
 
 if (token && flag) {
-    setAuthHeader(token);
+  setAuthHeader(token);
 
-    store.dispatch({
-      type: "SET_CURRENT_USER",
-      payload: decodedUser
-    });
+  store.dispatch({
+    type: "SET_CURRENT_USER",
+    payload: decodedUser
+  });
 
-    getUserProfile(store.dispatch, null, false, decodedUser);
-    getJournalData(store.dispatch, null, false, decodedUser);
+  getUserProfile(store.dispatch, null, false, decodedUser);
+  getJournalData(store.dispatch, null, false, decodedUser);
 }
 
 ReactDOM.render(

@@ -1,6 +1,6 @@
 import updateValidator from "./../helpers/update_validator";
 import axios from "axios";
-import {logoutUser} from './auth_actions';
+import { logoutUser } from "./auth_actions";
 
 const apiBasePath = "http://159.89.171.16:9000";
 
@@ -20,11 +20,17 @@ export function updateUserProfile(userInfo, history) {
           history.push("/profile");
         })
         .catch(err => {
-          if(err.response && err.response.data){
-            dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+          if (err.response && err.response.data) {
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: err.response.data.msg + ", Please login again."
+            });
             logoutUser(true)(dispatch);
           } else {
-            dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: "Server Error, Please try again later"
+            });
           }
         });
     } else {
@@ -61,14 +67,19 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
       if (redirect) {
         history.push("/trending");
       }
-      
     })
     .catch(err => {
-      if(err.response && err.response.data){
-        dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+      if (err.response && err.response.data) {
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg + ", Please login again."
+        });
         logoutUser(true)(dispatch);
       } else {
-        dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: "Server Error, Please try again later"
+        });
       }
     });
 }
@@ -77,8 +88,8 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
   axios
     .post(`${apiBasePath}/user/get_all_journal`, {
       profile_username: decodedUser.username,
-      "skip_count": 0,
-      "limit_count": 10
+      skip_count: 0,
+      limit_count: 10
     })
     .then(response => {
       dispatch({ type: "GET_ERRORS", payload: {} });
@@ -92,14 +103,19 @@ export function getJournalData(dispatch, history, redirect, decodedUser) {
       if (redirect) {
         history.push("/trending");
       }
-
     })
     .catch(err => {
-      if(err.response && err.response.data){
-        dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg + ", Please login again." });
+      if (err.response && err.response.data) {
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg + ", Please login again."
+        });
         logoutUser(true)(dispatch);
       } else {
-        dispatch({ type: "SHOW_TOAST", payload: "Server Error, Please try again later" });
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: "Server Error, Please try again later"
+        });
       }
     });
 }

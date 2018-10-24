@@ -22,7 +22,8 @@ export default function(state = initialState, { type, payload }) {
     }
     case "TOGGLE_TODO": {
       let updatedTodos = state.todos.slice();
-      updatedTodos[payload].completed = updatedTodos[payload].completed == "No" ? "Yes": "No";
+      updatedTodos[payload].completed =
+        updatedTodos[payload].completed == "No" ? "Yes" : "No";
 
       return {
         todos: updatedTodos

@@ -18,7 +18,8 @@ export default function(state = initialState, { type, payload }) {
       };
     case "TOGGLE_GOAL": {
       let updatedGoals = state.goals.slice();
-      updatedGoals[payload].completed = updatedGoals[payload].completed == "No" ? "Yes": "No";
+      updatedGoals[payload].completed =
+        updatedGoals[payload].completed == "No" ? "Yes" : "No";
 
       return {
         goals: updatedGoals
