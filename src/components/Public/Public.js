@@ -11,14 +11,6 @@ import { Route, withRouter } from "react-router-dom";
 import navigationHome from "./../../helpers/navigation";
 import "./Public.css";
 
-let rap = function() {
-  return <div> Rap </div>;
-};
-
-let rap1 = function() {
-  return <div> Rap1 </div>;
-};
-
 const styles = theme => ({
   root: {
     flexGrow: 1

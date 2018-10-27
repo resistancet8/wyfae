@@ -6,7 +6,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import truncate from "truncate";
 import moment from "moment";
@@ -14,8 +13,17 @@ import like from "./../../../assets/img/liked feel icon.svg";
 import unlike from "./../../../assets/img/unliked feel icon.svg";
 import { connect } from "react-redux";
 import axios from "axios";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Comments from "./Comments";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import { Button } from "@material-ui/core";
+import ListItemText from "@material-ui/core/ListItemText";
 
-const styles = {
+const styles = theme => ({
   card: {
     minWidth: 275
   },
@@ -23,6 +31,21 @@ const styles = {
     display: "inline-block",
     margin: "0 2px",
     transform: "scale(0.8)"
+  },
+  root: {
+    width: "100%"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    flexShrink: 0
+  },
+  heading1: {
+    width: "100%"
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
   },
   title: {
     fontSize: 14
@@ -36,31 +59,40 @@ const styles = {
     paddingTop: "56.25%",
     backgroundSize: "contain"
   }
-};
+});
 
 class PublicCard extends React.Component {
-  generateLikeMessage(likes){
+  state = {
+    expanded: null,
+    comment: "",
+    newComment: []
+  };
+
+  generateLikeMessage(likes) {
     let flag = false;
 
-    if(!!this.props.post.user_liked.filter(
-      o => o.username === this.props.user.username
-    ).length){
+    if (
+      !!this.props.post.user_liked.filter(
+        o => o.username === this.props.user.username
+      ).length
+    ) {
       flag = true;
     }
 
     let string = flag ? "You" : "";
 
-    if(flag && likes.length === 2){
+    if (flag && likes.length === 2) {
       return `You and ${likes[0].name} like this post.`;
-    } else if(!flag && likes.length === 2){
-      return `${likes[0].name} and ${likes[1].name} like this post.`
-    } else if(likes.length >= 2) {
-      return `${string}, ${likes[0].name} and ${likes.length - 2} others like this post.`
-    } else if(likes.length === 1){
-      return `${likes[0].name} likes this post.`
+    } else if (!flag && likes.length === 2) {
+      return `${likes[0].name} and ${likes[1].name} like this post.`;
+    } else if (likes.length >= 2) {
+      return `${string}, ${likes[0].name} and ${likes.length -
+        2} others like this post.`;
+    } else if (likes.length === 1) {
+      return `${likes[0].name} likes this post.`;
     }
 
-    return string.length ? `${string} like this post.`: ""; 
+    return string.length ? `${string} like this post.` : "";
   }
 
   handleLikeClick(event, id) {
@@ -81,46 +113,93 @@ class PublicCard extends React.Component {
         post_id: id,
         signal_type: "like"
       })
-      .then(response => {
+      .then(response => {})
+      .catch(err => {
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg
+        });
+      });
+  }
 
+  handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    });
+  };
+
+  handleComment = event => {
+    this.setState({
+      comment: event.target.value
+    });
+  };
+
+  addComment(id, post_id) {
+    axios
+      .post("http://159.89.171.16:9000/user/update_signal", {
+        post_id: post_id,
+        signal_type: "comment",
+        comment_text: this.state.comment
+      })
+      .then(response => {
+        console.log(response);
+        this.setState({
+          newComment: [
+            ...this.state.newComment,
+            <ListItem className="border-bottom">
+              <ListItemText
+                primary={response.data.comment_content.name}
+                secondary={response.data.comment_content.comment_text}
+              />
+            </ListItem>
+          ]
+        });
       })
       .catch(err => {
-        this.props.dispatch({ type: "SHOW_TOAST", payload: err.response.data.msg });
+        console.log(err);
+        // this.props.dispatch({
+        //   type: "SHOW_TOAST",
+        //   payload: err.response.data.msg
+        // });
       });
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, post } = this.props;
+    const { expanded } = this.state;
+
     return (
       <Card className={classes.card + " mb-2"}>
         <CardHeader
-          title={this.props.post.post_title}
-          subheader={moment(this.props.post.creation_time).format("DD/MM/YYYY")}
+          title={post.post_title}
+          subheader={moment(post.creation_time).format("DD/MM/YYYY")}
         />
-        {this.props.post.url && (
+        {post.url && (
           <div id="image-container">
             <CardMedia
               className={classes.media}
-              image={`http://159.89.171.16:9000/${this.props.post.url}`}
+              image={`http://159.89.171.16:9000/${post.url}`}
             />
           </div>
         )}
         <CardContent>
           <Typography component="p" gutterBottom>
-            {truncate(this.props.post.text, 150)}
+            {truncate(post.text, 150)}
           </Typography>
           <Typography component="p" gutterBottom>
-            <strong class="font-italic">By: {this.props.post.author}</strong>
+            <strong class="font-italic">By: {post.author}</strong>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
-            {this.generateLikeMessage(this.props.post.user_liked.length ? this.props.post.user_liked: [] )}
+            {this.generateLikeMessage(
+              post.user_liked.length ? post.user_liked : []
+            )}
           </Typography>
         </CardContent>
         <CardActions>
-          {this.props.post.user_liked && (
+          {post.user_liked && (
             <img
               src={
-                !!this.props.post.user_liked.filter(
+                !!post.user_liked.filter(
                   o => o.username === this.props.user.username
                 ).length
                   ? like
@@ -129,12 +208,47 @@ class PublicCard extends React.Component {
               alt=""
               id="like-unlike-button"
               onClick={e => {
-                this.handleLikeClick(e, this.props.post._id);
+                this.handleLikeClick(e, post._id);
               }}
             />
           )}
         </CardActions>
-        
+        <div className={classes.root}>
+          <ExpansionPanel
+            expanded={expanded === "panel1"}
+            onChange={this.handleChange("panel1")}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>Comments</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <div classes={classes.root}>
+                <List id={`comment-list-${post._id}`}>
+                  <ListItem className="border-bottom">
+                    <textarea
+                      row="5"
+                      placeholder="Enter comment"
+                      value={this.state.comment}
+                      onChange={this.handleComment}
+                    />
+                    <Button
+                      onClick={() => {
+                        this.addComment(`comment-list-${post._id}`, post._id);
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </ListItem>
+                  {post.comments &&
+                    post.comments.map(comment => {
+                      return <Comments comment={comment} />;
+                    })}
+                  {this.state.newComment}
+                </List>
+              </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
       </Card>
     );
   }

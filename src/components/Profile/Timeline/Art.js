@@ -9,7 +9,8 @@ export default class Art extends Component {
     let Arts = arts.map((art, index) => {
       return (
         <div key={index} className="bg-white p-3 mb-2">
-          <h2 className="font-weight-bold font-italic text-uppercase">
+        <span class="float-right badge badge-primary rounded">{art.shared_type}</span>
+          <h2 className="font-weight-bold font-italic text-uppercase" style={{width: "80%"}}>
             {art.post_title}
           </h2>
           {art.url && (
@@ -29,7 +30,7 @@ export default class Art extends Component {
             </Button>
           </div>
           <small className="font-italic font-weight-bold">
-            Category: {art.shared_type}
+            Category: {art.art_type}
           </small>
           <br />
           <small className="font-italic font-weight-bold">

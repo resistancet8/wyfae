@@ -7,8 +7,10 @@ export default class Memory extends Component {
   render() {
     let { memories } = this.props;
     let Memories = memories.map((memory, index) => {
+      console.log(memory)
       return (
         <div key={index} className="bg-white p-3 mb-2">
+        <span class="float-right badge badge-primary rounded">{memory.shared_type}</span>
           <h2 className="font-weight-bold font-italic text-uppercase">
             {memory.post_title}
           </h2>

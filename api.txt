@@ -705,7 +705,7 @@ In case of Failure:
 status: 400
 
 
-2. If already liked or not able to update due to some other reason
+2. If not able to update due to some reason
 {
     "status": "failure",
     "msg": "Could not Update Likes"
@@ -1347,6 +1347,287 @@ In case of failure:
 {
     "msg": "Invalid Token",
     "code": "14",
+    "status": "failure"
+}
+status: 400
+
+
+########################################################
+############ Competetion ###############################
+########################################################
+
+------------ Post type Competetion --------------------
+Note: If post type is competetion then following
+      is the response when you call 'insert_data'
+
+
+
+Json Response:
+{
+    "msg": "Post Inserted Successfully.",
+    "status": "success",
+    "post_content": {
+        "_id": "5bc899e4341265215f0c77ba",
+        "participants": [
+            {
+                "comments": [],
+                "total_comments": 0,
+                "author": "Mantu Kumar",
+                "username": "unique_user1",
+                "likes": 0,
+                "text": "first poem",
+                "user_liked": [],
+                "part_post_id": "5bc899e4341265215f0c77b9"
+            }
+        ],
+        "art_type": "poem",
+        "creation_time": "2018-10-18T14:34:12.762",
+        "shared_type": "compete",
+        "post_title": null,
+        "start_time": "2018-10-19T14:34:12.762",
+        "post_type": "art",
+        "winner": "Yet To Be Decided",
+        "end_time": "2018-10-21T14:34:12.762"
+    }
+}
+
+
+--------------------------------------------------------
+------------ Join Competetion -------------------------
+--------------------------------------------------------
+
+159.89.171.16:9001/user/join_contest
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Request:
+
+form-data
+key: pic
+value: uploaded_pic
+
+key: text
+value: "Post Text"
+
+key: post_title
+value: "Any title"
+
+key: post_id
+value: "competetion / post id"
+
+
+Json Response:
+In case of Success:
+{
+    "status": "success",
+    "participant_data": {
+        "likes": 0,
+        "username": "unique_user2",
+        "total_comments": 0,
+        "part_post_id": "5bc89c84341265234d270208",
+        "post_title": "this is awesome",
+        "comments": [],
+        "text": "First join",
+        "user_liked": [],
+        "author": "Mantu Kumar"
+    },
+    "msg": "Competetion Joined Successfully"
+}
+
+
+In case of failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+status: 400
+
+2. If user already participated
+{
+    "status": "failure",
+    "msg": "User has already participated"
+}
+status: 400
+
+3. If competetion already started
+{
+    "status": "failure", 
+    "msg": "Competetion Already Started."
+}
+status: 400
+
+4. If user does not exists
+{
+    "status": "failure", 
+    "code": "21", 
+    "msg": "No Profile Data Found"
+}
+status: 400
+
+
+
+-------------------------------------------------------------------------
+------------ Update contest signal -------------------------------------
+-------------------------------------------------------------------------
+
+
+159.89.171.16:9000/user/update_contest_signal
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+
+Json Request:
+{
+	"post_id": "5bcb150c3412654505492cb0",
+	"part_post_id":"5bcb152634126545136071f9",
+	"signal_type": "comment",
+	"comment_text": "first comment"
+}
+
+Note: signal_type - can be 'comment' or 'like'
+Note: comment_text - valid only for 'signal_type': 'comment'
+
+
+Json Response:
+
+
+In case of success:
+
+1. For likes
+{
+    "like_content": {
+        "username": "unique_user2",
+        "name": "Mantu Kumar"
+    },
+    "msg": "Successfully Updated Likes",
+    "status": "success"
+}
+status: 200
+
+
+2. For comments
+{
+    "status": "success",
+    "msg": "Successfully Updated Comments",
+    "comment_content": {
+        "name": "Mantu Kumar",
+        "username": "unique_user2",
+        "comment_text": "first comment"
+    }
+}
+status: 200
+
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+status: 400
+
+
+2. If not able to update due to some reason
+{
+    "status": "failure",
+    "msg": "Could not Update Likes"
+}
+
+
+3. If not able to update comment
+{
+    "status": "failure",
+    "msg": "Could not Update Comments"
+}
+
+4. If user who is liking is not existing
+{
+    "status": "failure",
+    "code": "21",
+    "msg": "No Profile Data Found"
+}
+
+
+---------------------------------------------------------------
+------------ Get contest: upcoming, ongoing, finished ---------
+---------------------------------------------------------------
+
+159.89.171.16:9000/user/get_contest
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+
+Json Request:
+{
+	"skip_count":0,
+	"compete_status": "upcoming"
+}
+
+Note: compete_status - can be 'upcoming', 'ongoing', 'finished'
+
+
+Json Response:
+{
+    "msg": "Fetched Data Successfully",
+    "all_content": [
+        {
+            "_id": "5bcb228f3412654f9e9d51a4",
+            "end_time": "2018-10-23T12:41:51.464",
+            "start_time": "2018-10-21T12:41:51.464",
+            "shared_type": "compete",
+            "post_title": null,
+            "winner": "Yet To Be Decided",
+            "art_type": "poem",
+            "post_type": "art",
+            "participants": [
+                {
+                    "author": "Mantu Kumar",
+                    "part_post_id": "5bcb228f3412654f9e9d51a3",
+                    "username": "unique_user1",
+                    "comments": [],
+                    "likes": 0,
+                    "total_comments": 0,
+                    "text": "first poem",
+                    "user_liked": []
+                }
+            ],
+            "creation_time": "2018-10-20T12:41:51.464"
+        }
+    ],
+    "status": "success"
+}
+
+
+In case of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+status: 400
+
+2. If compete_status is not 'upcoming', 'ongoing', 'finished'
+{
+    "msg": "Invalid compete status",
     "status": "failure"
 }
 status: 400
