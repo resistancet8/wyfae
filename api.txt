@@ -1496,7 +1496,6 @@ Json Request:
 	"comment_text": "first comment"
 }
 
-Note: signal_type - can be 'comment' or 'like'
 Note: comment_text - valid only for 'signal_type': 'comment'
 
 
@@ -1504,6 +1503,7 @@ Json Response:
 
 
 In case of success:
+Note: signal_type - can be 'comment' or 'like'
 
 1. For likes
 {
@@ -1561,9 +1561,9 @@ status: 400
 }
 
 
----------------------------------------------------------------
------------- Get contest: upcoming, ongoing, finished ---------
----------------------------------------------------------------
+--------------------------------------------------------------------
+------------ Get contest: upcoming, ongoing, finished, all ---------
+--------------------------------------------------------------------
 
 159.89.171.16:9000/user/get_contest
 
@@ -1578,43 +1578,69 @@ i.e. Authorization = value
 Json Request:
 {
 	"skip_count":0,
-	"compete_status": "upcoming"
+	"compete_status": "all"
 }
 
-Note: compete_status - can be 'upcoming', 'ongoing', 'finished'
+Note: compete_status - can be 'upcoming', 'ongoing', 'finished', 'all'
 
 
 Json Response:
 {
+    "all_content": {
+        "ongoing": [],
+        "finshed": [],
+        "upcoming": [
+            {
+                "start_time": "2018-11-12T07:16:04.958",
+                "art_type": "poem",
+                "creation_time": "2018-11-11T07:16:04.958",
+                "participants": [
+                    {
+                        "total_comments": 0,
+                        "comments": [],
+                        "username": "unique_user1",
+                        "user_liked": [],
+                        "text": "first poem2",
+                        "likes": 0,
+                        "part_post_id": "5be7d7343412654fa04cac5b",
+                        "author": "Mantu Kumar"
+                    }
+                ],
+                "post_title": null,
+                "end_time": "2018-11-14T07:16:04.958",
+                "shared_type": "compete",
+                "_id": "5be7d7343412654fa04cac5c",
+                "winner": "Yet To Be Decided",
+                "post_type": "art"
+            },
+            {
+                "start_time": "2018-11-12T07:15:44.714",
+                "art_type": "poem",
+                "creation_time": "2018-11-11T07:15:44.714",
+                "participants": [
+                    {
+                        "total_comments": 0,
+                        "comments": [],
+                        "username": "unique_user1",
+                        "user_liked": [],
+                        "text": "first poem",
+                        "likes": 0,
+                        "part_post_id": "5be7d7203412654fa04cac57",
+                        "author": "Mantu Kumar"
+                    }
+                ],
+                "post_title": null,
+                "end_time": "2018-11-14T07:15:44.714",
+                "shared_type": "compete",
+                "_id": "5be7d7203412654fa04cac58",
+                "winner": "Yet To Be Decided",
+                "post_type": "art"
+            }
+        ]
+    },
     "msg": "Fetched Data Successfully",
-    "all_content": [
-        {
-            "_id": "5bcb228f3412654f9e9d51a4",
-            "end_time": "2018-10-23T12:41:51.464",
-            "start_time": "2018-10-21T12:41:51.464",
-            "shared_type": "compete",
-            "post_title": null,
-            "winner": "Yet To Be Decided",
-            "art_type": "poem",
-            "post_type": "art",
-            "participants": [
-                {
-                    "author": "Mantu Kumar",
-                    "part_post_id": "5bcb228f3412654f9e9d51a3",
-                    "username": "unique_user1",
-                    "comments": [],
-                    "likes": 0,
-                    "total_comments": 0,
-                    "text": "first poem",
-                    "user_liked": []
-                }
-            ],
-            "creation_time": "2018-10-20T12:41:51.464"
-        }
-    ],
     "status": "success"
 }
-
 
 In case of Failure:
 1. If not a valid token is supplied in header

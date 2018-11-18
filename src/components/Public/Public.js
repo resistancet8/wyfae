@@ -9,6 +9,10 @@ import { getPosts } from "./../../actions/homepage_actions";
 import PropTypes from "prop-types";
 import { Route, withRouter } from "react-router-dom";
 import navigationHome from "./../../helpers/navigation";
+import Ongoing from './Competition/Ongoing';
+import Completed from './Competition/Completed';
+import Upcoming from './Competition/Upcoming';
+
 import "./Public.css";
 
 const styles = theme => ({
@@ -62,6 +66,10 @@ class Public extends Component {
             ) : (
               <div className={classes.public}>No Posts</div>
             )}
+            {/* competetion routes */}
+            <Route exact path="/trending/upcoming" component={Upcoming} />
+            <Route exact path="/trending/completed" component={Completed} />
+            <Route exact path="/trending/ongoing" component={Ongoing} />
           </Grid>
           <Grid item xs={12} md={3}>
             <Trending className={classes.public + " p-6"} />

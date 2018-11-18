@@ -2,3 +2,7 @@ input:focus {
   border: none !important;
   outline: none;
 }
+
+a {
+  color: #555;
+}
