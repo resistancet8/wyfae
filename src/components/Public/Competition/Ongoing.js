@@ -28,7 +28,7 @@ class Ongoing extends Component {
     let ongoing = this.state.ongoing || [];
 
     let ongoingData = ongoing.length ? ongoing.map((obj) => {
-      return <Participants data={obj}/>
+      return <Participants data={obj} ongoing={1}/>
     }): <div> No Competitions </div>
 
     return (

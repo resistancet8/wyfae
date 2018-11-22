@@ -287,74 +287,97 @@ class Form extends Component {
               />
             </div>
             <div className="controls mr-auto">
-              <Button
-                variant="outlined"
-                className="mr-2 mb-2 font-weight-normal"
-                onClick={() => {
-                  this.setState(
-                    {
-                      shared_type: "share"
-                    },
-                    () => {
-                      handleSubmit(this.getData)();
-                    }
-                  );
-                }}
-              >
-                <i className="fas fa-share mx-1" />
-                Share
-              </Button>
-              <Button
-                variant="outlined"
-                className="mr-2 mb-2 font-weight-normal"
-                onClick={() => {
-                  this.setState(
-                    {
-                      shared_type: "anonymous"
-                    },
-                    () => {
-                      handleSubmit(this.getData)();
-                    }
-                  );
-                }}
-              >
-                <i className="fas fa-share mx-1" />
-                Share Anonymously
-              </Button>
-              <Button
-                variant="outlined"
-                className="mr-2 mb-2 font-weight-normal"
-                onClick={() => {
-                  this.setState(
-                    {
-                      shared_type: "compete"
-                    },
-                    () => {
-                      handleSubmit(this.getData)();
-                    }
-                  );
-                }}
-              >
-                <i className="fas fa-medal mx-1" />
-                Compete
-              </Button>
-              <Button
-                variant="outlined"
-                className="mr-2 mb-2 font-weight-normal"
-                onClick={() => {
-                  this.setState(
-                    {
-                      shared_type: "save"
-                    },
-                    () => {
-                      handleSubmit(this.getData)();
-                    }
-                  );
-                }}
-              >
-                <i className="fas fa-save mx-1" />
-                Save
-              </Button>
+              {!this.props.part_id && (
+                <div>
+                  <Button
+                    variant="outlined"
+                    className="mr-2 mb-2 font-weight-normal"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          shared_type: "share"
+                        },
+                        () => {
+                          handleSubmit(this.getData)();
+                        }
+                      );
+                    }}
+                  >
+                    <i className="fas fa-share mx-1" />
+                    Share
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    className="mr-2 mb-2 font-weight-normal"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          shared_type: "anonymous"
+                        },
+                        () => {
+                          handleSubmit(this.getData)();
+                        }
+                      );
+                    }}
+                  >
+                    <i className="fas fa-share mx-1" />
+                    Share Anonymously
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    className="mr-2 mb-2 font-weight-normal"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          shared_type: "save"
+                        },
+                        () => {
+                          handleSubmit(this.getData)();
+                        }
+                      );
+                    }}
+                  >
+                    <i className="fas fa-save mx-1" />
+                    Save
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    className="mr-2 mb-2 font-weight-normal"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          shared_type: "compete"
+                        },
+                        () => {
+                          handleSubmit(this.getData)();
+                        }
+                      );
+                    }}
+                  >
+                    <i className="fas fa-medal mx-1" />
+                    Compete
+                  </Button>
+                </div>
+              )}
+              {this.props.part_id && (
+                <Button
+                  variant="outlined"
+                  className="mr-2 mb-2 font-weight-normal"
+                  onClick={() => {
+                    this.setState(
+                      {
+                        shared_type: "compete"
+                      },
+                      () => {
+                        handleSubmit(this.getData)();
+                      }
+                    );
+                  }}
+                >
+                  <i className="fas fa-medal mx-1" />
+                  Compete
+                </Button>
+              )}
             </div>
           </div>
           <Button

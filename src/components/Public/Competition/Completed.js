@@ -28,7 +28,7 @@ class Completed extends Component {
 
     let CompletedData = completed.length ? (
       completed.map(obj => {
-        return obj.post_type !== 'memory_book' && <Participants data={obj}/> 
+        return obj.post_type !== 'memory_book' && <Participants data={obj} completed={1}/> 
       })
     ) : (
       <div> No Competitions </div>

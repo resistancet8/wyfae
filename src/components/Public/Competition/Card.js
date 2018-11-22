@@ -17,7 +17,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Comments from "./Comments";
+import Comments from "./../Main/Comments";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { Button } from "@material-ui/core";
@@ -61,7 +61,7 @@ const styles = theme => ({
   }
 });
 
-class PublicCard extends React.Component {
+class ParticipantCard extends React.Component {
   state = {
     expanded: null,
     comment: "",
@@ -95,7 +95,7 @@ class PublicCard extends React.Component {
     return string.length ? `${string} like this post.` : "";
   }
 
-  handleLikeClick(event, id) {
+  handleLikeClick(event, id, part_id) {
     if (document.querySelector(".animate")) {
       document.querySelector(".animate").classList.remove("animate");
     }
@@ -109,8 +109,9 @@ class PublicCard extends React.Component {
     }
 
     axios
-      .post("http://159.89.171.16:9000/user/update_signal", {
-        post_id: id,
+      .post("http://159.89.171.16:9000/user/update_contest_signal", {
+        post_id: part_id,
+        part_post_id: id,
         signal_type: "like"
       })
       .then(response => {})
@@ -134,10 +135,11 @@ class PublicCard extends React.Component {
     });
   };
 
-  addComment(id, post_id) {
+  addComment(id, post_id, part_id) {
     axios
-      .post("http://159.89.171.16:9000/user/update_signal", {
-        post_id: post_id,
+      .post("http://159.89.171.16:9000/user/update_contest_signal", {
+        post_id: part_id,
+        part_post_id: post_id,
         signal_type: "comment",
         comment_text: this.state.comment
       })
@@ -157,10 +159,6 @@ class PublicCard extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        // this.props.dispatch({
-        //   type: "SHOW_TOAST",
-        //   payload: err.response.data.msg
-        // });
       });
   }
 
@@ -184,7 +182,7 @@ class PublicCard extends React.Component {
         )}
         <CardContent>
           <Typography component="p" gutterBottom>
-            {truncate(post.text, 150)}
+            {post.text}
           </Typography>
           <Typography component="p" gutterBottom>
             <strong class="font-italic">By: {post.author}</strong>
@@ -208,7 +206,7 @@ class PublicCard extends React.Component {
               alt=""
               id="like-unlike-button"
               onClick={e => {
-                this.handleLikeClick(e, post._id);
+                this.handleLikeClick(e, post.part_post_id, this.props.part_id);
               }}
             />
           )}
@@ -223,7 +221,7 @@ class PublicCard extends React.Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div classes={classes.root}>
-                <List id={`comment-list-${post._id}`}>
+                <List id={`comment-list-${post.part_post_id}`}>
                   <ListItem className="border-bottom">
                     <textarea
                       row="5"
@@ -233,7 +231,7 @@ class PublicCard extends React.Component {
                     />
                     <Button
                       onClick={() => {
-                        this.addComment(`comment-list-${post._id}`, post._id);
+                        this.addComment(`comment-list-${post.part_post_id}`, post.part_post_id, this.props.part_id);
                       }}
                     >
                       Submit
@@ -260,8 +258,8 @@ function mapStateToProps(state) {
   };
 }
 
-PublicCard.propTypes = {
+ParticipantCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(PublicCard));
+export default connect(mapStateToProps)(withStyles(styles)(ParticipantCard));

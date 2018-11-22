@@ -148,23 +148,6 @@ class Memory extends Component {
                 onClick={() => {
                   this.setState(
                     {
-                      shared_type: "compete"
-                    },
-                    () => {
-                      handleSubmit(this.getData)();
-                    }
-                  );
-                }}
-              >
-                <i className="fas fa-medal mx-1" />
-                Compete
-              </Button>
-              <Button
-                variant="outlined"
-                className="mr-2 mb-2 font-weight-normal"
-                onClick={() => {
-                  this.setState(
-                    {
                       shared_type: "save"
                     },
                     () => {
