@@ -96,25 +96,26 @@ class ParticipantCard extends React.Component {
   }
 
   handleLikeClick(event, id, part_id) {
-    if (document.querySelector(".animate")) {
-      document.querySelector(".animate").classList.remove("animate");
-    }
-
-    if (event.target.src.indexOf("unliked") !== -1) {
-      event.target.src = like;
-      event.target.classList.add("animate");
-    } else {
-      event.target.src = unlike;
-      event.target.classList.add("animate");
-    }
-
+    event.persist();
     axios
       .post("http://159.89.171.16:9000/user/update_contest_signal", {
         post_id: part_id,
         part_post_id: id,
         signal_type: "like"
       })
-      .then(response => {})
+      .then(response => {
+        if (document.querySelector(".animate")) {
+          document.querySelector(".animate").classList.remove("animate");
+        }
+
+        if (event.target.src.indexOf("unliked") !== -1) {
+          event.target.src = like;
+          event.target.classList.add("animate");
+        } else {
+          event.target.src = unlike;
+          event.target.classList.add("animate");
+        }
+      })
       .catch(err => {
         this.props.dispatch({
           type: "SHOW_TOAST",
@@ -144,7 +145,6 @@ class ParticipantCard extends React.Component {
         comment_text: this.state.comment
       })
       .then(response => {
-        console.log(response);
         this.setState({
           newComment: [
             ...this.state.newComment,
@@ -163,7 +163,7 @@ class ParticipantCard extends React.Component {
   }
 
   render() {
-    const { classes, post } = this.props;
+    const { classes, post, ongoing, completed, upcoming } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -194,7 +194,7 @@ class ParticipantCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions>
-          {post.user_liked && (
+          {!completed && !upcoming && ongoing && post.user_liked && (
             <img
               src={
                 !!post.user_liked.filter(
@@ -217,26 +217,35 @@ class ParticipantCard extends React.Component {
             onChange={this.handleChange("panel1")}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>Comments ({post.comments.length})</Typography>
+              <Typography className={classes.heading}>
+                Comments ({post.comments.length})
+              </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div classes={classes.root}>
                 <List id={`comment-list-${post.part_post_id}`}>
-                  <ListItem className="border-bottom">
-                    <textarea
-                      row="5"
-                      placeholder="Enter comment"
-                      value={this.state.comment}
-                      onChange={this.handleComment}
-                    />
-                    <Button
-                      onClick={() => {
-                        this.addComment(`comment-list-${post.part_post_id}`, post.part_post_id, this.props.part_id);
-                      }}
-                    >
-                      Submit
-                    </Button>
-                  </ListItem>
+                  {!completed && !upcoming && ongoing && (
+                    <ListItem className="border-bottom">
+                      <textarea
+                        row="5"
+                        placeholder="Enter comment"
+                        value={this.state.comment}
+                        onChange={this.handleComment}
+                      />
+                      )
+                      <Button
+                        onClick={() => {
+                          this.addComment(
+                            `comment-list-${post.part_post_id}`,
+                            post.part_post_id,
+                            this.props.part_id
+                          );
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    </ListItem>
+                  )}
                   {post.comments &&
                     post.comments.map(comment => {
                       return <Comments comment={comment} />;

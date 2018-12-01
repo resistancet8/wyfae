@@ -82,9 +82,11 @@ class User extends Component {
         </div>
         <div className="details text-center mt-3">
           <h2 className="font-weight-bold">{this.props.user.first_name}</h2>
-          <p>{`${this.props.user.city ? this.props.user.city: ""}, ${this.props.user.state ? this.props.user.state: ""}, ${
-            this.props.user.country ? this.props.user.country: ""
-          }, Earth`}</p>
+          <p>{`${this.props.user.city ? this.props.user.city + "," : ""} ${
+            this.props.user.state ? this.props.user.state + "," : ""
+          } ${
+            this.props.user.country ? this.props.user.country + "," : ""
+          } Earth`}</p>
         </div>
       </div>
     );

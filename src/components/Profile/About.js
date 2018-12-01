@@ -8,28 +8,28 @@ class About extends Component {
           <h5 className="text-muted font-weight-bold">About</h5>
           <p className="font-italic"> {this.props.user.about}</p>
         </div>
-        <div className="row pt-3">
-          <p>
+        <div className="row pt-3 about-holder">
+          <p className="cols-12">
             <strong class="text-muted">DOB:</strong>
             &nbsp;
             {this.props.user.dob}
           </p>
-          <p>
+          <p className="cols-12">
             <strong class="text-muted">Languages Known:</strong>
             &nbsp;
             {this.props.user.langs}
           </p>
-          <p>
+          <p className="cols-12">
             <strong class="text-muted">Contact:</strong>
             &nbsp;
             {this.props.user.contact}
           </p>
-          <p>
+          <p className="cols-12">
             <strong class="text-muted">Email:</strong>
             &nbsp;
             {this.props.user.email}
           </p>
-          <p>
+          <p className="cols-12">
             <strong class="text-muted">Favorite Artform:</strong>
             &nbsp;
             {this.props.user.favorite_art}

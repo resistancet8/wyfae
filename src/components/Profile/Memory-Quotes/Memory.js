@@ -84,7 +84,6 @@ class Memory extends Component {
                   {this.state.errors.title}{" "}
                 </div>
               )}
-              <small className="text-muted">Minimun 10 characters</small>
             </div>
             <Field
               component="textarea"
@@ -102,7 +101,6 @@ class Memory extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
-            <small className="text-muted">Minimun 100 characters</small>
             <div className="form-group">
               <label>Select an image:</label>
               <input type="file" className="form-control" id="pic" />

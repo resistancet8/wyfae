@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -15,7 +14,6 @@ import Timeline from "./Timeline/Timeline";
 
 class Profile extends Component {
   render() {
-
     let { user } = this.props;
 
     return (
@@ -25,11 +23,13 @@ class Profile extends Component {
           <div className="row">
             <div className="col-md-4 bg-white p-3">
               {user && <User user={user} />}
-              {user&& <div className="edit-profile">
-                <Link to={`/update/user`}>
-                  <Icon>edit</Icon>
-                </Link>
-              </div>}
+              {user && (
+                <div className="edit-profile">
+                  <Link to={`/update/user`}>
+                    <Icon>edit</Icon>
+                  </Link>
+                </div>
+              )}
             </div>
             <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
               {user.stats && <Stats stats={user.stats} />}
@@ -48,7 +48,7 @@ class Profile extends Component {
             <div className="col-md-6 bg-white border-top-overridden p-3">
               <Memory />
             </div>
-            <div className="col-md-4 bg-white border-left-overridden border-top-overridden px-5 py-3">
+            <div className="col-md-6 bg-white border-left-overridden border-top-overridden px-5 py-3">
               <Quotes />
             </div>
           </div>

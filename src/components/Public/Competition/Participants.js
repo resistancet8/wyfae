@@ -25,6 +25,65 @@ class Participants extends Component {
     this.setState({ open: false });
   };
 
+  componentDidMount() {
+    if (this.props.upcoming || this.props.ongoing) {
+      var time = this.props.upcoming
+        ? this.props.data.start_time
+        : this.props.data.end_time;
+
+      var countDownDate = new Date(time + "Z").getTime();
+
+      var x = setInterval(() => {
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        var msg1 = this.props.ongoing ? "Ends in " : "Starts in ";
+        // Display the result in the element with id="demo"
+        if (document.getElementById(`comp-id-${this.props.data._id}`)) {
+          document.getElementById(`comp-id-${this.props.data._id}`).innerText =
+            msg1 + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        }
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          let msg = "";
+          if (this.props.ongoing) {
+            msg =
+              "Competition Ended On <em>" +
+              moment(time + "Z").format("MMMM Do YYYY") +
+              " At " +
+              moment(time + "Z").format("h:mm a") +
+              "</em>";
+          } else {
+            msg =
+              "Competition Started On <em>" +
+              moment(time + "Z").format("MMMM Do YYYY") +
+              " At " +
+              moment(time + "Z").format("h:mm a") +
+              "</em>";
+          }
+
+          clearInterval(x);
+          if (document.querySelector(`#comp-id-${this.props.data._id}`))
+            document.querySelector(
+              `#comp-id-${this.props.data._id}`
+            ).innerHTML = msg;
+        }
+      }, 1000);
+    }
+  }
+
   render() {
     const { fullScreen } = this.props;
 
@@ -83,6 +142,27 @@ class Participants extends Component {
         );
       });
 
+    let winner = "No winners";
+    if (
+      this.props.data.winner.users &&
+      this.props.data.winner.users.length > 0
+    ) {
+      winner = this.props.data.winner.users.reduce(
+        (acu, user) => user.author + ", " + acu,
+        ""
+      );
+      winner = "The Winner Is " + winner.substr(0, winner.length - 2);
+    } else {
+      if (
+        this.props.data.winner.users &&
+        this.props.data.winner.users.length == 0
+      ) {
+        winner = this.props.data.winner.msg;
+      } else {
+        winner = "The Winner Is " + this.props.data.winner;
+      }
+    }
+
     return (
       <div
         style={{
@@ -138,7 +218,13 @@ class Participants extends Component {
           aria-labelledby="responsive-dialog-title"
         >
           <DialogContent>
-            <Card post={this.state.post} part_id={this.props.data._id} />
+            <Card
+              post={this.state.post}
+              part_id={this.props.data._id}
+              ongoing={this.props.ongoing}
+              upcoming={this.props.upcoming}
+              completed={this.props.completed}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="secondary">
@@ -148,25 +234,24 @@ class Participants extends Component {
         </Dialog>
         {this.props.ongoing && (
           <div>
-            Competition Ends On{" "}
-            <em>{moment(this.props.data.end_time).format("MMMM Do YYYY")}</em>{" "}
-            at <em>{moment(this.props.data.end_time).format("h:mm a")}</em>
+            <span class="ended" id={`comp-id-${this.props.data._id}`} />
           </div>
         )}
         {this.props.upcoming && (
           <div>
-            Competition Starts On{" "}
-            <em>{moment(this.props.data.start_time).format("MMMM Do YYYY")}</em>{" "}
-            at <em>{moment(this.props.data.start_time).format("h:mm a")}</em>
+            <span class="ended" id={`comp-id-${this.props.data._id}`} />
           </div>
         )}
         {this.props.completed && (
           <div>
             Competition Ended On{" "}
-            <em>{moment(this.props.data.start_time).format("MMMM Do YYYY")}</em>{" "}
-            at <em>{moment(this.props.data.start_time).format("h:mm a")}</em>{" "}
+            <em>
+              {moment(this.props.data.start_time + "Z").format("MMMM Do YYYY")}
+            </em>{" "}
+            at{" "}
+            <em>{moment(this.props.data.start_time + "Z").format("h:mm a")}</em>{" "}
             <br />
-            The Winner Is <em>{this.props.data.winner}</em>
+            <em>{winner}</em>
           </div>
         )}
       </div>

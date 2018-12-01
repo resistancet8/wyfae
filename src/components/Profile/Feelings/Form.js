@@ -258,7 +258,6 @@ class Form extends Component {
                   {this.state.errors.post_title}{" "}
                 </div>
               )}
-              <small className="text-muted">Minimun 10 characters</small>
             </div>
             <Field component="input" type="hidden" name="post_type" />
             <img src={defaultPic} class="d-none" id="default-pic" />
@@ -277,7 +276,6 @@ class Form extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
-            <small className="text-muted">Minimun 100 characters</small>
             <div className="form-group">
               <label>Select an image:</label>
               <input

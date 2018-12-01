@@ -135,6 +135,9 @@ class PublicCard extends React.Component {
   };
 
   addComment(id, post_id) {
+    if (this.state.comment.length < 1) {
+      return;
+    }
     axios
       .post("http://159.89.171.16:9000/user/update_signal", {
         post_id: post_id,
@@ -142,7 +145,6 @@ class PublicCard extends React.Component {
         comment_text: this.state.comment
       })
       .then(response => {
-        console.log(response);
         this.setState({
           newComment: [
             ...this.state.newComment,
@@ -152,7 +154,8 @@ class PublicCard extends React.Component {
                 secondary={response.data.comment_content.comment_text}
               />
             </ListItem>
-          ]
+          ],
+          comment: ""
         });
       })
       .catch(err => {
@@ -187,7 +190,9 @@ class PublicCard extends React.Component {
             {truncate(post.text, 150)}
           </Typography>
           <Typography component="p" gutterBottom>
-            <strong class="font-italic">By: {post.author}</strong>
+            <strong class="font-italic">
+              By: {post.shared_type !== "anonymous" ? post.author : "Anonymous"}
+            </strong>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(
@@ -219,17 +224,19 @@ class PublicCard extends React.Component {
             onChange={this.handleChange("panel1")}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>Comments ({post.comments.length})</Typography>
+              <Typography className={classes.heading}>
+                Comments ({post.comments.length})
+              </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div classes={classes.root}>
                 <List id={`comment-list-${post._id}`}>
-                  <ListItem className="border-bottom">
+                  <ListItem className="border-bottom comment-holder">
                     <textarea
-                      row="5"
                       placeholder="Enter comment"
                       value={this.state.comment}
                       onChange={this.handleComment}
+                      className="comment-box"
                     />
                     <Button
                       onClick={() => {

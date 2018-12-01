@@ -10,6 +10,9 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import AccessAlarmIcon from "@material-ui/icons/AccountCircle";
+import FeelCircle from "./../../assets/img/feelcircle.svg";
+import JournalCircle from "./../../assets/img/journal icon.svg";
+import FeelRequest from "./../../assets/img/feelRequest.svg";
 
 import "./Navbar.css";
 
@@ -33,19 +36,15 @@ class NavbarComponent extends Component {
   render() {
     const { anchorEl } = this.state;
     const { isAuthenticated: isAuth } = this.props.auth;
+    const { first_name } = this.props.user;
 
     return (
       <header>
         <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-          <NavLink className="my-0 mr-md-auto banner" to="/">
+          <NavLink className="my-0 mr-md-auto banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
           <nav className="my-2 my-md-0 mr-md-3">
-            <NavLink className="p-2 text-dark" to="/trending">
-              <IconButton color="default" className="icon-holder2">
-                <img src={TrendingFeel} alt="" />
-              </IconButton>
-            </NavLink>
             {!isAuth && (
               <React.Fragment>
                 <NavLink className="p-2 text-dark" to="/register">
@@ -58,6 +57,27 @@ class NavbarComponent extends Component {
             )}
             {isAuth && (
               <React.Fragment>
+                <NavLink className="p-2 text-dark" to="/friends">
+                  <IconButton color="default" className="icon-holder">
+                    <img src={FeelCircle} alt="" />
+                  </IconButton>
+                </NavLink>
+                <NavLink className="p-2 text-dark" to="/requests">
+                  <IconButton color="default" className="icon-holder">
+                    <img src={FeelRequest} alt="" />
+                  </IconButton>
+                </NavLink>
+                <NavLink className="p-2 text-dark" to="/journal">
+                  <IconButton color="default" className="icon-holder">
+                    <img src={JournalCircle} alt="" />
+                  </IconButton>
+                </NavLink>
+
+                <NavLink className="p-2 text-dark" to="/trending">
+                  <IconButton color="default" className="icon-holder2">
+                    <img src={TrendingFeel} alt="" />
+                  </IconButton>
+                </NavLink>
                 <Button onClick={this.handleClick}>
                   Profile &nbsp;
                   <AccessAlarmIcon />
@@ -70,7 +90,7 @@ class NavbarComponent extends Component {
                 >
                   <MenuItem onClick={this.handleClose}>
                     <NavLink className="text-dark profile" to="/profile">
-                      Profile
+                      {first_name}
                     </NavLink>
                   </MenuItem>
                   <MenuItem
@@ -99,7 +119,8 @@ NavbarComponent.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    user: state.user.user
   };
 }
 

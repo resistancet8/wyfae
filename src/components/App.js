@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import { Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
@@ -8,12 +8,9 @@ import Login from "./Auth/Login";
 import Forgot from "./Auth/Forgot";
 import Profile from "./Profile/Profile";
 import Public from "./Public/Public";
-import Feelbar from "./Feelbar/Feelbar";
 import PropTypes from "prop-types";
 import Journal from "./Profile/Journal/Journal";
 import UpdateProfile from "./Profile/Update-Profile/Update-profile";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -58,7 +55,6 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="adjustment mt-1" />
-        <div className="container">{isAuth && <Feelbar />}</div>
         <Route
           path="/"
           render={() => {

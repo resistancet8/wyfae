@@ -1,147 +1,155 @@
 .avatar {
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 }
 
 .avatar-choose {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .avatar:hover label {
-    display: inline-block;
+  display: inline-block;
 }
 
 .avatar-choose label {
-    cursor: pointer;
-    color: #333;
-    font-size: 1.2em;
-    font-weight: bold;
-    display: none;
-    background: #fffe;
-    padding: 10px 20px;
-    border: 1px solid #888;
-    transition: .3s;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: none;
+  background: #fffe;
+  padding: 10px 20px;
+  border: 1px solid #888;
+  transition: 0.3s;
 }
 
 .avatar img {
-    max-width: 200px;
-    height: 200px;
+  max-width: 200px;
+  height: 200px;
 }
 
 .rounded {
-    border-radius: 10px !important;
+  border-radius: 10px !important;
 }
 
 .navtabs {
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
 }
 
 .nav-tabs .nav-item {
-    background: #eee !important;
-    border: none;
-    color: #333;
-    border-bottom: 3px solid transparent !important;
+  background: #eee !important;
+  border: none;
+  color: #333;
+  border-bottom: 3px solid transparent !important;
 }
 
 .nav-tabs .nav-item:hover {
-    background: #e1e1e1 !important;
+  background: #e1e1e1 !important;
 }
 
 .nav-tabs .active {
-    border: 0;
-    border-bottom: 3px solid #111 !important;
+  border: 0;
+  border-bottom: 3px solid #111 !important;
 }
 
 .nav-item.active {
-    background: #e1e1e1 !important;
-    position: relative;
+  background: #e1e1e1 !important;
+  position: relative;
 }
 
 .nav-item.active::after {
-    content: "";
-    display: block;
-    width: 10px;
-    height: 10px;
-    background: #111;
-    position: absolute;
-    left: 50%;
-    top: 96%;
-    transform: translateX(-50%) rotate(45deg);
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #111;
+  position: absolute;
+  left: 50%;
+  top: 96%;
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .stats {
-    margin-top: 0.5em !important;
+  margin-top: 0.5em !important;
 }
 
 .button-custom {
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
 }
 
 .fa-plus-circle {
-    color: #aaa !important;
+  color: #aaa !important;
 }
 
 .fa-plus-circle:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .journal {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .quotes,
 .todo,
 .goals {
-    max-height: 350px;
+  max-height: 350px;
 }
 
 .todo-item:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .todo-item:active {
-    background: #e1e1e1 !important;
+  background: #e1e1e1 !important;
+}
+
+.about-holder p {
+  width: 100%;
+}
+
+.timeline {
+  padding: 20px 20px !important ;
 }
 
 /* desktop */
 
 @media screen and (min-width: 800px) {
-    .border-left-overridden {
-        border-left-width: 0.6em !important;
-        border-left-color: #eee !important;
-        border-left-style: solid;
-    }
-    .rounded-left {
-        border-top-left-radius: 6px !important;
-        border-bottom-left-radius: 6px !important;
-    }
-    .rounded-right {
-        border-top-right-radius: 6px !important;
-        border-bottom-right-radius: 6px !important;
-    }
+  .border-left-overridden {
+    border-left-width: 0.6em !important;
+    border-left-color: #eee !important;
+    border-left-style: solid;
+  }
+  .rounded-left {
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+  }
+  .rounded-right {
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+  }
 }
 
 /* mobile screens */
 
 @media screen and (max-width: 800px) {
-    .border-top-overridden {
-        border-top-width: 0.6em !important;
-        border-top-color: #eee !important;
-        border-top-style: solid;
-    }
+  .border-top-overridden {
+    border-top-width: 0.6em !important;
+    border-top-color: #eee !important;
+    border-top-style: solid;
+  }
 }
 
 .edit-profile {
-    text-align: center;
-    color: gray;
+  text-align: center;
+  color: gray;
 }
 
 img.img-fluid + label {
-    display: none !important;
+  display: none !important;
 }
