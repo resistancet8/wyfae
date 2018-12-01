@@ -15,14 +15,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
-const NotFound = () => <div> Not Found </div>;
-
-const styles = theme => ({
-  close: {
-    padding: theme.spacing.unit / 2
-  }
-});
-
 class App extends Component {
   state = {
     toast: {
@@ -49,7 +41,13 @@ class App extends Component {
   };
 
   render() {
-    const { isAuthenticated: isAuth } = this.props.auth;
+    let isAuth = false;
+    if (
+      localStorage.getItem("jToken") &&
+      localStorage.getItem("jToken").length > 0
+    ) {
+      isAuth = true;
+    }
 
     return (
       <div className="App">
@@ -57,6 +55,7 @@ class App extends Component {
         <div className="adjustment mt-1" />
         <Route
           path="/"
+          exact
           render={() => {
             return <Redirect to="/trending" />;
           }}

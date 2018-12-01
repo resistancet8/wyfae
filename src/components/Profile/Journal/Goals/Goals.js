@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
-import classnames from "classnames";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
 import {
@@ -25,7 +24,7 @@ class Goals extends Component {
   }
 
   getData(formData) {
-    this.props.saveJournal('goals', {...formData, completed: "No"});
+    this.props.saveJournal("goals", { ...formData, completed: "No" });
     this.props.dispatch(reset("goal-add"));
   }
 
@@ -55,9 +54,7 @@ class Goals extends Component {
                 this.props.deleteJournal("goals", goal._id);
               }}
             />
-            <p
-              className={goal.completed === "Yes" ? "line-through": "" }
-            >
+            <p className={goal.completed === "Yes" ? "line-through" : ""}>
               {goal.text}
             </p>
             <div className="d-flex">

@@ -10,6 +10,10 @@ function memoryReducer(state = initialState, { type, payload }) {
       return {
         memory: payload
       };
+    case "DELETE_MEMORY":
+      return {
+        memory: state.memory.filter(o => o._id !== payload)
+      };
     default:
       return state;
   }

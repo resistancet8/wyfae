@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 import Memory from "./Memory";
 import Art from "./Art";
 import "./Timeline.css";
@@ -15,6 +16,7 @@ class Timeline extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   toggle(post) {
@@ -22,6 +24,31 @@ class Timeline extends Component {
       modal: !this.state.modal,
       currentPost: post ? post : {}
     });
+  }
+
+  deletePost(post_id, type = "art") {
+    let c = window.confirm("Are you sure?");
+    if (c) {
+      axios
+        .post("http://159.89.171.16:9000/user/delete_post", {
+          post_id: post_id
+        })
+        .then(data => {
+          this.props.dispatch({ type: "SHOW_TOAST", payload: "Deleted." });
+          if (type == "memory") {
+            this.props.dispatch({ type: "DELETE_MEMORY", payload: post_id });
+          } else {
+            this.props.dispatch({ type: "DELETE_ART", payload: post_id });
+          }
+        })
+        .catch(err => {
+          if (err.response)
+            this.props.dispatch({
+              type: "SHOW_TOAST",
+              payload: err.response.data.msg
+            });
+        });
+    }
   }
 
   render() {
@@ -34,7 +61,11 @@ class Timeline extends Component {
             <div>
               <h2 className="font-weight-bold">Arts: </h2>
               {arts.length ? (
-                <Art arts={arts} modalToggle={this.toggle} />
+                <Art
+                  arts={arts}
+                  modalToggle={this.toggle}
+                  deletePost={this.deletePost.bind(this)}
+                />
               ) : (
                 <div> No Arts </div>
               )}
@@ -43,7 +74,11 @@ class Timeline extends Component {
             <div>
               <h2 className="font-weight-bold">Memory: </h2>
               {memory.length ? (
-                <Memory memories={memory} modalToggle={this.toggle} />
+                <Memory
+                  memories={memory}
+                  modalToggle={this.toggle}
+                  deletePost={this.deletePost.bind(this)}
+                />
               ) : (
                 <div>No Memories</div>
               )}
@@ -86,5 +121,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {}
+  null
 )(Timeline);

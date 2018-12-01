@@ -1472,6 +1472,12 @@ status: 400
 status: 400
 
 
+5. If post_id does not exists
+{
+    "msg": "Post ID does not exists",
+    "status": "failure"
+}
+status: 400
 
 -------------------------------------------------------------------------
 ------------ Update contest signal -------------------------------------
@@ -1496,6 +1502,7 @@ Json Request:
 	"comment_text": "first comment"
 }
 
+Note: signal_type - can be 'comment' or 'like'
 Note: comment_text - valid only for 'signal_type': 'comment'
 
 
@@ -1503,7 +1510,6 @@ Json Response:
 
 
 In case of success:
-Note: signal_type - can be 'comment' or 'like'
 
 1. For likes
 {
@@ -1657,3 +1663,91 @@ status: 400
     "status": "failure"
 }
 status: 400
+
+
+############## Get Single Post ###################
+##################################################
+159.89.171.16:9000/user/get_single_post
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+
+Json Request:
+{
+        "post_id": "5befe2743412651a932734a5",
+}
+
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "msg": "Post Fetched Successfully.",
+    "post_data": {
+        "_id": "5befe2743412651a932734a5",
+        "shared_type": "compete",
+        "art_type": "Poem",
+        "creation_time": "2018-11-17T09:42:12.471",
+        "winner": "Yet To Be Decided",
+        "post_title": "First poem contest",
+        "participants": [
+            {
+                "likes": 0,
+                "comments": [],
+                "text": "The text which is entered",
+                "total_comments": 0,
+                "url": "static/unique_user1/art/5a0692c5-4508-4864-8631-dc841b02a3a7.jpg",
+                "author": "Mantu",
+                "user_liked": [],
+                "username": "unique_user1",
+                "part_post_id": "5befe2743412651a932734a4"
+            },
+            {
+                "likes": 0,
+                "comments": [],
+                "text": "body of comp1 ",
+                "total_comments": 0,
+                "post_title": "joining compe 1",
+                "author": "Naveen Kumar",
+                "user_liked": [],
+                "username": "resistancet9",
+                "part_post_id": "5befeaa13412651d34e56ad0"
+            }
+        ],
+        "post_type": "art",
+        "start_time": "2018-11-18T09:42:12.471",
+        "end_time": "2018-11-20T09:42:12.471"
+    }
+}
+status: 200
+
+
+In cas of Failure:
+1. If not a valid token is supplied in header
+{
+    "msg": "Invalid Token",
+    "code": "14",
+    "status": "failure"
+}
+status: 400
+
+2. If user who is liking is not existing
+{
+    "status": "failure",
+    "code": "21",
+    "msg": "No Profile Data Found"
+}
+
+
+3. If post_id does not exists
+{
+    "status": "failure",
+    "msg": "No Post Exists."
+}
+status: 400 

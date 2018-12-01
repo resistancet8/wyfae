@@ -1,16 +1,58 @@
 import React, { Component } from "react";
 import truncate from "truncate";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
 
 export default class Art extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     let { arts } = this.props;
+    const { anchorEl } = this.state;
     let Arts = arts.map((art, index) => {
       return (
-        <div key={index} className="bg-white p-3 mb-2">
-        <span class="float-right badge badge-primary rounded">{art.shared_type}</span>
-          <h2 className="font-weight-bold font-italic text-uppercase" style={{width: "80%"}}>
+        <div key={index} className="bg-white p-3 mb-2 art-holder">
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+            elevation={0}
+          >
+            <MenuItem
+              onClick={() => {
+                this.props.deletePost(art._id, "art");
+                this.handleClose();
+              }}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
+          <span class="float-right badge badge-primary rounded font-weight-bold">
+            {art.shared_type}
+          </span>
+
+          <IconButton className="deleteButton" onClick={this.handleClick}>
+            <MoreVertIcon />
+          </IconButton>
+          <h2
+            className="font-weight-bold font-italic text-uppercase "
+            style={{ width: "80%" }}
+          >
             {art.post_title}
           </h2>
           {art.url && (

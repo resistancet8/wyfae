@@ -10,6 +10,10 @@ function artReducer(state = initialState, { type, payload }) {
       return {
         arts: payload
       };
+    case "DELETE_ART":
+      return {
+        arts: state.arts.filter(o => o._id !== payload)
+      };
     default:
       return state;
   }

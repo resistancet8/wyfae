@@ -1,16 +1,53 @@
 import React, { Component } from "react";
 import truncate from "truncate";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
 
 export default class Memory extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     let { memories } = this.props;
+    const { anchorEl } = this.state;
     let Memories = memories.map((memory, index) => {
-      console.log(memory)
       return (
-        <div key={index} className="bg-white p-3 mb-2">
-        <span class="float-right badge badge-primary rounded">{memory.shared_type}</span>
+        <div key={index} className="bg-white p-3 mb-2 memory-holder">
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+            elevation={0}
+          >
+            <MenuItem
+              onClick={() => {
+                this.props.deletePost(memory._id, "memory");
+                this.handleClose();
+              }}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
+          <span class="float-right badge badge-primary rounded font-weight-bold">
+            {memory.shared_type}
+          </span>
+          <IconButton className="deleteButton" onClick={this.handleClick}>
+            <MoreVertIcon />
+          </IconButton>
           <h2 className="font-weight-bold font-italic text-uppercase">
             {memory.post_title}
           </h2>
