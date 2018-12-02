@@ -7,6 +7,7 @@ import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Forgot from "./Auth/Forgot";
 import Profile from "./Profile/Profile";
+import Userpage from "./Userpage/Userpage";
 import Public from "./Public/Public";
 import PropTypes from "prop-types";
 import Journal from "./Profile/Journal/Journal";
@@ -73,6 +74,14 @@ class App extends Component {
             exact
             render={() => {
               if (isAuth) return <Profile />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route
+            path="/profile/:username"
+            exact
+            render={() => {
+              if (isAuth) return <Userpage />;
               else return <Redirect to="/login" />;
             }}
           />

@@ -69,16 +69,18 @@ class User extends Component {
       <div>
         <div className="avatar row">
           {img_tag}
-          <div class="avatar-choose">
-            <input
-              type="file"
-              class="d-none"
-              name="pic"
-              id="avatar"
-              onChange={e => this.handleChange(e)}
-            />
-            <label htmlFor="avatar">choose</label>
-          </div>
+          {!this.props.userpage && (
+            <div class="avatar-choose">
+              <input
+                type="file"
+                class="d-none"
+                name="pic"
+                id="avatar"
+                onChange={e => this.handleChange(e)}
+              />
+              <label htmlFor="avatar">choose</label>
+            </div>
+          )}
         </div>
         <div className="details text-center mt-3">
           <h2 className="font-weight-bold">{this.props.user.first_name}</h2>

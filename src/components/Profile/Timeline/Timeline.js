@@ -52,15 +52,21 @@ class Timeline extends Component {
   }
 
   render() {
-    let { arts, memory } = this.props;
+    console.log("arts0", this.props);
+
+    let { arts, memory } = this.props.userpage
+      ? this.props.userpage_posts
+      : this.props;
+
+    console.log("arts", arts, memory);
     return (
       <div className="timeline-holder">
         <h2 className=" p-2 font-weight-bold text-center">Timeline</h2>
-        {arts.length || memory.length ? (
+        {(arts && arts.length) || (memory && memory.length) ? (
           <div className="p-2">
             <div>
               <h2 className="font-weight-bold">Arts: </h2>
-              {arts.length ? (
+              {arts && arts.length ? (
                 <Art
                   arts={arts}
                   modalToggle={this.toggle}
@@ -73,7 +79,7 @@ class Timeline extends Component {
             <hr />
             <div>
               <h2 className="font-weight-bold">Memory: </h2>
-              {memory.length ? (
+              {memory && memory.length ? (
                 <Memory
                   memories={memory}
                   modalToggle={this.toggle}

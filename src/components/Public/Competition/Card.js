@@ -7,7 +7,6 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import truncate from "truncate";
 import moment from "moment";
 import like from "./../../../assets/img/liked feel icon.svg";
 import unlike from "./../../../assets/img/unliked feel icon.svg";
@@ -22,6 +21,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { Button } from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   card: {
@@ -181,7 +181,11 @@ class ParticipantCard extends React.Component {
           }}
         >
           <span class="font-italic">
-            {post.shared_type !== "anonymous" ? post.author : "Anonymous"}
+            {post.shared_type !== "anonymous" ? (
+              <Link to={`/profile/${post.username}`}>{post.author}</Link>
+            ) : (
+              "Anonymous"
+            )}
           </span>
         </Typography>
         {post.url && (

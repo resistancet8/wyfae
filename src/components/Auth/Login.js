@@ -24,7 +24,7 @@ class Login extends Component {
       () => {
         setTimeout(() => {
           this.props.loginUser(formData, this.props.history);
-        }, 300);
+        }, 500);
       }
     );
   }
@@ -41,8 +41,8 @@ class Login extends Component {
   render() {
     const { isAuthenticated: isAuth } = this.props.auth;
 
-    if(isAuth) {
-      return <Redirect to="/" />
+    if (isAuth) {
+      return <Redirect to="/" />;
     }
 
     const { handleSubmit } = this.props;
