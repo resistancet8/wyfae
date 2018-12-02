@@ -14,8 +14,6 @@ class Journal extends Component {
           <div className="goals col-md-4 bg-white border-left  p-3 px-5">
             <Goals />
           </div>
-        </div>
-        <div className="row second-row-journal m-1">
           <div className="todo col-md-4 bg-white border-left p-3 px-5">
             <Notes />
           </div>

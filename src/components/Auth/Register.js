@@ -36,8 +36,8 @@ class Register extends Component {
   render() {
     const { isAuthenticated: isAuth } = this.props.auth;
 
-    if(isAuth) {
-      return <Redirect to="/" />
+    if (isAuth) {
+      return <Redirect to="/" />;
     }
 
     const { handleSubmit } = this.props;
@@ -91,7 +91,7 @@ class Register extends Component {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="sur_name">Sur Name:</label>
+                    <label htmlFor="sur_name">Last Name:</label>
                     <Field
                       component="input"
                       type="text"
@@ -100,7 +100,7 @@ class Register extends Component {
                         "is-invalid": errors.sur_name
                       })}
                       id="sur_name"
-                      placeholder="Enter Sur Name"
+                      placeholder="Enter Last Name"
                       required
                     />
                     {errors.sur_name && (

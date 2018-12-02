@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Button from "@material-ui/core/Button";
 
 class Preview extends Component {
   render() {
     return (
-      <div className={this.props.show ? "": "d-none"}>
+      <div className={this.props.show ? "" : "d-none"}>
         <h2>Preview</h2>
         <canvas id="canvas" />
         {this.props.img_tag}

@@ -99,6 +99,7 @@
 .todo,
 .goals {
   max-height: 350px;
+  min-height: 350px;
 }
 
 .todo-item:hover {

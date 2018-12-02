@@ -8,7 +8,6 @@ import AppBar from "@material-ui/core/AppBar";
 import axios from "axios";
 import { connect } from "react-redux";
 import { reset } from "redux-form";
-import {publishArt} from './../../../actions/posts_actions';
 
 function TabContainer(props) {
   return (
@@ -19,14 +18,14 @@ function TabContainer(props) {
 }
 
 let art_styles = [
-  "Poem",
-  "Story",
-  "Quotes",
-  "Gazal",
-  "Rap",
-  "Singing",
-  "Comedy",
-  "Dance"
+  ["poem", "Poem"],
+  ["story", "Story"],
+  ["quotes", "Quotes"],
+  ["gazal", "Gazal"],
+  ["nazm", "Nazm"],
+  ["letter", "Letter"],
+  ["opinion", "Opinion/Advice"],
+  ["personal", "Personal Feelings"]
 ];
 
 const styles = theme => ({
@@ -45,7 +44,7 @@ class Feelings extends Component {
   };
 
   submitArt(formData) {
-    formData.append("art_type", art_styles[this.state.value]);
+    formData.append("art_type", art_styles[this.state.value][0]);
     formData.append("author", this.props.user.first_name);
     this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
@@ -56,7 +55,10 @@ class Feelings extends Component {
     })
       .then(response => {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
-        this.props.dispatch({ type: "PUBLISH_ART", payload: response.data.post_content });
+        this.props.dispatch({
+          type: "PUBLISH_ART",
+          payload: response.data.post_content
+        });
         this.props.dispatch(reset("art-form"));
       })
       .catch(err => {
@@ -69,14 +71,6 @@ class Feelings extends Component {
 
     return (
       <div>
-        <nav>
-          <div className="" id="nav-tab" role="tablist">
-            <h5 className="text-muted font-weight-bold mb-4">
-              Give Soul To Your Feelings And Experiences With Creative Art
-              Styles.
-            </h5>
-          </div>
-        </nav>
         <AppBar position="static" color="default">
           <Tabs
             value={value}
@@ -87,7 +81,7 @@ class Feelings extends Component {
             scrollButtons="auto"
           >
             {art_styles.map((el, index) => {
-              return <Tab label={el} />;
+              return <Tab label={el[1]} />;
             })}
           </Tabs>
         </AppBar>

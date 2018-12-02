@@ -177,6 +177,18 @@ class PublicCard extends React.Component {
           title={post.post_title}
           subheader={moment(post.creation_time).format("DD/MM/YYYY")}
         />
+        <Typography
+          component="p"
+          gutterBottom
+          style={{
+            marginLeft: "25px",
+            marginTop: "-15px"
+          }}
+        >
+          <span class="font-italic">
+            {post.shared_type !== "anonymous" ? post.author : "Anonymous"}
+          </span>
+        </Typography>
         {post.url && (
           <div id="image-container">
             <CardMedia
@@ -188,11 +200,6 @@ class PublicCard extends React.Component {
         <CardContent>
           <Typography component="p" gutterBottom>
             {truncate(post.text, 150)}
-          </Typography>
-          <Typography component="p" gutterBottom>
-            <strong class="font-italic">
-              By: {post.shared_type !== "anonymous" ? post.author : "Anonymous"}
-            </strong>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(

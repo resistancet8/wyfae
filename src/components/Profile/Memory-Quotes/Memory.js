@@ -96,7 +96,7 @@ class Memory extends Component {
               })}
               required
               min="100"
-              placeholder="Visited Some Place? Met Someone? Share What Are You Feeling?"
+              placeholder="Because pictures alone are not enough to describe your experiences and memories..."
             />
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>

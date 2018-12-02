@@ -25,7 +25,7 @@ class Todos extends Component {
   }
 
   getData(formData) {
-    this.props.saveJournal('todos', {
+    this.props.saveJournal("todos", {
       ...formData,
       completed: "No"
     });
@@ -39,7 +39,6 @@ class Todos extends Component {
   }
 
   render() {
-
     const { handleSubmit } = this.props;
 
     let Todos = this.props.todos.length ? (
@@ -59,27 +58,20 @@ class Todos extends Component {
                 this.props.deleteJournal("todos", todo._id);
               }}
             />
-            <p
-              className={todo.completed === "Yes" ? "line-through": "" }
-            >
+            <p className={todo.completed === "Yes" ? "line-through" : ""}>
               {todo.text}
             </p>
-            <div className="d-flex">
-              <small className="font-italic ml-auto mr-1 p-0 m-0">
-                Created At: {todo.created_at}
-              </small>
-            </div>
           </div>
         );
       })
     ) : (
-      <small className="text-muted">No Todos Available</small>
+      <small className="text-muted">No To dos Available</small>
     );
 
     return (
       <React.Fragment>
         <div className="row">
-          <h5 className="text-muted font-weight-bold">Todos</h5>
+          <h5 className="text-muted font-weight-bold">To dos</h5>
           <button
             type="button"
             className="ml-auto button-custom"

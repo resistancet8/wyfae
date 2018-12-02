@@ -23,7 +23,19 @@ export default class Art extends Component {
   render() {
     let { arts } = this.props;
     const { anchorEl } = this.state;
+    let type = "";
+
     let Arts = arts.map((art, index) => {
+      if (art.shared_type == "share") {
+        type = "Shared";
+      } else if (art.shared_type == "anonymous") {
+        type = "Shared Anonymously";
+      } else if (art.shared_type == "save") {
+        type = "Saved";
+      } else {
+        type = art.shared_type;
+      }
+
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
           <Menu
@@ -43,7 +55,7 @@ export default class Art extends Component {
             </MenuItem>
           </Menu>
           <span class="float-right badge badge-primary rounded font-weight-bold">
-            {art.shared_type}
+            {type}
           </span>
 
           <IconButton className="deleteButton" onClick={this.handleClick}>

@@ -23,7 +23,19 @@ export default class Memory extends Component {
   render() {
     let { memories } = this.props;
     const { anchorEl } = this.state;
+    let type = "";
+
     let Memories = memories.map((memory, index) => {
+      if (memory.shared_type == "share") {
+        type = "Shared";
+      } else if (memory.shared_type == "anonymous") {
+        type = "Shared Anonymously";
+      } else if (memory.shared_type == "save") {
+        type = "Saved";
+      } else {
+        type = memory.shared_type;
+      }
+
       return (
         <div key={index} className="bg-white p-3 mb-2 memory-holder">
           <Menu
@@ -43,7 +55,7 @@ export default class Memory extends Component {
             </MenuItem>
           </Menu>
           <span class="float-right badge badge-primary rounded font-weight-bold">
-            {memory.shared_type}
+            {type}
           </span>
           <IconButton className="deleteButton" onClick={this.handleClick}>
             <MoreVertIcon />
