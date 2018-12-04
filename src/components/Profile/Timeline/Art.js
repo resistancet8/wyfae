@@ -58,9 +58,11 @@ export default class Art extends Component {
             {type}
           </span>
 
-          <IconButton className="deleteButton" onClick={this.handleClick}>
-            <MoreVertIcon />
-          </IconButton>
+          {!this.props.userpage && (
+            <IconButton className="deleteButton" onClick={this.handleClick}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
           <h2
             className="font-weight-bold font-italic text-uppercase "
             style={{ width: "80%" }}

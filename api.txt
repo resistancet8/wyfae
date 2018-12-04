@@ -1751,3 +1751,189 @@ status: 400
     "msg": "No Post Exists."
 }
 status: 400 
+
+
+###################################################################
+############################ Circle ##############################
+###################################################################
+
+------------------------------------------------------------------
+-------------------- Follow/Un-Follow ----------------------------
+------------------------------------------------------------------
+
+159.89.171.16:9000/user/follow
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Json Request:
+
+--------------------------------------------------------------
+1. For follow
+{
+	"username": "unique_user1",
+	"signal_type": "follow"
+}
+
+Note: username - The person whom you want to follow
+Note: signal_type: can be 'follow' or 'un-follow'
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "msg": "You have followed: unique_user1"
+}
+status: 200
+
+
+In case of Failure:
+1. In case you are already following username
+{
+    "status": "failure",
+    "msg": "You are already following: unique_user1"
+}
+status: 400
+
+2. In case username does not exists
+{
+    "status": "failure",
+    "code": "21",
+    "msg": "User to be followed/unfollowed does not exists."
+}
+status: 400
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+2. For unfollow
+-------------------------------------------------------------------
+
+{
+        "username": "unique_user1",
+        "signal_type": "un-follow"
+}
+
+Note: username - The person whom you want to follow
+Note: signal_type: can be 'follow' or 'un-follow'
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "msg": "You have un-followed: unique_user1"
+}
+status: 200
+
+
+In case of Failure:
+1. In case you are not following username i.e 'unique_user1'
+{
+    "status": "failure",
+    "msg": "You are not following: unique_user1"
+}
+status: 400
+
+2. In case username does not exists
+{
+    "status": "failure",
+    "code": "21",
+    "msg": "User to be followed/unfollowed does not exists."
+}
+
+
+----------------------------------------------------------------------
+--------------------- Get People Followed / Get Circle ---------------
+----------------------------------------------------------------------
+
+159.89.171.16:9000/user/get_circle
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Json Response:
+{
+    "content": {
+        "_id": "unique_user1",
+        "followed": [
+            {
+                "name": "Mantu Kumar",
+                "url": "static/default-avatar.jpg",
+                "username": "unique_user1"
+            }
+        ],
+        "just_user": [
+            "unique_user1"
+        ]
+    },
+    "status": "success",
+    "msg": "Fetched Data Successfully"
+}
+
+--------------------------------------------------------------------------
+------- Get Circle Content / Get People Followed Shared Content ----------
+--------------------------------------------------------------------------
+
+159.89.171.16:9000/user/get_circle_content
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Json Request:
+{
+    "skip_count": 0
+}
+
+Json Response:
+In case of Success:
+{
+    "circle_content": [
+        {
+            "art_type": "poem",
+            "url": "static/unique_user1/art/cdd44a41-cdd5-461e-83be-f2d41129593e.jpg",
+            "shared_type": "public",
+            "author": "Mantu",
+            "text": "first poem",
+            "post_title": "first poem",
+            "total_comments": 0,
+            "username": "unique_user1",
+            "likes": 0,
+            "post_type": "art",
+            "_id": "5c0572963412652656ecffd8",
+            "comments": [],
+            "user_liked": [],
+            "creation_time": "2018-12-03T18:14:46.149"
+        }
+    ],
+    "status": "success",
+    "msg": "Fetched Data Successfully",
+    "followed": [
+        {
+            "name": "Mantu Kumar",
+            "url": "static/default-avatar.jpg",
+            "username": "unique_user1"
+        }
+    ],
+    "just_user": [
+        "unique_user1"
+    ]
+}
+
+In case of Failure:
+{
+    "status": "failure", 
+    "msg": "Cannot connect to the mongodb server"
+}

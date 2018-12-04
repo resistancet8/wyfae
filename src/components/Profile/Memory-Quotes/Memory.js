@@ -112,7 +112,7 @@ class Memory extends Component {
                 onClick={() => {
                   this.setState(
                     {
-                      shared_type: "share"
+                      shared_type: "public"
                     },
                     () => {
                       handleSubmit(this.getData)();

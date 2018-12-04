@@ -11,10 +11,36 @@ import Feelings from "./Feelings/Feelings";
 import Memory from "./Memory-Quotes/Memory";
 import Quotes from "./Memory-Quotes/Quotes/Quotes";
 import Timeline from "./Timeline/Timeline";
+import axios from "axios";
 
 class Profile extends Component {
+  state = {
+    memory_book_privacy: ""
+  };
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      memory_book_privacy: props.user.memory_book_privacy
+    });
+  }
+
+  changeMemoryPrivacy(memory_book_privacy) {
+    axios
+      .post("http://159.89.171.16:9000/user/update_about", {
+        memory_book_privacy:
+          memory_book_privacy == "private" ? "public" : "private"
+      })
+      .then(e => {
+        this.setState({
+          memory_book_privacy:
+            memory_book_privacy == "private" ? "public" : "private"
+        });
+      });
+  }
+
   render() {
     let { user } = this.props;
+    console.log(this.state.memory_book_privacy);
 
     return (
       <div>
@@ -30,6 +56,20 @@ class Profile extends Component {
                   </Link>
                 </div>
               )}
+              <div class="custom-control custom-checkbox text-center">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="memory-book-privacy"
+                  checked={this.state.memory_book_privacy == "private" ? 1 : 0}
+                  onChange={() => {
+                    this.changeMemoryPrivacy(this.state.memory_book_privacy);
+                  }}
+                />
+                <label class="custom-control-label" for="memory-book-privacy">
+                  Memory book privacy
+                </label>
+              </div>
             </div>
             <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
               {user.stats && <Stats stats={user.stats} />}

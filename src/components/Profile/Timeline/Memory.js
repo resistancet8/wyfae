@@ -57,9 +57,11 @@ export default class Memory extends Component {
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
-          <IconButton className="deleteButton" onClick={this.handleClick}>
-            <MoreVertIcon />
-          </IconButton>
+          {!this.props.userpage && (
+            <IconButton className="deleteButton" onClick={this.handleClick}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
           <h2 className="font-weight-bold font-italic text-uppercase">
             {memory.post_title}
           </h2>
