@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./Profile.css";
@@ -11,6 +11,8 @@ import Feelings from "./Feelings/Feelings";
 import Memory from "./Memory-Quotes/Memory";
 import Quotes from "./Memory-Quotes/Quotes/Quotes";
 import Timeline from "./Timeline/Timeline";
+import Button from "@material-ui/core/Button";
+import Following from "./Following";
 import axios from "axios";
 
 class Profile extends Component {
@@ -40,36 +42,68 @@ class Profile extends Component {
 
   render() {
     let { user } = this.props;
-    console.log(this.state.memory_book_privacy);
 
     return (
       <div>
         <div className="home-wrapper bg-secondary px-4 py-2 mb-1">
           {/* user avatar,details and statistics */}
-          <div className="row">
+          <div className="row first-row-holder">
             <div className="col-md-4 bg-white p-3">
-              {user && <User user={user} />}
-              {user && (
-                <div className="edit-profile">
-                  <Link to={`/update/user`}>
-                    <Icon>edit</Icon>
-                  </Link>
-                </div>
-              )}
-              <div class="custom-control custom-checkbox text-center">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  id="memory-book-privacy"
-                  checked={this.state.memory_book_privacy == "private" ? 1 : 0}
-                  onChange={() => {
-                    this.changeMemoryPrivacy(this.state.memory_book_privacy);
-                  }}
-                />
-                <label class="custom-control-label" for="memory-book-privacy">
-                  Memory book privacy
-                </label>
-              </div>
+              <Route
+                path="/profile"
+                exact
+                render={() => {
+                  return (
+                    <div>
+                      <User user={user} />
+                      <div class="custom-control custom-checkbox text-center">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="memory-book-privacy"
+                          checked={
+                            this.state.memory_book_privacy == "private" ? 1 : 0
+                          }
+                          onChange={() => {
+                            this.changeMemoryPrivacy(
+                              this.state.memory_book_privacy
+                            );
+                          }}
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="memory-book-privacy"
+                        >
+                          Memory book privacy
+                        </label>
+                      </div>
+
+                      <div className="followers d-flex justify-content-center align-items-center mt-4">
+                        <Button color="default">
+                          <Link to="/profile/data/following">
+                            {" "}
+                            221 <br /> Following{" "}
+                          </Link>
+                        </Button>
+                      </div>
+                      {user && (
+                        <div className="edit-profile mt-3">
+                          <Link to={`/update/user`}>
+                            <Icon>edit</Icon>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }}
+              />
+
+              <Route
+                path="/profile/data/following"
+                render={() => {
+                  return <Following />;
+                }}
+              />
             </div>
             <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
               {user.stats && <Stats stats={user.stats} />}
@@ -111,7 +145,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Profile);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {}
+  )(Profile)
+);

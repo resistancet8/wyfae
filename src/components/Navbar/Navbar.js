@@ -57,16 +57,16 @@ class NavbarComponent extends Component {
             )}
             {isAuth && (
               <React.Fragment>
-                <NavLink className="p-2 text-dark" to="/friends">
+                <NavLink className="p-2 text-dark" to="/following">
                   <IconButton color="default" className="icon-holder">
                     <img src={FeelCircle} alt="" />
                   </IconButton>
                 </NavLink>
-                <NavLink className="p-2 text-dark" to="/requests">
+                {/* <NavLink className="p-2 text-dark" to="/following">
                   <IconButton color="default" className="icon-holder">
                     <img src={FeelRequest} alt="" />
                   </IconButton>
-                </NavLink>
+                </NavLink> */}
                 <NavLink className="p-2 text-dark" to="/journal">
                   <IconButton color="default" className="icon-holder">
                     <img src={JournalCircle} alt="" />

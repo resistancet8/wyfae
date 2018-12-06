@@ -38,30 +38,17 @@ export default class Memory extends Component {
 
       return (
         <div key={index} className="bg-white p-3 mb-2 memory-holder">
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
-            elevation={0}
+          <Button
+            variant="contained"
+            color="secondary"
+            className="deleteButton"
+            onClick={this.props.deletePost.bind(this, memory._id, "memory")}
           >
-            <MenuItem
-              onClick={() => {
-                this.props.deletePost(memory._id, "memory");
-                this.handleClose();
-              }}
-            >
-              Delete
-            </MenuItem>
-          </Menu>
+            Delete
+          </Button>
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
-          {!this.props.userpage && (
-            <IconButton className="deleteButton" onClick={this.handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
           <h2 className="font-weight-bold font-italic text-uppercase">
             {memory.post_title}
           </h2>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Todos.css";
-import classnames from "classnames";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";

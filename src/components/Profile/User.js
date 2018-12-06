@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Route, withRouter, Redirect } from "react-router-dom";
 
 let formData = new FormData();
 
@@ -95,4 +96,4 @@ class User extends Component {
   }
 }
 
-export default connect()(User);
+export default withRouter(connect()(User));

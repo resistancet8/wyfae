@@ -1860,6 +1860,11 @@ key: Authorization
 value: generated_token_value
 i.e. Authorization = value
 
+Json Request:
+{
+    skip_count: 0
+}
+
 Json Response:
 {
     "content": {
@@ -1935,5 +1940,48 @@ In case of Success:
 In case of Failure:
 {
     "status": "failure", 
+    "msg": "Cannot connect to the mongodb server"
+}
+
+
+#####################################################################
+################## Search People / Search User ######################
+#####################################################################
+
+159.89.171.16:9000/user/search_user
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Json Request:
+{
+    "username": "kumar",
+    "skip_count": 0
+}
+
+
+Josn Response:
+In case of Success:
+{
+    "content": [
+        {
+            "fullname": "Mantu Kumar",
+            "_id": "unique_user4",
+            "url": "static/default-avatar.jpg"
+        }
+    ],
+    "msg": "Fetched Data Successfully",
+    "status": "success"
+}
+
+
+In case of Failure:
+In case of Failure:
+{
+    "status": "failure",
     "msg": "Cannot connect to the mongodb server"
 }

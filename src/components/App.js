@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { Route, withRouter, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
@@ -15,6 +15,7 @@ import UpdateProfile from "./Profile/Update-Profile/Update-profile";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import FollowingRoute from "./Following/FollowingRoute";
 
 class App extends Component {
   state = {
@@ -70,21 +71,38 @@ class App extends Component {
         />
         <div className="container">
           <Route
-            path="/profile"
-            exact
+            path="/following"
             render={() => {
-              if (isAuth) return <Profile />;
+              if (isAuth) return <FollowingRoute />;
               else return <Redirect to="/login" />;
             }}
           />
-          <Route
-            path="/profile/:username"
-            exact
-            render={() => {
-              if (isAuth) return <Userpage />;
-              else return <Redirect to="/login" />;
-            }}
-          />
+          <Switch>
+            <Route
+              path="/profile/:username"
+              exact
+              render={() => {
+                if (isAuth) return <Userpage />;
+                else return <Redirect to="/login" />;
+              }}
+            />
+            <Route
+              path="/profile/data/"
+              render={() => {
+                if (isAuth) return <Profile />;
+                else return <Redirect to="/login" />;
+              }}
+            />
+            <Route
+              path="/profile"
+              exact
+              render={() => {
+                if (isAuth) return <Profile />;
+                else return <Redirect to="/login" />;
+              }}
+            />
+          </Switch>
+
           <Route path="/register" exact component={Register} />
           <Route
             exact={true}

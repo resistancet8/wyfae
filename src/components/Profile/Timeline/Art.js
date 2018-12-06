@@ -38,31 +38,18 @@ export default class Art extends Component {
 
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
-            elevation={0}
+          {art._id}
+          <Button
+            variant="contained"
+            color="secondary"
+            className="deleteButton"
+            onClick={this.props.deletePost.bind(this, art._id, "art")}
           >
-            <MenuItem
-              onClick={() => {
-                this.props.deletePost(art._id, "art");
-                this.handleClose();
-              }}
-            >
-              Delete
-            </MenuItem>
-          </Menu>
+            Delete
+          </Button>
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
-
-          {!this.props.userpage && (
-            <IconButton className="deleteButton" onClick={this.handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
           <h2
             className="font-weight-bold font-italic text-uppercase "
             style={{ width: "80%" }}

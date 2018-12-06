@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class Stats extends Component {
   render() {
-    console.log("stats", this.props)
     return (
       <div>
         <h5 className="font-weight-bold text-muted">
