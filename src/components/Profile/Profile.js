@@ -20,6 +20,12 @@ class Profile extends Component {
     memory_book_privacy: ""
   };
 
+  componentDidMount() {
+    this.setState({
+      memory_book_privacy: this.props.user.memory_book_privacy
+    });
+  }
+
   componentWillReceiveProps(props) {
     this.setState({
       memory_book_privacy: props.user.memory_book_privacy
