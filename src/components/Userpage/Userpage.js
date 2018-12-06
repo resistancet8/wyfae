@@ -24,10 +24,27 @@ class Userpage extends Component {
         skip_count: 0
       })
       .then(response => {
-        this.setState({
+        let obj = {
           user: response.data ? response.data.profile_data : {},
           memory_book: response.data ? response.data.memory_book : [],
           art_content: response.data ? response.data.art_content : []
+        };
+
+        if (
+          this.props.user.following &&
+          this.props.user.following.length > 0 &&
+          this.props.user.following.includes(
+            this.props.match.params.username.trim()
+          )
+        ) {
+          this.setState({
+            ...obj,
+            following: 1
+          });
+        }
+
+        this.setState({
+          ...obj
         });
       })
       .catch(err => {
