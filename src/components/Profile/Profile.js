@@ -88,7 +88,9 @@ class Profile extends Component {
                         <Button color="default">
                           <Link to="/profile/data/following">
                             {" "}
-                            221 <br /> Following{" "}
+                            {user.following
+                              ? user.following.length
+                              : 0} <br /> Following{" "}
                           </Link>
                         </Button>
                       </div>

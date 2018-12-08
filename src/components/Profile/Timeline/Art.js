@@ -39,16 +39,6 @@ export default class Art extends Component {
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
           {art._id}
-          {!this.props.userpage && (
-            <Button
-              variant="contained"
-              color="secondary"
-              className="deleteButton"
-              onClick={this.props.deletePost.bind(this, art._id, "art")}
-            >
-              Delete
-            </Button>
-          )}
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
@@ -60,7 +50,11 @@ export default class Art extends Component {
           </h2>
           {art.url && (
             <div className="img-responsive">
-              <img src={`http://159.89.171.16:9000/${art.url}`} alt="Image" />
+              <img
+                src={`http://159.89.171.16:9000/${art.url}`}
+                alt="Image"
+                className="img-fluid"
+              />
             </div>
           )}
           <p>{truncate(art.text, 250)}</p>
@@ -85,6 +79,17 @@ export default class Art extends Component {
           <small className="font-italic font-weight-bold">
             Posted On: {moment(art.creation_time).format("DD/MM/YYYY")}
           </small>
+          <div className="mt-2">
+            {!this.props.userpage && (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.deletePost.bind(this, art._id, "art")}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
         </div>
       );
     });

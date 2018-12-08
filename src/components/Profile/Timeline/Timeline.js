@@ -58,7 +58,6 @@ class Timeline extends Component {
 
     return (
       <div className="timeline-holder">
-        <h2 className=" p-2 font-weight-bold text-center">Timeline</h2>
         {(arts && arts.length) || (memory && memory.length) ? (
           <div className="p-2">
             <div>

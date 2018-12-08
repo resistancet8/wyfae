@@ -38,16 +38,6 @@ export default class Memory extends Component {
 
       return (
         <div key={index} className="bg-white p-3 mb-2 memory-holder">
-          {!this.props.userpage && (
-            <Button
-              variant="contained"
-              color="secondary"
-              className="deleteButton"
-              onClick={this.props.deletePost.bind(this, memory._id, "memory")}
-            >
-              Delete
-            </Button>
-          )}
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
@@ -80,6 +70,17 @@ export default class Memory extends Component {
           <small className="font-italic font-weight-bold">
             Posted On: {moment(memory.creation_time).format("DD/MM/YYYY")}
           </small>
+          <div className="mt-2">
+            {!this.props.userpage && (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.deletePost.bind(this, memory._id, "memory")}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
         </div>
       );
     });

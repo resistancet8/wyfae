@@ -105,7 +105,7 @@ class NavbarComponent extends Component {
             />
             <div class="search-results">
               <ul className="row">
-                <Scrollbars autoHeight autoHide autoHeightMax={400}>
+                <Scrollbars autoHeight autoHide autoHeightMax={350}>
                   {Results}
                 </Scrollbars>
               </ul>
