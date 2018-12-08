@@ -5,13 +5,14 @@ import Main from "./Main/Main";
 import Competition from "./Competition/Competition";
 import Trending from "./Trending/Trending";
 import { connect } from "react-redux";
-import { getPosts } from "./../../actions/homepage_actions";
+import { getPosts, getMore } from "./../../actions/homepage_actions";
 import PropTypes from "prop-types";
 import { Route, withRouter } from "react-router-dom";
 import navigationHome from "./../../helpers/navigation";
-import Ongoing from './Competition/Ongoing';
-import Completed from './Competition/Completed';
-import Upcoming from './Competition/Upcoming';
+import Ongoing from "./Competition/Ongoing";
+import Completed from "./Competition/Completed";
+import Upcoming from "./Competition/Upcoming";
+import Button from "@material-ui/core/Button";
 
 import "./Public.css";
 
@@ -52,11 +53,23 @@ class Public extends Component {
                     exact
                     render={() => {
                       return (
-                        <Main
-                          posts={this.props.posts}
-                          className={classes.public}
-                          posts_tr={route.key}
-                        />
+                        <div>
+                          <Main
+                            posts={this.props.posts}
+                            className={classes.public}
+                            posts_tr={route.key}
+                          />
+                          <Button
+                            onClick={() => {
+                              this.props.getMore(this.props.posts.length);
+                            }}
+                            style={{
+                              width: "100%"
+                            }}
+                          >
+                            View more
+                          </Button>
+                        </div>
                       );
                     }}
                     key={route.key}
@@ -93,6 +106,6 @@ function mapStateToProps(state) {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getPosts }
+    { getPosts, getMore }
   )(withStyles(styles)(Public))
 );

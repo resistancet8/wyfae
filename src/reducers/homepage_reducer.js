@@ -9,6 +9,11 @@ export default function(state = initialState, { type, payload }) {
         ...state,
         posts: payload
       };
+    case "INSERT_MORE_POSTS":
+      return {
+        ...state,
+        posts: [...state.posts, ...payload]
+      };
     default:
       return state;
   }

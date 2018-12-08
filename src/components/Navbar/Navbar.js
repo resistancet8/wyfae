@@ -84,33 +84,35 @@ class NavbarComponent extends Component {
           <NavLink className="my-0 mr-md-auto banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
-          <div className="search-bar my-2">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              onChange={e => {
-                this.handleSearch(e.target.value);
-              }}
-              onFocus={this.handleShowResult}
-              onBlur={() => {
-                setTimeout(() => {
-                  if (document.querySelector(".search-results")) {
-                    document.querySelector(".search-results").style.display =
-                      "none";
-                  }
-                }, 300);
-              }}
-            />
-            <div class="search-results">
-              <ul className="row">
-                <Scrollbars autoHeight autoHide autoHeightMax={350}>
-                  {Results}
-                </Scrollbars>
-              </ul>
+          {isAuth && (
+            <div className="search-bar my-2">
+              <input
+                class="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={e => {
+                  this.handleSearch(e.target.value);
+                }}
+                onFocus={this.handleShowResult}
+                onBlur={() => {
+                  setTimeout(() => {
+                    if (document.querySelector(".search-results")) {
+                      document.querySelector(".search-results").style.display =
+                        "none";
+                    }
+                  }, 300);
+                }}
+              />
+              <div class="search-results">
+                <ul className="row">
+                  <Scrollbars autoHeight autoHide autoHeightMax={350}>
+                    {Results}
+                  </Scrollbars>
+                </ul>
+              </div>
             </div>
-          </div>
+          )}
           <nav className="my-2 my-md-0 mr-md-3">
             {!isAuth && (
               <React.Fragment>
