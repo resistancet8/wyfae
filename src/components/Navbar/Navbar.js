@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "./../../actions/auth_actions";
 import Brand from "./../../assets/img/wyfae_main logo.svg";
@@ -12,13 +12,16 @@ import Button from "@material-ui/core/Button";
 import AccessAlarmIcon from "@material-ui/icons/AccountCircle";
 import FeelCircle from "./../../assets/img/feelcircle.svg";
 import JournalCircle from "./../../assets/img/journal icon.svg";
-import FeelRequest from "./../../assets/img/feelRequest.svg";
+import SearchItem from "./SearchItem";
+import { Scrollbars } from "react-custom-scrollbars";
 
 import "./Navbar.css";
+import Axios from "axios";
 
 class NavbarComponent extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
+    results: []
   };
 
   handleClick = event => {
@@ -29,8 +32,31 @@ class NavbarComponent extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleUrlChange(username) {
+    this.props.history.push("/profile/" + username);
+  }
+
   logoutUser() {
     this.props.logoutUser();
+  }
+
+  handleSearch(val) {
+    Axios.post("http://159.89.171.16:9000/user/search_user", {
+      username: val,
+      skip_count: 0
+    })
+      .then(d => {
+        this.setState({
+          results: d.data.content
+        });
+      })
+      .catch(e => {});
+  }
+
+  handleShowResult() {
+    if (document.querySelector(".search-results")) {
+      document.querySelector(".search-results").style.display = "block";
+    }
   }
 
   render() {
@@ -38,12 +64,53 @@ class NavbarComponent extends Component {
     const { isAuthenticated: isAuth } = this.props.auth;
     const { first_name } = this.props.user;
 
+    let Results =
+      this.state.results.length > 0 ? (
+        this.state.results.map(o => {
+          return (
+            <SearchItem
+              user={o}
+              handleUrlChange={this.handleUrlChange.bind(this)}
+            />
+          );
+        })
+      ) : (
+        <SearchItem empty={1} />
+      );
+
     return (
       <header>
         <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
           <NavLink className="my-0 mr-md-auto banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
+          <div className="search-bar my-2">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={e => {
+                this.handleSearch(e.target.value);
+              }}
+              onFocus={this.handleShowResult}
+              onBlur={() => {
+                setTimeout(() => {
+                  if (document.querySelector(".search-results")) {
+                    document.querySelector(".search-results").style.display =
+                      "none";
+                  }
+                }, 300);
+              }}
+            />
+            <div class="search-results">
+              <ul className="row">
+                <Scrollbars autoHeight autoHide autoHeightMax={400}>
+                  {Results}
+                </Scrollbars>
+              </ul>
+            </div>
+          </div>
           <nav className="my-2 my-md-0 mr-md-3">
             {!isAuth && (
               <React.Fragment>
@@ -124,7 +191,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(NavbarComponent);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { logoutUser }
+  )(NavbarComponent)
+);

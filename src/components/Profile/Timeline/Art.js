@@ -39,14 +39,16 @@ export default class Art extends Component {
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
           {art._id}
-          <Button
-            variant="contained"
-            color="secondary"
-            className="deleteButton"
-            onClick={this.props.deletePost.bind(this, art._id, "art")}
-          >
-            Delete
-          </Button>
+          {!this.props.userpage && (
+            <Button
+              variant="contained"
+              color="secondary"
+              className="deleteButton"
+              onClick={this.props.deletePost.bind(this, art._id, "art")}
+            >
+              Delete
+            </Button>
+          )}
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>

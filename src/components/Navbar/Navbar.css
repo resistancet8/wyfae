@@ -20,3 +20,62 @@
 .banner img {
   height: 2.5em;
 }
+
+.search-bar {
+  border: 1px solid #5554;
+  position: relative;
+}
+
+.search-bar input {
+  border: none !important;
+  width: 400px;
+  padding: 0 20px;
+  background: none;
+}
+
+.search-bar input:focus {
+  background: none;
+}
+
+.search-results .row {
+  padding: 0;
+  margin: 0;
+}
+
+.search-results {
+  position: absolute;
+  width: 100.5%;
+  top: 100%;
+  left: -1px;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #3334;
+  border-top: none;
+  max-height: 400px;
+  display: none;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: 0 5px !important;
+  padding-top: 5px !important;
+}
+
+.search-results ul li {
+  background: #f1f1f1;
+  padding: 10px 20px !important;
+  margin-bottom: 5px !important;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.search-results ul li:hover {
+  background: #e1e1e1;
+  cursor: pointer;
+}
+
+.search-results ul li img {
+  border-radius: 50%;
+}

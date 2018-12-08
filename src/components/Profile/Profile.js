@@ -151,9 +151,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {}
-  )(Profile)
-);
+export default withRouter(connect(mapStateToProps)(Profile));

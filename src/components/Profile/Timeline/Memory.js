@@ -38,14 +38,16 @@ export default class Memory extends Component {
 
       return (
         <div key={index} className="bg-white p-3 mb-2 memory-holder">
-          <Button
-            variant="contained"
-            color="secondary"
-            className="deleteButton"
-            onClick={this.props.deletePost.bind(this, memory._id, "memory")}
-          >
-            Delete
-          </Button>
+          {!this.props.userpage && (
+            <Button
+              variant="contained"
+              color="secondary"
+              className="deleteButton"
+              onClick={this.props.deletePost.bind(this, memory._id, "memory")}
+            >
+              Delete
+            </Button>
+          )}
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>

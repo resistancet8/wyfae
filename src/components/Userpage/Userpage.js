@@ -10,14 +10,19 @@ import About from "./../Profile/About";
 import Timeline from "./../Profile/Timeline/Timeline";
 
 class Userpage extends Component {
+  constructor() {
+    super();
+  }
+
   state = {
     user: {},
     memory_book: [],
     art_content: [],
-    following: 0
+    following: 0,
+    username: ""
   };
 
-  componentDidMount() {
+  fetchUserData() {
     axios
       .post(`http://159.89.171.16:9000/user/get_profile`, {
         profile_username: this.props.match.params.username || "",
@@ -39,12 +44,14 @@ class Userpage extends Component {
         ) {
           this.setState({
             ...obj,
-            following: 1
+            following: 1,
+            username: this.props.match.params.username
           });
         }
 
         this.setState({
-          ...obj
+          ...obj,
+          username: this.props.match.params.username
         });
       })
       .catch(err => {
@@ -54,6 +61,10 @@ class Userpage extends Component {
             payload: err.response.data.msg || "Error"
           });
       });
+  }
+
+  componentDidMount() {
+    this.fetchUserData.call(this);
   }
 
   followUnfollow(signal) {
@@ -87,6 +98,12 @@ class Userpage extends Component {
       this.setState({
         following: 1
       });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.username !== prevProps.match.params.username) {
+      this.fetchUserData.call(this);
     }
   }
 
