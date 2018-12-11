@@ -188,7 +188,7 @@ class PublicCard extends React.Component {
         >
           <span class="font-italic">
             {post.shared_type !== "anonymous" ? (
-              <Link to={`/profile/${post.username}`}>{post.author}</Link>
+              <Link to={`/profile/${post.username}`}>By: {post.author}</Link>
             ) : (
               "Anonymous"
             )}

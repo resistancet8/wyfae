@@ -163,7 +163,7 @@ class Userpage extends Component {
           </div>
           {/* user about and thoughts, feelings row */}
           <div className="row mt-2">
-            <div className="col-md-4 bg-white p-3 px-5">
+            <div className="col-md-12 bg-white p-3 px-5">
               {user && <About user={user} userpage={1} />}
             </div>
           </div>

@@ -16,6 +16,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import FollowingRoute from "./Following/FollowingRoute";
+import SharedComp from "./Public/Competition/SharedComp";
 
 class App extends Component {
   state = {
@@ -66,6 +67,13 @@ class App extends Component {
           path="/trending"
           render={() => {
             if (isAuth) return <Public />;
+            else return <Redirect to="/login" />;
+          }}
+        />
+        <Route
+          path="/shared/:comp_id"
+          render={() => {
+            if (isAuth) return <SharedComp />;
             else return <Redirect to="/login" />;
           }}
         />

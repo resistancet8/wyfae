@@ -171,6 +171,21 @@ class Participants extends Component {
           margin: "10px 0"
         }}
       >
+        <div
+          class="fb-share-button"
+          data-href="http://localhost:3000/trending/completed"
+          data-layout="button_count"
+          data-size="small"
+          data-mobile-iframe="true"
+        >
+          <a
+            target="_blank"
+            href={`https://www.facebook.com/sharer/sharer.php?u=${"http://localhost:3000/trending/completed"}&amp;src=sdkpreparse`}
+            class="fb-xfbml-parse-ignore"
+          >
+            Share
+          </a>
+        </div>
         <h3
           className="font-weight-bold"
           style={{
@@ -232,6 +247,7 @@ class Participants extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+
         {this.props.ongoing && (
           <div>
             <span class="ended" id={`comp-id-${this.props.data._id}`} />
