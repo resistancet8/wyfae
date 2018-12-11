@@ -23,9 +23,9 @@ let art_styles = [
   ["quotes", "Quotes"],
   ["gazal", "Gazal"],
   ["nazm", "Nazm"],
-  ["letter", "Letter"],
-  ["opinion", "Opinion/Advice"],
-  ["personal", "Personal Feelings"]
+  ["letter", "Letter"]
+  // ["opinion", "Opinion/Advice"],
+  // ["personal", "Personal Feelings"]
 ];
 
 const styles = theme => ({

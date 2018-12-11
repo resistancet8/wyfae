@@ -31,8 +31,24 @@ const styles = theme => ({
 });
 
 class Public extends Component {
+  state = {
+    len: 0
+  };
+
   componentDidMount() {
     this.props.getPosts();
+  }
+
+  componentWillReceiveProps(props) {
+    if (this.state.len == props.posts.length) {
+      this.setState({
+        hideShowMore: 1
+      });
+    } else {
+      this.setState({
+        len: props.posts.length
+      });
+    }
   }
 
   render() {
@@ -59,16 +75,24 @@ class Public extends Component {
                             className={classes.public}
                             posts_tr={route.key}
                           />
-                          <Button
-                            onClick={() => {
-                              this.props.getMore(this.props.posts.length);
-                            }}
-                            style={{
-                              width: "100%"
-                            }}
-                          >
-                            View more
-                          </Button>
+                          {!this.state.hideShowMore ? (
+                            <Button
+                              onClick={() => {
+                                this.props.getMore(this.props.posts.length);
+                              }}
+                              style={{
+                                width: "100%"
+                              }}
+                            >
+                              View more
+                            </Button>
+                          ) : (
+                            <div
+                              style={{ textAlign: "center", margin: "10px 0" }}
+                            >
+                              <span class="lead">No more posts</span>
+                            </div>
+                          )}
                         </div>
                       );
                     }}

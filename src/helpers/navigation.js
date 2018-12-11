@@ -4,9 +4,9 @@ export default [
   { path: "/trending/poems", key: "poem", text: "Top Poems" },
   { path: "/trending/stories", key: "story", text: "Top Stories" },
   { path: "/trending/quotes", key: "quotes", text: "Top Quotes" },
-  { path: "/trending/gazal", key: "gazal", text: "Top Gazals" },
-  { path: "/trending/opinion", key: "opinion", text: "Top Opinion" },
-  { path: "/trending/personal", key: "personal", text: "Top Personal Feelings" }
+  { path: "/trending/gazal", key: "gazal", text: "Top Gazals" }
+  // { path: "/trending/opinion", key: "opinion", text: "Top Opinion" },
+  // { path: "/trending/personal", key: "personal", text: "Top Personal Feelings" }
 ];
 
 // let art_styles = [

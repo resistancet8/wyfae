@@ -5,7 +5,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { saveJournal, deleteJournal } from "./../../../../actions/journal_actions";
+import {
+  saveJournal,
+  deleteJournal
+} from "./../../../../actions/journal_actions";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 
@@ -20,7 +23,7 @@ class Quotes extends Component {
   }
 
   getData(formData) {
-    this.props.saveJournal('quotes', formData);
+    this.props.saveJournal("quotes", formData);
     this.props.dispatch(reset("quote-add"));
   }
 
@@ -57,7 +60,7 @@ class Quotes extends Component {
     return (
       <React.Fragment>
         <div className="row">
-          <h5 className="text-muted font-weight-bold">Quotes</h5>
+          <h5 className="text-muted font-weight-bold">Quotes Collection</h5>
           <button
             type="button"
             className="ml-auto button-custom"

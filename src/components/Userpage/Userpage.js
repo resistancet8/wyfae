@@ -65,6 +65,17 @@ class Userpage extends Component {
 
   componentDidMount() {
     this.fetchUserData.call(this);
+    if (
+      this.props.user.following &&
+      this.props.user.following.length > 0 &&
+      this.props.user.following.includes(
+        this.props.match.params.username.trim()
+      )
+    ) {
+      this.setState({
+        following: 1
+      });
+    }
   }
 
   followUnfollow(signal) {
@@ -93,10 +104,14 @@ class Userpage extends Component {
     if (
       props.user.following &&
       props.user.following.length > 0 &&
-      props.user.following.includes(this.props.match.params.username.trim())
+      props.user.following.includes(props.match.params.username.trim())
     ) {
       this.setState({
         following: 1
+      });
+    } else {
+      this.setState({
+        following: 0
       });
     }
   }
