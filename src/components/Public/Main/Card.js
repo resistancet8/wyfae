@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import truncate from "truncate";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import moment from "moment";
 import like from "./../../../assets/img/liked feel icon.svg";
 import unlike from "./../../../assets/img/unliked feel icon.svg";
@@ -65,9 +67,30 @@ const styles = theme => ({
 class PublicCard extends React.Component {
   state = {
     expanded: null,
+    anchorEl: null,
     comment: "",
     newComment: []
   };
+
+  handleClick = (event, id) => {
+    event.preventDefault();
+    this.setState({ anchorEl: event.currentTarget, id });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null, id: null });
+  };
+
+  report(type) {
+    // send to server
+    // console.log(type);
+    // axios.post("", {
+    //   post_id: this.state.id || "",
+    //   type
+    // })
+    // .then( resp => {})
+    // .catch( e => {})
+  }
 
   generateLikeMessage(likes) {
     let flag = false;
@@ -170,7 +193,7 @@ class PublicCard extends React.Component {
 
   render() {
     const { classes, post } = this.props;
-    const { expanded } = this.state;
+    const { expanded, anchorEl} = this.state;
 
     return (
       <Card className={classes.card + " mb-2"}>
@@ -213,6 +236,7 @@ class PublicCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions>
+          <div className="d-flex justify-content-between cart-actions-main" >
           {post.user_liked && (
             <img
               src={
@@ -229,6 +253,12 @@ class PublicCard extends React.Component {
               }}
             />
           )}
+         <div>
+           <span><a onClick={(e) => {
+             this.handleClick(e, post._id);
+           }} href="">report</a></span>
+         </div>
+          </div>
         </CardActions>
         <div className={classes.root}>
           <ExpansionPanel
@@ -267,6 +297,25 @@ class PublicCard extends React.Component {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={() => {
+                this.report.bind(this, 'spam')()
+                this.handleClose();
+                }}>
+                Spam
+              </MenuItem>
+              <MenuItem onClick={() => {
+                this.report.bind(this, 'inappropirate')()
+                this.handleClose();
+              }}>
+                Inappropriate
+              </MenuItem>
+            </Menu>
         </div>
       </Card>
     );

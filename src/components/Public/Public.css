@@ -45,3 +45,11 @@
     transform: scale(1);
   }
 }
+
+.cart-actions-main {
+  width: 100% !important;
+}
+
+.cart-actions-main a {
+  color: red !important;
+}

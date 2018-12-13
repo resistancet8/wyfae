@@ -1,13 +1,55 @@
 import React, { Component } from "react";
 import truncate from "truncate";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Typography from "@material-ui/core/Typography";
+import List from "@material-ui/core/List";
 import moment from "moment";
+import Comments from '../../Public/Main/Comments';
+import { withStyles } from "@material-ui/core";
 
-export default class Art extends Component {
+const styles = theme => ({
+  card: {
+    minWidth: 275
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  root: {
+    width: "100%"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    flexShrink: 0
+  },
+  heading1: {
+    width: "100%"
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  },
+  media: {
+    marginTop: "30",
+    height: "50%",
+    paddingTop: "56.25%",
+    backgroundSize: "contain"
+  }
+});
+
+class Art extends Component {
   state = {
     anchorEl: null
   };
@@ -20,9 +62,15 @@ export default class Art extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    });
+  };
+
   render() {
-    let { arts } = this.props;
-    const { anchorEl } = this.state;
+    const { classes, arts } = this.props;
+    const { expanded } = this.state;
     let type = "";
 
     let Arts = arts.map((art, index) => {
@@ -90,9 +138,33 @@ export default class Art extends Component {
               </Button>
             )}
           </div>
+          <p className="my-2">{art.likes} Likes</p>
+          <ExpansionPanel
+            expanded={expanded === "panel1"}
+            onChange={this.handleChange("panel1")}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                Comments ({art.comments.length})
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <div classes={classes.root}>
+                <List id={`comment-list-${art._id}`}>
+                  {art.comments &&
+                    art.comments.map(comment => {
+                      return <Comments comment={comment} />;
+                    })}
+                  {this.state.newComment}
+                </List>
+              </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </div>
       );
     });
     return <div>{Arts}</div>;
   }
 }
+
+export default withStyles(styles)(Art)

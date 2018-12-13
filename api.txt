@@ -522,6 +522,40 @@ status: 400
 status: 400
 
 
+-----------------------------------------------------------
+---------------------- Get Stats --------------------------
+-----------------------------------------------------------
+159.89.171.16:9000/user/get_stats
+
+Method Type: POST
+
+Header Request:
+key: token
+value: generated_token_value
+i.e. token = value
+
+Json Response:
+
+In case of Success:
+{
+    "status": "success",
+    "msg": "Fetched Data Successfully",
+    "stats": {
+        "anonymous_shared": 3,
+        "no_of_likes": 1,
+        "no_of_wins": 0,
+        "no_of_comments": 2,
+        "content_shared": 3
+    }
+}
+
+
+In case of failure:
+{
+    "status": "failure", 
+    "msg": "Cannot connect to the mongodb server"
+}
+
 ##############################
 ##### Insert Post ############
 ##############################
