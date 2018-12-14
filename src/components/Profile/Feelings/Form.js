@@ -87,7 +87,8 @@ class Form extends Component {
     image: "",
     modal: 0,
     previewUrl: "",
-    color: "#333333"
+    color: "#333333",
+    imageVisibility: true
   };
 
   getPreviewURL() {
@@ -164,6 +165,7 @@ class Form extends Component {
       let bodyFormData = new FormData();
       bodyFormData.append("text", formData.text);
       bodyFormData.append("post_type", formData.post_type);
+      bodyFormData.append("image_or_text", this.state.imageVisibility);
       bodyFormData.append("shared_type", this.state.shared_type);
       bodyFormData.append("post_title", formData.post_title);
       bodyFormData.append(
@@ -209,6 +211,15 @@ class Form extends Component {
         this.previewImage();
       }
     );
+  }
+
+  handleShowImage(e) {
+    e.persist();
+    this.setState(() => {
+      return {
+        imageVisibility: e.target.checked
+      }
+    })
   }
 
   render() {
@@ -282,6 +293,15 @@ class Form extends Component {
                 type="file"
                 className="form-control"
                 onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div> 
+              <label>Show image:</label>
+              <input
+                type="checkbox"
+                style={{ marginLeft: "10px", marginTop: "5px" }}
+                onChange={e => this.handleShowImage(e)}
+                checked={this.state.imageVisibility}
               />
             </div>
             <div className="controls mr-auto">

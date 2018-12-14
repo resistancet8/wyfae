@@ -14,6 +14,10 @@ function memoryReducer(state = initialState, { type, payload }) {
       return {
         memory: state.memory.filter(o => o._id !== payload)
       };
+      case "LOAD_MEMORY":
+      return {
+        memory: [...state.memory, ...payload]
+      };
     default:
       return state;
   }

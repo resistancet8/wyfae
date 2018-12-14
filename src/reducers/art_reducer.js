@@ -14,6 +14,10 @@ function artReducer(state = initialState, { type, payload }) {
       return {
         arts: state.arts.filter(o => o._id !== payload)
       };
+      case "LOAD_ARTS":
+      return {
+        arts: [...state.arts, ...payload]
+      };
     default:
       return state;
   }

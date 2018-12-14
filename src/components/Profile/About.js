@@ -9,31 +9,43 @@ class About extends Component {
           <p className="font-italic"> {this.props.user.about}</p>
         </div>
         <div className="row pt-3 about-holder">
-          <p className="cols-12">
-            <strong class="text-muted">DOB:</strong>
-            &nbsp;
-            {this.props.user.dob}
-          </p>
-          <p className="cols-12">
-            <strong class="text-muted">Languages Known:</strong>
-            &nbsp;
-            {this.props.user.langs}
-          </p>
-          <p className="cols-12">
-            <strong class="text-muted">Contact:</strong>
-            &nbsp;
-            {this.props.user.contact}
-          </p>
-          <p className="cols-12">
-            <strong class="text-muted">Email:</strong>
-            &nbsp;
-            {this.props.user.email}
-          </p>
-          <p className="cols-12">
-            <strong class="text-muted">Favorite Artform:</strong>
-            &nbsp;
-            {this.props.user.favorite_art}
-          </p>
+          {this.props.user.dob && (
+            <p className="cols-12">
+              <strong class="text-muted">DOB:</strong>
+              &nbsp;
+              {this.props.user.dob}
+            </p>
+          )}
+
+          {this.props.user.langs && (
+            <p className="cols-12">
+              <strong class="text-muted">Languages Known:</strong>
+              &nbsp;
+              {this.props.user.langs}
+            </p>
+          )}
+          {this.props.user.contact && (
+            <p className="cols-12">
+              <strong class="text-muted">Contact:</strong>
+              &nbsp;
+              {this.props.user.contact}
+            </p>
+          )}
+
+          {this.props.user.email && (
+            <p className="cols-12">
+              <strong class="text-muted">Email:</strong>
+              &nbsp;
+              {this.props.user.email}
+            </p>
+          )}
+          {this.props.user.favorite_art && (
+            <p className="cols-12">
+              <strong class="text-muted">Favorite Artform:</strong>
+              &nbsp;
+              {this.props.user.favorite_art}
+            </p>
+          )}
         </div>
       </div>
     );

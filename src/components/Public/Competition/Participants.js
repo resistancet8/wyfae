@@ -153,7 +153,11 @@ class Participants extends Component {
       );
       winner = "The Winner Is " + winner.substr(0, winner.length - 2);
     } else {
-      if (
+      if (this.props.data.participants.length == 1) {
+        winner =
+          "No one decided to compete with " +
+          this.props.data.participants[0]["author"];
+      } else if (
         this.props.data.winner.users &&
         this.props.data.winner.users.length == 0
       ) {
@@ -163,29 +167,54 @@ class Participants extends Component {
       }
     }
 
+    let sharable_url = "http://localhost:3000/ss";
+
     return (
       <div
         style={{
           background: "#fafafa",
           padding: "10px",
-          margin: "10px 0"
+          margin: "10px 0",
+          position: "relative"
         }}
       >
-        <div
-          class="fb-share-button"
-          data-href="http://localhost:3000/trending/completed"
-          data-layout="button_count"
-          data-size="small"
-          data-mobile-iframe="true"
-        >
-          <a
-            target="_blank"
-            href={`https://www.facebook.com/sharer/sharer.php?u=${"http://localhost:3000/trending/completed"}&amp;src=sdkpreparse`}
-            class="fb-xfbml-parse-ignore"
-          >
-            Share
-          </a>
-        </div>
+        {true && (
+          <div>
+            <div
+              class="fb-share-button"
+              data-href={sharable_url}
+              data-layout="button"
+              data-size="large"
+              data-mobile-iframe="true"
+            >
+              <a
+                target="_blank"
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  sharable_url
+                )}&amp;src=sdkpreparse`}
+                class="fb-xfbml-parse-ignore"
+              >
+                <i class="fa fa-facebook" />
+              </a>
+            </div>
+            <a
+              target="_blank"
+              class="wa-share-button"
+              href={`https://wa.me/?text=${encodeURIComponent(sharable_url)}`}
+            >
+              <i class="fa fa-whatsapp" aria-hidden="true" />
+            </a>
+            <a
+             target="_blank"
+              class="twitter-share-button"
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                sharable_url
+              )}`}
+            >
+              <i class="fa fa-twitter" />
+            </a>
+          </div>
+        )}
         <h3
           className="font-weight-bold"
           style={{

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import Memory from "./Memory";
+import { getMoreMemories, getMoreArts } from "../../../actions/posts_actions";
 import Art from "./Art";
 import "./Timeline.css";
 
@@ -12,11 +13,53 @@ class Timeline extends Component {
     super(props);
     this.state = {
       modal: false,
-      currentPost: {}
+      currentPost: {},
+      mlen: null,
+      alen: null,
+      artHideShowMore: 0,
+      memHideShowMore: 0
     };
 
     this.toggle = this.toggle.bind(this);
     this.deletePost = this.deletePost.bind(this);
+  }
+
+  componentWillReceiveProps(props) {
+    let { arts, memory } = props.userpage ? props.userpage_posts : props;
+
+    let obj = {};
+
+    if(this.state.clicked && this.state.clicked == 'memory'){
+      if (this.state.mlen == memory.length) {
+        obj = {
+          ...obj,
+          memHideShowMore: 1
+        };
+      } else {
+        obj = {
+          ...obj,
+          mlen: memory.length
+        };
+      }
+  
+      this.setState({ ...obj });
+    }
+
+    if(this.state.clicked && this.state.clicked == 'art'){
+      if (this.state.alen == arts.length) {
+        obj = {
+          ...obj,
+          artHideShowMore: 1
+        };
+      } else {
+        obj = {
+          ...obj,
+          alen: arts.length
+        };
+      }
+  
+      this.setState({ ...obj });
+    }
   }
 
   toggle(post) {
@@ -56,6 +99,8 @@ class Timeline extends Component {
       ? this.props.userpage_posts
       : this.props;
 
+    let username = this.props.userpage ? "" : this.props.auth.user.username;
+
     return (
       <div className="timeline-holder">
         {(arts && arts.length) || (memory && memory.length) ? (
@@ -63,12 +108,33 @@ class Timeline extends Component {
             <div>
               <h2 className="font-weight-bold">Arts: </h2>
               {arts && arts.length ? (
-                <Art
-                  arts={arts}
-                  modalToggle={this.toggle}
-                  deletePost={this.deletePost.bind(this)}
-                  userpage={this.props.userpage}
-                />
+                <div>
+                  <Art
+                    arts={arts}
+                    modalToggle={this.toggle}
+                    deletePost={this.deletePost.bind(this)}
+                    userpage={this.props.userpage}
+                  />
+                  {!this.state.artHideShowMore ? (
+                    <Button
+                      onClick={() => {
+                        this.setState({
+                          clicked: "art"
+                        })
+                        this.props.getMoreArts(arts.length, username)(this.props.dispatch);
+                      }}
+                      style={{
+                        width: "100%"
+                      }}
+                    >
+                      View more
+                    </Button>
+                  ) : (
+                    <div style={{ textAlign: "center", margin: "10px 0" }}>
+                      <span class="lead">No more posts</span>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div> No Arts </div>
               )}
@@ -77,12 +143,33 @@ class Timeline extends Component {
             <div>
               <h2 className="font-weight-bold">Memory: </h2>
               {memory && memory.length ? (
-                <Memory
-                  memories={memory}
-                  modalToggle={this.toggle}
-                  deletePost={this.deletePost.bind(this)}
-                  userpage={this.props.userpage}
-                />
+                <div>
+                  <Memory
+                    memories={memory}
+                    modalToggle={this.toggle}
+                    deletePost={this.deletePost.bind(this)}
+                    userpage={this.props.userpage}
+                  />
+                  {!this.state.memHideShowMore ? (
+                    <Button
+                      onClick={() => {
+                        this.setState({
+                          clicked: "memory"
+                        })
+                        this.props.getMoreMemories(memory.length, username)(this.props.dispatch);
+                      }}
+                      style={{
+                        width: "100%"
+                      }}
+                    >
+                      View more
+                    </Button>
+                  ) : (
+                    <div style={{ textAlign: "center", margin: "10px 0" }}>
+                      <span class="lead">No more posts</span>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div>No Memories</div>
               )}
@@ -119,11 +206,20 @@ class Timeline extends Component {
 function mapStateToProps(state) {
   return {
     memory: state.memory.memory,
-    arts: state.arts.arts
+    arts: state.arts.arts,
+    auth: state.auth
   };
+}
+
+function mapDispatchToProps(dispatch) {
+  return({
+    getMoreArts,
+    getMoreMemories,
+    dispatch
+  })
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Timeline);

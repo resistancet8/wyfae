@@ -59,3 +59,24 @@
 .info-icons-participant > * > *:nth-child(2) {
   margin-left: 2px;
 }
+
+.fb-share-button{
+  position: absolute !important;
+  right: 10px !important;
+  bottom: 10px !important;
+  font-size: 1.2em;
+}
+
+.wa-share-button {
+  position: absolute !important;
+  bottom: 10px !important;
+  right: 30px;
+  font-size: 1.2em;
+}
+
+.twitter-share-button {
+  position: absolute !important;
+  bottom: 10px !important;
+  right: 55px;
+  font-size: 1.2em;
+}

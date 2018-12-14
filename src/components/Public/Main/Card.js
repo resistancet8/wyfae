@@ -217,7 +217,7 @@ class PublicCard extends React.Component {
             )}
           </span>
         </Typography>
-        {post.url && (
+        {post.url && post.image_or_text == "true" && (
           <div id="image-container">
             <CardMedia
               className={classes.media}
@@ -271,29 +271,32 @@ class PublicCard extends React.Component {
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <div classes={classes.root}>
-                <List id={`comment-list-${post._id}`}>
-                  <ListItem className="border-bottom comment-holder">
+              <div class="comments-hold-parent">
+                <ul id={`comment-list-${post._id}`}>
+                  <li className="comment-holder">
                     <textarea
                       placeholder="Enter comment"
                       value={this.state.comment}
                       onChange={this.handleComment}
                       className="comment-box"
                     />
+                    <div>
                     <Button
+                      variant="outlined"
                       onClick={() => {
                         this.addComment(`comment-list-${post._id}`, post._id);
                       }}
                     >
                       Submit
                     </Button>
-                  </ListItem>
+                    </div>
+                  </li>
                   {post.comments &&
                     post.comments.map(comment => {
                       return <Comments comment={comment} />;
                     })}
                   {this.state.newComment}
-                </List>
+                </ul>
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>

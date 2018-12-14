@@ -225,49 +225,51 @@ class ParticipantCard extends React.Component {
           )}
         </CardActions>
         <div className={classes.root}>
-          <ExpansionPanel
-            expanded={expanded === "panel1"}
-            onChange={this.handleChange("panel1")}
-          >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>
-                Comments ({post.comments.length})
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div classes={classes.root}>
-                <List id={`comment-list-${post.part_post_id}`}>
-                  {!completed && !upcoming && ongoing && (
-                    <ListItem className="border-bottom">
+          {ongoing && (
+            <ExpansionPanel
+              expanded={expanded === "panel1"}
+              onChange={this.handleChange("panel1")}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Comments ({post.comments.length})
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div class="comments-hold-parent">
+                  <ul id={`comment-list-${post.part_post_id}`}>
+                    <li className="comment-holder">
                       <textarea
-                        row="5"
                         placeholder="Enter comment"
                         value={this.state.comment}
                         onChange={this.handleComment}
+                        className="comment-box"
                       />
-                      )
+                      <div>
                       <Button
+                        variant="outlined"
                         onClick={() => {
                           this.addComment(
-                            `comment-list-${post.part_post_id}`,
-                            post.part_post_id,
-                            this.props.part_id
-                          );
+                                `comment-list-${post.part_post_id}`,
+                                post.part_post_id,
+                                this.props.part_id
+                              );
                         }}
                       >
                         Submit
                       </Button>
-                    </ListItem>
-                  )}
-                  {post.comments &&
-                    post.comments.map(comment => {
-                      return <Comments comment={comment} />;
-                    })}
-                  {this.state.newComment}
-                </List>
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+                      </div>
+                    </li>
+                    {post.comments &&
+                      post.comments.map(comment => {
+                        return <Comments comment={comment} />;
+                      })}
+                    {this.state.newComment}
+                  </ul>
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          )}
         </div>
       </Card>
     );

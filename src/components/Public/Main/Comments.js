@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
@@ -13,9 +12,9 @@ const styles = theme => ({
 
 function Comments(props) {
   return (
-      <ListItem className="border-bottom">
+      <li className="border-bottom my-2 py-2">
         <ListItemText primary={props.comment.name} secondary={props.comment.comment_text} />
-      </ListItem>
+      </li>
   );
 }
 

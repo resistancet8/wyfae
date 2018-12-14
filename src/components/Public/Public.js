@@ -74,7 +74,7 @@ class Public extends Component {
                             posts={this.props.posts}
                             className={classes.public}
                             posts_tr={route.key}
-                          />
+                          /> 
                           {!this.state.hideShowMore ? (
                             <Button
                               onClick={() => {

@@ -4,13 +4,37 @@ import { reset } from "redux-form";
 import Slider from "./Slider";
 import Participants from "./Participants";
 import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
 
 class Upcoming extends Component {
   state = {
     upcoming: [],
     slider: 0,
-    part_id: null
+    part_id: null,
+    length: 0,
+    show: 1
   };
+
+  loadMore() {
+    axios
+      .post("http://159.89.171.16:9000/user/get_contest", {
+        skip_count: this.state.length,
+        compete_status: "upcoming"
+      })
+      .then(response => {
+        let { upcoming } = response.data.all_content;
+        this.setState((state) => {
+          return {
+            upcoming: [...state.upcoming, ...upcoming],
+            length: state.length + upcoming.length,
+            show: upcoming.length === 0 ? 0: 1
+          };
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   componentDidMount() {
     axios
@@ -20,8 +44,12 @@ class Upcoming extends Component {
       })
       .then(response => {
         let { upcoming } = response.data.all_content;
-        this.setState({
-          upcoming
+        this.setState((state) => {
+          return {
+            upcoming,
+            length: state.length + upcoming.length,
+            show: upcoming.length === 0 ? 0: 1
+          };
         });
       })
       .catch(err => {
@@ -43,7 +71,10 @@ class Upcoming extends Component {
         this.props.dispatch(reset("art-form"));
       })
       .catch(err => {
-        this.props.dispatch({ type: "SHOW_TOAST", payload: err.response.data ?  err.response.data.msg: "Errored!" });
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data ? err.response.data.msg : "Errored!"
+        });
       });
   }
 
@@ -78,6 +109,24 @@ class Upcoming extends Component {
       <div {...this.props}>
         <h4 className="font-weight-bold text-muted">Upcoming Competitions</h4>
         {upcomingData}
+        {this.state.show && upcoming.length ? (
+            <Button
+              onClick={() => {
+                this.loadMore();
+              }}
+              style={{
+                width: "100%"
+              }}
+            >
+              View more
+            </Button>
+          ) : (
+            <div
+              style={{ textAlign: "center", margin: "10px 0" }}
+            >
+              <span class="lead">No more posts</span>
+            </div>
+          )}
         <Slider
           slider={this.state.slider}
           toggleDrawer={this.toggleDrawer}

@@ -132,8 +132,8 @@ class Memory extends Component {
           </div>
           <p className="my-2">{memory.likes} Likes</p>
           <ExpansionPanel
-            expanded={expanded === "panel1"}
-            onChange={this.handleChange("panel1")}
+            expanded={expanded === memory._id}
+            onChange={this.handleChange(memory._id)}
             style={{marginTop: "10px"}}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

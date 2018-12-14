@@ -80,6 +80,7 @@ class Memory extends Component {
     image: "",
     modal: 0,
     previewUrl: "",
+    imageVisibility: true,
     color: "#333333"
   };
 
@@ -145,6 +146,7 @@ class Memory extends Component {
       newFormData.append("text", formData.text);
       newFormData.append("author", this.props.user.first_name);
       newFormData.append("shared_type", this.state.shared_type);
+      newFormData.append("image_or_text", this.state.imageVisibility);
       newFormData.append("post_type", "memory_book");
 
       axios({
@@ -165,6 +167,15 @@ class Memory extends Component {
           this.props.dispatch({ type: "SHOW_TOAST", payload: "Errored!" });
         });
     });
+  }
+
+  handleShowImage(e) {
+    e.persist();
+    this.setState(() => {
+      return {
+        imageVisibility: e.target.checked
+      }
+    })
   }
 
   getPreviewURL() {
@@ -315,6 +326,15 @@ class Memory extends Component {
                 id="memory-file"
                 className="form-control"
                 onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div>
+              <label>Show image:</label>
+              <input
+                type="checkbox"
+                style={{ marginLeft: "10px", marginTop: "5px" }}
+                onChange={e => this.handleShowImage(e)}
+                checked={this.state.imageVisibility}
               />
             </div>
             <div className="controls mr-auto">

@@ -18,20 +18,17 @@ import axios from "axios";
 class Profile extends Component {
   state = {
     memory_book_privacy: "",
-    profile_privacy: ""
   };
 
   componentDidMount() {
     this.setState({
       memory_book_privacy: this.props.user.memory_book_privacy,
-      profile_privacy: this.props.user.profile_privacy
     });
   }
 
   componentWillReceiveProps(props) {
     this.setState({
       memory_book_privacy: props.user.memory_book_privacy,
-      profile_privacy: props.user.profile_privacy
     });
   }
 
@@ -47,20 +44,6 @@ class Profile extends Component {
             memory_book_privacy == "private" ? "public" : "private"
         });
       });
-  }
-
-  changeProfilePrivacy(profile_privacy) {
-    // axios
-    //   .post("http://159.89.171.16:9000/user/update_about", {
-    //     profile_privacy:
-    //       profile_privacy == "private" ? "public" : "private"
-    //   })
-    //   .then(e => {
-    //     this.setState({
-    //       profile_privacy:
-    //         profile_privacy == "private" ? "public" : "private"
-    //     });
-    //   });
   }
 
   render() {
@@ -98,27 +81,6 @@ class Profile extends Component {
                           for="memory-book-privacy"
                         >
                           Memory book privacy
-                        </label>
-                      </div>
-                      <div class="custom-control custom-checkbox text-center">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="profile-privacy"
-                          checked={
-                            this.state.profile_privacy == "private" ? 1 : 0
-                          }
-                          onChange={() => {
-                            this.changeProfilePrivacy(
-                              this.state.profile_privacy
-                            );
-                          }}
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="profile-book-privacy"
-                        >
-                          Profile privacy
                         </label>
                       </div>
 

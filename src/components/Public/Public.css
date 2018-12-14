@@ -20,7 +20,7 @@
 }
 
 .comment-holder {
-  background: #fafafa;
+  margin-bottom: 17px !important;
 }
 
 .comment-holder .comment-box {
@@ -28,8 +28,19 @@
   max-height: 100px;
   overflow-y: auto;
   padding: 10px;
-  border: none;
-  border-radius: 3px;
+  border: 1px solid #5554;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.comments-hold-parent {
+  width: 100%;
+}
+
+.comments-hold-parent ul, .comments-hold-parent li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 @keyframes pop {

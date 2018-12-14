@@ -8,7 +8,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import moment from "moment";
-import Comments from '../../Public/Main/Comments';
+import Comments from "../../Public/Main/Comments";
 import { withStyles } from "@material-ui/core";
 
 const styles = theme => ({
@@ -71,6 +71,7 @@ class Art extends Component {
   render() {
     const { classes, arts } = this.props;
     const { expanded } = this.state;
+
     let type = "";
 
     let Arts = arts.map((art, index) => {
@@ -83,6 +84,7 @@ class Art extends Component {
       } else {
         type = art.shared_type;
       }
+      let likes = art.likes ? art.likes:  art.participants && art.participants.length ? art.participants[0].likes: 0;
 
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
@@ -138,28 +140,30 @@ class Art extends Component {
               </Button>
             )}
           </div>
-          <p className="my-2">{art.likes} Likes</p>
-          <ExpansionPanel
-            expanded={expanded === "panel1"}
-            onChange={this.handleChange("panel1")}
-          >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>
-                Comments ({art.comments.length})
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div classes={classes.root}>
-                <List id={`comment-list-${art._id}`}>
-                  {art.comments &&
-                    art.comments.map(comment => {
-                      return <Comments comment={comment} />;
-                    })}
-                  {this.state.newComment}
-                </List>
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <p className="my-2">{likes} Likes</p>
+          {art.comments && (
+            <ExpansionPanel
+              expanded={expanded === art._id}
+              onChange={this.handleChange(art._id)}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Comments ({art.comments.length})
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div classes={classes.root}>
+                  <List id={`comment-list-${art._id}`}>
+                    {art.comments &&
+                      art.comments.map(comment => {
+                        return <Comments comment={comment} />;
+                      })}
+                    {this.state.newComment}
+                  </List>
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          )}
         </div>
       );
     });
@@ -167,4 +171,4 @@ class Art extends Component {
   }
 }
 
-export default withStyles(styles)(Art)
+export default withStyles(styles)(Art);
