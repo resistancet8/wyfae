@@ -8,7 +8,7 @@ export function saveJournal(type, data) {
     };
 
     axios
-      .post(`http://159.89.171.16:9000/user/save_journal`, data_to_send)
+      .post(`process.env.REACT_APP_API_ENDPOINT/user/save_journal`, data_to_send)
       .then(d => {
         let to_save = d.data.journal_content;
 
@@ -43,7 +43,7 @@ export function saveJournal(type, data) {
         dispatch({ type: "SHOW_TOAST", payload: "Added" });
       })
       .catch(e => {
-        console.log(e.response);
+        console.err(e.response);
       });
   };
 }
@@ -55,7 +55,7 @@ export function deleteJournal(type, id) {
     };
 
     axios
-      .post(`http://159.89.171.16:9000/user/delete_journal`, data_to_send)
+      .post(`process.env.REACT_APP_API_ENDPOINT/user/delete_journal`, data_to_send)
       .then(d => {
         if (type === "quotes") {
           dispatch({
@@ -88,7 +88,7 @@ export function deleteJournal(type, id) {
         dispatch({ type: "SHOW_TOAST", payload: "Deleted" });
       })
       .catch(e => {
-        console.log(e.response);
+        console.err(e.response);
       });
   };
 }
@@ -96,7 +96,7 @@ export function deleteJournal(type, id) {
 export function toggleTodo(id, status, index) {
   return function(dispatch) {
     axios
-      .post("http://159.89.171.16:9000/user/flag_todos_goals", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/flag_todos_goals", {
         journal_id: id,
         completed: status == "No" ? "Yes" : "No"
       })
@@ -116,7 +116,7 @@ export function toggleTodo(id, status, index) {
 export function toggleGoal(id, status, index) {
   return function(dispatch) {
     axios
-      .post("http://159.89.171.16:9000/user/flag_todos_goals", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/flag_todos_goals", {
         journal_id: id,
         completed: status == "No" ? "Yes" : "No"
       })

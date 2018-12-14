@@ -1,10 +1,9 @@
 import axios from "axios";
-const apiBasePath = "http://159.89.171.16:9000";
 
 export function getPosts() {
   return function(dispatch) {
     axios
-      .post(`${apiBasePath}/user/get_all_trending`, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_all_trending`, {
         skip_count: 0,
         limit_count: 10
       })
@@ -21,7 +20,7 @@ export function getPosts() {
 export function getMore(length) {
   return function(dispatch) {
     axios
-      .post(`${apiBasePath}/user/get_all_trending`, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_all_trending`, {
         skip_count: length,
         limit_count: 10
       })

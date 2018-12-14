@@ -12,7 +12,7 @@ class Ongoing extends Component {
 
   loadMore() {
     axios
-      .post("http://159.89.171.16:9000/user/get_contest", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: this.state.length,
         compete_status: "ongoing"
       })
@@ -27,13 +27,13 @@ class Ongoing extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
       });
   }
 
   componentDidMount() {
     axios
-      .post("http://159.89.171.16:9000/user/get_contest", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: 0,
         compete_status: "ongoing"
       })
@@ -48,7 +48,7 @@ class Ongoing extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
       });
   }
 

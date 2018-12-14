@@ -12,7 +12,7 @@ class Following extends Component {
 
   componentDidMount() {
     axios
-      .post("http://159.89.171.16:9000/user/get_circle", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_circle", {
         skip_count: 0
       })
       .then(data => {
@@ -53,7 +53,7 @@ class Following extends Component {
               <div className="col-2">
                 <img
                   className="img-fluid"
-                  src={"http://159.89.171.16:9000/" + user.url}
+                  src={`${process.env.REACT_APP_API_ENDPOINT}` + "/" + user.url}
                 />
               </div>
               <div className="col-10">

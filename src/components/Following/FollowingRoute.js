@@ -11,7 +11,7 @@ class FollowingRoute extends Component {
 
   componentDidMount() {
     axios
-      .post("http://159.89.171.16:9000/user/get_circle_content", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_circle_content", {
         skip_count: 0
       })
       .then(data => {
@@ -20,7 +20,7 @@ class FollowingRoute extends Component {
         });
       })
       .catch(err => {
-        console.log(err.response.data);
+        console.err(err.response.data);
       });
   }
 

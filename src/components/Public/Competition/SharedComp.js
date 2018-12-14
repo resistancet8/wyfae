@@ -11,7 +11,7 @@ class Ongoing extends Component {
 
   componentDidMount() {
     axios
-      .post("http://159.89.171.16:9000/user/get_single_post", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_single_post", {
         post_id: this.props.match.params.comp_id
       })
       .then(response => {
@@ -21,7 +21,7 @@ class Ongoing extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
       });
   }
 

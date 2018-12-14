@@ -96,7 +96,7 @@ class Memory extends Component {
           {memory.url && (
             <div className="img-responsive">
               <img
-                src={`http://159.89.171.16:9000/${memory.url}`}
+                src={`process.env.REACT_APP_API_ENDPOINT/${memory.url}`}
                 alt="Image"
                 class="img-fluid"
               />

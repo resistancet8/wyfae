@@ -3,14 +3,13 @@ import setAuthHeader from "./../helpers/setAuthTokens";
 import token_decoder from "jwt-decode";
 import registerValidator from "./../helpers/register_validator";
 import { getUserProfile, getJournalData } from "./user_actions";
-const apiBasePath = "http://159.89.171.16:9000";
 
 export function registerUser(userData, history) {
   return function(dispatch) {
     let validator = registerValidator(userData);
     if (validator.isValid) {
       axios
-        .post(`${apiBasePath}/user_auth/signup`, userData)
+        .post(`${process.env.REACT_APP_API_ENDPOINT}/user_auth/signup`, userData)
         .then(response => {
           if (response.data.status === "failure") {
             dispatch({ type: "GET_ERRORS", payload: response.data });
@@ -37,7 +36,7 @@ export function registerUser(userData, history) {
 export function loginUser(userData, history) {
   return function(dispatch) {
     axios
-      .post(`${apiBasePath}/user_auth/login`, userData)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user_auth/login`, userData)
       .then(response => {
         const { token } = response.data;
         dispatch({ type: "GET_ERRORS", payload: {} });
@@ -94,7 +93,7 @@ export function logoutUser(showToast) {
 export function forgotPassword(payload) {
   return dispatch => {
     axios
-      .post("http://159.89.171.16:9000/user_auth/forgot_password", payload)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user_auth/forgot_password", payload)
       .then(resp => {
         dispatch({ type: "GET_ERRORS", payload: {} });
         dispatch({ type: "FORGOT_PASSWORD", payload: true });
@@ -113,7 +112,7 @@ export function forgotPassword(payload) {
 export function verifyOTP(payload, history) {
   return dispatch => {
     axios
-      .post("http://159.89.171.16:9000/user_auth/reset_password", payload)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user_auth/reset_password", payload)
       .then(resp => {
         dispatch({ type: "GET_ERRORS", payload: {} });
         dispatch({ type: "FORGOT_PASSWORD", payload: false });

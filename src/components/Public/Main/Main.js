@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import Card from "./Card";
 
 class Main extends Component {
-  componentWillReceiveProps(props) {
-    console.log(props);
-  }
 
   render() {
     let Posts = [];
-    console.log("props", this.props, this.state)
     if (this.props.posts_tr === "/trending/") {
       Posts = this.props.posts.map(post => {
         return (

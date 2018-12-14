@@ -13,7 +13,7 @@ export default props => {
     >
       <div className="col-3">
         <img
-          src={"http://159.89.171.16:9000/" + props.user.url}
+          src={`${process.env.REACT_APP_API_ENDPOINT}` + "/" + props.user.url}
           className="img-fluid"
         />
       </div>

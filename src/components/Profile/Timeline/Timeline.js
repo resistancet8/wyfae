@@ -73,7 +73,7 @@ class Timeline extends Component {
     let c = window.confirm("Are you sure?");
     if (c) {
       axios
-        .post("http://159.89.171.16:9000/user/delete_post", {
+        .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/delete_post", {
           post_id: post_id
         })
         .then(data => {

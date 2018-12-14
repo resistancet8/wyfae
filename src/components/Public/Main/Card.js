@@ -133,7 +133,7 @@ class PublicCard extends React.Component {
     }
 
     axios
-      .post("http://159.89.171.16:9000/user/update_signal", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
         post_id: id,
         signal_type: "like"
       })
@@ -163,7 +163,7 @@ class PublicCard extends React.Component {
       return;
     }
     axios
-      .post("http://159.89.171.16:9000/user/update_signal", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
         post_id: post_id,
         signal_type: "comment",
         comment_text: this.state.comment
@@ -183,7 +183,7 @@ class PublicCard extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
         // this.props.dispatch({
         //   type: "SHOW_TOAST",
         //   payload: err.response.data.msg
@@ -221,7 +221,7 @@ class PublicCard extends React.Component {
           <div id="image-container">
             <CardMedia
               className={classes.media}
-              image={`http://159.89.171.16:9000/${post.url}`}
+              image={`process.env.REACT_APP_API_ENDPOINT/${post.url}`}
             />
           </div>
         )}

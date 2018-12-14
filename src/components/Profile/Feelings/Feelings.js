@@ -49,7 +49,7 @@ class Feelings extends Component {
     this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
       method: "post",
-      url: "http://159.89.171.16:9000/user/insert_post",
+      url: `${process.env.REACT_APP_API_ENDPOINT}` + "/user/insert_post",
       data: formData,
       config: { headers: { "Content-Type": "multipart/form-data" } }
     })

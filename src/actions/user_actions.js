@@ -2,7 +2,6 @@ import updateValidator from "./../helpers/update_validator";
 import axios from "axios";
 import { logoutUser } from "./auth_actions";
 
-const apiBasePath = "http://159.89.171.16:9000";
 
 export function updateUserProfile(userInfo, history) {
   return dispatch => {
@@ -12,7 +11,7 @@ export function updateUserProfile(userInfo, history) {
       dispatch({ type: "GET_ERRORS", payload: {} });
 
       axios
-        .post(`${apiBasePath}/user/update_about`, userInfo)
+        .post(`${process.env.REACT_APP_API_ENDPOINT}/user/update_about`, userInfo)
         .then(response => {
           dispatch({ type: "GET_ERRORS", payload: {} });
           dispatch({ type: "UPDATE_PROFILE", payload: userInfo });
@@ -41,7 +40,7 @@ export function updateUserProfile(userInfo, history) {
 
 export function getUserProfile(dispatch, history, redirect, decodedUser) {
   axios
-    .post(`${apiBasePath}/user/get_profile`, {
+    .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_profile`, {
       profile_username: decodedUser.username,
       skip_count: 0
     })
@@ -89,7 +88,7 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
 
 export function getJournalData(dispatch, history, redirect, decodedUser) {
   axios
-    .post(`${apiBasePath}/user/get_all_journal`, {
+    .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_all_journal`, {
       profile_username: decodedUser.username,
       skip_count: 0,
       limit_count: 10

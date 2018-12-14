@@ -14,7 +14,7 @@ class User extends Component {
 
   profilePicUpload() {
     axios
-      .post("http://159.89.171.16:9000/user/update_profile_pic", formData, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_profile_pic", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -23,7 +23,7 @@ class User extends Component {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Uploaded" });
       })
       .catch(e => {
-        console.log(e.response);
+        console.err(e.response);
       });
   }
 
@@ -60,7 +60,7 @@ class User extends Component {
     } else {
       img_tag = (
         <img
-          src={`http://159.89.171.16:9000/${this.props.user.url}`}
+          src={`process.env.REACT_APP_API_ENDPOINT/${this.props.user.url}`}
           className="img-fluid rounded-circle mx-auto"
         />
       );

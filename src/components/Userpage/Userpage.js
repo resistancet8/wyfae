@@ -24,7 +24,7 @@ class Userpage extends Component {
 
   fetchUserData() {
     axios
-      .post(`http://159.89.171.16:9000/user/get_profile`, {
+      .post(`process.env.REACT_APP_API_ENDPOINT/user/get_profile`, {
         profile_username: this.props.match.params.username || "",
         skip_count: 0
       })
@@ -80,7 +80,7 @@ class Userpage extends Component {
 
   followUnfollow(signal) {
     axios
-      .post("http://159.89.171.16:9000/user/follow", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/follow", {
         username: this.props.match.params.username,
         signal_type: signal
       })

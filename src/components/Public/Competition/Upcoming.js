@@ -17,7 +17,7 @@ class Upcoming extends Component {
 
   loadMore() {
     axios
-      .post("http://159.89.171.16:9000/user/get_contest", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: this.state.length,
         compete_status: "upcoming"
       })
@@ -32,13 +32,13 @@ class Upcoming extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
       });
   }
 
   componentDidMount() {
     axios
-      .post("http://159.89.171.16:9000/user/get_contest", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: 0,
         compete_status: "upcoming"
       })
@@ -53,7 +53,7 @@ class Upcoming extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.err(err);
       });
   }
 
@@ -62,7 +62,7 @@ class Upcoming extends Component {
     this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
     axios({
       method: "post",
-      url: "http://159.89.171.16:9000/user/join_contest",
+      url: `${process.env.REACT_APP_API_ENDPOINT}` + "/user/join_contest",
       data: formData,
       config: { headers: { "Content-Type": "multipart/form-data" } }
     })

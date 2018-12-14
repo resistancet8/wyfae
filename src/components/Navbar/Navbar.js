@@ -41,7 +41,7 @@ class NavbarComponent extends Component {
   }
 
   handleSearch(val) {
-    Axios.post("http://159.89.171.16:9000/user/search_user", {
+    Axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/search_user", {
       username: val,
       skip_count: 0
     })

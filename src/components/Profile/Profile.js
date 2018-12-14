@@ -34,7 +34,7 @@ class Profile extends Component {
 
   changeMemoryPrivacy(memory_book_privacy) {
     axios
-      .post("http://159.89.171.16:9000/user/update_about", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_about", {
         memory_book_privacy:
           memory_book_privacy == "private" ? "public" : "private"
       })

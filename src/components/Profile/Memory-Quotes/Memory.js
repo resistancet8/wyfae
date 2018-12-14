@@ -151,7 +151,7 @@ class Memory extends Component {
 
       axios({
         method: "post",
-        url: "http://159.89.171.16:9000/user/insert_post",
+        url: `${process.env.REACT_APP_API_ENDPOINT}` + "/user/insert_post",
         data: newFormData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
       })
@@ -181,14 +181,11 @@ class Memory extends Component {
   getPreviewURL() {
     let reader = new FileReader();
     reader.onloadend = () => {
-      console.log("laoded");
       this.setState(
         {
           previewUrl: reader.result
         },
         () => {
-          console.log("previewImage", this.state);
-
           this.previewImage();
         }
       );
@@ -197,18 +194,12 @@ class Memory extends Component {
   }
 
   handleChange(e) {
-    console.log(
-      document.querySelector("#memory-file").files[0],
-      e.target.files[0],
-      this.state
-    );
     e.preventDefault();
     this.setState(
       {
         image: document.querySelector("#memory-file").files[0]
       },
       () => {
-        console.log("get", this.state);
         this.getPreviewURL();
       }
     );

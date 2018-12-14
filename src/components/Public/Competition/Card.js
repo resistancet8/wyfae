@@ -98,7 +98,7 @@ class ParticipantCard extends React.Component {
   handleLikeClick(event, id, part_id) {
     event.persist();
     axios
-      .post("http://159.89.171.16:9000/user/update_contest_signal", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal", {
         post_id: part_id,
         part_post_id: id,
         signal_type: "like"
@@ -138,7 +138,7 @@ class ParticipantCard extends React.Component {
 
   addComment(id, post_id, part_id) {
     axios
-      .post("http://159.89.171.16:9000/user/update_contest_signal", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal", {
         post_id: part_id,
         part_post_id: post_id,
         signal_type: "comment",
@@ -192,7 +192,7 @@ class ParticipantCard extends React.Component {
           <div id="image-container">
             <CardMedia
               className={classes.media}
-              image={`http://159.89.171.16:9000/${post.url}`}
+              image={`process.env.REACT_APP_API_ENDPOINT/${post.url}`}
             />
           </div>
         )}

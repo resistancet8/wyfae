@@ -1,5 +1,4 @@
 import axios from "axios";
-const apiBasePath = "http://159.89.171.16:9000";
 
 export function publishArt(data) {
   return function(dispatch) {
@@ -40,7 +39,7 @@ export function deleteArt(data) {
 export function getMoreArts(length, user) {
   return function(dispatch) {
     axios
-      .post(`${apiBasePath}/user/load_profile_post`, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/load_profile_post`, {
         "profile_username": user,
         "post_type": "art", 
         "skip_count": length
@@ -58,7 +57,7 @@ export function getMoreArts(length, user) {
 export function getMoreMemories(length, user) {
   return function(dispatch) {
     axios
-      .post(`${apiBasePath}/user/load_profile_post`, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/load_profile_post`, {
         "profile_username": user,
         "post_type": "memory_book", 
         "skip_count": length

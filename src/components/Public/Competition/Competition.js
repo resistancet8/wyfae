@@ -5,7 +5,7 @@ import "./Competition.css";
 
 class Competition extends Component {
   componentDidMount() {
-    // axios.post("http://159.89.171.16:9000/user/get_contest", {
+    // axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
     //   "skip_count":0,
     //   "compete_status": "all"
     // })

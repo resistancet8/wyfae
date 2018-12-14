@@ -41,7 +41,6 @@ class Public extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(this.state, props.posts.length)
     if (this.state.len == props.posts.length && this.state.clicked) {
       this.setState({
         hideShowMore: 1

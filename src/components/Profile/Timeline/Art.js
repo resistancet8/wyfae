@@ -100,7 +100,7 @@ class Art extends Component {
           {art.url && (
             <div className="img-responsive">
               <img
-                src={`http://159.89.171.16:9000/${art.url}`}
+                src={`process.env.REACT_APP_API_ENDPOINT/${art.url}`}
                 alt="Image"
                 className="img-fluid"
               />
