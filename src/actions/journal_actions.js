@@ -8,7 +8,7 @@ export function saveJournal(type, data) {
     };
 
     axios
-      .post(`process.env.REACT_APP_API_ENDPOINT/user/save_journal`, data_to_send)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/save_journal`, data_to_send)
       .then(d => {
         let to_save = d.data.journal_content;
 

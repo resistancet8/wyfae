@@ -24,7 +24,7 @@ class Userpage extends Component {
 
   fetchUserData() {
     axios
-      .post(`process.env.REACT_APP_API_ENDPOINT/user/get_profile`, {
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_profile`, {
         profile_username: this.props.match.params.username || "",
         skip_count: 0
       })

@@ -60,7 +60,7 @@ class User extends Component {
     } else {
       img_tag = (
         <img
-          src={`process.env.REACT_APP_API_ENDPOINT/${this.props.user.url}`}
+          src={`${process.env.REACT_APP_API_ENDPOINT}/${this.props.user.url}`}
           className="img-fluid rounded-circle mx-auto"
         />
       );
