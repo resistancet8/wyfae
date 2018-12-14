@@ -168,7 +168,7 @@ class Participants extends Component {
       }
     }
 
-    let sharable_url = "http://localhost:3000/ss";
+    let sharable_url = "http://localhost:3000/shared/" + this.props.data._id;
 
     return (
       <div

@@ -88,7 +88,6 @@ class Art extends Component {
 
       return (
         <div key={index} className="bg-white p-3 mb-2 art-holder">
-          {art._id}
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
