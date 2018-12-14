@@ -60,23 +60,7 @@
   margin-left: 2px;
 }
 
-.fb-share-button{
-  position: absolute !important;
-  right: 10px !important;
-  bottom: 10px !important;
-  font-size: 1.2em;
-}
-
-.wa-share-button {
-  position: absolute !important;
-  bottom: 10px !important;
-  right: 30px;
-  font-size: 1.2em;
-}
-
-.twitter-share-button {
-  position: absolute !important;
-  bottom: 10px !important;
-  right: 55px;
-  font-size: 1.2em;
+.fb-share-button, .twitter-share-button, .wa-share-button{
+  margin-left: 10px;
+  font-size: 1.6em;
 }

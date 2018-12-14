@@ -98,6 +98,7 @@ class Memory extends Component {
               <img
                 src={`http://159.89.171.16:9000/${memory.url}`}
                 alt="Image"
+                class="img-fluid"
               />
             </div>
           )}

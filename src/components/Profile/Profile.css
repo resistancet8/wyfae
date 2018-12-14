@@ -157,6 +157,10 @@
   padding-top: 20px !important;
 }
 
+.feelings-holder {
+  padding: 0 !important;
+}
+
 /* desktop */
 
 @media screen and (min-width: 800px) {

@@ -32,7 +32,8 @@ const styles = theme => ({
 
 class Public extends Component {
   state = {
-    len: 0
+    len: 0,
+    clicked: 0
   };
 
   componentDidMount() {
@@ -40,13 +41,15 @@ class Public extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (this.state.len == props.posts.length) {
+    console.log(this.state, props.posts.length)
+    if (this.state.len == props.posts.length && this.state.clicked) {
       this.setState({
         hideShowMore: 1
       });
     } else {
       this.setState({
-        len: props.posts.length
+        len: props.posts.length,
+        clicked: 0
       });
     }
   }
@@ -78,6 +81,9 @@ class Public extends Component {
                           {!this.state.hideShowMore ? (
                             <Button
                               onClick={() => {
+                                this.setState({
+                                  clicked: 1
+                                })
                                 this.props.getMore(this.props.posts.length);
                               }}
                               style={{

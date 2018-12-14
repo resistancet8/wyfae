@@ -23,11 +23,11 @@ class Upcoming extends Component {
       })
       .then(response => {
         let { upcoming } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             upcoming: [...state.upcoming, ...upcoming],
             length: state.length + upcoming.length,
-            show: upcoming.length === 0 ? 0: 1
+            show: upcoming.length === 0 ? 0 : 1
           };
         });
       })
@@ -44,11 +44,11 @@ class Upcoming extends Component {
       })
       .then(response => {
         let { upcoming } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             upcoming,
             length: state.length + upcoming.length,
-            show: upcoming.length === 0 ? 0: 1
+            show: upcoming.length === 0 ? 0 : 1
           };
         });
       })
@@ -109,24 +109,26 @@ class Upcoming extends Component {
       <div {...this.props}>
         <h4 className="font-weight-bold text-muted">Upcoming Competitions</h4>
         {upcomingData}
-        {this.state.show && upcoming.length ? (
-            <Button
-              onClick={() => {
-                this.loadMore();
-              }}
-              style={{
-                width: "100%"
-              }}
-            >
-              View more
-            </Button>
-          ) : (
-            <div
-              style={{ textAlign: "center", margin: "10px 0" }}
-            >
-              <span class="lead">No more posts</span>
-            </div>
-          )}
+        {upcoming.length != 0 && (
+          <div>
+            {this.state.show && upcoming.length ? (
+              <Button
+                onClick={() => {
+                  this.loadMore();
+                }}
+                style={{
+                  width: "100%"
+                }}
+              >
+                View more
+              </Button>
+            ) : (
+              <div style={{ textAlign: "center", margin: "10px 0" }}>
+                <span class="lead">No more competitions</span>
+              </div>
+            )}
+          </div>
+        )}
         <Slider
           slider={this.state.slider}
           toggleDrawer={this.toggleDrawer}

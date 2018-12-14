@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Participants from './Participants'
+import Participants from "./Participants";
 import Button from "@material-ui/core/Button";
 
 class Completed extends Component {
@@ -18,11 +18,11 @@ class Completed extends Component {
       })
       .then(response => {
         let { finished } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             finished,
             length: state.length + finished.length,
-            show: finished.length === 0 ? 0: 1
+            show: finished.length === 0 ? 0 : 1
           };
         });
       })
@@ -39,11 +39,11 @@ class Completed extends Component {
       })
       .then(response => {
         let { finished } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             finished: [...state.finished, ...finished],
             length: state.length + finished.length,
-            show: finished.length === 0 ? 0: 1
+            show: finished.length === 0 ? 0 : 1
           };
         });
       })
@@ -57,7 +57,11 @@ class Completed extends Component {
 
     let CompletedData = completed.length ? (
       completed.map(obj => {
-        return obj.post_type !== 'memory_book' && <Participants data={obj} completed={1}/> 
+        return (
+          obj.post_type !== "memory_book" && (
+            <Participants data={obj} completed={1} />
+          )
+        );
       })
     ) : (
       <div> No Competitions </div>
@@ -67,24 +71,26 @@ class Completed extends Component {
       <div {...this.props}>
         <h4 className="font-weight-bold text-muted">Completed Competitions</h4>
         {CompletedData}
-        {this.state.show && completed.length ? (
-            <Button
-              onClick={() => {
-                this.loadMore();
-              }}
-              style={{
-                width: "100%"
-              }}
-            >
-              View more
-            </Button>
-          ) : (
-            <div
-              style={{ textAlign: "center", margin: "10px 0" }}
-            >
-              <span class="lead">No more posts</span>
-            </div>
-          )}
+        {completed.length != 0 && (
+          <div>
+            {this.state.show && completed.length ? (
+              <Button
+                onClick={() => {
+                  this.loadMore();
+                }}
+                style={{
+                  width: "100%"
+                }}
+              >
+                View more
+              </Button>
+            ) : (
+              <div style={{ textAlign: "center", margin: "10px 0" }}>
+                <span class="lead">No more competitions</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }

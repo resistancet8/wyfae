@@ -11,7 +11,7 @@ import { reset } from "redux-form";
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: "20px 15px" }}>
       {props.children}
     </Typography>
   );
@@ -88,7 +88,7 @@ class Feelings extends Component {
         {art_styles.map((el, index) => {
           return (
             value === index && (
-              <TabContainer>
+              <TabContainer >
                 <Form submitArt={this.submitArt.bind(this)} />
               </TabContainer>
             )

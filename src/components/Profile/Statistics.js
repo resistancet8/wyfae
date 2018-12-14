@@ -18,7 +18,7 @@ class Stats extends Component {
               role="progressbar"
               style={{ width: this.props.stats.content_shared + "%" }}
             >
-              {this.props.stats.content_shared + "%"}
+              {this.props.stats.content_shared}
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@ class Stats extends Component {
                 role="progressbar"
                 style={{ width: this.props.stats.no_of_likes + "%" }}
               >
-                {this.props.stats.no_of_likes + "%"}
+                {this.props.stats.no_of_likes}
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ class Stats extends Component {
                 role="progressbar"
                 style={{ width: this.props.stats.no_of_wins + "%" }}
               >
-                {this.props.stats.no_of_wins + "%"}
+                {this.props.stats.no_of_wins}
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ class Stats extends Component {
                 role="progressbar"
                 style={{ width: this.props.stats.no_of_comments + "%" }}
               >
-                {this.props.stats.no_of_comments + "%"}
+                {this.props.stats.no_of_comments}
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ class Stats extends Component {
                 role="progressbar"
                 style={{ width: this.props.stats.anonymous_shared + "%" }}
               >
-                {this.props.stats.anonymous_shared + "%"}
+                {this.props.stats.anonymous_shared}
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Participants from './Participants';
-import axios from 'axios'
+import Participants from "./Participants";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 
 class Ongoing extends Component {
@@ -18,11 +18,11 @@ class Ongoing extends Component {
       })
       .then(response => {
         let { ongoing } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             ongoing: [...state.ongoing, ...ongoing],
             length: state.length + ongoing.length,
-            show: ongoing.length === 0 ? 0: 1
+            show: ongoing.length === 0 ? 0 : 1
           };
         });
       })
@@ -39,11 +39,11 @@ class Ongoing extends Component {
       })
       .then(response => {
         let { ongoing } = response.data.all_content;
-        this.setState((state) => {
+        this.setState(state => {
           return {
             ongoing,
             length: state.length + ongoing.length,
-            show: ongoing.length === 0 ? 0: 1
+            show: ongoing.length === 0 ? 0 : 1
           };
         });
       })
@@ -55,32 +55,38 @@ class Ongoing extends Component {
   render() {
     let ongoing = this.state.ongoing || [];
 
-    let ongoingData = ongoing.length ? ongoing.map((obj) => {
-      return <Participants data={obj} ongoing={1}/>
-    }): <div> No Competitions </div>
+    let ongoingData = ongoing.length ? (
+      ongoing.map(obj => {
+        return <Participants data={obj} ongoing={1} />;
+      })
+    ) : (
+      <div> No Competitions </div>
+    );
 
     return (
       <div {...this.props}>
         <h4 className="font-weight-bold text-muted">Ongoing Competitions</h4>
         {ongoingData}
-        {this.state.show && ongoing.length ? (
-            <Button
-              onClick={() => {
-                this.loadMore();
-              }}
-              style={{
-                width: "100%"
-              }}
-            >
-              View more
-            </Button>
-          ) : (
-            <div
-              style={{ textAlign: "center", margin: "10px 0" }}
-            >
-              <span class="lead">No more posts</span>
-            </div>
-          )}
+        {ongoing.length != 0 && (
+          <div>
+            {this.state.show && ongoing.length ? (
+              <Button
+                onClick={() => {
+                  this.loadMore();
+                }}
+                style={{
+                  width: "100%"
+                }}
+              >
+                View more
+              </Button>
+            ) : (
+              <div style={{ textAlign: "center", margin: "10px 0" }}>
+                <span class="lead">No more competitions</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }

@@ -26,6 +26,7 @@ class Participants extends Component {
   };
 
   componentDidMount() {
+    
     if (this.props.upcoming || this.props.ongoing) {
       var time = this.props.upcoming
         ? this.props.data.start_time
@@ -181,7 +182,7 @@ class Participants extends Component {
         {true && (
           <div>
             <div
-              class="fb-share-button"
+              class="fb-share-button float-right"
               data-href={sharable_url}
               data-layout="button"
               data-size="large"
@@ -194,24 +195,24 @@ class Participants extends Component {
                 )}&amp;src=sdkpreparse`}
                 class="fb-xfbml-parse-ignore"
               >
-                <i class="fa fa-facebook" />
+                <i class="fab fa-facebook" />
               </a>
             </div>
             <a
               target="_blank"
-              class="wa-share-button"
+              class="wa-share-button  float-right"
               href={`https://wa.me/?text=${encodeURIComponent(sharable_url)}`}
             >
-              <i class="fa fa-whatsapp" aria-hidden="true" />
+              <i class="fab fa-whatsapp" aria-hidden="true" />
             </a>
             <a
              target="_blank"
-              class="twitter-share-button"
+              class="twitter-share-button  float-right"
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 sharable_url
               )}`}
             >
-              <i class="fa fa-twitter" />
+              <i class="fab fa-twitter" />
             </a>
           </div>
         )}

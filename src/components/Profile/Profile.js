@@ -122,7 +122,7 @@ class Profile extends Component {
             <div className="col-md-4 bg-white p-3 px-5">
               {user && <About user={user} />}
             </div>
-            <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
+            <div className="col-md-8 bg-white border-left-overridden border-top-overridden feelings-holder">
               <Feelings />
             </div>
           </div>
