@@ -8,7 +8,6 @@ import store from "./store";
 import token_decoder from "jwt-decode";
 import { getUserProfile, getJournalData } from "./actions/user_actions";
 import setAuthHeader from "./helpers/setAuthTokens";
-require('dotenv').config()
 
 const token = localStorage.getItem("jToken");
 let decodedUser = {};
