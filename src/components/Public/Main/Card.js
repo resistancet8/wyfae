@@ -221,7 +221,7 @@ class PublicCard extends React.Component {
           <div id="image-container">
             <CardMedia
               className={classes.media}
-              image={`process.env.REACT_APP_API_ENDPOINT/${post.url}`}
+              image={`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`}
             />
           </div>
         )}
