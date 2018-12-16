@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import FollowingRoute from "./Following/FollowingRoute";
 import SharedComp from "./Public/Competition/SharedComp";
+import ScrollToTop from 'react-scroll-up';
 
 class App extends Component {
   state = {
@@ -149,6 +150,9 @@ class App extends Component {
             </IconButton>
           ]}
         />
+        <ScrollToTop showUnder={160}>
+          <i class="fas fa-chevron-circle-up"></i>
+        </ScrollToTop>
       </div>
     );
   }

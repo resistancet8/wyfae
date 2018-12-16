@@ -29,3 +29,12 @@ a.profile {
 .light-gray {
   background: #f1f1f1;
 }
+
+.fa-chevron-circle-up {
+  font-size: 3em;
+  transition: .3s;
+}
+
+.fa-chevron-circle-up:hover {
+  transform: translateY(-3px);
+}
