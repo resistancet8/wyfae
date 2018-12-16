@@ -139,9 +139,9 @@ class Form extends Component {
     ctx.lineWidth = 1;
     ctx.fillStyle = this.state.color;
 
-    if (document.getElementById("text").value != "")
+    if (document.getElementById("text-body").value != "")
       ctx.mlFillText(
-        document.getElementById("text").value,
+        document.getElementById("text-body").value,
         8,
         8,
         canvas.width - 10,
@@ -153,6 +153,7 @@ class Form extends Component {
   }
 
   getData(formData) {
+    this.previewImage();
     let { isValid, errors } = validateFeelingsinput(formData);
 
     if (!isValid) {
@@ -275,10 +276,10 @@ class Form extends Component {
             <Field
               component="textarea"
               name="text"
-              id="text"
+              id="text-body"
               cols="30"
               rows="7"
-              onChange={this.previewImage}
+              // onChange={this.previewImage}
               className={classnames("form-control", {
                 "is-invalid": this.state.errors.text
               })}
@@ -402,6 +403,8 @@ class Form extends Component {
             variant="outlined"
             onClick={e => {
               e.preventDefault();
+              this.previewImage();
+              this.handleFontSize("plus");
               this.toggle();
             }}
           >

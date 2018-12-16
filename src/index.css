@@ -6,3 +6,8 @@ input:focus {
 a {
   color: #555;
 }
+
+pre {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.01em;
+}

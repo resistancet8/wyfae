@@ -161,6 +161,18 @@
   padding: 0 !important;
 }
 
+.preview, .preview1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview > div, .preview1 > div {
+  padding: 5px;
+  background: #f1f1f1bb !important;
+}
+
 /* desktop */
 
 @media screen and (min-width: 800px) {
@@ -186,6 +198,10 @@
     border-top-width: 0.6em !important;
     border-top-color: #eee !important;
     border-top-style: solid;
+  }
+
+  #canvas, #canvas1 {
+    width: 100% !important;
   }
 }
 

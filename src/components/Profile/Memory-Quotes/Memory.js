@@ -124,6 +124,7 @@ class Memory extends Component {
   }
 
   getData(formData) {
+    this.previewImage();
     let { isValid, errors } = validateMemoryinput(formData);
 
     if (!isValid) {
@@ -302,7 +303,7 @@ class Memory extends Component {
               className={classnames("form-control", {
                 "is-invalid": this.state.errors.text
               })}
-              onChange={this.previewImage}
+              // onChange={this.previewImage}
               required
               min="100"
               placeholder="Because pictures alone are not enough to describe your experiences and memories..."
@@ -384,6 +385,8 @@ class Memory extends Component {
                 variant="outlined"
                 onClick={e => {
                   e.preventDefault();
+                  this.previewImage();
+                  this.handleFontSize("plus");
                   this.toggle();
                 }}
               >

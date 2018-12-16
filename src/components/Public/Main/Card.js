@@ -69,12 +69,14 @@ class PublicCard extends React.Component {
     expanded: null,
     anchorEl: null,
     comment: "",
-    newComment: []
+    newComment: [],
+    id:"",
+    body: ""
   };
 
-  handleClick = (event, id) => {
+  handleClick = (event, id, body) => {
     event.preventDefault();
-    this.setState({ anchorEl: event.currentTarget, id });
+    this.setState({ anchorEl: event.currentTarget, id, body });
   };
 
   handleClose = () => {
@@ -82,6 +84,10 @@ class PublicCard extends React.Component {
   };
 
   report(type) {
+    if(type == "checkplag") {
+      window.open("https://www.google.com/search?q=" + encodeURIComponent(this.state.body), "_blank");
+      return
+    }
     // send to server
     // console.log(type);
     // axios.post("", {
@@ -227,7 +233,8 @@ class PublicCard extends React.Component {
         )}
         <CardContent>
           <Typography component="p" gutterBottom>
-            {truncate(post.text, 150)}
+            {/* {truncate(post.text, 150)} */}
+            <pre style= {{whiteSpace:"pre-wrap"}}>{post.text}</pre>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(
@@ -255,7 +262,7 @@ class PublicCard extends React.Component {
           )}
          <div>
            <span><a onClick={(e) => {
-             this.handleClick(e, post._id);
+             this.handleClick(e, post._id, post.text);
            }} href="">report</a></span>
          </div>
           </div>
@@ -307,16 +314,22 @@ class PublicCard extends React.Component {
               onClose={this.handleClose}
             >
               <MenuItem onClick={() => {
-                this.report.bind(this, 'spam')()
+                this.report.bind(this, 'spam_inapp')()
                 this.handleClose();
                 }}>
-                Spam
+                Spam/Inappropriate
               </MenuItem>
               <MenuItem onClick={() => {
-                this.report.bind(this, 'inappropirate')()
+                this.report.bind(this, 'checkplag')()
                 this.handleClose();
               }}>
-                Inappropriate
+                Check Plagiarism
+              </MenuItem>
+              <MenuItem onClick={() => {
+                this.report.bind(this, 'reportplag')()
+                this.handleClose();
+              }}>
+                Report Plagiarism
               </MenuItem>
             </Menu>
         </div>

@@ -88,7 +88,8 @@ function mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, fn) {
   if (actualsize === 0) lines.pop(); // We remove the last line if we have not added any thing here.
 
   // The last line will be allways the last line of a paragraph even if it does not end with a  /n
-  lines[actualline].EndParagraph = true;
+  if(lines.length)
+    lines[actualline].EndParagraph = true;
 
   // Now we remove any line that does not fit in the heigth.
   var totalH = lineheight * lines.length;

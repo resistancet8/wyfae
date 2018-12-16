@@ -55,7 +55,7 @@ export function deleteJournal(type, id) {
     };
 
     axios
-      .post(`process.env.REACT_APP_API_ENDPOINT/user/delete_journal`, data_to_send)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/delete_journal`, data_to_send)
       .then(d => {
         if (type === "quotes") {
           dispatch({
