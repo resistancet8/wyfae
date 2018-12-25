@@ -98,11 +98,14 @@ class ParticipantCard extends React.Component {
   handleLikeClick(event, id, part_id) {
     event.persist();
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal", {
-        post_id: part_id,
-        part_post_id: id,
-        signal_type: "like"
-      })
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal",
+        {
+          post_id: part_id,
+          part_post_id: id,
+          signal_type: "like"
+        }
+      )
       .then(response => {
         if (document.querySelector(".animate")) {
           document.querySelector(".animate").classList.remove("animate");
@@ -138,12 +141,15 @@ class ParticipantCard extends React.Component {
 
   addComment(id, post_id, part_id) {
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal", {
-        post_id: part_id,
-        part_post_id: post_id,
-        signal_type: "comment",
-        comment_text: this.state.comment
-      })
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_contest_signal",
+        {
+          post_id: part_id,
+          part_post_id: post_id,
+          signal_type: "comment",
+          comment_text: this.state.comment
+        }
+      )
       .then(response => {
         this.setState({
           newComment: [
@@ -246,18 +252,18 @@ class ParticipantCard extends React.Component {
                         className="comment-box"
                       />
                       <div>
-                      <Button
-                        variant="outlined"
-                        onClick={() => {
-                          this.addComment(
-                                `comment-list-${post.part_post_id}`,
-                                post.part_post_id,
-                                this.props.part_id
-                              );
-                        }}
-                      >
-                        Submit
-                      </Button>
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            this.addComment(
+                              `comment-list-${post.part_post_id}`,
+                              post.part_post_id,
+                              this.props.part_id
+                            );
+                          }}
+                        >
+                          Submit
+                        </Button>
                       </div>
                     </li>
                     {post.comments &&

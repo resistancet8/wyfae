@@ -70,7 +70,7 @@ class PublicCard extends React.Component {
     anchorEl: null,
     comment: "",
     newComment: [],
-    id:"",
+    id: "",
     body: ""
   };
 
@@ -84,9 +84,13 @@ class PublicCard extends React.Component {
   };
 
   report(type) {
-    if(type == "checkplag") {
-      window.open("https://www.google.com/search?q=" + encodeURIComponent(this.state.body), "_blank");
-      return
+    if (type == "checkplag") {
+      window.open(
+        "https://www.google.com/search?q=" +
+          encodeURIComponent(this.state.body),
+        "_blank"
+      );
+      return;
     }
     // send to server
     // console.log(type);
@@ -199,7 +203,7 @@ class PublicCard extends React.Component {
 
   render() {
     const { classes, post } = this.props;
-    const { expanded, anchorEl} = this.state;
+    const { expanded, anchorEl } = this.state;
 
     return (
       <Card className={classes.card + " mb-2"}>
@@ -232,10 +236,13 @@ class PublicCard extends React.Component {
           </div>
         )}
         <CardContent>
-          <Typography component="p" gutterBottom>
-            {/* {truncate(post.text, 150)} */}
-            <pre style= {{whiteSpace:"pre-wrap"}}>{post.text}</pre>
-          </Typography>
+          {post.image_or_text !== "true" && (
+            <Typography component="p" gutterBottom>
+              {/* {truncate(post.text, 150)} */}
+              <pre style={{ whiteSpace: "pre-wrap" }}>{post.text}</pre>
+            </Typography>
+          )}
+
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(
               post.user_liked.length ? post.user_liked : []
@@ -243,28 +250,35 @@ class PublicCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <div className="d-flex justify-content-between cart-actions-main" >
-          {post.user_liked && (
-            <img
-              src={
-                !!post.user_liked.filter(
-                  o => o.username === this.props.user.username
-                ).length
-                  ? like
-                  : unlike
-              }
-              alt=""
-              id="like-unlike-button"
-              onClick={e => {
-                this.handleLikeClick(e, post._id);
-              }}
-            />
-          )}
-         <div>
-           <span><a onClick={(e) => {
-             this.handleClick(e, post._id, post.text);
-           }} href="">report</a></span>
-         </div>
+          <div className="d-flex justify-content-between cart-actions-main">
+            {post.user_liked && (
+              <img
+                src={
+                  !!post.user_liked.filter(
+                    o => o.username === this.props.user.username
+                  ).length
+                    ? like
+                    : unlike
+                }
+                alt=""
+                id="like-unlike-button"
+                onClick={e => {
+                  this.handleLikeClick(e, post._id);
+                }}
+              />
+            )}
+            <div>
+              <span>
+                <a
+                  onClick={e => {
+                    this.handleClick(e, post._id, post.text);
+                  }}
+                  href=""
+                >
+                  report
+                </a>
+              </span>
+            </div>
           </div>
         </CardActions>
         <div className={classes.root}>
@@ -288,14 +302,14 @@ class PublicCard extends React.Component {
                       className="comment-box"
                     />
                     <div>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        this.addComment(`comment-list-${post._id}`, post._id);
-                      }}
-                    >
-                      Submit
-                    </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          this.addComment(`comment-list-${post._id}`, post._id);
+                        }}
+                      >
+                        Submit
+                      </Button>
                     </div>
                   </li>
                   {post.comments &&
@@ -308,30 +322,36 @@ class PublicCard extends React.Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem
+              onClick={() => {
+                this.report.bind(this, "spam_inapp")();
+                this.handleClose();
+              }}
             >
-              <MenuItem onClick={() => {
-                this.report.bind(this, 'spam_inapp')()
+              Spam/Inappropriate
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.report.bind(this, "checkplag")();
                 this.handleClose();
-                }}>
-                Spam/Inappropriate
-              </MenuItem>
-              <MenuItem onClick={() => {
-                this.report.bind(this, 'checkplag')()
+              }}
+            >
+              Check Plagiarism
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.report.bind(this, "reportplag")();
                 this.handleClose();
-              }}>
-                Check Plagiarism
-              </MenuItem>
-              <MenuItem onClick={() => {
-                this.report.bind(this, 'reportplag')()
-                this.handleClose();
-              }}>
-                Report Plagiarism
-              </MenuItem>
-            </Menu>
+              }}
+            >
+              Report Plagiarism
+            </MenuItem>
+          </Menu>
         </div>
       </Card>
     );
