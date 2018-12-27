@@ -91,15 +91,30 @@ class PublicCard extends React.Component {
         "_blank"
       );
       return;
+    } else {
+      //send to server
+      axios
+        .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/report", {
+          post_id: this.state.id || "",
+          report_type: type
+        })
+        .then(resp => {
+          if (resp && resp.data) {
+            this.props.dispatch({
+              type: "SHOW_TOAST",
+              payload: resp.data.msg
+            });
+          }
+        })
+        .catch(e => {
+          if (e && e.response) {
+            this.props.dispatch({
+              type: "SHOW_TOAST",
+              payload: e.response.data.msg
+            });
+          }
+        });
     }
-    // send to server
-    // console.log(type);
-    // axios.post("", {
-    //   post_id: this.state.id || "",
-    //   type
-    // })
-    // .then( resp => {})
-    // .catch( e => {})
   }
 
   generateLikeMessage(likes) {
@@ -329,7 +344,7 @@ class PublicCard extends React.Component {
           >
             <MenuItem
               onClick={() => {
-                this.report.bind(this, "spam_inapp")();
+                this.report.bind(this, "spam")();
                 this.handleClose();
               }}
             >
@@ -345,7 +360,7 @@ class PublicCard extends React.Component {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                this.report.bind(this, "reportplag")();
+                this.report.bind(this, "plagarised")();
                 this.handleClose();
               }}
             >
