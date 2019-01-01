@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import moment from "moment";
 import Comments from "../../Public/Main/Comments";
 import { withStyles } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   card: {
@@ -91,6 +92,9 @@ class Art extends Component {
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
+          {type == 'compete' && <span class="float-right badge badge-primary rounded font-weight-bold" style={{background: "green"}}>
+            <Link to={`/shared/${art._id}`} class="text-white"> Open </Link>
+          </span>}
           <h2
             className="font-weight-bold font-italic text-uppercase "
             style={{ width: "80%" }}

@@ -26,13 +26,11 @@ class Ongoing extends Component {
   }
 
   render() {
-    let competeData =
-      Object.keys(this.state.post).length > 0 &&
-      this.state.post["_id"].length ? (
-        <Participants data={this.state.post} ongoing={1} />
-      ) : (
-        <div>No such competetion</div>
-      );
+    let competeData = Object.keys(this.state.post).length > 0 && this.state.post["_id"].length ? (
+      <Participants data={this.state.post} ongoing={this.state.post.compete_status == 'ongoing' ? 1: false} />
+    ) : (
+      <div>No such competetion</div>
+    );
 
     return (
       <div {...this.props} className="container">
