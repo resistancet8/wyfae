@@ -26,7 +26,6 @@ class Participants extends Component {
   };
 
   componentDidMount() {
-    
     if (this.props.upcoming || this.props.ongoing) {
       var time = this.props.upcoming
         ? this.props.data.start_time
@@ -206,7 +205,7 @@ class Participants extends Component {
               <i class="fab fa-whatsapp" aria-hidden="true" />
             </a>
             <a
-             target="_blank"
+              target="_blank"
               class="twitter-share-button  float-right"
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 sharable_url

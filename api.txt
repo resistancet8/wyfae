@@ -596,6 +596,9 @@ value: "Some Good Title"
 key: author
 value: "Name of the user"
 
+key: image_or_text
+value: "image/text"
+
 Json Response:
 
 In Case of Success:
@@ -2019,3 +2022,84 @@ In case of Failure:
     "status": "failure",
     "msg": "Cannot connect to the mongodb server"
 }
+
+
+########################################################
+########## Report Spam or Plagarised ###################
+########################################################
+
+159.89.171.16:9000/user/report
+
+Method type: POST
+
+Header Request:
+key: Authorization
+value: generated_token_value
+i.e. Authorization = value
+
+Json Request:
+{
+	"post_id": "5c0f55bd3412653835224d13",
+	"report_type": "spam"
+}
+
+Note: report_type: can be "spam" or "plagarised"
+
+---------------------------------------------------------------
+For Spam
+---------------------------------------------------------------
+In case of Success:
+{
+    "msg": "Marked content as spam.",
+    "report_content": {
+        "username": "unique_user2",
+        "name": "Mantu Kumar"
+    },
+    "status": "success"
+}
+
+
+In case of Failure:
+
+1. If post already reported
+{
+	"post_id": "5c0f55bd3412653835224d13",
+	"report_type": "spam"
+}
+status: 400
+
+2. For some reason if not able to mark post as spam
+{
+    "status": "failure", 
+    "msg": "Could not mark content as spam."
+}
+status: 400
+
+---------------------------------------------------------------- 
+For plagarised:
+----------------------------------------------------------------
+1. If post already reported
+{
+    "msg": "Already reported content as plagarised.",
+    "status": "failure"
+}
+status: 400
+
+2. For some reason if not able to mark post as plagarised
+{
+    "status": "failure",
+    "msg": "Could not mark content as plagarised."
+}
+
+
+In case of Success:
+{
+    "msg": "Marked content as plagarised.",
+    "report_content": {
+        "username": "unique_user2",
+        "name": "Mantu Kumar"
+    },
+    "status": "success"
+}
+
+
