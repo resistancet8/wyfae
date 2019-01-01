@@ -20,9 +20,8 @@ function TabContainer(props) {
 let art_styles = [
   ["poem", "Poem"],
   ["story", "Story"],
-  ["quotes", "Quotes"],
-  ["gazal", "Gazal"],
-  ["nazm", "Nazm"],
+  ["quotes", "Quote"],
+  ["ganaz", "Gazal/Nazm"],
   ["letter", "Letter"]
   // ["opinion", "Opinion/Advice"],
   // ["personal", "Personal Feelings"]

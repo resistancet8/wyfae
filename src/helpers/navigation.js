@@ -1,11 +1,10 @@
 export default [
   { path: "/trending/", key: "/trending/" },
-  { path: "/trending/nazms", key: "nazm", text: "Top Nazm" },
   { path: "/trending/poems", key: "poem", text: "Top Poems" },
   { path: "/trending/stories", key: "story", text: "Top Stories" },
   { path: "/trending/quotes", key: "quotes", text: "Top Quotes" },
-  { path: "/trending/gazal", key: "gazal", text: "Top Gazals" },
-  { path: "/trending/letter", key: "letter", text: "Top Letter" },
+  { path: "/trending/ganaz", key: "ganaz", text: "Top Gazals/Nazm" },
+  { path: "/trending/letter", key: "letter", text: "Top Letters" },
   // { path: "/trending/personal", key: "personal", text: "Top Personal Feelings" }
 ];
 

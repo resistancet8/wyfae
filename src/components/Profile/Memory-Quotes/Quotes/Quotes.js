@@ -23,11 +23,15 @@ class Quotes extends Component {
   }
 
   getData(formData) {
+    if(this.props.userpage)
+      return;
     this.props.saveJournal("quotes", formData);
     this.props.dispatch(reset("quote-add"));
   }
 
   toggle() {
+    if(this.props.userpage)
+      return;
     this.setState({
       modal: !this.state.modal
     });
@@ -35,15 +39,17 @@ class Quotes extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    let { quotes } = this.props;
+    let qs = quotes.length > 0 ? quotes : this.props.quotess || [];
 
-    let Quotes = this.props.quotes.length ? (
-      this.props.quotes.map((quote, index) => {
+    let Quotes = qs.length ? (
+      qs.map((quote, index) => {
         return (
           <div key={index} className="bg-secondary p-2 mb-1">
-            <DeleteIcon
+            {!this.props.userpage && <DeleteIcon
               className="remove-quote-btn"
               onClick={event => this.props.deleteJournal("quotes", quote._id)}
-            />
+            /> }
             <p>
               {quote.text}
               <strong className="font-italic">
@@ -59,15 +65,17 @@ class Quotes extends Component {
 
     return (
       <React.Fragment>
-        <div className="row">
+         <div className="row">
           <h5 className="text-muted font-weight-bold">Quotes Collection</h5>
-          <button
+          {!this.props.userpage &&<button
             type="button"
             className="ml-auto button-custom"
             onClick={this.toggle}
           >
             <i className=" fas fa-plus-circle fa-lg" />
           </button>
+        }
+
         </div>
         <div className="row quotes-holder mt-3">
           <Scrollbars autoHeight autoHeightMax={350} autoHide>
@@ -125,9 +133,11 @@ Quotes.propTypes = {
   deleteJournal: PropTypes.func
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  console.log("***", ownProps)
   return {
-    quotes: state.quotes.quotes
+    quotes: state.quotes.quotes,
+    quotess: ownProps.quotess
   };
 }
 

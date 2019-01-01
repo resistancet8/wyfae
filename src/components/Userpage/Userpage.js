@@ -8,6 +8,7 @@ import User from "./../Profile/User";
 import Stats from "./../Profile/Statistics";
 import About from "./../Profile/About";
 import Timeline from "./../Profile/Timeline/Timeline";
+import Quotes from './../Profile/Memory-Quotes/Quotes/Quotes';
 
 class Userpage extends Component {
   constructor() {
@@ -19,7 +20,8 @@ class Userpage extends Component {
     memory_book: [],
     art_content: [],
     following: 0,
-    username: ""
+    username: "",
+    quotes: []
   };
 
   fetchUserData() {
@@ -64,6 +66,30 @@ class Userpage extends Component {
   }
 
   componentDidMount() {
+    axios
+    .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_journal", {
+      profile_username: this.props.match.params.username,
+      limit_count: 10,
+      skip_count: 0,
+      journal_type: "quotes"
+    })
+    .then(d => {
+      console.log("**", d.data.journal_content)
+      this.setState(state => {
+        return {
+          ...state,
+          quotes: d.data.journal_content
+        };
+      });
+    })
+    .catch(err => {
+      if (err.response)
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg || "Error"
+        });
+    });
+
     this.fetchUserData.call(this);
     if (
       this.props.user.following &&
@@ -163,8 +189,11 @@ class Userpage extends Component {
           </div>
           {/* user about and thoughts, feelings row */}
           <div className="row mt-2">
-            <div className="col-md-12 bg-white p-3 px-5">
+            <div className="col-md-6 bg-white p-3 px-5">
               {user && <About user={user} userpage={1} />}
+            </div>
+            <div className="col-md-6 bg-white p-3 px-5 border-left-overridden border-top-overridden ">
+              {user && <Quotes quotess={this.state.quotes} userpage={1} />}
             </div>
           </div>
         </div>

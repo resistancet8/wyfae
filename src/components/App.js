@@ -18,6 +18,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import FollowingRoute from "./Following/FollowingRoute";
 import SharedComp from "./Public/Competition/SharedComp";
 import ScrollToTop from 'react-scroll-up';
+import Privacy from './Public/Privacy';
+import Usage from './Public/Usage';
 
 class App extends Component {
   state = {
@@ -57,6 +59,16 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="adjustment mt-1" />
+        <Route
+          path="/privacy"
+          exact
+          component={Privacy}
+        />
+         <Route
+          path="/usage"
+          exact
+          component={Usage}
+        />
         <Route
           path="/"
           exact

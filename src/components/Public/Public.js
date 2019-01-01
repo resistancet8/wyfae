@@ -7,7 +7,7 @@ import Trending from "./Trending/Trending";
 import { connect } from "react-redux";
 import { getPosts, getMore } from "./../../actions/homepage_actions";
 import PropTypes from "prop-types";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Link } from "react-router-dom";
 import navigationHome from "./../../helpers/navigation";
 import Ongoing from "./Competition/Ongoing";
 import Completed from "./Competition/Completed";
@@ -61,6 +61,15 @@ class Public extends Component {
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
             <Competition className={classes.public} />
+            <div style={{margin: "10px 0"}}></div>
+            <div style={{
+              width: "100%",
+              background: "#f9f9f9",
+              padding: 10
+            }}>
+            <div><Link to="/usage">Terms of Use</Link></div>
+            <div><Link to="/privacy">Privacy Policy</Link></div>
+            </div>
           </Grid>
           <Grid item xs={12} md={6}>
             {this.props.posts.length ? (

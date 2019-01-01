@@ -9,7 +9,7 @@ class About extends Component {
           <p className="font-italic"> {this.props.user.about}</p>
         </div>
         <div className="row pt-3 about-holder">
-          {this.props.user.dob && (
+          {this.props.user.dob && !this.props.userpage &&  (
             <p className="cols-12">
               <strong class="text-muted">DOB:</strong>
               &nbsp;
