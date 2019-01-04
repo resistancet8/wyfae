@@ -21,7 +21,7 @@ class Userpage extends Component {
     art_content: [],
     following: 0,
     username: "",
-    quotes: []
+    quotes_user: []
   };
 
   fetchUserData() {
@@ -74,11 +74,10 @@ class Userpage extends Component {
       journal_type: "quotes"
     })
     .then(d => {
-      console.log("**", d.data.journal_content)
       this.setState(state => {
         return {
           ...state,
-          quotes: d.data.journal_content
+          quotes_user: d.data.journal_content
         };
       });
     })
@@ -193,7 +192,7 @@ class Userpage extends Component {
               {user && <About user={user} userpage={1} />}
             </div>
             <div className="col-md-6 bg-white p-3 px-5 border-left-overridden border-top-overridden ">
-              {user && <Quotes quotess={this.state.quotes} userpage={1} />}
+              {user && <Quotes quotess={this.state.quotes_user} userpage={1} />}
             </div>
           </div>
         </div>

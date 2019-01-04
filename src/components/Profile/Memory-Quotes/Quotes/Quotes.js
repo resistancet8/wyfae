@@ -40,7 +40,13 @@ class Quotes extends Component {
   render() {
     const { handleSubmit } = this.props;
     let { quotes } = this.props;
-    let qs = quotes.length > 0 ? quotes : this.props.quotess || [];
+    let qs = [];
+    
+    if(this.props.userpage) {
+      qs = this.props.quotess || []
+    } else {
+      qs = quotes;
+    }
 
     let Quotes = qs.length ? (
       qs.map((quote, index) => {
