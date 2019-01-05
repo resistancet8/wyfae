@@ -19,6 +19,7 @@ export default props => {
       </div>
       <div className="col-9">
         {props.user.fullname ? props.user.fullname : props.user._id}
+        <p><small>@{props.user._id}</small></p>
       </div>
     </li>
   );

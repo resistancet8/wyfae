@@ -103,6 +103,31 @@ class Userpage extends Component {
     }
   }
 
+  fetchJournal() {
+    axios
+    .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_journal", {
+      profile_username: this.props.match.params.username,
+      limit_count: 10,
+      skip_count: 0,
+      journal_type: "quotes"
+    })
+    .then(d => {
+      this.setState(state => {
+        return {
+          ...state,
+          quotes_user: d.data.journal_content
+        };
+      });
+    })
+    .catch(err => {
+      if (err.response)
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg || "Error"
+        });
+    });
+  }
+
   followUnfollow(signal) {
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/follow", {
@@ -144,6 +169,7 @@ class Userpage extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.match.params.username !== prevProps.match.params.username) {
       this.fetchUserData.call(this);
+      this.fetchJournal.call(this);
     }
   }
 
