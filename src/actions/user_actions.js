@@ -74,9 +74,8 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
       if (err.response && err.response.data) {
         dispatch({
           type: "SHOW_TOAST",
-          payload: err.response.data.msg + ", Please login again."
+          payload: err.response.data.msg + " Error, Please login again."
         });
-        logoutUser(true)(dispatch);
       } else {
         dispatch({
           type: "SHOW_TOAST",
