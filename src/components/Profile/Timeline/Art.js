@@ -143,7 +143,9 @@ class Art extends Component {
               </Button>
             )}
           </div>
-          <p className="my-2">{likes} Likes</p>
+          <p className="my-2" style={{cursor: "pointer"}}  onClick={() => {
+            this.props.handleLikesClick(art.user_liked)
+          }}>{likes} Likes</p>
           {art.comments && (
             <ExpansionPanel
               expanded={expanded === art._id}

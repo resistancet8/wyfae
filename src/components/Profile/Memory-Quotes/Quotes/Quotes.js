@@ -88,46 +88,46 @@ class Quotes extends Component {
             {Quotes}
           </Scrollbars>
         </div>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <form onSubmit={handleSubmit(this.getData.bind(this))}>
-            <ModalHeader toggle={this.toggle}>
-              <h2>Add New Quote</h2>
-            </ModalHeader>
-            <ModalBody>
-              <div class="form-group">
-                <Field
-                  component="textarea"
-                  class="form-control"
-                  id="quote-field"
-                  placeholder="Enter Quote"
-                  name="text"
-                />
-              </div>
-              <div class="form-group">
-                <Field
-                  component="input"
-                  type="text"
-                  class="form-control"
-                  id="author-name"
-                  name="author"
-                  placeholder="Enter Author Name"
-                />
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button type="submit" variant="outlined" onClick={this.toggle}>
-                Add
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={this.toggle}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          </form>
-        </Modal>
+      <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <form onSubmit={handleSubmit(this.getData.bind(this))}>
+          <ModalHeader toggle={this.toggle}>
+            <h2>Add New Quote</h2>
+          </ModalHeader>
+          <ModalBody>
+            <div class="form-group">
+              <Field
+                component="textarea"
+                class="form-control"
+                id="quote-field"
+                placeholder="Enter Quote"
+                name="text"
+              />
+            </div>
+            <div class="form-group">
+              <Field
+                component="input"
+                type="text"
+                class="form-control"
+                id="author-name"
+                name="author"
+                placeholder="Enter Author Name"
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" variant="outlined" onClick={this.toggle}>
+              Add
+            </Button>{" "}
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={this.toggle}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </form>
+      </Modal>
       </React.Fragment>
     );
   }

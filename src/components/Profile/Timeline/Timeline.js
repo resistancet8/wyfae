@@ -13,6 +13,7 @@ class Timeline extends Component {
     super(props);
     this.state = {
       modal: false,
+      modal_like: false,
       currentPost: {},
       mlen: null,
       alen: null,
@@ -21,6 +22,7 @@ class Timeline extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggle_like = this.toggle_like.bind(this);
     this.deletePost = this.deletePost.bind(this);
   }
 
@@ -62,6 +64,12 @@ class Timeline extends Component {
     }
   }
 
+  toggle_like(post) {
+    this.setState({
+      modal_like: !this.state.modal_like
+    });
+  }
+
   toggle(post) {
     this.setState({
       modal: !this.state.modal,
@@ -94,12 +102,41 @@ class Timeline extends Component {
     }
   }
 
+  handleLikesClick(likes) {
+    console.log(likes)
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        likes
+      }
+    }, () => {
+      this.toggle_like()
+    })
+  }
+
   render() {
     let { arts, memory } = this.props.userpage
       ? this.props.userpage_posts
       : this.props;
 
     let username = this.props.userpage ? "" : this.props.auth.user.username;
+
+    let likes = this.state.likes || [];
+    let LikesHTML = likes.map(like => {
+      return (
+        <li
+          className="col-12 row mb-1"
+          style={{ background: "#f1f1f1"}}
+        >
+          <div className="col-12">
+            {like.name ? like.name : like.username}
+            <p>
+              <small>@{like.username}</small>
+            </p>
+          </div>
+        </li>
+      );
+    });
 
     return (
       <div className="timeline-holder">
@@ -114,6 +151,7 @@ class Timeline extends Component {
                     modalToggle={this.toggle}
                     deletePost={this.deletePost.bind(this)}
                     userpage={this.props.userpage}
+                    handleLikesClick={this.handleLikesClick.bind(this)}
                   />
                   {!this.state.artHideShowMore ? (
                     <Button
@@ -149,6 +187,7 @@ class Timeline extends Component {
                     modalToggle={this.toggle}
                     deletePost={this.deletePost.bind(this)}
                     userpage={this.props.userpage}
+                    handleLikesClick={this.handleLikesClick.bind(this)}
                   />
                   {!this.state.memHideShowMore ? (
                     <Button
@@ -197,6 +236,23 @@ class Timeline extends Component {
               Close
             </Button>
           </ModalFooter>
+        </Modal>
+
+        <Modal
+          isOpen={this.state.modal_like}
+          toggle={this.toggle_like}
+          style={{ height: "300px" }}
+        >
+          <ModalHeader toggle={this.toggle_like}>
+            <h2>Likes</h2>
+          </ModalHeader>
+          <ModalBody>
+            <div className="likes-holder">
+              <ul>
+                {LikesHTML}
+              </ul>
+            </div>
+          </ModalBody>
         </Modal>
       </div>
     );

@@ -117,33 +117,6 @@ class PublicCard extends React.Component {
     }
   }
 
-  generateLikeMessage(likes) {
-    let flag = false;
-
-    if (
-      !!this.props.post.user_liked.filter(
-        o => o.username === this.props.user.username
-      ).length
-    ) {
-      flag = true;
-    }
-
-    let string = flag ? "You" : "";
-
-    if (flag && likes.length === 2) {
-      return `You and ${likes[0].name} like this post.`;
-    } else if (!flag && likes.length === 2) {
-      return `${likes[0].name} and ${likes[1].name} like this post.`;
-    } else if (likes.length >= 2) {
-      return `${string}, ${likes[0].name} and ${likes.length -
-        2} others like this post.`;
-    } else if (likes.length === 1) {
-      return `${likes[0].name} likes this post.`;
-    }
-
-    return string.length ? `${string} like this post.` : "";
-  }
-
   handleLikeClick(event, id) {
     if (document.querySelector(".animate")) {
       document.querySelector(".animate").classList.remove("animate");
@@ -259,9 +232,7 @@ class PublicCard extends React.Component {
           )}
 
           <Typography component="p" gutterBottom variant="caption">
-            {this.generateLikeMessage(
-              post.user_liked.length ? post.user_liked : []
-            )}
+            {post.user_liked.length ? post.user_liked.length : 0} Likes
           </Typography>
         </CardContent>
         <CardActions>

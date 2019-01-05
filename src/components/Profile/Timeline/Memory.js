@@ -131,7 +131,9 @@ class Memory extends Component {
               </Button>
             )}
           </div>
-          <p className="my-2">{memory.likes} Likes</p>
+          <p className="my-2" style={{cursor: "pointer"}} onClick={() => {
+            this.props.handleLikesClick(memory.user_liked)
+          }}>{memory.likes} Likes</p>
           <ExpansionPanel
             expanded={expanded === memory._id}
             onChange={this.handleChange(memory._id)}
@@ -150,7 +152,7 @@ class Memory extends Component {
                       return <Comments comment={comment} />;
                     })}
                   {this.state.newComment}
-                </List>
+                </List> 
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
