@@ -27,7 +27,7 @@ class Completed extends Component {
         });
       })
       .catch(err => {
-        console.err(err);
+        console.log(err);
       });
   }
 
@@ -48,7 +48,7 @@ class Completed extends Component {
         });
       })
       .catch(err => {
-        console.err(err);
+        console.log(err);
       });
   }
 

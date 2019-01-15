@@ -32,7 +32,7 @@ class Upcoming extends Component {
         });
       })
       .catch(err => {
-        console.err(err);
+        console.log(err);
       });
   }
 
@@ -53,7 +53,7 @@ class Upcoming extends Component {
         });
       })
       .catch(err => {
-        console.err(err);
+        console.log(err);
       });
   }
 

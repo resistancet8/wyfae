@@ -23,7 +23,7 @@ class User extends Component {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Uploaded" });
       })
       .catch(e => {
-        console.err(e.response);
+        console.log(e.response);
       });
   }
 

@@ -122,7 +122,7 @@ class Art extends Component {
             </Button>
           </div>
           <small className="font-italic font-weight-bold">
-            Category: {art.art_type}
+            Category: {art.art_type == "ganaz" ? "gazal/ nazm": art.art_type}
           </small>
           <br />
           <small className="font-italic font-weight-bold">

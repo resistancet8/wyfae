@@ -181,7 +181,7 @@ class PublicCard extends React.Component {
         });
       })
       .catch(err => {
-        console.err(err);
+        console.log(err);
         // this.props.dispatch({
         //   type: "SHOW_TOAST",
         //   payload: err.response.data.msg

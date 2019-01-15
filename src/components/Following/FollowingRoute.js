@@ -20,7 +20,7 @@ class FollowingRoute extends Component {
         });
       })
       .catch(err => {
-        console.err(err.response.data);
+        console.log(err.response.data);
       });
   }
 

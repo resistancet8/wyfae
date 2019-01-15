@@ -43,7 +43,7 @@ export function saveJournal(type, data) {
         dispatch({ type: "SHOW_TOAST", payload: "Added" });
       })
       .catch(e => {
-        console.err(e.response);
+        console.log(e.response);
       });
   };
 }
@@ -88,7 +88,7 @@ export function deleteJournal(type, id) {
         dispatch({ type: "SHOW_TOAST", payload: "Deleted" });
       })
       .catch(e => {
-        console.err(e.response);
+        console.log(e.response);
       });
   };
 }
