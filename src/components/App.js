@@ -58,7 +58,6 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <div className="adjustment mt-1" />
         <Route
           path="/privacy"
           exact
@@ -90,6 +89,7 @@ class App extends Component {
             else return <Redirect to="/login" />;
           }}
         />
+        <Route path="/login" exact component={Login} />
         <div className="container">
           <Route
             path="/following"
@@ -133,7 +133,6 @@ class App extends Component {
               else return <Redirect to="/login" />;
             }}
           />
-          <Route path="/login" exact component={Login} />
           <Route
             path="/journal"
             exact

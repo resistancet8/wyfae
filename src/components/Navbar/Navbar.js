@@ -80,7 +80,7 @@ class NavbarComponent extends Component {
 
     return (
       <header>
-        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
           <NavLink className="my-0 mr-md-auto banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>

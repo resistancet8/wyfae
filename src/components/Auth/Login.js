@@ -7,6 +7,9 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import Spinner from "./../Loader/Spinner";
 import Button from "@material-ui/core/Button";
+import Login_BG from './../../assets/img/login_bg.png'
+import BrandLogo from './../../assets/img/login/4.png'
+import LoginButton from './../../assets/img/login/6.png'
 
 class Login extends Component {
   constructor(props) {
@@ -49,17 +52,15 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <div className="mt-3">
-          <h2 className="font-weight-bold">Login</h2>
-          <div className="row">
-            <div className="col-md-5">
+      <div id="login_holder_self" style={{backgroundImage: `url(${Login_BG})`}}>
+        <div class="auth-holder-login">
+            <div>
+              <img src={BrandLogo} alt="" class="brand-logo img-fluid"/>
               <form onSubmit={handleSubmit(this.getData)}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
-                <div className="form-group">
-                  <label htmlFor="username">Username:</label>
+                <div className="form-group mt-3">
                   <Field
                     component="input"
                     type="text"
@@ -76,7 +77,6 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password:</label>
                   <Field
                     component="input"
                     type="password"
@@ -93,13 +93,14 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="loader-holder">
-                  <Button
-                    variant="outlined"
+                  <button
                     type="submit"
                     disabled={this.state.loading}
+                    className="login-btn"
                   >
-                    {this.state.loading ? <Spinner /> : "Login"}
-                  </Button>
+                    {/* {this.state.loading ? <Spinner /> : "Login"} */}
+                    <img src={LoginButton} alt="" className="img-fluid"/>
+                  </button>
                 </div>
                 <div className="mt-2">
                   <NavLink to="forgot" className="text-dark">
@@ -107,8 +108,8 @@ class Login extends Component {
                   </NavLink>
                 </div>
               </form>
+              <p className="copy-right mt-5" style={{color: "#81f2b4"}}>&copy; All rights reserved 2019 | Powered by Codingzap </p>
             </div>
-          </div>
         </div>
       </div>
     );

@@ -10,6 +10,7 @@ textarea:focus {
 
 .loader-holder {
   width: 100px;
+  margin: 0 auto;
 }
 
 .icon-holder img {
@@ -37,4 +38,50 @@ a.profile {
 
 .fa-chevron-circle-up:hover {
   transform: translateY(-3px);
+}
+
+#login_holder_self {
+  background-repeat: no-repeat;
+  height: 90vh;
+  background-size: contain;
+}
+
+.auth-holder-login {
+  width: 20%;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.auth-holder-login input, .auth-holder-login input:focus{
+  text-align: center !important;
+  border-width: 2px !important;
+  border-image: linear-gradient(to right, #83f5b4, #4ca3d3) 1 !important;
+  border-radius: 10px;
+}
+
+.form-control {
+  text-align: center;
+}
+
+button.login-btn {
+  background: none;
+  border: none;
+  outline: none;
+  height: 40px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .auth-holder-login {
+    width: 60%;
+  }
+
+  #login_holder_self {
+    background-size: cover;
+    padding-top: 80px;
+  }
 }
