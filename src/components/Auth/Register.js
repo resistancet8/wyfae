@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import Spinner from "./../Loader/Spinner";
 import Button from "@material-ui/core/Button";
-
+import Login_BG from './../../assets/img/login_bg.png'
+import BrandLogo from './../../assets/img/login/logo_new.png'
+import LoginButton from './../../assets/img/login/6.png'
 class Register extends Component {
   state = { errors: {}, loading: false };
 
@@ -43,17 +45,18 @@ class Register extends Component {
     const { handleSubmit } = this.props;
     const { errors } = this.state;
     return (
-      <div>
-        <div className="my-3">
-          <h2 className="font-weight-bold">Register</h2>
-          <div className="row">
-            <div className="col-md-5">
+      <div id="register_holder_self" style={{backgroundImage: `url(${Login_BG})`}}>
+        <div class="auth-holder-register">
+          <div>
+            <div>
+              <img src={BrandLogo} alt="" class="brand-logo img-fluid"/>
+              <h1 id="sub-title">Write your feelings and experiences</h1>
+              <h1 id="login-text" className="mb-4">Sign up for free</h1>
               <form onSubmit={handleSubmit(this.getData.bind(this))}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
                 )}
                 <div className="form-group">
-                  <label htmlFor="username">Username:</label>
                   <Field
                     component="input"
                     type="text"
@@ -71,7 +74,6 @@ class Register extends Component {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="first_name">First Name:</label>
                     <Field
                       component="input"
                       type="text"
@@ -91,7 +93,6 @@ class Register extends Component {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="sur_name">Last Name:</label>
                     <Field
                       component="input"
                       type="text"
@@ -112,7 +113,6 @@ class Register extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email:</label>
                   <Field
                     component="input"
                     type="email"
@@ -130,7 +130,6 @@ class Register extends Component {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="password">Password:</label>
                     <Field
                       component="input"
                       type="password"
@@ -150,7 +149,6 @@ class Register extends Component {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="confirm-password">Confirm Password:</label>
                     <Field
                       component="input"
                       type="password"
@@ -172,7 +170,6 @@ class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="dob">Date Of Birth:</label>
                   <Field
                     component="input"
                     type="date"
@@ -187,6 +184,9 @@ class Register extends Component {
                     <div className="invalid-feedback"> {errors.dob} </div>
                   )}
                 </div>
+                <p className="my-2 d-block">
+                  By continuing, you agree to Wyfae's <b><Link to="/usage">Terms of Service </Link></b> and <b><Link to="/privacy"> Privacy Policy</Link></b>.
+                </p>
                 <div className="loader-holder">
                   <Button
                     variant="outlined"
@@ -197,6 +197,7 @@ class Register extends Component {
                   </Button>
                 </div>
               </form>
+              <p className="copy-right mt-5" style={{color: "#81f2b4"}}>&copy; All rights reserved 2019 | Powered by <a href="https://www.codingzap.com" target="_blank" style={{color: "#81f2b4"}} >Codingzap</a> </p>
             </div>
           </div>
         </div>

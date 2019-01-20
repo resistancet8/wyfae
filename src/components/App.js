@@ -17,9 +17,9 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import FollowingRoute from "./Following/FollowingRoute";
 import SharedComp from "./Public/Competition/SharedComp";
-import ScrollToTop from 'react-scroll-up';
-import Privacy from './Public/Privacy';
-import Usage from './Public/Usage';
+import ScrollToTop from "react-scroll-up";
+import Privacy from "./Public/Privacy";
+import Usage from "./Public/Usage";
 
 class App extends Component {
   state = {
@@ -58,16 +58,8 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Route
-          path="/privacy"
-          exact
-          component={Privacy}
-        />
-         <Route
-          path="/usage"
-          exact
-          component={Usage}
-        />
+        <Route path="/privacy" exact component={Privacy} />
+        <Route path="/usage" exact component={Usage} />
         <Route
           path="/"
           exact
@@ -90,6 +82,32 @@ class App extends Component {
           }}
         />
         <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+        <Switch>
+          <Route
+            path="/profile/:username"
+            exact
+            render={() => {
+              if (isAuth) return <Userpage />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route
+            path="/profile/data/"
+            render={() => {
+              if (isAuth) return <Profile />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route
+            path="/profile"
+            exact
+            render={() => {
+              if (isAuth) return <Profile />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+        </Switch>
         <div className="container">
           <Route
             path="/following"
@@ -98,33 +116,6 @@ class App extends Component {
               else return <Redirect to="/login" />;
             }}
           />
-          <Switch>
-            <Route
-              path="/profile/:username"
-              exact
-              render={() => {
-                if (isAuth) return <Userpage />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-            <Route
-              path="/profile/data/"
-              render={() => {
-                if (isAuth) return <Profile />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-            <Route
-              path="/profile"
-              exact
-              render={() => {
-                if (isAuth) return <Profile />;
-                else return <Redirect to="/login" />;
-              }}
-            />
-          </Switch>
-
-          <Route path="/register" exact component={Register} />
           <Route
             exact={true}
             path="/update/:userName"
@@ -162,7 +153,7 @@ class App extends Component {
           ]}
         />
         <ScrollToTop showUnder={160}>
-          <i class="fas fa-chevron-circle-up"></i>
+          <i class="fas fa-chevron-circle-up" />
         </ScrollToTop>
       </div>
     );

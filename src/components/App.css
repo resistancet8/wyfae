@@ -40,13 +40,13 @@ a.profile {
   transform: translateY(-3px);
 }
 
-#login_holder_self {
+#login_holder_self, #register_holder_self {
   background-repeat: no-repeat;
   height: 90vh;
   background-size: contain;
 }
 
-.auth-holder-login {
+.auth-holder-login, .auth-holder-register {
   width: 20%;
   text-align: center;
   margin: auto;
@@ -56,7 +56,7 @@ a.profile {
   height: 100%;
 }
 
-.auth-holder-login input, .auth-holder-login input:focus{
+.auth-holder-login input, .auth-holder-login input:focus, .auth-holder-register input, .auth-holder-register input:focus{
   text-align: center !important;
   border-width: 2px !important;
   border-image: linear-gradient(to right, #83f5b4, #4ca3d3) 1 !important;
@@ -75,12 +75,19 @@ button.login-btn {
   cursor: pointer;
 }
 
+h1#sub-title {
+  font-size: 1.24375rem !important;
+  margin: 20px 0;
+}
+
+
+
 @media screen and (max-width: 900px) {
-  .auth-holder-login {
+  .auth-holder-login, .auth-holder-register {
     width: 60%;
   }
 
-  #login_holder_self {
+  #login_holder_self, #register_holder_self {
     background-size: cover;
     padding-top: 80px;
   }

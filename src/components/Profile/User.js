@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import About from "./About";
 
 let formData = new FormData();
 
@@ -91,6 +92,8 @@ class User extends Component {
             this.props.user.country ? this.props.user.country + "," : ""
           } Earth`}</p>
         </div>
+        {this.props.children}
+        <About user={this.props.user  } />
       </div>
     );
   }

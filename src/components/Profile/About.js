@@ -4,7 +4,7 @@ class About extends Component {
   render() {
     return (
       <div>
-        <div className="border-bottom">
+        <div className="border-bottom mt-5">
           <h5 className="text-muted font-weight-bold">About</h5>
           <p className="font-italic"> {this.props.user.about}</p>
         </div>

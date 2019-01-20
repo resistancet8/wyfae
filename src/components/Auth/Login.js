@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import Spinner from "./../Loader/Spinner";
 import Button from "@material-ui/core/Button";
+import Spinner from "./../Loader/Spinner";
 import Login_BG from './../../assets/img/login_bg.png'
-import BrandLogo from './../../assets/img/login/4.png'
+import BrandLogo from './../../assets/img/login/logo_new.png'
 import LoginButton from './../../assets/img/login/6.png'
 
 class Login extends Component {
@@ -56,6 +56,8 @@ class Login extends Component {
         <div class="auth-holder-login">
             <div>
               <img src={BrandLogo} alt="" class="brand-logo img-fluid"/>
+              <h1 id="sub-title">Write your feelings and experiences</h1>
+              <h1 id="login-text" className="mb-4">Login</h1>
               <form onSubmit={handleSubmit(this.getData)}>
                 {errors.msg && (
                   <div className="alert alert-danger"> {errors.msg} </div>
@@ -93,14 +95,13 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="loader-holder">
-                  <button
-                    type="submit"
-                    disabled={this.state.loading}
-                    className="login-btn"
-                  >
-                    {/* {this.state.loading ? <Spinner /> : "Login"} */}
-                    <img src={LoginButton} alt="" className="img-fluid"/>
-                  </button>
+                  <Button
+                      variant="outlined"
+                      type="submit"
+                      disabled={this.state.loading}
+                    >
+                      {this.state.loading ? <Spinner /> : "Login"}
+                  </Button>
                 </div>
                 <div className="mt-2">
                   <NavLink to="forgot" className="text-dark">
@@ -108,7 +109,7 @@ class Login extends Component {
                   </NavLink>
                 </div>
               </form>
-              <p className="copy-right mt-5" style={{color: "#81f2b4"}}>&copy; All rights reserved 2019 | Powered by Codingzap </p>
+              <p className="copy-right mt-5" style={{color: "#81f2b4"}}>&copy; All rights reserved 2019 | Powered by <a href="https://www.codingzap.com" target="_blank" style={{color: "#81f2b4"}} >Codingzap</a> </p>
             </div>
         </div>
       </div>
