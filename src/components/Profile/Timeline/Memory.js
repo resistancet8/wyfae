@@ -26,7 +26,8 @@ const styles = theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: "33.33%",
-    flexShrink: 0
+    flexShrink: 0,
+    padding: "0px !important"
   },
   heading1: {
     width: "100%"
@@ -86,7 +87,7 @@ class Memory extends Component {
       }
 
       return (
-        <div key={index} className="bg-white p-3 mb-2 memory-holder">
+        <div key={index} className="bg-white py-3 border-bottom memory-holder">
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
@@ -139,8 +140,8 @@ class Memory extends Component {
             onChange={this.handleChange(memory._id)}
             style={{marginTop: "10px"}}
           >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
+              <Typography className={classes.heading} style={{padding: "0px !important;"}}>
                 Comments ({memory.comments.length})
               </Typography>
             </ExpansionPanelSummary>

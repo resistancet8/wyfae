@@ -63,7 +63,7 @@ a.profile {
   border-radius: 10px;
 }
 
-.form-control {
+.login_holder_self .form-control, .register_holder_self .form-control {
   text-align: center;
 }
 

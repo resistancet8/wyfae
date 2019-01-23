@@ -143,7 +143,6 @@ class Timeline extends Component {
         {(arts && arts.length) || (memory && memory.length) ? (
           <div className="p-2">
             <div>
-              <h2 className="font-weight-bold">Arts: </h2>
               {arts && arts.length ? (
                 <div>
                   <Art
@@ -179,7 +178,6 @@ class Timeline extends Component {
             </div>
             <hr />
             <div>
-              <h2 className="font-weight-bold">Memory: </h2>
               {memory && memory.length ? (
                 <div>
                   <Memory

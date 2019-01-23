@@ -1,5 +1,5 @@
 .home-wrapper{
-  padding: 50px;
+  padding: 50px 100px;
 }
 
 .avatar {
@@ -12,11 +12,9 @@
 }
 
 .user-about-holder {
-  height: 800px;
   padding: 20px;
   text-align: center;
   border: 2px dotted red;
-  margin-top: 15px;
   border-image: linear-gradient(to right, #4ca3d3, #83f5b4) 1;
 }
 
@@ -164,7 +162,6 @@
 }
 
 .timeline {
-  padding: 0px 1px !important ;
   margin-bottom: 100px;
 }
 
@@ -291,6 +288,13 @@
 	width: 15px;
 }
 
+.margin-l-15 {
+  margin-left: 15px !important;
+}
+
+.width-or {
+  max-width: 48% !important;
+}
 
 /* mobile screens */
 

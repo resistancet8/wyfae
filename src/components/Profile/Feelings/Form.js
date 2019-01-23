@@ -231,7 +231,7 @@ class Form extends Component {
       <img
         src={previewUrl}
         className="img-fluid mx-auto d-none"
-        style={{ height: "400px", width: "400px" }}
+        style={{ height: "800px", width: "800px" }}
         id="preview"
       />
     ));

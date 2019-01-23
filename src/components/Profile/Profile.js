@@ -62,40 +62,38 @@ class Profile extends Component {
                     render={() => {
                       return (
                         <div style={{height: "100%"}}>
-                          <Scrollbars autoHide autoWidth style={{height: "100%"}} id="scrollbar-c">
-                              <User user={user}>
-                                <div className="book-privacy">
-                                  <label>Memory book privacy</label>
-                                  <div className="custom-input-checkbox">
-                                    <input type="checkbox" id="switch" checked={
-                                          this.state.memory_book_privacy == "private" ? 1 : 0
-                                        } onChange={() => {
-                                          this.changeMemoryPrivacy(
-                                            this.state.memory_book_privacy
-                                          );
-                                    }}/>
-                                    <label for="switch"></label>
-                                  </div>
+                            <User user={user}>
+                              <div className="book-privacy">
+                                <label>Memory book privacy</label>
+                                <div className="custom-input-checkbox">
+                                  <input type="checkbox" id="switch" checked={
+                                        this.state.memory_book_privacy == "private" ? 1 : 0
+                                      } onChange={() => {
+                                        this.changeMemoryPrivacy(
+                                          this.state.memory_book_privacy
+                                        );
+                                  }}/>
+                                  <label for="switch"></label>
                                 </div>
-                                <div className="followers d-flex justify-content-center align-items-center mt-4">
-                                  <Button color="default">
-                                    <Link to="/profile/data/following">
-                                      {" "}
-                                      {user.following
-                                        ? user.following.length
-                                        : 0} <br /> Following{" "}
-                                    </Link>
-                                  </Button>
+                              </div>
+                              <div className="followers d-flex justify-content-center align-items-center mt-4">
+                                <Button color="default">
+                                  <Link to="/profile/data/following">
+                                    {" "}
+                                    {user.following
+                                      ? user.following.length
+                                      : 0} <br /> Following{" "}
+                                  </Link>
+                                </Button>
+                              </div>
+                              {user && (
+                                <div className="edit-profile mt-3">
+                                  <Link to={`/update/user`}>
+                                    <Icon>edit</Icon>
+                                  </Link>
                                 </div>
-                                {user && (
-                                  <div className="edit-profile mt-3">
-                                    <Link to={`/update/user`}>
-                                      <Icon>edit</Icon>
-                                    </Link>
-                                  </div>
-                                )}
-                              </User>
-                          </Scrollbars>
+                              )}
+                            </User>
                         </div>
                       );
                     }}
@@ -115,10 +113,11 @@ class Profile extends Component {
                 </div>
 
               </div>
-              <div className="col-md-6 timeline bg-secondary p-2">
+              <div className="col-md-6 timeline border width-or h-100">
+                <Feelings />
                 <Timeline />
               </div>
-              <div className="col-md-3 bg-white p-4">
+              <div className="col-md-3 border p-4 margin-l-15 h-100">
                 <Quotes />
               </div>
             </div>

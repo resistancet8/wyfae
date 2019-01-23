@@ -56,6 +56,7 @@ class User extends Component {
         <img
           src={imagePreviewUrl}
           className="img-fluid rounded-circle mx-auto"
+          style={{objectFit: "cover"}}
         />
       );
     } else {
@@ -63,6 +64,7 @@ class User extends Component {
         <img
           src={`${process.env.REACT_APP_API_ENDPOINT}/${this.props.user.url}`}
           className="img-fluid rounded-circle mx-auto"
+          style={{objectFit: "cover"}}
         />
       );
     }

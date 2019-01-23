@@ -27,7 +27,8 @@ const styles = theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: "33.33%",
-    flexShrink: 0
+    flexShrink: 0,
+    padding: "0px !important"
   },
   heading1: {
     width: "100%"
@@ -88,7 +89,7 @@ class Art extends Component {
       let likes = art.likes ? art.likes:  art.participants && art.participants.length ? art.participants[0].likes: 0;
 
       return (
-        <div key={index} className="bg-white p-3 mb-2 art-holder">
+        <div key={index} className="bg-white py-3 border-bottom art-holder">
           <span class="float-right badge badge-primary rounded font-weight-bold">
             {type}
           </span>
@@ -107,6 +108,7 @@ class Art extends Component {
                 src={`${process.env.REACT_APP_API_ENDPOINT}/${art.url}`}
                 alt="Image"
                 className="img-fluid"
+                style={{minWidth: "100%"}}
               />
             </div>
           )}
@@ -151,8 +153,8 @@ class Art extends Component {
               expanded={expanded === art._id}
               onChange={this.handleChange(art._id)}
             >
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
+                <Typography className={classes.heading} style={{padding: "0px !important;"}}>
                   Comments ({art.comments.length})
                 </Typography>
               </ExpansionPanelSummary>
