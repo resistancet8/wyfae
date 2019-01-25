@@ -296,6 +296,23 @@
   max-width: 48% !important;
 }
 
+.create-memory {
+  position: fixed;
+  right: 33px;
+  bottom: 115px;
+}
+
+.create-memory button {
+  height: 40px;
+    width: 40px;
+    background: none;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
 /* mobile screens */
 
 @media screen and (max-width: 800px) {

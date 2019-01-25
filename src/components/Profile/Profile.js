@@ -13,11 +13,12 @@ import Timeline from "./Timeline/Timeline";
 import Button from "@material-ui/core/Button";
 import Following from "./Following";
 import axios from "axios";
-import { Scrollbars } from "react-custom-scrollbars";
+import SliderMemory from "./SliderMemory";
 
 class Profile extends Component {
   state = {
     memory_book_privacy: "",
+    slider: 0,
   };
 
   componentDidMount() {
@@ -45,6 +46,14 @@ class Profile extends Component {
         });
       });
   }
+
+  toggleDrawer = (state) => {
+    this.setState(prestate => {
+      return {
+        slider: state
+      };
+    });
+  };
 
   render() {
     let { user } = this.props;
@@ -132,6 +141,15 @@ class Profile extends Component {
                 <Memory />
               </div>
             </div> */}
+            <SliderMemory
+              slider={this.state.slider}
+              toggleDrawer={this.toggleDrawer}
+            />
+            <div className="create-memory">
+              <button onClick={() => {
+                this.toggleDrawer(true);
+              }}><i class="fas fa-plus"></i></button>
+            </div>
           </div>
       </div>
     );
