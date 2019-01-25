@@ -13,10 +13,6 @@ import Ongoing from "./Competition/Ongoing";
 import Completed from "./Competition/Completed";
 import Upcoming from "./Competition/Upcoming";
 import Button from "@material-ui/core/Button";
-import {Helmet} from "react-helmet";
-import Image from './../../assets/img/login/4.png'
-
-
 import "./Public.css";
 
 const styles = theme => ({
@@ -61,11 +57,6 @@ class Public extends Component {
 
     return (
       <div className="public-page p-2">
-        <Helmet>
-            <meta id="meta-description" name="description" content="Write Your Feelings And Experiences." />
-            <meta id="og-title" property="og:title" content="Wyfae" />
-            <meta id="og-image" property="og:image" content={`${Image}`} />
-        </Helmet>
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
             <Competition className={classes.public} />

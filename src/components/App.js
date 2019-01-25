@@ -20,6 +20,8 @@ import SharedComp from "./Public/Competition/SharedComp";
 import ScrollToTop from "react-scroll-up";
 import Privacy from "./Public/Privacy";
 import Usage from "./Public/Usage";
+import {Helmet} from "react-helmet";
+import Image from '../assets/img/login/4.png'
 
 class App extends Component {
   state = {
@@ -57,6 +59,11 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Helmet>
+            <meta id="meta-description" name="description" content="Write Your Feelings And Experiences." />
+            <meta id="og-title" property="og:title" content="Wyfae" />
+            <meta id="og-image" property="og:image" content={`${Image}`} />
+        </Helmet>
         <Navbar />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/usage" exact component={Usage} />
