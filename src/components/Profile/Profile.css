@@ -302,6 +302,11 @@
   bottom: 115px;
 }
 
+#canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
 .create-memory button {
   height: 40px;
     width: 40px;

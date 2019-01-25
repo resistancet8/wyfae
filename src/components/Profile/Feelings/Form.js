@@ -76,7 +76,9 @@ class Form extends Component {
 
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      // modal: !this.state.modal
+    }, () => {
+      document.querySelector(".open-preview-modal").click()
     });
   }
 
@@ -85,7 +87,7 @@ class Form extends Component {
     loading: false,
     shared_type: "",
     image: "",
-    modal: 0,
+    modal: 1,
     previewUrl: "",
     color: "#333333",
     imageVisibility: true
@@ -239,19 +241,38 @@ class Form extends Component {
     return (
       <div>
         <form>
+        <button type="button" class="btn btn-primary d-none open-preview-modal" data-toggle="modal" data-target="#exampleModal">
+        </button>
           <div className="data-holder">
-            {img_tag}
-            <div className="preview">
-              <Preview
-                modal={this.state.modal}
-                toggle={this.toggle}
-                handleFontSize={this.handleFontSize}
-                img_tag={img_tag}
-                colorChange={this.colorChange}
-                color={this.state.color}
-                show={this.state.modal}
-              />
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Memory Book</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {img_tag}
+                  <div className="preview">
+                    <Preview
+                      modal={this.state.modal}
+                      toggle={this.toggle}
+                      handleFontSize={this.handleFontSize}
+                      img_tag={img_tag}
+                      colorChange={this.colorChange}
+                      color={this.state.color}
+                      show={this.state.modal}
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
+          </div>
             <div className="form-group">
               <label>Title:</label>
               <Field
