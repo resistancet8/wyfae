@@ -30,6 +30,10 @@ const styles = theme => ({
   card: {
     minWidth: 275
   },
+  card2: {
+    minWidth: 275,
+    minHeight: ""
+  },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
@@ -58,8 +62,8 @@ const styles = theme => ({
   },
   media: {
     marginTop: "30",
-    height: "50%",
-    paddingTop: "56.25%",
+    height: "60%",
+    paddingTop: "100%",
     backgroundSize: "contain"
   }
 });

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Competition.css";
 
 class Competition extends Component {
@@ -25,19 +24,19 @@ class Competition extends Component {
   render() {
     return (
       <div {...this.props}>
-        <h3 className="font-weight-bold">Competitions</h3>
+        <h3 className="font-weight-bold">COMPETITIONS</h3>
         <div
           style={{
             padding: "10px"
           }}
         >
-          <div>
+          <div className={`comp-link ${this.props.location.pathname.indexOf('ongoing') > 0 ? "active": ""}`}>
             <Link to="/trending/ongoing">Ongoing</Link>
           </div>
-          <div>
+          <div className={`comp-link ${this.props.location.pathname.indexOf('upcoming') > 0 ? "active": ""}`}>
             <Link to="/trending/upcoming">Upcoming</Link>
           </div>
-          <div>
+          <div className={`comp-link ${this.props.location.pathname.indexOf('completed') > 0 ? "active": ""}`}>
             <Link to="/trending/completed">Completed</Link>
           </div>
         </div>
@@ -46,4 +45,4 @@ class Competition extends Component {
   }
 }
 
-export default Competition;
+export default withRouter(Competition);

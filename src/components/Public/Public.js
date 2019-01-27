@@ -21,8 +21,12 @@ const styles = theme => ({
   },
   public: {
     width: "100%",
-    background: "#f9f9f9",
-    padding: 10
+  },
+  trend: {
+    width: "100%",
+  },
+  comp: {
+    width: "100%",
   },
   fix: {
     position: "absolute"
@@ -56,18 +60,20 @@ class Public extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="public-page p-2">
+      <div className="public-page">
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
-            <Competition className={classes.public} />
-            <div style={{margin: "10px 0"}}></div>
-            <div style={{
-              width: "100%",
-              background: "#f9f9f9",
-              padding: 10
-            }}>
-            <div><Link to="/usage">Terms of Use</Link></div>
-            <div><Link to="/privacy">Privacy Policy</Link></div>
+            <div className="comp-holder">
+              <Competition className={classes.comp + " border p-3 rounded"} />
+              <div style={{margin: "10px 0"}}></div>
+              <div className="border rounded" style={{
+                width: "100%",
+                border: "#fff",
+                padding: 10
+              }}>
+                <div className="legal-link"><Link to="/usage">Terms of Use</Link></div>
+                <div className="legal-link"><Link to="/privacy">Privacy Policy</Link></div>
+              </div>
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -79,7 +85,7 @@ class Public extends Component {
                     exact
                     render={() => {
                       return (
-                        <div>
+                        <div style={{padding: "0 100px"}}>
                           <Main
                             posts={this.props.posts}
                             className={classes.public}
@@ -122,7 +128,9 @@ class Public extends Component {
             <Route exact path="/trending/ongoing" component={Ongoing} />
           </Grid>
           <Grid item xs={12} md={3}>
-            <Trending className={classes.public + " p-6"} />
+            <div className="trend-links">
+              <Trending className={classes.trend + " p-3 border rounded"} />
+            </div>
           </Grid>
         </Grid>
       </div>
