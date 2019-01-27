@@ -81,7 +81,8 @@ class Memory extends Component {
     modal: 0,
     previewUrl: "",
     imageVisibility: true,
-    color: "#333333"
+    color: "#333333",
+    previewed: false
   };
 
   componentDidMount() {
@@ -119,7 +120,8 @@ class Memory extends Component {
 
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      previewed: true
     });
   }
 
@@ -198,7 +200,8 @@ class Memory extends Component {
     e.preventDefault();
     this.setState(
       {
-        image: document.querySelector("#memory-file").files[0]
+        image: document.querySelector("#memory-file").files[0],
+        filename: document.querySelector("#memory-file").files[0].name
       },
       () => {
         this.getPreviewURL();
@@ -279,7 +282,7 @@ class Memory extends Component {
                 component="input"
                 type="text"
                 name="title"
-                className={classnames("form-control", {
+                className={classnames("form-control rounded", {
                   "is-invalid": this.state.errors.title
                 })}
                 id="title"
@@ -300,7 +303,7 @@ class Memory extends Component {
               id="text1"
               cols="30"
               rows="10"
-              className={classnames("form-control", {
+              className={classnames("form-control rounded", {
                 "is-invalid": this.state.errors.text
               })}
               // onChange={this.previewImage}
@@ -311,26 +314,50 @@ class Memory extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
-            <div className="form-group">
-              <label>Select an image:</label>
+
+            
+            <div className="show-img-holder mt-3"> 
+              <label>Show default background image:</label>
+              <div className="custom-input-checkbox d-inline">
+                <input
+                  type="checkbox"
+                  id="switch-show-bg-mem"
+                  checked={this.state.imageVisibility}
+                  onChange={e => this.handleShowImage(e)}
+                />
+                <label for="switch-show-bg-mem" />
+              </div>
+              <label>{this.state.imageVisibility ? "On": "Off"}</label>
+            </div>
+            <div className="select-image-holder my-3">
+              <label>Select background image:</label>
               <input
                 type="file"
+                style={{display: "none"}}
+                accept="image/*"
                 id="memory-file"
-                className="form-control"
                 onChange={e => this.handleChange(e)}
               />
+              <label id="label-file" htmlFor="memory-file">Choose</label>
+              <label style={{width: "30%", overflow: "hidden"}}>{this.state.filename ? this.state.filename: "No image chosen"}</label>
             </div>
-            <div>
-              <label>Show image:</label>
-              <input
-                type="checkbox"
-                style={{ marginLeft: "10px", marginTop: "5px" }}
-                onChange={e => this.handleShowImage(e)}
-                checked={this.state.imageVisibility}
-              />
-            </div>
-            <div className="controls mr-auto">
+
+            <Button
+                variant="outlined"
+                onClick={e => {
+                  e.preventDefault();
+                  this.previewImage();
+                  this.handleFontSize("plus");
+                  this.toggle();
+                }}
+                style={{background: "#0085f3", color: "white"}}
+            >
+              {this.state.modal ? "Hide Preview": "Show Preview"}
+            </Button>
+
+            <div className="controls mr-auto mt-2">
               <Button
+              disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {
@@ -348,6 +375,7 @@ class Memory extends Component {
                 Share
               </Button>
               <Button
+              disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {
@@ -365,6 +393,7 @@ class Memory extends Component {
                 Share Anonymously
               </Button>
               <Button
+              disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {
@@ -380,17 +409,6 @@ class Memory extends Component {
               >
                 <i className="fas fa-save mx-1" />
                 Save
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={e => {
-                  e.preventDefault();
-                  this.previewImage();
-                  this.handleFontSize("plus");
-                  this.toggle();
-                }}
-              >
-                Show Preview
               </Button>
             </div>
           </div>
