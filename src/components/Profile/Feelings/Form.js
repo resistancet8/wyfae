@@ -318,19 +318,22 @@ class Form extends Component {
               />
             </div>
             <div> 
-              <label>Show image:</label>
-              <input
-                type="checkbox"
-                style={{ marginLeft: "10px", marginTop: "5px" }}
-                onChange={e => this.handleShowImage(e)}
-                checked={this.state.imageVisibility}
-              />
+              <div className="custom-input-checkbox">
+              <label>Show default background image:</label>
+                <input
+                  type="checkbox"
+                  id="switch-show-bg"
+                  checked={this.state.imageVisibility}
+                  onChange={e => this.handleShowImage(e)}
+                />
+                <label for="switch-show-bg" />
+              </div>
             </div>
             <div className="controls mr-auto">
               {!this.props.part_id && (
                 <div>
                   <Button
-                    variant="outlined"
+                    variant="outlined" 
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
                       this.setState(
