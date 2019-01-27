@@ -82,20 +82,20 @@ class User extends Component {
                 id="avatar"
                 onChange={e => this.handleChange(e)}
               />
-              <label htmlFor="avatar">choose</label>
+              <label htmlFor="avatar">Choose</label>
             </div>
           )}
         </div>
-        <div className="details mt-3">
+        <div className="details mt-1">
           <h2 className="font-weight-bold text-center" style={{fontSize: "3rem"}}>{this.props.user.first_name}</h2>
-          <p>{`${this.props.user.city ? this.props.user.city + "," : ""} ${
+          <p className="text-center">{`${this.props.user.city ? this.props.user.city + "," : ""} ${
             this.props.user.state ? this.props.user.state + "," : ""
           } ${
             this.props.user.country ? this.props.user.country + "," : ""
           } Earth`}</p>
         </div>
         {this.props.children}
-        <About user={this.props.user  } />
+        <About user={this.props.user} />
       </div>
     );
   }

@@ -252,7 +252,7 @@ class Form extends Component {
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Memory Book</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Share Your Feelings/ Experience</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -336,9 +336,20 @@ class Form extends Component {
                 onChange={e => this.handleChange(e)}
               />
               <label id="label-file" htmlFor="file-selector">Choose</label>
-              <label>{this.state.filename ? this.state.filename: "No image chosen"}</label>
+              <label style={{maxWidth: "30%", overflow: "hidden"}}>{this.state.filename ? this.state.filename: "No image chosen"}</label>
             </div>
-            <div className="controls mr-auto">
+            <Button
+                onClick={e => {
+                e.preventDefault();
+                this.previewImage();
+                this.handleFontSize("plus");
+                this.toggle();
+              }}
+              style={{background: "#0085f3", color: "white"}}
+            >
+              Show Preview
+            </Button>
+            <div className="controls mr-auto mt-3">
               {!this.props.part_id && (
                 <div>
                   <Button
@@ -435,17 +446,6 @@ class Form extends Component {
               )}
             </div>
           </div>
-          <Button
-            onClick={e => {
-              e.preventDefault();
-              this.previewImage();
-              this.handleFontSize("plus");
-              this.toggle();
-            }}
-            style={{background: "#0085f3", color: "white"}}
-          >
-            Show Preview
-          </Button>
         </form>
       </div>
     );

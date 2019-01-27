@@ -73,8 +73,15 @@ class Profile extends Component {
                       return (
                         <div style={{ height: "100%" }}>
                           <User user={user}>
+                          {user && (
+                              <div className="edit-profile">
+                                <Link to={`/update/user`}>
+                                  <Icon>edit</Icon>
+                                </Link>
+                              </div>
+                            )}
                             <div className="book-privacy">
-                              <label>Memory book privacy</label>
+                              <label className="m-0">Memory book privacy</label>
                               <div className="custom-input-checkbox">
                                 <input
                                   type="checkbox"
@@ -90,10 +97,10 @@ class Profile extends Component {
                                     );
                                   }}
                                 />
-                                <label for="switch" />
+                                <label for="switch" className="m-0"/>
                               </div>
                             </div>
-                            <div className="followers d-flex justify-content-center align-items-center mt-4">
+                            <div className="followers d-flex justify-content-center align-items-center">
                               <Button color="default">
                                 <Link to="/profile/data/following">
                                   {" "}
@@ -104,13 +111,6 @@ class Profile extends Component {
                                 </Link>
                               </Button>
                             </div>
-                            {user && (
-                              <div className="edit-profile mt-3">
-                                <Link to={`/update/user`}>
-                                  <Icon>edit</Icon>
-                                </Link>
-                              </div>
-                            )}
                           </User>
                         </div>
                       );
