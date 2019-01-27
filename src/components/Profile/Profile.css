@@ -283,7 +283,7 @@
 }
 
 .custom-input-checkbox input:checked + label {
-	background: #4ca3d3;
+	background: #0085f3;
 }
 
 .custom-input-checkbox input:checked + label:after {
@@ -323,6 +323,24 @@
     color: white;
     border-radius: 20px;
     cursor: pointer;
+}
+
+.show-img-holder, .select-image-holder {
+  display: flex;
+  align-items: center;
+}
+
+.show-img-holder > *, .select-image-holder > * {
+  margin-right: 20px;
+  font-size: 1rem;
+}
+
+label#label-file {
+  background: #0085f3;
+  padding: 5px 14px;
+  border-radius: 50px;
+  color:  white;
+  cursor: pointer;
 }
 
 /* mobile screens */

@@ -76,7 +76,7 @@ class Form extends Component {
 
   toggle() {
     this.setState({
-      // modal: !this.state.modal
+      previewed: true
     }, () => {
       document.querySelector(".open-preview-modal").click()
     });
@@ -90,7 +90,8 @@ class Form extends Component {
     modal: 1,
     previewUrl: "",
     color: "#333333",
-    imageVisibility: true
+    imageVisibility: true,
+    previewed: false
   };
 
   getPreviewURL() {
@@ -110,14 +111,17 @@ class Form extends Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.setState(
-      {
-        image: e.target.files[0]
-      },
-      () => {
-        this.getPreviewURL();
-      }
-    );
+    if(e.target.files[0]) {
+      this.setState(
+        {
+          image: e.target.files[0],
+          filename: e.target.files[0].name
+        },
+        () => {
+          this.getPreviewURL();
+        }
+      );
+    }
   }
 
   handleFontSize(tag) {
@@ -279,7 +283,7 @@ class Form extends Component {
                 component="input"
                 type="text"
                 name="post_title"
-                className={classnames("form-control", {
+                className={classnames("form-control rounded", {
                   "is-invalid": this.state.errors.post_title
                 })}
                 id="post_title"
@@ -301,7 +305,7 @@ class Form extends Component {
               cols="30"
               rows="7"
               // onChange={this.previewImage}
-              className={classnames("form-control", {
+              className={classnames("form-control rounded", {
                 "is-invalid": this.state.errors.text
               })}
               placeholder="Share Your Feelings/ Experience"
@@ -309,17 +313,9 @@ class Form extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
-            <div className="form-group">
-              <label>Select an image:</label>
-              <input
-                type="file"
-                className="form-control"
-                onChange={e => this.handleChange(e)}
-              />
-            </div>
-            <div> 
-              <div className="custom-input-checkbox">
+            <div className="show-img-holder mt-3"> 
               <label>Show default background image:</label>
+              <div className="custom-input-checkbox d-inline">
                 <input
                   type="checkbox"
                   id="switch-show-bg"
@@ -328,11 +324,25 @@ class Form extends Component {
                 />
                 <label for="switch-show-bg" />
               </div>
+              <label>{this.state.imageVisibility ? "On": "Off"}</label>
+            </div>
+            <div className="select-image-holder my-3">
+              <label>Select background image:</label>
+              <input
+                type="file"
+                style={{display: "none"}}
+                accept="image/*"
+                id="file-selector"
+                onChange={e => this.handleChange(e)}
+              />
+              <label id="label-file" htmlFor="file-selector">Choose</label>
+              <label>{this.state.filename ? this.state.filename: "No image chosen"}</label>
             </div>
             <div className="controls mr-auto">
               {!this.props.part_id && (
                 <div>
                   <Button
+                    disabled={!this.state.previewed}
                     variant="outlined" 
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -350,6 +360,7 @@ class Form extends Component {
                     Share
                   </Button>
                   <Button
+                    disabled={!this.state.previewed}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -367,6 +378,7 @@ class Form extends Component {
                     Share Anonymously
                   </Button>
                   <Button
+                    disabled={!this.state.previewed}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -384,6 +396,7 @@ class Form extends Component {
                     Save
                   </Button>
                   <Button
+                    disabled={!this.state.previewed}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -404,7 +417,6 @@ class Form extends Component {
               )}
               {this.props.part_id && (
                 <Button
-                  variant="outlined"
                   className="mr-2 mb-2 font-weight-normal"
                   onClick={() => {
                     this.setState(
@@ -424,13 +436,13 @@ class Form extends Component {
             </div>
           </div>
           <Button
-            variant="outlined"
             onClick={e => {
               e.preventDefault();
               this.previewImage();
               this.handleFontSize("plus");
               this.toggle();
             }}
+            style={{background: "#0085f3", color: "white"}}
           >
             Show Preview
           </Button>
