@@ -64,7 +64,7 @@ class Profile extends Component {
           {/* user avatar,details and statistics */}
           <div className="row">
             <div className="col-md-3 bg-white">
-              <div style={{padding: "0 45px 0 10px"}} className="sticky-top">
+              <div style={{padding: "0 45px 0 10px"}} className="sticky-top remove-padding">
                 <div className="user-about-holder">
                   <Route
                     path="/profile"
@@ -129,13 +129,13 @@ class Profile extends Component {
               </div>
             </div>
             <div className="col-md-5 timeline h-100">
-              <div style={{ padding: "0 1rem" }}>
+              <div style={{ padding: "0 1rem" }} className="remove-padding">
                 <Feelings />
                 <Timeline />
               </div>
             </div>
             <div
-              className="col-md-4 h-100 sticky-top"
+              className="col-md-4 h-100 sticky-top remove-padding"
               style={{ padding: "0 50px" }}
             >
               <div

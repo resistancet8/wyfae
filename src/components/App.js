@@ -159,7 +159,7 @@ class App extends Component {
             </IconButton>
           ]}
         />
-        <ScrollToTop showUnder={160}>
+        <ScrollToTop showUnder={160} style={{zIndex: "10000"}}>
           <i class="fas fa-chevron-circle-up" />
         </ScrollToTop>
       </div>
