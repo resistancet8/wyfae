@@ -109,7 +109,8 @@ class Participants extends Component {
             class="each-participant"
             style={{
               marginBottom: "5px",
-              position: "relative"
+              position: "relative",
+              background: "#ffcc0055"
             }}
             onClick={() => {
               this.setState(
@@ -128,16 +129,6 @@ class Participants extends Component {
             <p style={{ padding: 0, margin: 0, fontWeight: "bold" }}>
               {obj.author.split(" ")[0]}
             </p>
-            <div class="info-icons-participant">
-              <div>
-                <Icon>favorite</Icon>
-                <span>{obj.likes}</span>
-              </div>
-              <div>
-                <Icon>comment</Icon>
-                <span>{obj.total_comments}</span>
-              </div>
-            </div>
           </Grid>
         );
       });
