@@ -72,7 +72,7 @@ class Quotes extends Component {
     return (
       <React.Fragment>
          <div className="row">
-          <h5 className="text-muted font-weight-bold">Quotes Collection</h5>
+          <h5 className="text-muted font-weight-bold" style={{fontSize: "1.1rem"}}>Quotes Collection</h5>
           {!this.props.userpage &&<button
             type="button"
             className="ml-auto button-custom"

@@ -69,7 +69,7 @@ class Feelings extends Component {
     const { value } = this.state;
 
     return (
-      <div class="border-bottom py-3 text-left">
+      <div class="border mb-2 text-left">
         <AppBar position="static" color="default">
           <Tabs
             value={value}

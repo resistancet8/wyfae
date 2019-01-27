@@ -89,19 +89,19 @@ class Art extends Component {
       let likes = art.likes ? art.likes:  art.participants && art.participants.length ? art.participants[0].likes: 0;
 
       return (
-        <div key={index} className="bg-white py-3 border-bottom art-holder">
-          <span class="float-right badge badge-primary rounded font-weight-bold">
+        <div key={index} className="bg-white py-3 border art-holder mb-2 rounded-1">
+          <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3">
             {type}
           </span>
-          {type == 'compete' && <span class="float-right badge badge-primary rounded font-weight-bold" style={{background: "green"}}>
+          {type == 'compete' && <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3" style={{background: "green"}}>
             <Link to={`/shared/${art._id}`} class="text-white"> Open </Link>
           </span>}
-          <h2
-            className="font-weight-bold font-italic text-uppercase "
-            style={{ width: "80%" }}
+          <p
+            className="text-uppercase px-3"
+            style={{ width: "80%", fontSize: "1.2rem"}}
           >
             {art.post_title}
-          </h2>
+          </p>
           {art.url && (
             <div className="img-responsive">
               <img
@@ -112,65 +112,68 @@ class Art extends Component {
               />
             </div>
           )}
-          <p>{truncate(art.text, 250)}</p>
-          <div className="mt-2">
-            <Button
-              variant="outlined"
-              onClick={() => {
-                this.props.modalToggle(art);
-              }}
-            >
-              Read More
-            </Button>
-          </div>
-          <small className="font-italic font-weight-bold">
-            Category: {art.art_type == "ganaz" ? "gazal/ nazm": art.art_type}
-          </small>
-          <br />
-          <small className="font-italic font-weight-bold">
-            By: {art.author}
-          </small>
-          <br />
-          <small className="font-italic font-weight-bold">
-            Posted On: {moment(art.creation_time).format("DD/MM/YYYY")}
-          </small>
-          <div className="mt-2">
-            {!this.props.userpage && (
+          <div className="post-desc px-4 py-2">
+            <p>{truncate(art.text, 250)}</p>
+            <div className="mt-2">
               <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.props.deletePost.bind(this, art._id, "art")}
+                variant="outlined"
+                onClick={() => {
+                  this.props.modalToggle(art);
+                }}
               >
-                Delete
+                Read More
               </Button>
+            </div>
+            <small className="font-italic font-weight-bold">
+              Category: {art.art_type == "ganaz" ? "gazal/ nazm": art.art_type}
+            </small>
+            <br />
+            <small className="font-italic font-weight-bold">
+              By: {art.author}
+            </small>
+            <br />
+            <small className="font-italic font-weight-bold">
+              Posted On: {moment(art.creation_time).format("DD/MM/YYYY")}
+            </small>
+            <div className="mt-2">
+              {!this.props.userpage && (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.props.deletePost.bind(this, art._id, "art")}
+                >
+                  Delete
+                </Button>
+              )}
+            </div>
+            <p className="my-2" style={{cursor: "pointer"}}  onClick={() => {
+              this.props.handleLikesClick(art.user_liked)
+            }}>{likes} Likes</p>
+
+            {art.comments && (
+              <ExpansionPanel
+                expanded={expanded === art._id}
+                onChange={this.handleChange(art._id)}
+              >
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
+                  <Typography className={classes.heading} style={{padding: "0px !important;"}}>
+                    Comments ({art.comments.length})
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div classes={classes.root}>
+                    <List id={`comment-list-${art._id}`}>
+                      {art.comments &&
+                        art.comments.map(comment => {
+                          return <Comments comment={comment} />;
+                        })}
+                      {this.state.newComment}
+                    </List>
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
             )}
           </div>
-          <p className="my-2" style={{cursor: "pointer"}}  onClick={() => {
-            this.props.handleLikesClick(art.user_liked)
-          }}>{likes} Likes</p>
-          {art.comments && (
-            <ExpansionPanel
-              expanded={expanded === art._id}
-              onChange={this.handleChange(art._id)}
-            >
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
-                <Typography className={classes.heading} style={{padding: "0px !important;"}}>
-                  Comments ({art.comments.length})
-                </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <div classes={classes.root}>
-                  <List id={`comment-list-${art._id}`}>
-                    {art.comments &&
-                      art.comments.map(comment => {
-                        return <Comments comment={comment} />;
-                      })}
-                    {this.state.newComment}
-                  </List>
-                </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          )}
         </div>
       );
     });

@@ -1,5 +1,5 @@
 .home-wrapper{
-  padding: 50px 100px;
+  padding: 50px;
 }
 
 .avatar {
@@ -13,7 +13,7 @@
 
 .user-about-holder {
   padding: 20px;
-  text-align: center;
+  text-align: left;
   border: 2px dotted red;
   border-image: linear-gradient(to right, #4ca3d3, #83f5b4) 1;
 }
@@ -157,12 +157,20 @@
   background: #e1e1e1 !important;
 }
 
+.about-holder {
+  padding: 0 0 0 15px;
+}
+
 .about-holder p {
   width: 100%;
 }
 
+.rounded-1 {
+  border-radius: 6px;
+}
+
 .timeline {
-  margin-bottom: 100px;
+  padding: 0 !important;
 }
 
 .following-holder-parent {
@@ -244,7 +252,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
 }
 
 .custom-input-checkbox input[type=checkbox]{

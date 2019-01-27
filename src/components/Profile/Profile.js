@@ -18,18 +18,18 @@ import SliderMemory from "./SliderMemory";
 class Profile extends Component {
   state = {
     memory_book_privacy: "",
-    slider: 0,
+    slider: 0
   };
 
   componentDidMount() {
     this.setState({
-      memory_book_privacy: this.props.user.memory_book_privacy,
+      memory_book_privacy: this.props.user.memory_book_privacy
     });
   }
 
   componentWillReceiveProps(props) {
     this.setState({
-      memory_book_privacy: props.user.memory_book_privacy,
+      memory_book_privacy: props.user.memory_book_privacy
     });
   }
 
@@ -47,7 +47,7 @@ class Profile extends Component {
       });
   }
 
-  toggleDrawer = (state) => {
+  toggleDrawer = state => {
     this.setState(prestate => {
       return {
         slider: state
@@ -60,49 +60,58 @@ class Profile extends Component {
 
     return (
       <div>
-          <div className="home-wrapper">
-            {/* user avatar,details and statistics */}
-            <div className="row">
-              <div className="col-md-3 bg-white">
+        <div className="home-wrapper">
+          {/* user avatar,details and statistics */}
+          <div className="row">
+            <div className="col-md-3 bg-white">
+              <div style={{padding: "0 45px 0 10px"}} className="sticky-top">
                 <div className="user-about-holder">
                   <Route
                     path="/profile"
                     exact
                     render={() => {
                       return (
-                        <div style={{height: "100%"}}>
-                            <User user={user}>
-                              <div className="book-privacy">
-                                <label>Memory book privacy</label>
-                                <div className="custom-input-checkbox">
-                                  <input type="checkbox" id="switch" checked={
-                                        this.state.memory_book_privacy == "private" ? 1 : 0
-                                      } onChange={() => {
-                                        this.changeMemoryPrivacy(
-                                          this.state.memory_book_privacy
-                                        );
-                                  }}/>
-                                  <label for="switch"></label>
-                                </div>
+                        <div style={{ height: "100%" }}>
+                          <User user={user}>
+                            <div className="book-privacy">
+                              <label>Memory book privacy</label>
+                              <div className="custom-input-checkbox">
+                                <input
+                                  type="checkbox"
+                                  id="switch"
+                                  checked={
+                                    this.state.memory_book_privacy == "private"
+                                      ? 1
+                                      : 0
+                                  }
+                                  onChange={() => {
+                                    this.changeMemoryPrivacy(
+                                      this.state.memory_book_privacy
+                                    );
+                                  }}
+                                />
+                                <label for="switch" />
                               </div>
-                              <div className="followers d-flex justify-content-center align-items-center mt-4">
-                                <Button color="default">
-                                  <Link to="/profile/data/following">
-                                    {" "}
-                                    {user.following
-                                      ? user.following.length
-                                      : 0} <br /> Following{" "}
-                                  </Link>
-                                </Button>
+                            </div>
+                            <div className="followers d-flex justify-content-center align-items-center mt-4">
+                              <Button color="default">
+                                <Link to="/profile/data/following">
+                                  {" "}
+                                  {user.following
+                                    ? user.following.length
+                                    : 0}{" "}
+                                  <br /> Following{" "}
+                                </Link>
+                              </Button>
+                            </div>
+                            {user && (
+                              <div className="edit-profile mt-3">
+                                <Link to={`/update/user`}>
+                                  <Icon>edit</Icon>
+                                </Link>
                               </div>
-                              {user && (
-                                <div className="edit-profile mt-3">
-                                  <Link to={`/update/user`}>
-                                    <Icon>edit</Icon>
-                                  </Link>
-                                </div>
-                              )}
-                            </User>
+                            )}
+                          </User>
                         </div>
                       );
                     }}
@@ -115,42 +124,42 @@ class Profile extends Component {
                     }}
                   />
 
-                </div>
-
-                <div className="stats-holder mt-4">
                   {user.stats && <Stats stats={user.stats} />}
                 </div>
-
               </div>
-              <div className="col-md-6 timeline border width-or h-100">
+            </div>
+            <div className="col-md-5 timeline h-100">
+              <div style={{ padding: "0 1rem" }}>
                 <Feelings />
                 <Timeline />
               </div>
-              <div className="col-md-3 border p-4 margin-l-15 h-100">
+            </div>
+            <div
+              className="col-md-4 h-100 sticky-top"
+              style={{ padding: "0 50px" }}
+            >
+              <div
+                className="border"
+                style={{ padding: "10px 25px", borderRadius: "6px" }}
+              >
                 <Quotes />
               </div>
             </div>
-            {/* user about and thoughts, feelings row */}
-            {/* <div className="row mt-2">
-              <div className="col-md-8 bg-white border-left-overridden border-top-overridden feelings-holder">
-                <Feelings />
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-md-6 bg-white border-top-overridden p-3">
-                <Memory />
-              </div>
-            </div> */}
-            <SliderMemory
-              slider={this.state.slider}
-              toggleDrawer={this.toggleDrawer}
-            />
-            <div className="create-memory">
-              <button onClick={() => {
-                this.toggleDrawer(true);
-              }}><i class="fas fa-plus"></i></button>
-            </div>
           </div>
+          <SliderMemory
+            slider={this.state.slider}
+            toggleDrawer={this.toggleDrawer}
+          />
+          <div className="create-memory">
+            <button
+              onClick={() => {
+                this.toggleDrawer(true);
+              }}
+            >
+              <i class="fas fa-plus" />
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -87,76 +87,82 @@ class Memory extends Component {
       }
 
       return (
-        <div key={index} className="bg-white py-3 border-bottom memory-holder">
-          <span class="float-right badge badge-primary rounded font-weight-bold">
+        <div key={index} className="bg-white py-3 border rounded-1 memory-holder mb-2">
+          <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3">
             {type}
           </span>
-          <h2 className="font-weight-bold font-italic text-uppercase">
+          <p  
+            className="text-uppercase px-3"
+            style={{ width: "80%", fontSize: "1.2rem"}}
+          >
             {memory.post_title}
-          </h2>
+          </p>
           {memory.url && (
             <div className="img-responsive">
               <img
                 src={`${process.env.REACT_APP_API_ENDPOINT}/${memory.url}`}
                 alt="Image"
                 class="img-fluid"
+                style={{minWidth: "100%"}}
               />
             </div>
           )}
-          <p>{truncate(memory.text, 250)}</p>
-          <div className="mt-2">
-            <Button
-              variant="outlined"
-              onClick={() => {
-                this.props.modalToggle(memory);
-              }}
-            >
-              Read More
-            </Button>
-          </div>
-          <small className="font-italic font-weight-bold">
-            By: {memory.author}
-          </small>
-          <br />
-          <small className="font-italic font-weight-bold">
-            Posted On: {moment(memory.creation_time).format("DD/MM/YYYY")}
-          </small>
-          <div className="mt-2">
-            {!this.props.userpage && (
+          <div className="post-desc px-4 py-2">
+            <p>{truncate(memory.text, 250)}</p>
+            <div className="mt-2">
               <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.props.deletePost.bind(this, memory._id, "memory")}
+                variant="outlined"
+                onClick={() => {
+                  this.props.modalToggle(memory);
+                }}
               >
-                Delete
+                Read More
               </Button>
-            )}
+            </div>
+            <small className="font-italic font-weight-bold">
+              By: {memory.author}
+            </small>
+            <br />
+            <small className="font-italic font-weight-bold">
+              Posted On: {moment(memory.creation_time).format("DD/MM/YYYY")}
+            </small>
+            <div className="mt-2">
+              {!this.props.userpage && (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.props.deletePost.bind(this, memory._id, "memory")}
+                >
+                  Delete
+                </Button>
+              )}
+            </div>
+            <p className="my-2" style={{cursor: "pointer"}} onClick={() => {
+              this.props.handleLikesClick(memory.user_liked)
+            }}>{memory.likes} Likes</p>
+            <ExpansionPanel
+              expanded={expanded === memory._id}
+              onChange={this.handleChange(memory._id)}
+              style={{marginTop: "10px"}}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
+                <Typography className={classes.heading} style={{padding: "0px !important;"}}>
+                  Comments ({memory.comments.length})
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div classes={classes.root}>
+                  <List id={`comment-list-${memory._id}`}>
+                    {memory.comments &&
+                      memory.comments.map(comment => {
+                        return <Comments comment={comment} />;
+                      })}
+                    {this.state.newComment}
+                  </List> 
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
           </div>
-          <p className="my-2" style={{cursor: "pointer"}} onClick={() => {
-            this.props.handleLikesClick(memory.user_liked)
-          }}>{memory.likes} Likes</p>
-          <ExpansionPanel
-            expanded={expanded === memory._id}
-            onChange={this.handleChange(memory._id)}
-            style={{marginTop: "10px"}}
-          >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
-              <Typography className={classes.heading} style={{padding: "0px !important;"}}>
-                Comments ({memory.comments.length})
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div classes={classes.root}>
-                <List id={`comment-list-${memory._id}`}>
-                  {memory.comments &&
-                    memory.comments.map(comment => {
-                      return <Comments comment={comment} />;
-                    })}
-                  {this.state.newComment}
-                </List> 
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
         </div>
       );
     });

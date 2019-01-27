@@ -141,7 +141,7 @@ class Timeline extends Component {
     return (
       <div className="timeline-holder">
         {(arts && arts.length) || (memory && memory.length) ? (
-          <div className="p-2">
+          <div>
             <div>
               {arts && arts.length ? (
                 <div>
@@ -176,7 +176,6 @@ class Timeline extends Component {
                 <div> No Arts </div>
               )}
             </div>
-            <hr />
             <div>
               {memory && memory.length ? (
                 <div>

@@ -5,10 +5,10 @@ class About extends Component {
     return (
       <div>
         <div className="border-bottom mt-5">
-          <h5 className="text-muted font-weight-bold">About</h5>
+          <h5 className="text-muted font-weight-bold" style={{fontSize: "2rem"}}>About</h5>
           <p className="font-italic"> {this.props.user.about}</p>
         </div>
-        <div className="row pt-3 about-holder">
+        <div className="row about-holder">
           {this.props.user.dob && !this.props.userpage &&  (
             <p className="cols-12">
               <strong class="text-muted">DOB:</strong>

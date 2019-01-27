@@ -3,7 +3,7 @@ input:focus {
   outline: none;
 }
 
-a {
+body, html, a {
   color: #555;
 }
 
