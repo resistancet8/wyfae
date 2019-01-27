@@ -71,7 +71,7 @@ class User extends Component {
 
     return (
       <div>
-        <div className="avatar row">
+        <div className="avatar row mx-auto" style={{maxWidth: "200px", height: "200px"}}>
           {img_tag}
           {!this.props.userpage && (
             <div class="avatar-choose">
@@ -87,7 +87,7 @@ class User extends Component {
           )}
         </div>
         <div className="details mt-1">
-          <h2 className="font-weight-bold text-center" style={{fontSize: "3rem"}}>{this.props.user.first_name}</h2>
+          <h2 className="font-weight-bold text-center" style={{fontSize: "1.5rem"}}>{this.props.user.first_name}</h2>
           <p className="text-center">{`${this.props.user.city ? this.props.user.city + "," : ""} ${
             this.props.user.state ? this.props.user.state + "," : ""
           } ${
