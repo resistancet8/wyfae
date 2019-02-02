@@ -64,7 +64,7 @@ class Profile extends Component {
           {/* user avatar,details and statistics */}
           <div className="row">
             <div className="col-md-3 bg-white">
-              <div style={{padding: "0 45px 0 10px"}} className="sticky-top remove-padding">
+              <div style={{padding: "0 20px 0 10px"}} className="sticky-top remove-padding">
                 <div className="user-about-holder">
                   <Route
                     path="/profile"

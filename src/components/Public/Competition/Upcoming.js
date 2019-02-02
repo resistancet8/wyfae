@@ -5,7 +5,7 @@ import Slider from "./Slider";
 import Participants from "./Participants";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-
+import CompeteLogo from './../../../assets/img/startbadge.svg'
 class Upcoming extends Component {
   state = {
     upcoming: [],
@@ -107,7 +107,10 @@ class Upcoming extends Component {
 
     return (
       <div {...this.props}>
-        <h4 className="font-weight-bold text-muted">Upcoming Competitions</h4>
+        <div>
+          <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
+          <span className="font-weight-bold text-muted title-comp">Upcoming Competitions</span>
+        </div>
         {upcomingData}
         {upcoming.length != 0 && (
           <div>

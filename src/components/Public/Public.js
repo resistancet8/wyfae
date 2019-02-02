@@ -14,6 +14,7 @@ import Completed from "./Competition/Completed";
 import Upcoming from "./Competition/Upcoming";
 import Button from "@material-ui/core/Button";
 import "./Public.css";
+import BackgroundDots from './../../assets/img/sidecircle.svg';
 
 const styles = theme => ({
   root: {
@@ -60,7 +61,7 @@ class Public extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="public-page">
+      <div className="public-page" style={{backgroundImage:`url(${BackgroundDots})`}}>
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
             <div className="comp-holder">

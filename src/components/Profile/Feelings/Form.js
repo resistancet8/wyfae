@@ -232,6 +232,11 @@ class Form extends Component {
   render() {
     const { handleSubmit } = this.props;
     let { previewUrl } = this.state;
+    let showButtons = true;
+
+    if(this.state.imageVisibility && this.state.previewed || !this.state.imageVisibility){
+      showButtons = false;
+    }
 
     let img_tag = (img_tag = (
       <img
@@ -326,7 +331,7 @@ class Form extends Component {
               </div>
               <label>{this.state.imageVisibility ? "On": "Off"}</label>
             </div>
-            <div className="select-image-holder my-3">
+            {this.state.imageVisibility && <div> <div className="select-image-holder my-3">
               <label>Select background image:</label>
               <input
                 type="file"
@@ -348,12 +353,12 @@ class Form extends Component {
               style={{background: "#0085f3", color: "white"}}
             >
               Show Preview
-            </Button>
+            </Button> </div> }
             <div className="controls mr-auto mt-3">
               {!this.props.part_id && (
                 <div>
                   <Button
-                    disabled={!this.state.previewed}
+                    disabled={showButtons}
                     variant="outlined" 
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -371,7 +376,7 @@ class Form extends Component {
                     Share
                   </Button>
                   <Button
-                    disabled={!this.state.previewed}
+                    disabled={showButtons}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -389,7 +394,7 @@ class Form extends Component {
                     Share Anonymously
                   </Button>
                   <Button
-                    disabled={!this.state.previewed}
+                    disabled={showButtons}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
@@ -407,7 +412,7 @@ class Form extends Component {
                     Save
                   </Button>
                   <Button
-                    disabled={!this.state.previewed}
+                    disabled={showButtons}
                     variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {

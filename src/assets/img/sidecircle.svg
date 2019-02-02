@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg1413"
+   version="1.1"
+   viewBox="0 0 92.910713 58.325893"
+   height="58.325893mm"
+   width="92.910713mm">
+  <defs
+     id="defs1407" />
+  <metadata
+     id="metadata1410">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-103.75012,-78.610228)"
+     id="layer1">
+    <g
+       id="g1393"
+       transform="matrix(0.26458333,0,0,0.26458333,95.845373,52.447773)">
+      <circle
+         style="opacity:0.44964031;fill:#90dbff;fill-opacity:1;stroke:#d6d6d6;stroke-width:0.26447839;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11582701, 2.11582701;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+         id="path3370"
+         cx="347.95551"
+         cy="131.96103"
+         r="32.947067" />
+      <circle
+         r="18.007032"
+         cy="301.24673"
+         cx="47.955505"
+         id="circle3372"
+         style="opacity:0.44964031;fill:#ff5ca4;fill-opacity:1;stroke:#d6d6d6;stroke-width:0.14454916;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.1563932, 1.1563932;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" />
+      <circle
+         style="opacity:0.44964031;fill:#1dff00;fill-opacity:1;stroke:#d6d6d6;stroke-width:0.07030725;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.562458, 0.562458;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+         id="circle3374"
+         cx="112.24122"
+         cy="110.53244"
+         r="8.7584391" />
+    </g>
+  </g>
+</svg>

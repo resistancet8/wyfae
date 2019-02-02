@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Participants from "./Participants";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import CompeteLogo from './../../../assets/img/startbadge.svg'
 
 class Ongoing extends Component {
   state = {
@@ -65,7 +66,10 @@ class Ongoing extends Component {
 
     return (
       <div {...this.props}>
-        <h4 className="font-weight-bold text-muted">Ongoing Competitions</h4>
+        <div>
+          <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
+          <span className="font-weight-bold text-muted title-comp">Ongoing Competitions</span>
+        </div>
         {ongoingData}
         {ongoing.length != 0 && (
           <div>

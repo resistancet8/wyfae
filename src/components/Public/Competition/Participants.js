@@ -10,6 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import withMobileDialog from "@material-ui/core/withMobileDialog";
 import moment from "moment";
 import Card from "./Card";
+import Timer from './../../../assets/img/timer.svg'
 
 class Participants extends Component {
   state = {
@@ -206,14 +207,12 @@ class Participants extends Component {
             </a>
           </div>
         )}
-        <h3
-          className="font-weight-bold"
-          style={{
-            textTransform: "capitalize"
-          }}
+        <span
+          className="badge font-weight-normal text-capitalize"
+          style={{background: "#0085f3", color: "white", fontSize: "1.06em"}}
         >
           {this.props.data.art_type}
-        </h3>
+        </span>
         <Grid
           container
           spacing={0}
@@ -271,11 +270,13 @@ class Participants extends Component {
         {this.props.ongoing && (
           <div>
             <span class="ended" id={`comp-id-${this.props.data._id}`} />
+            <img src={Timer} style={{height: "20px", marginLeft: "10px"}} alt=""/>
           </div>
         )}
         {this.props.upcoming && (
           <div>
             <span class="ended" id={`comp-id-${this.props.data._id}`} />
+            <img src={Timer} style={{height: "20px", marginLeft: "10px"}} alt=""/>
           </div>
         )}
         {this.props.completed && (

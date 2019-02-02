@@ -1,5 +1,7 @@
 .public-page {
   padding: 5rem 4.5rem;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 #image-container {
@@ -77,4 +79,14 @@
 
 .cart-actions-main a {
   color: red !important;
+}
+
+@media screen and (max-width: 800px) { 
+  .public-page {
+    padding: 1rem 1rem;
+  }
+
+  .slider-art {
+    padding: 5px !important;
+  }
 }

@@ -29,7 +29,7 @@ class Slider extends React.Component {
             this.props.toggleDrawer(true)
           }}
         >
-          <div style={{
+          <div class="slider-art" style={{
             padding: "80px"
           }}>
               <Icon fontSize="large" className="remove-icon" onClick={() => {

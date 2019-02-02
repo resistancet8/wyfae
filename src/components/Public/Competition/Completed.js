@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Participants from "./Participants";
 import Button from "@material-ui/core/Button";
+import CompeteLogo from './../../../assets/img/startbadge.svg'
 
 class Completed extends Component {
   state = {
@@ -69,7 +70,10 @@ class Completed extends Component {
 
     return (
       <div {...this.props}>
-        <h4 className="font-weight-bold text-muted">Completed Competitions</h4>
+        <div>
+          <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
+          <span className="font-weight-bold text-muted title-comp">Completed Competitions</span>
+        </div>
         {CompletedData}
         {completed.length != 0 && (
           <div>
