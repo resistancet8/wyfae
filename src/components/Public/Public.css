@@ -51,8 +51,12 @@
 
 .comp-link, .trending-link, .legal-link {
   background: #f9f9f9;
-  padding: 15px;
   margin-bottom: 10px;
+}
+
+.comp-link a, .trending-link a, .legal-link a {
+  padding: 15px;
+  display: block;
 }
 
 .comp-link.active {
@@ -87,6 +91,10 @@
   }
 
   .slider-art {
-    padding: 5px !important;
+    padding: 50px 10px !important;
+  }
+
+  .main-section {
+    padding: 0px !important;
   }
 }

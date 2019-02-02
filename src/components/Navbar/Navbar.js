@@ -113,7 +113,7 @@ class NavbarComponent extends Component {
               </div>
             </div>
           )}
-          <nav className="my-2 my-md-0 mr-md-3">
+          <nav className="my-2 my-md-0 mr-md-3 nav-links-h">
             {!isAuth && (
               <React.Fragment>
                 <NavLink className="p-2 text-dark" to="/register">

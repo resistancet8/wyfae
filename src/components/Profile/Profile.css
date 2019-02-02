@@ -333,6 +333,9 @@ img.img-fluid + label {
   display: none !important;
 }
 
+.profile-pic {
+  max-height: 200px;
+}
 /* mobile screens */
 
 @media screen and (max-width: 800px) {
@@ -355,7 +358,7 @@ img.img-fluid + label {
   }
   
   .slider-memory {
-    padding: 5px !important;
+    padding: 50px 10px !important;
   }
 
 }

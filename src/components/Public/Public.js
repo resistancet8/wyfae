@@ -86,7 +86,7 @@ class Public extends Component {
                     exact
                     render={() => {
                       return (
-                        <div style={{padding: "0 100px"}}>
+                        <div className="main-section" style={{padding: "0 100px"}}>
                           <Main
                             posts={this.props.posts}
                             className={classes.public}

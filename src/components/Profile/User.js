@@ -55,7 +55,7 @@ class User extends Component {
       img_tag = (
         <img
           src={imagePreviewUrl}
-          className="img-fluid rounded-circle mx-auto"
+          className="img-fluid rounded-circle mx-auto profile-pic"
           style={{objectFit: "cover"}}
         />
       );
@@ -63,7 +63,7 @@ class User extends Component {
       img_tag = (
         <img
           src={`${process.env.REACT_APP_API_ENDPOINT}/${this.props.user.url}`}
-          className="img-fluid rounded-circle mx-auto"
+          className="img-fluid rounded-circle mx-auto profile-pic"
           style={{objectFit: "cover"}}
         />
       );
@@ -71,7 +71,7 @@ class User extends Component {
 
     return (
       <div>
-        <div className="avatar row mx-auto" style={{maxWidth: "200px", height: "200px"}}>
+        <div className="avatar row mx-auto" style={{maxWidth: "200px", maxHeight: "200px"}}>
           {img_tag}
           {!this.props.userpage && (
             <div class="avatar-choose">
