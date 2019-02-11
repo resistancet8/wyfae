@@ -63,6 +63,18 @@
   background: #ffcc00;
 }
 
+.comp-link.active a {
+  color: #fff !important;
+}
+
+.comp-link.ongoing.active {
+  background: #87ceeb;
+}
+
+.comp-link.completed.active {
+  background: limegreen;
+}
+
 @keyframes pop {
   0% {
     transform: scale(0.9);

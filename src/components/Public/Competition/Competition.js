@@ -30,13 +30,13 @@ class Competition extends Component {
             padding: "10px"
           }}
         >
-          <div className={`comp-link ${this.props.location.pathname.indexOf('upcoming') > 0 ? "active": ""}`}>
+          <div className={`comp-link upcoming ${this.props.location.pathname.indexOf('upcoming') > 0 ? "active": ""}`}>
             <Link to="/trending/upcoming">Upcoming</Link>
           </div>
-          <div className={`comp-link ${this.props.location.pathname.indexOf('ongoing') > 0 ? "active": ""}`}>
+          <div className={`comp-link ongoing ${this.props.location.pathname.indexOf('ongoing') > 0 ? "active": ""}`}>
             <Link to="/trending/ongoing">Ongoing</Link>
           </div>
-          <div className={`comp-link ${this.props.location.pathname.indexOf('completed') > 0 ? "active": ""}`}>
+          <div className={`comp-link completed ${this.props.location.pathname.indexOf('completed') > 0 ? "active": ""}`}>
             <Link to="/trending/completed">Completed</Link>
           </div>
         </div>

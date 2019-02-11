@@ -114,7 +114,7 @@ class Privacy extends Component {
         <h4>If you have any questions about this Privacy Policy, please contact us:</h4>
         <ul>
           <li>
-            By email: writeto@wyfae.com
+            By email: supportyou@wyfae.com
           </li>
         </ul>
       </div>

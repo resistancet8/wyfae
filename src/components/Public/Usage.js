@@ -76,8 +76,8 @@ class Usage extends Component {
         <p>WYFAE IS NOT RESPONSIBLE FOR THE ACTIONS, CONTENT, INFORMATION, OR DATA OF THIRD PARTIES, AND YOU RELEASE US, OUR DIRECTORS, OFFICERS, EMPLOYEES, AND AGENTS FROM ANY CLAIMS AND DAMAGES, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH ANY CLAIM YOU HAVE AGAINST ANY SUCH THIRD PARTIES.</p>
 
         <h4>Grievances</h4>
-        <p>If you wish to register a complaint regarding X, you may do so by sending an email to writeto@wyfae.com. You will be kept informed of the progress we make in redressing your complaint and/ or the reasons for delay, if any, in such redressal.</p>
-        <p>Email Id: writeto@wyfae.com</p>
+        <p>If you wish to register a complaint regarding X, you may do so by sending an email to supportyou@wyfae.com. You will be kept informed of the progress we make in redressing your complaint and/ or the reasons for delay, if any, in such redressal.</p>
+        <p>Email Id: supportyou@wyfae.com</p>
       </div>
     );
   }

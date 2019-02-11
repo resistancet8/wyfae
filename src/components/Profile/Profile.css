@@ -14,8 +14,8 @@
 .user-about-holder {
   padding: 20px;
   text-align: left;
-  border: 2px dotted red;
-  border-image: linear-gradient(to right, #4ca3d3, #83f5b4) 1;
+  border: 2px dashed   #ffdd55;
+  /* border-image: linear-gradient(to right, #4ca3d3, #83f5b4) 1; */
 }
 
 .avatar-choose {
