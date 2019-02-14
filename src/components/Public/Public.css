@@ -59,20 +59,23 @@
   display: block;
 }
 
-.comp-link.active {
-  background: #ffcc00;
+.comp-link.active, .each-participant.upcoming {
+  background: #ffcc00 !important;
+  color: white !important;
 }
 
 .comp-link.active a {
   color: #fff !important;
 }
 
-.comp-link.ongoing.active {
-  background: #87ceeb;
+.comp-link.ongoing.active, .each-participant.ongoing {
+  background: #87ceeb !important;
+  color: white !important;
 }
 
-.comp-link.completed.active {
-  background: limegreen;
+.comp-link.completed.active, .each-participant.completed {
+  background: limegreen !important;
+  color: white !important;
 }
 
 @keyframes pop {

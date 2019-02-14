@@ -98,6 +98,7 @@ class Upcoming extends Component {
             flag={true}
             toggleDrawer={this.toggleDrawer}
             upcoming={1}
+            comp="upcoming"
           />
         );
       })

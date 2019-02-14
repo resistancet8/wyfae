@@ -60,7 +60,7 @@ class Completed extends Component {
       completed.map(obj => {
         return (
           obj.post_type !== "memory_book" && (
-            <Participants data={obj} completed={1} />
+            <Participants data={obj} completed={1} comp="completed" />
           )
         );
       })

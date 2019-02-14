@@ -107,7 +107,7 @@ class Participants extends Component {
             alignItems="center"
             justify="center"
             xs={2}
-            class="each-participant"
+            class={"each-participant " + this.props.comp}
             style={{
               marginBottom: "5px",
               position: "relative",

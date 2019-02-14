@@ -58,7 +58,7 @@ class Ongoing extends Component {
 
     let ongoingData = ongoing.length ? (
       ongoing.map(obj => {
-        return <Participants data={obj} ongoing={1} />;
+        return <Participants data={obj} ongoing={1} comp="ongoing"/>;
       })
     ) : (
       <div> No Competitions </div>
