@@ -9,6 +9,8 @@ import Stats from "./../Profile/Statistics";
 import About from "./../Profile/About";
 import Timeline from "./../Profile/Timeline/Timeline";
 import Quotes from './../Profile/Memory-Quotes/Quotes/Quotes';
+import Follow from './../../assets/img/follow.png';
+import UnFollow from './../../assets/img/unfollow.png';
 
 class Userpage extends Component {
   constructor() {
@@ -185,51 +187,41 @@ class Userpage extends Component {
 
     return (
       <div>
-        <div className="home-wrapper bg-secondary px-4 py-2 mb-1">
+        <div className="home-wrapper">
           {/* user avatar,details and statistics */}
           <div className="row">
-            <div className="col-md-4 bg-white p-3">
-              {user && <User user={user} userpage={1} />}
-              <div className="follow d-flex justify-content-center align-items-center mt-4">
-                <Button
-                  onClick={this.followUnfollow.bind(
-                    this,
-                    following ? "un-follow" : "follow"
-                  )}
-                  variant="outlined"
-                  className="mr-2 mb-2 font-weight-normal"
-                >
-                  <i
-                    className={`fas ${
-                      following ? "fa-user-minus" : "fa-user-plus"
-                    } mx-2`}
-                  />
-                  {following ? "Unfollow" : "Follow"}
-                </Button>
+            <div className="col-md-3 bg-white p-3 border rounded">
+              <div className="sticky-top">
+                {user && <User user={user} userpage={1} />}
+                <div className="follow d-flex justify-content-center align-items-center mt-4">
+                  <div
+                    onClick={this.followUnfollow.bind( 
+                      this,
+                      following ? "un-follow" : "follow"
+                    )}
+                    style={{cursor: "pointer"}}
+                  >
+                    <img src={following ? UnFollow : Follow} alt=""/>
+                  </div>
+                </div>
+                {user.stats && <Stats stats={user.stats} userpage={1} />}
               </div>
             </div>
-            <div className="col-md-8 bg-white border-left-overridden border-top-overridden p-3">
-              {user.stats && <Stats stats={user.stats} userpage={1} />}
+            <div className="col-md-6" style={{padding: "0 80px"}}>
+              <Timeline
+                userpage={1}
+                userpage_posts={{
+                  memory: this.state.memory_book,
+                  arts: this.state.art_content
+                }}
+              />
+            </div>
+            <div className="col-md-3 bg-white border rounded" style={{padding: "30px"}}>
+              <div className="sticky-top">
+                {user && <Quotes quotess={this.state.quotes_user} userpage={1} />}
+              </div>
             </div>
           </div>
-          {/* user about and thoughts, feelings row */}
-          <div className="row mt-2">
-            <div className="col-md-6 bg-white p-3 px-5">
-              {user && <About user={user} userpage={1} />}
-            </div>
-            <div className="col-md-6 bg-white p-3 px-5 border-left-overridden border-top-overridden ">
-              {user && <Quotes quotess={this.state.quotes_user} userpage={1} />}
-            </div>
-          </div>
-        </div>
-        <div className="timeline bg-secondary p-2">
-          <Timeline
-            userpage={1}
-            userpage_posts={{
-              memory: this.state.memory_book,
-              arts: this.state.art_content
-            }}
-          />
         </div>
       </div>
     );

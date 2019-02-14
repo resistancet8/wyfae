@@ -64,16 +64,18 @@ class Public extends Component {
       <div className="public-page" style={{backgroundImage:`url(${BackgroundDots})`}}>
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
-            <div className="comp-holder">
-              <Competition className={classes.comp + " border p-3 rounded"} />
-              <div style={{margin: "10px 0"}}></div>
-              <div className="border rounded" style={{
-                width: "100%",
-                border: "#fff",
-                padding: 10
-              }}>
-                <div className="legal-link"><Link to="/usage">Terms of Use</Link></div>
-                <div className="legal-link"><Link to="/privacy">Privacy Policy</Link></div>
+            <div className="comp-holder sticky-top">
+              <div className="sticky-top">
+                <Competition className={classes.comp + " border p-3 rounded"} />
+                <div style={{margin: "10px 0"}}></div>
+                <div className="border rounded" style={{
+                  width: "100%",
+                  border: "#fff",
+                  padding: 10
+                }}>
+                  <div className="legal-link"><Link to="/usage">Terms of Use</Link></div>
+                  <div className="legal-link"><Link to="/privacy">Privacy Policy</Link></div>
+                </div>
               </div>
             </div>
           </Grid>
@@ -129,7 +131,7 @@ class Public extends Component {
             <Route exact path="/trending/ongoing" component={Ongoing} />
           </Grid>
           <Grid item xs={12} md={3}>
-            <div className="trend-links">
+            <div className="trend-links sticky-top">
               <Trending className={classes.trend + " p-3 border rounded"} />
             </div>
           </Grid>
