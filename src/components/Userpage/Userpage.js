@@ -207,7 +207,7 @@ class Userpage extends Component {
                 {user.stats && <Stats stats={user.stats} userpage={1} />}
               </div>
             </div>
-            <div className="col-md-6" style={{padding: "0 80px"}}>
+            <div className="col-md-6 user-page-middle" style={{padding: "0 80px"}}>
               <Timeline
                 userpage={1}
                 userpage_posts={{
