@@ -113,7 +113,7 @@ class Art extends Component {
             </div>
           )}
           <div className="post-desc px-4 py-2">
-            <p>{truncate(art.text, 250)}</p>
+            <p>{truncate(type == 'compete' ? art.participants[0].text || "" : art.text, 250)}</p>
             <div className="mt-2">
               <Button
                 variant="outlined"
@@ -129,14 +129,14 @@ class Art extends Component {
             </small>
             <br />
             <small className="font-italic font-weight-bold">
-              By: {art.author}
+              By: {type == 'compete' ? art.participants[0].author || "You" : art.author}
             </small>
             <br />
             <small className="font-italic font-weight-bold">
               Posted On: {moment(art.creation_time).format("DD/MM/YYYY")}
             </small>
             <div className="mt-2">
-              {!this.props.userpage && (
+              {!this.props.userpage && type !== 'compete' && (
                 <Button
                   variant="contained"
                   color="secondary"

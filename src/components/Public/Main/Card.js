@@ -265,7 +265,7 @@ class PublicCard extends React.Component {
                   }}
                   href=""
                 >
-                  <i className="fas fa-flag mx-1" /> report
+                  <i className="fas fa-flag mx-1" />
                 </a>
               </span>
             </div>

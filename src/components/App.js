@@ -115,7 +115,6 @@ class App extends Component {
             }}
           />
         </Switch>
-        <div className="container">
           <Route
             path="/following"
             render={() => {
@@ -123,6 +122,7 @@ class App extends Component {
               else return <Redirect to="/login" />;
             }}
           />
+        <div className="container">
           <Route
             exact={true}
             path="/update/:userName"
