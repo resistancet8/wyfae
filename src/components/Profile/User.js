@@ -95,7 +95,7 @@ class User extends Component {
           } Earth`}</p>
         </div>
         {this.props.children}
-        <About user={this.props.user} />
+        <About user={this.props.user} userpage={this.props.userpage}/>
       </div>
     );
   }

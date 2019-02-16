@@ -75,12 +75,12 @@ class FollowingRoute extends Component {
     return Posts.length > 0 ? (
       <div style={{padding: "40px"}}>
         <div {...this.props} class="row">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className="sticky-top">
               {ListOfUsers}
             </div>
           </div>
-          <div className="col-md-9">
+          <div className="col-md-6">
             {Posts}
           </div>
         </div>

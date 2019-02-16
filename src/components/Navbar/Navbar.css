@@ -22,19 +22,14 @@
 }
 
 .search-bar {
-  border: 1px solid #5554;
   position: relative;
+  flex-grow: 1;
+  max-width: 60%;
 }
 
 .search-bar input {
-  border: none !important;
-  width: 300px;
   padding: 0 20px;
-  background: none;
-}
-
-.search-bar input:focus {
-  background: none;
+  border-radius: 30px;
 }
 
 .search-results .row {
@@ -78,4 +73,17 @@
 
 .search-results ul li img {
   border-radius: 50%;
+}
+
+.navbar-holder-design {
+  background-image: linear-gradient(to right, #4a6ecb, #3cc1a7);
+}
+
+.navbar-holder-design a, .navbar-holder-design input{
+  color: white !important;
+}
+
+#profile-img-header {
+  width: 23px;
+  border-radius: 15px;
 }

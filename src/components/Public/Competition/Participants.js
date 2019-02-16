@@ -161,6 +161,8 @@ class Participants extends Component {
 
     let sharable_url = window.location.host + `/shared/` + this.props.data._id;
 
+    console.log("lnk", this.props);
+
     return (
       <div
         style={{
@@ -288,7 +290,7 @@ class Participants extends Component {
             at{" "}
             <em>{moment(this.props.data.start_time + "Z").format("h:mm a")}</em>{" "}
             <br />
-            <em>{winner}</em>
+            <em>{winner}</em> 
           </div>
         )}
       </div>

@@ -27,7 +27,7 @@ class Ongoing extends Component {
 
   render() {
     let competeData = Object.keys(this.state.post).length > 0 && this.state.post["_id"].length ? (
-      <Participants data={this.state.post} ongoing={this.state.post.compete_status == 'ongoing' ? 1: false} />
+      <Participants data={this.state.post} ongoing={this.state.post.compete_status == 'ongoing' ? 1: false} completed={this.state.post.compete_status == "finished" ? 1: false} upcoming={this.state.post.compete_status == "upcoming" ? 1: false}/>
     ) : (
       <div>No such competetion</div>
     );

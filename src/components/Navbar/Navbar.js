@@ -63,6 +63,7 @@ class NavbarComponent extends Component {
     const { anchorEl } = this.state;
     const { isAuthenticated: isAuth } = this.props.auth;
     const { first_name } = this.props.user;
+    const { url: profile_img } = this.props.user;
 
     let Results =
       this.state.results.length > 0 ? (
@@ -80,12 +81,12 @@ class NavbarComponent extends Component {
 
     return (
       <header>
-        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
-          <NavLink className="my-0 mr-md-auto banner" to="/trending">
+        <div className="d-flex flex-column flex-md-row align-items-center justify-content-center p-3 px-md-4 bg-white border-bottom shadow-sm navbar-holder-design">
+          <NavLink className="my-0 banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
           {isAuth && (
-            <div className="search-bar my-2">
+            <div className="search-bar my-2 mx-5">
               <input
                 class="form-control mr-sm-2"
                 type="search"
@@ -147,9 +148,12 @@ class NavbarComponent extends Component {
                     <img src={TrendingFeel} alt="" />
                   </IconButton>
                 </NavLink>
-                <Button onClick={this.handleClick}>
-                  Profile &nbsp;
-                  <AccessAlarmIcon />
+                <Button onClick={this.handleClick} style={{color: "white"}}>
+                  <img
+                    src={`${process.env.REACT_APP_API_ENDPOINT}` + "/" + profile_img}
+                    className="img-fluid"
+                    id="profile-img-header"
+                  />
                 </Button>
                 <Menu
                   id="simple-menu"

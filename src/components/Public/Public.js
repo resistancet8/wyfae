@@ -73,7 +73,7 @@ class Public extends Component {
                   border: "#fff",
                   padding: 10
                 }}>
-                  <div className="legal-link"><Link to="/usage">Terms of Use</Link></div>
+                  <div className="legal-link"><Link to="/usage">Terms of Services</Link></div>
                   <div className="legal-link"><Link to="/privacy">Privacy Policy</Link></div>
                 </div>
               </div>
