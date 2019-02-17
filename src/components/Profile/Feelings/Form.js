@@ -318,7 +318,7 @@ class Form extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
-            <div className="show-img-holder mt-3"> 
+            <div className="show-img-holder mt-5"> 
               <label>Show default background image:</label>
               <div className="custom-input-checkbox d-inline">
                 <input

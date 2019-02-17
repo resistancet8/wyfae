@@ -12,6 +12,7 @@ class Preview extends Component {
             <p>Font Size:</p>
             <div>
               <button
+              id="plus"
                 onClick={e => {
                   e.preventDefault();
                   this.props.handleFontSize("plus");
@@ -20,6 +21,7 @@ class Preview extends Component {
                 +
               </button>
               <button
+              id="minus"
                 onClick={e => {
                   e.preventDefault();
                   this.props.handleFontSize("minus");

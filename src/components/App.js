@@ -20,8 +20,7 @@ import SharedComp from "./Public/Competition/SharedComp";
 import ScrollToTop from "react-scroll-up";
 import Privacy from "./Public/Privacy";
 import Usage from "./Public/Usage";
-import {Helmet} from "react-helmet";
-import Image from '../assets/img/login/4.png'
+import MetaTags from 'react-meta-tags';
 
 class App extends Component {
   state = {
@@ -59,11 +58,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Helmet>
-            <meta id="meta-description" name="description" content="Write Your Feelings And Experiences." />
-            <meta id="og-title" property="og:title" content="Wyfae" />
-            <meta id="og-image" property="og:image" content={`${Image}`} />
-        </Helmet>
+        <MetaTags>
+          <meta name="title" content="Wyfae - Write your feelings and Experiences." />
+          <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions."/>
+          <meta name="description" content="A social network where everyone communicates by writing their true emotions and thoughts. Write your quotes, poems, stories and letters . Create your memory book and Share your post, participate in the vote based competitions.Collect the famous quotes, inspirational quotes, motivational quotes, romantic quotes, book quotes, writer’s quotes, funny quotes and all other quotes that lift you. Write your goals, maintain your To do list and maintain a completely private online journal."/>
+        </MetaTags>
         <Navbar />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/usage" exact component={Usage} />

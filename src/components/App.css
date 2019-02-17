@@ -42,7 +42,7 @@ a.profile {
 
 #login_holder_self, #register_holder_self {
   background-repeat: no-repeat;
-  height: 90vh;
+  height: 100vh;
   background-size: contain;
 }
 
@@ -84,15 +84,36 @@ h1#sub-title {
 
 @media screen and (max-width: 900px) {
   .auth-holder-login, .auth-holder-register {
-    width: 60%;
+    width: 75%;
   }
 
-  #login_holder_self, #register_holder_self {
+  #login_holder_self {
     background-size: cover;
-    padding-top: 80px;
+    padding-top: -10px;
+  }
+
+  #register_holder_self {
+    background-size: cover;
+    padding-top: 200px;
   }
 
   .nav-links-h {
     text-align: center;
   }
+  
+  .search-results {
+    width: 100% !important;
+  }
+
+  .search-results ul li img {
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .search-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
 }

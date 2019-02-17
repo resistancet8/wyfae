@@ -8,8 +8,8 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import Spinner from "./../Loader/Spinner";
 import Login_BG from './../../assets/img/login_bg.png'
-import BrandLogo from './../../assets/img/login/logo_new.png'
-import LoginButton from './../../assets/img/login/6.png'
+import BrandLogo from './../../assets/img/login/logo_new.png';
+import MetaTags from 'react-meta-tags';
 
 class Login extends Component {
   constructor(props) {
@@ -54,6 +54,11 @@ class Login extends Component {
     return (
       <div id="login_holder_self" style={{backgroundImage: `url(${Login_BG})`}}>
         <div class="auth-holder-login">
+            <MetaTags>
+              <meta name="title" content="Create or Login to your Wyfae account." />
+              <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions."/>
+              <meta name="description" content="Create an account or log into Wyfae. Hi, we’re WYFAE - the magical world of this planet’s oldest currency – WORDS. Write your feelings and experiences and help us in creating a social network where everyone communicates by writing quotes, poems, stories letters, gazal, nazm."/>
+            </MetaTags>
             <div>
               <img src={BrandLogo} alt="" class="brand-logo img-fluid"/>
               <h1 id="sub-title">Write your feelings and experiences</h1>

@@ -363,6 +363,10 @@ img.img-fluid + label {
 
 }
 
+button#plus, button#minus {
+  padding: 10px 20px;
+  font-size: 2em;
+}
 /* desktop */
 
 @media screen and (min-width: 800px) {

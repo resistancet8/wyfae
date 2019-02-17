@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { forgotPassword, verifyOTP } from "../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import MetaTags from 'react-meta-tags';
 
 class Forgot extends Component {
   state = { errors: {} };
@@ -29,6 +30,12 @@ class Forgot extends Component {
 
     return (
       <div>
+        <MetaTags>
+          <meta name="title" content="Wyfae - Write your feelings and Experiences." />
+          <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions."/>
+          <meta name="description" content="forgot your wyfae account password?
+Reset your login password of wyafe and expore the wyafe world."/>
+        </MetaTags>
         <div className="mt-3">
           <h2 className="font-weight-bold">Reset Password</h2>
           {forgotPassword &&

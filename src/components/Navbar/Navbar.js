@@ -65,6 +65,8 @@ class NavbarComponent extends Component {
     const { first_name } = this.props.user;
     const { url: profile_img } = this.props.user;
 
+    console.log("localtion", window.location);
+
     let Results =
       this.state.results.length > 0 ? (
         this.state.results.map(o => {
@@ -81,7 +83,7 @@ class NavbarComponent extends Component {
 
     return (
       <header>
-        <div className="d-flex flex-column flex-md-row align-items-center justify-content-center p-3 px-md-4 bg-white border-bottom shadow-sm navbar-holder-design">
+        <div className={`d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm navbar-holder-design justify-content-between ${window.location.pathname.indexOf('login') >= 0 || window.location.pathname.indexOf('register') >= 0 ? "": "add-gradient"} `}>
           <NavLink className="my-0 banner" to="/trending">
             <img src={Brand} alt="Wyfae Brand" />
           </NavLink>
