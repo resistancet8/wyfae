@@ -130,6 +130,7 @@ class UpdateProfile extends Component {
                     component="input"
                     type="date"
                     name="dob"
+                    placeholder="Date of Birth"
                     className={classnames("form-control ", {
                       "is-invalid": errors.dob
                     })}

@@ -309,7 +309,7 @@ class Memory extends Component {
               // onChange={this.previewImage}
               required
               min="100"
-              placeholder="Because pictures alone are not enough to describe your experiences and memories..."
+              placeholder="Because pictures alone are not enough to describe your experiences and memories. Write about the picture that you would rather upload on social media"
             />
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
