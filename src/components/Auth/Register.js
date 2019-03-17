@@ -35,6 +35,16 @@ class Register extends Component {
     }
   }
 
+  _onFocus(e) {
+      document.querySelector("#label-dob").style.display = "none";
+  }
+
+  _onBlur (e) {
+      if(e.currentTarget.value.length <= 0) {
+        document.querySelector("#label-dob").style.display = "inline-block";
+      }
+  }
+
   render() {
     const { isAuthenticated: isAuth } = this.props.auth;
 
@@ -169,11 +179,13 @@ class Register extends Component {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group dob-holder">
                   <Field
                     component="input"
                     type="date"
                     name="dob"
+                    onFocus = {this._onFocus}
+                    onBlur = {this._onBlur}
                     placeholder="Date of Birth"
                     className={classnames("form-control ", {
                       "is-invalid": errors.dob
@@ -181,6 +193,7 @@ class Register extends Component {
                     id="dob"
                     required
                   />
+                  <label htmlFor="dob" id="label-dob">Date of Birth</label>
                   {errors.dob && (
                     <div className="invalid-feedback"> {errors.dob} </div>
                   )}
