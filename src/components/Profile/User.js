@@ -51,22 +51,19 @@ class User extends Component {
   render() {
     let { imagePreviewUrl } = this.state;
     let img_tag = null;
-    if (imagePreviewUrl) {
-      img_tag = (
-        <img
+
+    if(imagePreviewUrl && this.props.user.url) {
+      img_tag = <img
           src={imagePreviewUrl}
           className="img-fluid rounded-circle mx-auto profile-pic"
           style={{objectFit: "cover"}}
         />
-      );
-    } else {
-      img_tag = (
-        <img
-          src={`${process.env.REACT_APP_API_ENDPOINT}/${this.props.user.url}`}
-          className="img-fluid rounded-circle mx-auto profile-pic"
-          style={{objectFit: "cover"}}
-        />
-      );
+    } else if(!imagePreviewUrl && this.props.user.url) {
+      img_tag= <img
+        src={process.env.REACT_APP_API_ENDPOINT + '/' + this.props.user.url}
+        className="img-fluid rounded-circle mx-auto profile-pic"
+        style={{objectFit: "cover"}}
+      />
     }
 
     return (
