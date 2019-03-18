@@ -16,7 +16,7 @@ module.exports = function validateFeelingsinput(data) {
     errors.text = "Body Should Be At Least 1 Character Long";
   }
 
-  if (Validator.isEmpty(data.text || "")) {
+  if (Validator.isEmpty(data.text || "") || !data.text.trim()) {
     errors.text = "Body Is Required";
   }
 

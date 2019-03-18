@@ -145,9 +145,9 @@ class Form extends Component {
     ctx.lineWidth = 1;
     ctx.fillStyle = this.state.color;
 
-    if (document.getElementById("text-body").value != "")
+    if (document.getElementById("text-body").value.trim() != "")
       ctx.mlFillText(
-        document.getElementById("text-body").value,
+        document.getElementById("text-body").value.trim(),
         8,
         8,
         canvas.width - 10,
