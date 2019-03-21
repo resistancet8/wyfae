@@ -171,7 +171,6 @@ class ParticipantCard extends React.Component {
   render() {
     const { classes, post, ongoing, completed, upcoming } = this.props;
     const { expanded } = this.state;
-    console.log("post", post)
 
     return (
       <Card className={classes.card + " mb-2"}>
@@ -205,7 +204,7 @@ class ParticipantCard extends React.Component {
         )}
         <CardContent>
           <Typography component="p" gutterBottom>
-            {post.text}
+            <pre>{post.text}</pre>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(
