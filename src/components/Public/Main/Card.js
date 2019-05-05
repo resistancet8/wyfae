@@ -20,7 +20,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Comments from "./Comments";
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { Button } from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -86,6 +85,24 @@ class PublicCard extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null, id: null });
   };
+
+  handleDownload(url) {
+    fetch(url, {
+      headers: {
+        "Accept": "application/octet-stream"
+      }
+    })
+      .then(e => e.blob())
+      .then(s => {
+        var tag = document.createElement('a');
+        tag.href = URL.createObjectURL(s);
+
+        tag.download = "image.jpg";
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      })
+  }
 
   report(type) {
     if (type == "checkplag") {
@@ -270,6 +287,14 @@ class PublicCard extends React.Component {
               </span>
             </div>
           </div>
+          {post.url && <Button
+                  className="ml-2"
+                  onClick={() => {
+                    this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`)
+                  }}
+                >
+                  <i className="fas fa-download mx-1" />
+          </Button> }
         </CardActions>
         <div className={classes.root}>
           <ExpansionPanel

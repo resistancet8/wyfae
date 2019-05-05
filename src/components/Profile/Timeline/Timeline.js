@@ -150,7 +150,7 @@ class Timeline extends Component {
                     modalToggle={this.toggle}
                     deletePost={this.deletePost.bind(this)}
                     userpage={this.props.userpage}
-                    handleLikesClick={this.handleLikesClick.bind(this)}
+                    handleLikesClick={this.handleLikesClick.bind(this)} 
                   />
                   {!this.state.artHideShowMore ? (
                     <Button
