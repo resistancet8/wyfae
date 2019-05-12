@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -11,9 +12,11 @@ const styles = theme => ({
 });
 
 function Comments(props) {
+
   return (
       <li className="border-bottom my-2 py-2">
-        <ListItemText primary={props.comment.name} secondary={props.comment.comment_text} />
+        
+        <ListItemText primary={<Link to={`/profile/${props.comment.username}`}>{props.comment.name}</Link>} secondary={props.comment.comment_text} />
       </li>
   );
 }

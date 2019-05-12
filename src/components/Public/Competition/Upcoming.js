@@ -69,6 +69,7 @@ class Upcoming extends Component {
       .then(response => {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
         this.props.dispatch(reset("art-form"));
+        window.location.reload();
       })
       .catch(err => {
         this.props.dispatch({

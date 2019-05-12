@@ -59,6 +59,7 @@ class Feelings extends Component {
           payload: response.data.post_content
         });
         this.props.dispatch(reset("art-form"));
+        window.location.reload();
       })
       .catch(err => {
         this.props.dispatch({ type: "SHOW_TOAST", payload: "Errored!" });

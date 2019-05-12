@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {Link} from 'react-router-dom';
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
@@ -103,7 +104,6 @@ class Timeline extends Component {
   }
 
   handleLikesClick(likes) {
-    console.log(likes)
     this.setState((prevState) => {
       return {
         ...prevState,
@@ -131,8 +131,8 @@ class Timeline extends Component {
           <div className="col-12">
             {like.name ? like.name : like.username}
             <p>
-              <small>@{like.username}</small>
-            </p>
+              <Link to={`/profile/${like.username}`}>@{like.username}</Link>
+            </p> 
           </div>
         </li>
       );
