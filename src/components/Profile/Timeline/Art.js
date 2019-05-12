@@ -60,6 +60,24 @@ class Art extends Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  handleDownload(url) {
+    fetch(url, {
+      headers: {
+        "Accept": "application/octet-stream"
+      }
+    })
+      .then(e => e.blob())
+      .then(s => {
+        var tag = document.createElement('a');
+        tag.href = URL.createObjectURL(s);
+
+        tag.download = "image.jpg";
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      })
+  }
+
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
@@ -86,19 +104,19 @@ class Art extends Component {
       } else {
         type = art.shared_type;
       }
-      let likes = art.likes ? art.likes:  art.participants && art.participants.length ? art.participants[0].likes: 0;
+      let likes = art.likes ? art.likes : art.participants && art.participants.length ? art.participants[0].likes : 0;
 
       return (
         <div key={index} className="bg-white py-3 border art-holder mb-2 rounded-1">
           <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3">
             {type}
           </span>
-          {type == 'compete' && <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3" style={{background: "green"}}>
+          {type == 'compete' && <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3" style={{ background: "green" }}>
             <Link to={`/shared/${art._id}`} class="text-white"> Open </Link>
           </span>}
           <p
             className="text-uppercase px-3"
-            style={{ width: "80%", fontSize: "1.2rem"}}
+            style={{ width: "80%", fontSize: "1.2rem" }}
           >
             {art.post_title}
           </p>
@@ -108,7 +126,7 @@ class Art extends Component {
                 src={`${process.env.REACT_APP_API_ENDPOINT}/${art.url}`}
                 alt="Image"
                 className="img-fluid"
-                style={{minWidth: "100%"}}
+                style={{ minWidth: "100%" }}
               />
             </div>
           )}
@@ -123,9 +141,20 @@ class Art extends Component {
               >
                 Read More
               </Button>
+              {art.url &&
+                <Button
+                  className="ml-2"
+                  variant="outlined"
+                  onClick={() => {
+                    this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${art.url}`)
+                  }}
+                >
+                  Download
+                </Button>
+              }
             </div>
             <small className="font-italic font-weight-bold">
-              Category: {art.art_type == "ganaz" ? "gazal/ nazm": art.art_type}
+              Category: {art.art_type == "ganaz" ? "gazal/ nazm" : art.art_type}
             </small>
             <br />
             <small className="font-italic font-weight-bold">
@@ -146,7 +175,7 @@ class Art extends Component {
                 </Button>
               )}
             </div>
-            <p className="my-2" style={{cursor: "pointer"}}  onClick={() => {
+            <p className="my-2" style={{ cursor: "pointer" }} onClick={() => {
               this.props.handleLikesClick(art.user_liked)
             }}>{likes} Likes</p>
 
@@ -155,8 +184,8 @@ class Art extends Component {
                 expanded={expanded === art._id}
                 onChange={this.handleChange(art._id)}
               >
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
-                  <Typography className={classes.heading} style={{padding: "0px !important;"}}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{ padding: "0px !important;" }}>
+                  <Typography className={classes.heading} style={{ padding: "0px !important;" }}>
                     Comments ({art.comments.length})
                   </Typography>
                 </ExpansionPanelSummary>

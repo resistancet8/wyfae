@@ -139,6 +139,24 @@ class ParticipantCard extends React.Component {
     });
   };
 
+  handleDownload(url) {
+    fetch(url, {
+      headers: {
+        "Accept": "application/octet-stream"
+      }
+    })
+      .then(e => e.blob())
+      .then(s => {
+        var tag = document.createElement('a');
+        tag.href = URL.createObjectURL(s);
+
+        tag.download = "image.jpg";
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      })
+  }
+
   addComment(id, post_id, part_id) {
     axios
       .post(
@@ -171,7 +189,6 @@ class ParticipantCard extends React.Component {
   render() {
     const { classes, post, ongoing, completed, upcoming } = this.props;
     const { expanded } = this.state;
-    console.log("post", post)
 
     return (
       <Card className={classes.card + " mb-2"}>
@@ -205,7 +222,7 @@ class ParticipantCard extends React.Component {
         )}
         <CardContent>
           <Typography component="p" gutterBottom>
-            {post.text}
+            <pre>{post.text}</pre>
           </Typography>
           <Typography component="p" gutterBottom variant="caption">
             {this.generateLikeMessage(
@@ -230,6 +247,13 @@ class ParticipantCard extends React.Component {
               }}
             />
           )}
+          {post.url && <Button
+                  onClick={() => {
+                    this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`)
+                  }}
+                >
+                  <i className="fas fa-download mx-1" />
+          </Button> }
         </CardActions>
         <div className={classes.root}>
           {ongoing && (

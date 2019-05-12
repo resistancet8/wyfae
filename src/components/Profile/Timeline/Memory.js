@@ -69,6 +69,24 @@ class Memory extends Component {
     });
   };
 
+  handleDownload(url) {
+    fetch(url, {
+      headers: {
+        "Accept": "application/octet-stream"
+      }
+    })
+      .then(e => e.blob())
+      .then(s => {
+        var tag = document.createElement('a');
+        tag.href = URL.createObjectURL(s);
+
+        tag.download = "image.jpg";
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      })
+  }
+
   render() {
     const { classes, memories } = this.props;
     const { expanded } = this.state;
@@ -118,6 +136,17 @@ class Memory extends Component {
               >
                 Read More
               </Button>
+              {memory.url &&
+                <Button
+                  className="ml-2"
+                  variant="outlined"
+                  onClick={() => {
+                    this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${memory.url}`)
+                  }}
+                >
+                  Download
+                </Button>
+              }
             </div>
             <small className="font-italic font-weight-bold">
               By: {memory.author}
