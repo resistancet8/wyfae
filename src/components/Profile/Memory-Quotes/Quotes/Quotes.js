@@ -140,7 +140,6 @@ Quotes.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  console.log("***", ownProps)
   return {
     quotes: state.quotes.quotes,
     quotess: ownProps.quotess

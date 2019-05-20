@@ -11,6 +11,7 @@ import classnames from "classnames";
 import $ from "jquery";
 import "./text.js";
 let fontsize = 20;
+let textLimit = 100;
 
 function imagedraw(ctx, img, x, y, w, h, offsetX, offsetY) {
   if (arguments.length === 2) {
@@ -72,6 +73,20 @@ class Form extends Component {
     this.previewImage = this.previewImage.bind(this);
     this.colorChange = this.colorChange.bind(this);
     this.handleFontSize = this.handleFontSize.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+
+  handleTextChange(e) {
+    let text = e.target.value;
+    if(text.trim().split(/\s+/).length > textLimit) {
+      this.setState({
+        forceTurnOffImage: true
+      })
+    } else {
+      this.setState({
+        forceTurnOffImage: false
+      })
+    }
   }
 
   toggle() {
@@ -90,7 +105,8 @@ class Form extends Component {
     modal: 1,
     previewUrl: "",
     color: "#333333",
-    imageVisibility: true,
+    imageVisibility: false,
+    forceTurnOffImage: false,
     previewed: false
   };
 
@@ -307,6 +323,7 @@ class Form extends Component {
               component="textarea"
               name="text"
               id="text-body"
+              onChange={this.handleTextChange}
               cols="30"
               rows="7"
               // onChange={this.previewImage}
@@ -318,12 +335,17 @@ class Form extends Component {
             {this.state.errors.text && (
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
+            {this.state.forceTurnOffImage && <div class="text-right">
+              <small className="text-muted red">You can only post as text</small>
+            </div>}
+            
             <div className="show-img-holder mt-5"> 
               <label>Show default background image:</label>
               <div className="custom-input-checkbox d-inline">
                 <input
                   type="checkbox"
                   id="switch-show-bg"
+                  disabled={this.state.forceTurnOffImage}
                   checked={this.state.imageVisibility}
                   onChange={e => this.handleShowImage(e)}
                 />
@@ -331,7 +353,7 @@ class Form extends Component {
               </div>
               <label>{this.state.imageVisibility ? "On": "Off"}</label>
             </div>
-            {this.state.imageVisibility && <div> <div className="select-image-holder my-3">
+            {!this.state.forceTurnOffImage && this.state.imageVisibility && <div> <div className="select-image-holder my-3">
               <label>Select background image:</label>
               <input
                 type="file"

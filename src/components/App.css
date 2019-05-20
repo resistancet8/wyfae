@@ -141,3 +141,7 @@ h1#sub-title {
   }
 
 }
+
+.text-muted.red {
+  color : red !important;
+}
