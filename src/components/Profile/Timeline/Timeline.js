@@ -221,9 +221,7 @@ class Timeline extends Component {
               {this.state.currentPost.post_title}
             </h2>
           </ModalHeader>
-          <ModalBody>{
-            console.log(this.state.currentPost, 'current')
-          }
+          <ModalBody>
             {this.state.currentPost.shared_type == 'compete' ? this.state.currentPost.participants[0].text: this.state.currentPost.text}
             <br />
             <p className="text-muted font-weight-bold mt-3">

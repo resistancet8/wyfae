@@ -8,6 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import axios from "axios";
 import { connect } from "react-redux";
 import { reset } from "redux-form";
+import Canvas from './Canvas'
 
 function TabContainer(props) {
   return (

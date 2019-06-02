@@ -65,8 +65,6 @@ class NavbarComponent extends Component {
     const { first_name } = this.props.user;
     const { url: profile_img } = this.props.user;
 
-    console.log("localtion", window.location);
-
     let Results =
       this.state.results.length > 0 ? (
         this.state.results.map(o => {

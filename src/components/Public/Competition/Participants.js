@@ -161,8 +161,6 @@ class Participants extends Component {
 
     let sharable_url = window.location.host + `/shared/` + this.props.data._id;
 
-    console.log("lnk", this.props);
-
     return (
       <div
         style={{
