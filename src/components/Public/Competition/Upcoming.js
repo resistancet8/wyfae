@@ -111,7 +111,7 @@ class Upcoming extends Component {
       <div {...this.props}>
         <div>
           <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
-          <span className="font-weight-bold text-muted title-comp">Upcoming Competitions</span>
+          <span className="font-weight-bold text-muted title-comp">Join a Competition</span>
         </div>
         {upcomingData}
         {upcoming.length != 0 && (

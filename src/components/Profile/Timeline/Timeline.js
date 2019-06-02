@@ -179,7 +179,7 @@ class Timeline extends Component {
             <div>
               {memory && memory.length ? (
                 <div>
-                  <Memory
+                  <Memory 
                     memories={memory}
                     modalToggle={this.toggle}
                     deletePost={this.deletePost.bind(this)}

@@ -68,7 +68,7 @@ class Ongoing extends Component {
       <div {...this.props}>
         <div>
           <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
-          <span className="font-weight-bold text-muted title-comp">Ongoing Competitions</span>
+          <span className="font-weight-bold text-muted title-comp">Vote your favorite author</span>
         </div>
         {ongoingData}
         {ongoing.length != 0 && (

@@ -72,7 +72,7 @@ class Completed extends Component {
       <div {...this.props}>
         <div>
           <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
-          <span className="font-weight-bold text-muted title-comp">Completed Competitions</span>
+          <span className="font-weight-bold text-muted title-comp">Winners</span>
         </div>
         {CompletedData}
         {completed.length != 0 && (
