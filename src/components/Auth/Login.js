@@ -136,7 +136,7 @@ class Login extends Component {
                 <div className="signup">
                   <h1 className="font-weight-bold">New Here?</h1>
                   <p>You can create a new account and start posting your experiences.</p>
-                  <Button>Sign up</Button>
+                  <NavLink className="btn" to="/register">Sign up</NavLink>
                 </div>
               </div>
             </Col>

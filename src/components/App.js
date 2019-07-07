@@ -16,6 +16,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import FollowingRoute from "./Following/FollowingRoute";
+import FollowersRoute from "./Followers/FollowersRoute";
 import SharedComp from "./Public/Competition/SharedComp";
 import ScrollToTop from "react-scroll-up";
 import Privacy from "./Public/Privacy";
@@ -127,6 +128,13 @@ class App extends Component {
             path="/following"
             render={() => {
               if (isAuth) return <FollowingRoute />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+          <Route
+            path="/followers"
+            render={() => {
+              if (isAuth) return <FollowersRoute />;
               else return <Redirect to="/login" />;
             }}
           />
