@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import Spinner from "./../Loader/Spinner";
 import Login_BG from './../../assets/img/login_bg.png'
 import BrandLogo from './../../assets/img/login/logo_new.png';
 import MetaTags from 'react-meta-tags';
+import { Button, Row, Col, Container, InputGroup, InputGroupAddon} from 'reactstrap';
+import Brand from "./../../assets/img/wyfae_main logo.svg";
+import './Auth.css';
 
 class Login extends Component {
   constructor(props) {
@@ -52,71 +54,94 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div id="login_holder_self" style={{backgroundImage: `url(${Login_BG})`}}>
-        <div class="auth-holder-login">
-            <MetaTags>
-              <meta name="title" content="Create or Login to your Wyfae account." />
-              <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions."/>
-              <meta name="description" content="Create an account or log into Wyfae. Hi, we’re WYFAE - the magical world of this planet’s oldest currency – WORDS. Write your feelings and experiences and help us in creating a social network where everyone communicates by writing quotes, poems, stories letters, gazal, nazm."/>
-            </MetaTags>
-            <div>
-              <img src={BrandLogo} alt="" class="brand-logo img-fluid"/>
-              <h1 id="sub-title">Write your feelings and experiences</h1>
-              <h1 id="login-text" className="mb-4">Login</h1>
-              <form onSubmit={handleSubmit(this.getData)}>
-                {errors.msg && (
-                  <div className="alert alert-danger"> {errors.msg} </div>
-                )}
-                <div className="form-group mt-3">
-                  <Field
-                    component="input"
-                    type="text"
-                    name="username"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.email
-                    })}
-                    id="username"
-                    placeholder="Username"
-                    required
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback"> {errors.email} </div>
-                  )}
+      <div class="login-page-holder">
+        <Container style={{ minWidth: "90% !important" }}>
+          <Row>
+            <Col md="7" style={{ background: "white" }}>
+              <div className="left-side">
+                <div className="brand-holder">
+                  <img src={Brand} alt="Wyfae Brand" style={{width: '140px'}} />
                 </div>
-                <div className="form-group">
-                  <Field
-                    component="input"
-                    type="password"
-                    name="password"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.password
-                    })}
-                    id="password"
-                    placeholder="Enter Password"
-                    required
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback"> {errors.password} </div>
-                  )}
+                <div className="signin-form">
+                  <h1 className="font-weight-bold">Sign in to Wyfae</h1>
+                  <form onSubmit={handleSubmit(this.getData)}>
+                    {errors.msg && (
+                      <div className="alert alert-danger"> {errors.msg} </div>
+                    )}
+                    <div className="form-group">
+                    <InputGroup className="ip-group">
+                      <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+                      <Field
+                        component="input"
+                        type="text"
+                        name="username"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.email
+                        })}
+                        id="username"
+                        placeholder="Username"
+                        required
+                      />
+                      {errors.email && (
+                        <div className="invalid-feedback"> {errors.email} </div>
+                      )}
+                    </InputGroup>
+                      
+                    </div>
+                    <div className="form-group">
+                    <InputGroup className="ip-group">
+                      <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+                      <Field
+                        component="input"
+                        type="password"
+                        name="password"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.password
+                        })}
+                        id="password"
+                        placeholder="Enter Password"
+                        required
+                      />
+                      {errors.password && (
+                        <div className="invalid-feedback"> {errors.password} </div>
+                      )}
+                    </InputGroup>
+                    </div>
+                    <div className="text-right pt-2" style={{paddingRight: '100px'}}>
+                      <NavLink to="forgot" style={{color: "#4881EC", fontSize: '12px'}}>
+                        Forgot password?
+                      </NavLink>
+                    </div>
+                    <div className="loader-holder">
+                      <Button
+                        type="submit"
+                        disabled={this.state.loading}
+                      >
+                        {this.state.loading ? <Spinner /> : "Login"}
+                      </Button>
+                    </div>
+                  </form>
                 </div>
-                <div className="loader-holder">
-                  <Button
-                      variant="outlined"
-                      type="submit"
-                      disabled={this.state.loading}
-                    >
-                      {this.state.loading ? <Spinner /> : "Login"}
-                  </Button>
+              </div>
+            </Col>
+            <Col md="5" style={{ background: "#4881EC" }}>
+              <div className="right-side">
+                <div className="navigation">
+                  <ul>
+                    <li><NavLink to="/trending">Trending</NavLink></li>
+                    <li><NavLink to="/competetions">Competetions</NavLink></li>
+                    <li><NavLink to="#">Trending Weekly</NavLink></li>
+                  </ul>
                 </div>
-                <div className="mt-2">
-                  <NavLink to="forgot" className="text-dark">
-                    forgot password?
-                  </NavLink>
+                <div className="signup">
+                  <h1 className="font-weight-bold">New Here?</h1>
+                  <p>You can create a new account and start posting your experiences.</p>
+                  <Button>Sign up</Button>
                 </div>
-              </form>
-              <p className="copy-right mt-5" style={{color: "#81f2b4"}}>&copy; All rights reserved 2019 | Powered by <a href="https://www.codingzap.com" target="_blank" style={{color: "#81f2b4"}} >Codingzap</a> </p>
-            </div>
-        </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
