@@ -1,0 +1,121 @@
+.login-page-holder {
+    height: 100vh;
+}
+
+.login-page-holder .brand-holder {
+    position: relative;
+    left: -75px;
+    top: -20px;
+}
+
+.login-page-holder .container, .login-page-holder .row {
+    height: 100%;
+}
+
+.login-page-holder .right-side, .login-page-holder .left-side{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.login-page-holder .left-side {
+    color: black;
+}
+
+.login-page-holder .navigation, .login-page-holder .brand-holder {
+    padding: 100px 20px 60px 30px;
+}
+
+.login-page-holder .navigation ul, .login-page-holder .navigation li, .login-page-holder .navigation a{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login-page-holder .navigation ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-page-holder .navigation li {
+    margin-right: 20px;
+}
+
+.login-page-holder .signup, .login-page-holder .signin-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    height: 50%;
+}
+
+.login-page-holder .signin-form h1{
+    margin-bottom: 40px;
+    letter-spacing: .6px;
+}
+
+.login-page-holder .signup h1 {
+    letter-spacing: .6px;
+    margin-bottom: 30px;
+}
+
+.login-page-holder .signup p {
+    margin-bottom: 50px;
+}
+
+.login-page-holder .signup button {
+    width: 180px;
+    background: #fff;
+    height: 60px;
+    font-weight: bold;
+    border-radius: 100px;
+    color: #4881EC;
+}
+
+.login-page-holder .left-side form {
+    width: 100%;
+}
+
+.login-page-holder .left-side .form-group {
+    margin-bottom: 0;
+}
+
+.login-page-holder .ip-group {
+    padding: 30px;
+    width: 70%;
+    margin: 0 auto;
+    background: #eee;
+    border: 1px solid #0001;
+}
+
+.login-page-holder .form-group:nth-child(2) .ip-group, .login-page-holder .form-group:nth-child(2) .input-group-text, .login-page-holder .form-group:nth-child(2) input{
+    background: #fff !important;
+}
+
+.login-page-holder .input-group-text {
+    font-size: 20px;
+}
+
+.login-page-holder .input-group-text, .login-page-holder .left-side input, .login-page-holder .left-side input:active, .login-page-holder .left-side input:focus{
+    border: none !important;
+}
+
+.login-page-holder .left-side input {
+    padding: 10px 6px;
+    font-size: 18px;
+}
+
+.login-page-holder .loader-holder button {
+    width: 180px;
+    background: #4881EC;
+    height: 60px;
+    font-weight: bold;
+    border-radius: 100px;
+    color: #fff;
+    margin-top: 30px;
+}
