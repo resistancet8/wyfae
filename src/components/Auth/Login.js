@@ -129,8 +129,8 @@ class Login extends Component {
                 <div className="navigation">
                   <ul>
                     <li><NavLink to="/trending">Trending</NavLink></li>
-                    <li><NavLink to="/competetions">Competetions</NavLink></li>
-                    <li><NavLink to="#">Trending Weekly</NavLink></li>
+                    <li><NavLink to="/trending">Competetions</NavLink></li>
+                    <li><NavLink to="/trending">Trending Weekly</NavLink></li>
                   </ul>
                 </div>
                 <div className="signup">

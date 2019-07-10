@@ -74,6 +74,9 @@
     height: 60px;
     font-weight: bold;
     border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #4881EC;
 }
 
