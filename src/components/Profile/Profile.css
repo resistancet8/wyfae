@@ -336,9 +336,37 @@ img.img-fluid + label {
 .profile-pic {
   max-height: 200px;
 }
+
+.xyz.modal-dialog {
+  width: 50%;
+  max-width: 100%;
+}
+
+.preview-container {
+  height: 500px;
+}
+
+.canvas-container {
+  width: 100% !important;
+}
+
+.canvas-container canvas {
+  width: 100% !important;
+}
+
+.preview-container {
+  height: 100%;
+}
+
 /* mobile screens */
 
 @media screen and (max-width: 800px) {
+
+  .xyz.modal-dialog {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .border-top-overridden {
     border-top-width: 0.6em !important;
     border-top-color: #eee !important;
@@ -367,6 +395,8 @@ button#plus, button#minus {
   padding: 10px 20px;
   font-size: 2em;
 }
+
+
 /* desktop */
 
 @media screen and (min-width: 800px) {

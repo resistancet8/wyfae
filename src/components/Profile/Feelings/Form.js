@@ -178,7 +178,7 @@ class Form extends Component {
         </button>
           <div className="data-holder">
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog mw-100 w-50" role="document">
+            <div class="modal-dialog xyz" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h3 class="modal-title font-weight-normal" id="exampleModalLabel">Share Your Feelings/ Experience</h3>
@@ -187,8 +187,8 @@ class Form extends Component {
                   </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row" style={{padding: '10px', height: '500px'}}>
-                      <div class="col-5" style={{background: '#fefefe'}}>
+                    <div class="row preview-container" style={{padding: '10px' }}>
+                      <div class="col-lg-5 col-md-12" style={{background: '#fefefe'}}>
                         <h5>Controls:</h5>
                         <div className="controls-holder" style={{ padding: '10px 20px'}}>
                           <form>
@@ -249,7 +249,7 @@ class Form extends Component {
                           </form>
                         </div>
                       </div>
-                      <div class="col" style={{background: '#f1f1f1', padding: '10px'}}>
+                      <div class="col-lg-7 col-md-12" style={{background: '#f1f1f1', padding: '10px'}}>
                         {this.state.text.trim().length > 0 && 
                           <Canvas 
                             text={this.state.text} 
