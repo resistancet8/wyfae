@@ -139,6 +139,22 @@ h1#sub-title {
     max-width: 100% !important;
   }
 
+  .login-page-holder .navigation, .login-page-holder .brand-holder {
+    padding: 50px !important;
+    margin-bottom: 40px !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  .login-page-holder .ip-group {
+    padding: 20px !important;
+    width: 95% !important;
+  }
+  
+  .login-page-holder .signin-form h1 {
+    font-size: 1.6em;
+  }
+
 }
 
 .text-muted.red {

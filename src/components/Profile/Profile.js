@@ -12,6 +12,7 @@ import Quotes from "./Memory-Quotes/Quotes/Quotes";
 import Timeline from "./Timeline/Timeline";
 import Button from "@material-ui/core/Button";
 import Following from "./Following";
+import Followers from "./Followers";
 import axios from "axios";
 import SliderMemory from "./SliderMemory";
 
@@ -110,6 +111,15 @@ class Profile extends Component {
                                   <br /> Following{" "}
                                 </Link>
                               </Button>
+                              <Button color="default">
+                                <Link to="/profile/data/followers">
+                                  {" "}
+                                  {user.following
+                                    ? user.following.length
+                                    : 0}{" "}
+                                  <br /> Followers{" "}
+                                </Link>
+                              </Button>
                             </div>
                           </User>
                         </div>
@@ -121,6 +131,13 @@ class Profile extends Component {
                     path="/profile/data/following"
                     render={() => {
                       return <Following />;
+                    }}
+                  />
+
+                  <Route
+                    path="/profile/data/followers"
+                    render={() => {
+                      return <Followers />;
                     }}
                   />
 
