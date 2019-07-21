@@ -1,0 +1,33 @@
+.stickybar-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    height: 50px;
+}
+
+.stickybar-wrapper ul, .stickybar-wrapper li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.stickybar-wrapper ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.stickybar-wrapper ul li {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stickybar-wrapper li img {
+    width: 20px;
+}

@@ -142,7 +142,6 @@ class NavbarComponent extends Component {
                     <img src={JournalCircle} alt="" />
                   </IconButton>
                 </NavLink>
-
                 <NavLink className="p-2 text-dark" to="/trending">
                   <IconButton color="default" className="icon-holder2">
                     <img src={TrendingFeel} alt="" />
