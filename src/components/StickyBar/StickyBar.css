@@ -5,6 +5,8 @@
     right: 0;
     background: #fff;
     height: 50px;
+    display: none;
+    z-index: 10000;
 }
 
 .stickybar-wrapper ul, .stickybar-wrapper li {
@@ -30,4 +32,10 @@
 
 .stickybar-wrapper li img {
     width: 20px;
+}
+
+@media screen and (max-width: 920px) {
+    .stickybar-wrapper {
+        display: block;
+    }
 }

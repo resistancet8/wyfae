@@ -15,6 +15,7 @@ import Upcoming from "./Competition/Upcoming";
 import Button from "@material-ui/core/Button";
 import "./Public.css";
 import BackgroundDots from './../../assets/img/sidecircle.svg';
+import StickyBar from './../StickyBar/StickyBar';
 
 const styles = theme => ({
   root: {
@@ -129,6 +130,7 @@ class Public extends Component {
             <Route exact path="/trending/upcoming" component={Upcoming} />
             <Route exact path="/trending/completed" component={Completed} />
             <Route exact path="/trending/ongoing" component={Ongoing} />
+            <StickyBar />
           </Grid>
           <Grid item xs={12} md={3}>
             <div className="trend-links sticky-top">

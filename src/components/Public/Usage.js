@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import StickyBar from './../StickyBar/StickyBar';
 
 class Usage extends Component {
   render() {
@@ -78,6 +79,7 @@ class Usage extends Component {
         <h4>Grievances</h4>
         <p>If you wish to register a complaint regarding X, you may do so by sending an email to supportyou@wyfae.com. You will be kept informed of the progress we make in redressing your complaint and/ or the reasons for delay, if any, in such redressal.</p>
         <p>Email Id: supportyou@wyfae.com</p>
+        <StickyBar />
       </div>
     );
   }

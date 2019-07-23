@@ -17,7 +17,7 @@ class Main extends Component {
         .map(post => {
           if (
             post.post_type !== "memory_book" &&
-            post.art_type.toLowerCase() === this.props.posts_tr &&
+            (post.art_type || "").toLowerCase() === this.props.posts_tr &&
             post.shared_type !== "compete" &&
             post.shared_type !== "save"
           ) {

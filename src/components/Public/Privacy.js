@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import StickyBar from './../StickyBar/StickyBar';
 
 class Privacy extends Component {
   render() {
@@ -117,6 +118,7 @@ class Privacy extends Component {
             By email: supportyou@wyfae.com
           </li>
         </ul>
+        <StickyBar />
       </div>
     );
   }
