@@ -340,6 +340,7 @@ img.img-fluid + label {
 .xyz.modal-dialog {
   width: 50%;
   max-width: 100%;
+  margin: 0 auto !important;
 }
 
 .preview-container {
@@ -365,6 +366,7 @@ img.img-fluid + label {
   .xyz.modal-dialog {
     width: 100%;
     max-width: 100%;
+    margin: 0 auto !important;
   }
 
   .border-top-overridden {
