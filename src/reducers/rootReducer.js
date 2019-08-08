@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth_reducer";
+import adminAuthReducer from "./admin_reducer";
 import errorsReducer from "./errors_reducer";
 import userReducer from "./users_reducer";
 import todosReducer from "./todos_reducer";
@@ -24,5 +25,6 @@ export default combineReducers({
   general: generalReducer,
   arts: artReducer,
   memory: memoryReducer,
-  home: homepageReducer
+  home: homepageReducer,
+  admin: adminAuthReducer
 });

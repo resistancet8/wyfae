@@ -65,6 +65,36 @@ export function loginUser(userData, history) {
   };
 }
 
+export function loginAdminUser(userData, history) {
+  return function(dispatch) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user_auth/login`, userData)
+      .then(response => {
+        const { token } = response.data;
+        dispatch({ type: "GET_ERRORS", payload: {} });
+
+        setAuthHeader(token);
+
+        localStorage.setItem("aToken", token);
+        const decodedUser = token_decoder(token);
+
+        dispatch({
+          type: "SET_ADMIN_USER",
+          payload: decodedUser
+        });
+        
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          dispatch({ type: "GET_ERRORS", payload: err.response.data });
+          dispatch({ type: "SHOW_TOAST", payload: 'Admin: ' + err.response.data.msg });
+        } else {
+          dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
+        }
+      });
+  };
+}
+
 export function logoutUser(showToast) {
   return dispatch => {
     localStorage.removeItem("jToken");
