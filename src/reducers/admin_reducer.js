@@ -3,7 +3,7 @@ import isEmpty from "./../helpers/isEmpty";
 const initialState = {
   isAdminAuthenticated: false,
   adminUser: {},
-  token: localStorage.getItem("aToken")
+  admin_token: localStorage.getItem("admin_token") || ""
 };
 
 export default function(state = initialState, { type, payload }) {

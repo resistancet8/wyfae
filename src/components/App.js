@@ -23,6 +23,7 @@ import Privacy from "./Public/Privacy";
 import Usage from "./Public/Usage";
 import MetaTags from 'react-meta-tags';
 import AdminRoot from './Admin/AdminRoot';
+import AdminDasboard from './Admin/DashboardLayout/DashboardLayout';
 let dontIncludeHeader = [/login/, /register/, /admin*/];
 
 class App extends Component {
@@ -75,7 +76,8 @@ class App extends Component {
           <meta name="description" content="A social network where everyone communicates by writing their true emotions and thoughts. Write your quotes, poems, stories and letters . Create your memory book and Share your post, participate in the vote based competitions.Collect the famous quotes, inspirational quotes, motivational quotes, romantic quotes, book quotes, writer’s quotes, funny quotes and all other quotes that lift you. Write your goals, maintain your To do list and maintain a completely private online journal."/>
         </MetaTags>
         { showHeader && <Navbar /> }
-        <Route path="/admin" component={AdminRoot} />
+        <Route exact path="/admin" component={AdminRoot} />
+        <Route path="/admin/dashboard" component={AdminDasboard} />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/usage" exact component={Usage} />
         <Route

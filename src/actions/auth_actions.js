@@ -75,13 +75,15 @@ export function loginAdminUser(userData, history) {
 
         setAuthHeader(token);
 
-        localStorage.setItem("aToken", token);
+        localStorage.setItem("admin_token", token);
         const decodedUser = token_decoder(token);
 
         dispatch({
           type: "SET_ADMIN_USER",
           payload: decodedUser
         });
+
+        history.push("/admin/dashboard");
         
       })
       .catch(err => {
