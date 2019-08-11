@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import Spinner from "../../Loader/Spinner";
+import Spinner from "../../Spinner/Spinner";
 import Button from "@material-ui/core/Button";
 import "./Update-profile.css";
 import { updateUserProfile } from "../../../actions/user_actions";

@@ -77,7 +77,7 @@ class App extends Component {
         </MetaTags>
         { showHeader && <Navbar /> }
         <Route exact path="/admin" component={AdminRoot} />
-        <Route path="/admin/dashboard" component={AdminDasboard} />
+        <Route zpath="/admin/dashboard" component={AdminDasboard} />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/usage" exact component={Usage} />
         <Route

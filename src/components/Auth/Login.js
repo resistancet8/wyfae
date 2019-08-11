@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { loginUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import Spinner from "./../Loader/Spinner";
+import Spinner from "../Spinner/Spinner";
 import { Button, Row, Col, Container, InputGroup, InputGroupAddon} from 'reactstrap';
 import Brand from "./../../assets/img/wyfae_main logo.svg";
 import './Auth.css';

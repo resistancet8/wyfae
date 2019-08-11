@@ -11,6 +11,8 @@ import AdminUsersView from './../AdminUsers/AdminUsersView';
 import AdminUsersEdit from './../AdminUsers/AdminUsersEdit';
 import AdminSettings from './../AdminSettings/AdminSettings';
 
+import AdminOverview from './../AdminOverview/AdminOverview';
+
 class Dashboard extends Component {
   constructor(props) {
     super();
@@ -19,6 +21,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Route path="/admin/dashboard/overview" component={AdminOverview} />
+
         <Route path="/admin/dashboard/posts" component={AdminPosts} />
         <Route path="/admin/dashboard/competitions" component={AdminCompetitions} />
         <Route path="/admin/dashboard/reports" component={AdminReports} />

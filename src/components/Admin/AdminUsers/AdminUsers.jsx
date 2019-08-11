@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Popover, PopoverHeader, PopoverBody, Button} from 'reactstrap';
+import Loader from './../../Loader';
+
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
@@ -92,7 +94,7 @@ class AdminUsers extends Component {
                 <th></th>
                 <td></td>
                 <td></td>
-                <td><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></td>
+                <td><Loader /></td>
                 <td></td>
                 <td></td>
                 <td>

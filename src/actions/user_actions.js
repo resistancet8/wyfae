@@ -72,6 +72,9 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
     })
     .catch(err => {
       if (err.response && err.response.data) {
+        if(err.response.data.status == '15') {
+          localStorage.removeItem("jToken");
+        }
         dispatch({
           type: "SHOW_TOAST",
           payload: err.response.data.msg + " Error, Please login again."

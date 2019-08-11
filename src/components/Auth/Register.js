@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { registerUser } from "./../../actions/auth_actions";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import Spinner from "./../Loader/Spinner";
+import Spinner from "../Spinner/Spinner";
 import Button from "@material-ui/core/Button";
 import Login_BG from './../../assets/img/login_bg.png'
 import BrandLogo from './../../assets/img/login/logo_new.png'
