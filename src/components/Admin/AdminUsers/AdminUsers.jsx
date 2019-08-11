@@ -1,107 +1,147 @@
 import React, { Component } from 'react'
-import { Table, Popover, PopoverHeader, PopoverBody, Button} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import Loader from './../../Loader';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class AdminUsers extends Component {
 
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      popoverOpen: false,
-  };
+      users: [],
+      inview: [],
+      hasMore: true,
+      showLoading: false
+    };
+
+    this.deleteUser = this.deleteUser.bind(this);
+    this.loadFunc = this.loadFunc.bind(this);
   }
 
-  componentDidMount() {
+  loadFunc() {
     let axiosConfig = {
       headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          "Authorization": this.props.admin.admin_token || "",
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": this.props.admin.admin_token || "",
       }
     };
 
     axios
-    .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get-users`, {skip_count: 0}, axiosConfig)
-    .then(response => {
-      let data = response.data.all_content || [];
-      
-      this.setState({
-        users: data
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get-users`, { skip_count: this.state.inview.length, limit_count: 10 }, axiosConfig)
+      .then(response => {
+        this.setState((prev) => {
+          return {
+            inview: [...this.state.inview, ...response.data.all_content],
+            hasMore: response.data.all_content.length <= 0 ? false : true
+          }
+        })
+      })
+      .catch(err => {
       });
-
-    })
-    .catch(err => {
-      // if (err.response && err.response.data) {
-      //   dispatch({ type: "GET_ERRORS", payload: err.response.data });
-      //   dispatch({ type: "SHOW_TOAST", payload: 'Admin: ' + err.response.data.msg });
-      // } else {
-      //   dispatch({ type: "SHOW_TOAST", payload: "Server Error" });
-      // }
-    });
   }
 
-  toggle() {
+  deleteUser(username) {
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": this.props.admin.admin_token || "",
+      }
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/delete_user`, { username }, axiosConfig)
+      .then(response => {
+        alert("Deleted " + username);
+        window.location.reload();
+      })
+      .catch(err => {
+        alert("error deleting user: " + username)
+      });
+  }
+
+  componentDidMount() {
+
     this.setState({
-      popoverOpen: !this.state.popoverOpen
+      showLoading: true
     });
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": this.props.admin.admin_token || "",
+      }
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get-users`, { skip_count: 0,  limit_count: 10 }, axiosConfig)
+      .then(response => {
+        let data = response.data.all_content || [];
+        this.setState({
+          inview: [...data],
+          showLoading: data.length == 0 ? false: true
+        });
+      })
+      .catch(err => {
+      });
   }
 
   render() {
+    let items = this.state.inview.map((user, index) => {
+      return <Row className="my-4 border-bottom">
+        <Col md="1">{index + 1}</Col>
+        <Col md="2">{user.fullname}</Col>
+        <Col md="2">{user.email}</Col>
+        <Col md="2">{user.memory_book_privacy}</Col>
+        <Col md="2">{user.total_followers}</Col>
+        <Col md="2"><Link to={`/profile/${user._id}`}>@{user._id}</Link></Col>
+        <Col md="1">
+          <Link to={`/admin/dashboard/users/view/${user._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
+          <button title="delete" onClick={() => {
+            let confirm_delete = window.confirm("Sure you want to delete?");
+            if (confirm_delete) {
+              this.deleteUser(user._id);
+            }
+          }} type="button" class="btn" id="Popover-1"><i class="fa fa-trash"></i></button>
+        </Col>
+      </Row>
+    });
+
+
     return (
-      <div>
-        <Table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>M/B Privacy</th>
-              <th>Followers</th>
-              <th>Username</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.users && this.state.users.length > 0 ?
-            this.state.users.map((user, index) => {
-              return <tr>
-                <th scope="row">{index+1}</th>
-                <td>{user.fullname}</td>
-                <td>{user.email}</td>
-                <td>{user.memory_book_privacy}</td>
-                <td>{user.total_followers}</td>
-                <td><Link to={`/profile/${user._id}`}>@{user._id}</Link></td>
-                <td>
-                  <Link to={`/admin/dashboard/users/view/${user._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
-                  <Link to={`/admin/dashboard/users/edit/${user._id}`}><button title="edit" class="btn"><i class="fa fa-edit"></i></button></Link>
-                  <button title="delete"  type="button" class="btn" id="Popover-1"><i class="fa fa-trash"></i></button>
-                  <Button id="Popover1" type="button">
-          Launch Popover
-        </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverHeader>Popover Title</PopoverHeader>
-          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
-        </Popover>
-                </td>
-              </tr>
-            }) :
-              <tr>
-                <th></th>
-                <td></td>
-                <td></td>
-                <td><Loader /></td>
-                <td></td>
-                <td></td>
-                <td>
-                </td>
-              </tr>}
-          </tbody>
-        </Table>
+      <div className="pr-2">
+        <h2 className="my-1">List of Users</h2>
+        <Row className="border py-3">
+          <Col md="1"> <strong>#</strong></Col>
+          <Col md="2"> <strong>Name</strong></Col>
+          <Col md="2"> <strong>Email</strong></Col>
+          <Col md="2"> <strong>M/B Privacy</strong></Col>
+          <Col md="2"> <strong>Followers</strong></Col>
+          <Col md="2"> <strong>Username</strong></Col>
+          <Col md="1"></Col>
+        </Row>
+        {this.state.inview && this.state.inview.length > 0 ?
+          <div style={{ height: "90vh", overflowX: "hidden", overflowY: "auto" }}>
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadFunc}
+              hasMore={this.state.hasMore}
+              useWindow={false}
+              threshold={10}
+              loader={<div className="text-center py-2"> <Loader /></div>}
+            >
+              {items}
+            </InfiniteScroll>
+          </div> :
+          <div>
+            {this.state.showLoading &&<div className="text-center py-2"> <Loader /></div>}
+            {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2"><strong>No users to show.</strong></div>}
+          </div>
+        }
       </div>
     )
   }
@@ -113,4 +153,4 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps)(AdminUsers);
+export default withRouter(connect(mapStateToProps)(AdminUsers));

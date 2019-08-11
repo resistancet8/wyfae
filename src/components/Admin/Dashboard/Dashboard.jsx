@@ -8,7 +8,6 @@ import AdminCompetitions from './../AdminCompetitions/AdminCompetitions';
 import AdminReports from './../AdminReports/AdminReports';
 import AdminUsers from './../AdminUsers/AdminUsers';
 import AdminUsersView from './../AdminUsers/AdminUsersView';
-import AdminUsersEdit from './../AdminUsers/AdminUsersEdit';
 import AdminSettings from './../AdminSettings/AdminSettings';
 
 import AdminOverview from './../AdminOverview/AdminOverview';
@@ -29,7 +28,6 @@ class Dashboard extends Component {
 
         <Route exact path="/admin/dashboard/users" component={AdminUsers} />
         <Route exact path="/admin/dashboard/users/view/:user_id" component={AdminUsersView} />
-        <Route exact path="/admin/dashboard/users/edit/:user_id" component={AdminUsersEdit} />
 
         <Route path="/admin/dashboard/settings" component={AdminSettings} />
       </div>

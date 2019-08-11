@@ -76,6 +76,11 @@ export function loginAdminUser(userData, history) {
         setAuthHeader(token);
 
         localStorage.setItem("admin_token", token);
+        
+        if(localStorage.getItem('jToken')) {
+          localStorage.removeItem("jToken");
+        };
+
         const decodedUser = token_decoder(token);
 
         dispatch({

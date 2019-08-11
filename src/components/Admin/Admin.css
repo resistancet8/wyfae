@@ -7,6 +7,9 @@
   background: #aaa3 !important;
 }
 
+.row {
+}
+
 .lds-spinner {
   color: #000;
   display: inline-block;

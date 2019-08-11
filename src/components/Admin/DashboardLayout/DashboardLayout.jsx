@@ -13,7 +13,7 @@ class DashboardLayout extends Component {
   render() {
     return (
       <div className="p-2">
-        <Row>
+        <Row className="m-0">
           <Col lg="2">
             <Sidebar />
           </Col>
