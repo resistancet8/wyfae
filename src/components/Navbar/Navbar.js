@@ -132,11 +132,6 @@ class NavbarComponent extends Component {
                     <img src={FeelCircle} alt="" />
                   </IconButton>
                 </NavLink>
-                {/* <NavLink className="p-2 text-dark" to="/following">
-                  <IconButton color="default" className="icon-holder">
-                    <img src={FeelRequest} alt="" />
-                  </IconButton>
-                </NavLink> */}
                 <NavLink className="p-2 text-dark" to="/journal">
                   <IconButton color="default" className="icon-holder">
                     <img src={JournalCircle} alt="" />
@@ -160,10 +155,11 @@ class NavbarComponent extends Component {
                   open={Boolean(anchorEl)}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>
-                    <NavLink className="text-dark profile" to="/profile">
-                      {first_name}
-                    </NavLink>
+                  <MenuItem className="text-capitalize" onClick={() => {
+                    this.handleClose();
+                    this.props.history.push('/profile')
+                  }}>
+                    {first_name}
                   </MenuItem>
                   <MenuItem
                     onClick={() => {

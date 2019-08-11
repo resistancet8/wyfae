@@ -253,7 +253,7 @@ class PublicCard extends React.Component {
           )}
 
           <Typography component="p" gutterBottom variant="caption">
-            {post.user_liked.length ? post.user_liked.length : 0} Likes
+            {post.user_liked && post.user_liked.length ? post.user_liked.length : 0} Likes
           </Typography>
         </CardContent>
         <CardActions>
@@ -303,7 +303,7 @@ class PublicCard extends React.Component {
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>
-                Comments ({post.comments.length})
+                Comments ({post.comments && post.comments.length || 0})
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

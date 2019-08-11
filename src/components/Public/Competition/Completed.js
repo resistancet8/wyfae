@@ -1,30 +1,41 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Participants from "./Participants";
-import Button from "@material-ui/core/Button";
 import CompeteLogo from './../../../assets/img/startbadge.svg'
+import InfiniteScroll from 'react-infinite-scroller';
+import Loader from './../../Loader';
 
 class Completed extends Component {
-  state = {
-    finished: [],
-    length: 0,
-    show: 1
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inview: [],
+      hasMore: true,
+      showLoading: false
+    };
+
+    this.loadFunc = this.loadFunc.bind(this);
+  }
 
   componentDidMount() {
+
+    this.setState({
+      showLoading: true
+    });
+
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: 0,
-        compete_status: "finished"
+        compete_status: "finished",
+        limit_count: 10
       })
       .then(response => {
         let { finished } = response.data.all_content;
-        this.setState(state => {
-          return {
-            finished,
-            length: state.length + finished.length,
-            show: finished.length === 0 ? 0 : 1
-          };
+        this.setState({
+          inview: finished,
+          showLoading: finished.length == 0 ? false : true
         });
       })
       .catch(err => {
@@ -32,21 +43,21 @@ class Completed extends Component {
       });
   }
 
-  loadMore() {
+  loadFunc() {
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
-        skip_count: this.state.length,
-        compete_status: "finished"
+        compete_status: "finished",
+        limit_count: 10,
+        skip_count: this.state.inview.length
       })
       .then(response => {
         let { finished } = response.data.all_content;
-        this.setState(state => {
+        this.setState((prev) => {
           return {
-            finished: [...state.finished, ...finished],
-            length: state.length + finished.length,
-            show: finished.length === 0 ? 0 : 1
-          };
-        });
+            inview: [...this.state.inview, ...finished],
+            hasMore: finished.length <= 0 ? false : true
+          }
+        })
       })
       .catch(err => {
         console.log(err);
@@ -54,49 +65,37 @@ class Completed extends Component {
   }
 
   render() {
-    let completed = this.state.finished || [];
 
-    let CompletedData = completed.length ? (
-      completed.map(obj => {
-        return (
-          obj.post_type !== "memory_book" && (
-            <Participants data={obj} completed={1} comp="completed" />
-          )
-        );
-      })
-    ) : (
-      <div> No Competitions </div>
-    );
+    let items = [];
+    items = this.state.inview.map(post => {
+      return <Participants data={post} completed={1} comp="completed" />;
+    });
 
-    return (
-      <div {...this.props}>
+    return items.length > 0 ? (
+      <div style={{ padding: '1px' }}>
         <div>
           <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
           <span className="font-weight-bold text-muted title-comp">Winners</span>
         </div>
-        {CompletedData}
-        {completed.length != 0 && (
-          <div>
-            {this.state.show && completed.length ? (
-              <Button
-                onClick={() => {
-                  this.loadMore();
-                }}
-                style={{
-                  width: "100%"
-                }}
-              >
-                View more
-              </Button>
-            ) : (
-              <div style={{ textAlign: "center", margin: "10px 0" }}>
-                <span class="lead">No more competitions</span>
-              </div>
-            )}
-          </div>
-        )}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadFunc}
+          hasMore={this.state.hasMore}
+          useWindow={true}
+          threshold={10}
+          loader={<div className="text-center py-2"> <Loader /></div>}
+        >
+          {items}
+        </InfiniteScroll>
       </div>
-    );
+    ) : <div>
+        {this.state.showLoading && <div className="text-center py-2"> <Loader /></div>}
+        {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2">
+          <div className="container p-5">
+            <h1>No completed competitions yet.</h1>
+          </div>
+        </div>}
+      </div>
   }
 }
 

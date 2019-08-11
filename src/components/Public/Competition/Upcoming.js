@@ -1,55 +1,41 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { reset } from "redux-form";
-import Slider from "./Slider";
 import Participants from "./Participants";
-import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import CompeteLogo from './../../../assets/img/startbadge.svg'
-class Upcoming extends Component {
-  state = {
-    upcoming: [],
-    slider: 0,
-    part_id: null,
-    length: 0,
-    show: 1
-  };
+import InfiniteScroll from 'react-infinite-scroller';
+import Loader from './../../Loader';
 
-  loadMore() {
-    axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
-        skip_count: this.state.length,
-        compete_status: "upcoming"
-      })
-      .then(response => {
-        let { upcoming } = response.data.all_content;
-        this.setState(state => {
-          return {
-            upcoming: [...state.upcoming, ...upcoming],
-            length: state.length + upcoming.length,
-            show: upcoming.length === 0 ? 0 : 1
-          };
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+class Upcoming extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inview: [],
+      hasMore: true,
+      showLoading: false
+    };
+
+    this.loadFunc = this.loadFunc.bind(this);
   }
 
   componentDidMount() {
+
+    this.setState({
+      showLoading: true
+    });
+
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
         skip_count: 0,
-        compete_status: "upcoming"
+        compete_status: "upcoming",
+        limit_count: 10
       })
       .then(response => {
         let { upcoming } = response.data.all_content;
-        this.setState(state => {
-          return {
-            upcoming,
-            length: state.length + upcoming.length,
-            show: upcoming.length === 0 ? 0 : 1
-          };
+        this.setState({
+          inview: upcoming,
+          showLoading: upcoming.length == 0 ? false : true
         });
       })
       .catch(err => {
@@ -57,92 +43,60 @@ class Upcoming extends Component {
       });
   }
 
-  submitArt(formData) {
-    formData.append("post_id", this.state.part_id);
-    this.props.dispatch({ type: "SHOW_TOAST", payload: "Working..." });
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_ENDPOINT}` + "/user/join_contest",
-      data: formData,
-      config: { headers: { "Content-Type": "multipart/form-data" } }
-    })
+  loadFunc() {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_contest", {
+        compete_status: "upcoming",
+        limit_count: 10,
+        skip_count: this.state.inview.length
+      })
       .then(response => {
-        this.props.dispatch({ type: "SHOW_TOAST", payload: "Success" });
-        this.props.dispatch(reset("art-form"));
-        window.location.reload();
+        let { upcoming } = response.data.all_content;
+        this.setState((prev) => {
+          return {
+            inview: [...this.state.inview, ...upcoming],
+            hasMore: upcoming.length <= 0 ? false : true
+          }
+        })
       })
       .catch(err => {
-        this.props.dispatch({
-          type: "SHOW_TOAST",
-          payload: err.response.data ? err.response.data.msg : "Errored!"
-        });
+        console.log(err);
       });
   }
 
-  toggleDrawer = (state, part_id) => {
-    this.setState(prestate => {
-      return {
-        slider: state,
-        part_id
-      };
-    });
-  };
-
   render() {
-    let upcoming = this.state.upcoming || [];
 
-    let upcomingData = upcoming.length ? (
-      upcoming.map(obj => {
-        return (
-          <Participants
-            data={obj}
-            flag={true}
-            toggleDrawer={this.toggleDrawer}
-            upcoming={1}
-            comp="upcoming"
-          />
-        );
-      })
-    ) : (
-      <div> No Competitions </div>
-    );
+    let items = [];
+    items = this.state.inview.map(post => {
+      return <Participants data={post} upcoming={1} comp="upcoming" />;
+    });
 
-    return (
-      <div {...this.props}>
+    return items.length > 0 ? (
+      <div style={{ padding: '1px' }}>
         <div>
           <img style={{height: "55px"}} src={CompeteLogo} alt=""/>
-          <span className="font-weight-bold text-muted title-comp">Join a Competition</span>
+          <span className="font-weight-bold text-muted title-comp">Vote your favorite author</span>
         </div>
-        {upcomingData}
-        {upcoming.length != 0 && (
-          <div>
-            {this.state.show && upcoming.length ? (
-              <Button
-                onClick={() => {
-                  this.loadMore();
-                }}
-                style={{
-                  width: "100%"
-                }}
-              >
-                View more
-              </Button>
-            ) : (
-              <div style={{ textAlign: "center", margin: "10px 0" }}>
-                <span class="lead">No more competitions</span>
-              </div>
-            )}
-          </div>
-        )}
-        <Slider
-          slider={this.state.slider}
-          toggleDrawer={this.toggleDrawer}
-          part_id={this.state.part_id}
-          submitArt={this.submitArt.bind(this)}
-        />
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadFunc}
+          hasMore={this.state.hasMore}
+          useWindow={true}
+          threshold={10}
+          loader={<div className="text-center py-2"> <Loader /></div>}
+        >
+          {items}
+        </InfiniteScroll>
       </div>
-    );
+    ) : <div>
+        {this.state.showLoading && <div className="text-center py-2"> <Loader /></div>}
+        {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2">
+          <div className="container p-5">
+            <h1>No upcoming competitions yet.</h1>
+          </div>
+        </div>}
+      </div>
   }
 }
 
-export default connect()(Upcoming);
+export default Upcoming;

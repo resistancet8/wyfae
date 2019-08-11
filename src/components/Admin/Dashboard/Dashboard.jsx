@@ -20,16 +20,16 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Route path="/admin/dashboard/overview" component={AdminOverview} />
+        <Route exact path="/admin/dashboard/overview" component={AdminOverview} />
 
-        <Route path="/admin/dashboard/posts" component={AdminPosts} />
-        <Route path="/admin/dashboard/competitions" component={AdminCompetitions} />
-        <Route path="/admin/dashboard/reports" component={AdminReports} />
+        <Route exact path="/admin/dashboard/posts" component={AdminPosts} />
+        <Route exactpath="/admin/dashboard/competitions" component={AdminCompetitions} />
+        <Route exact path="/admin/dashboard/reports" component={AdminReports} />
 
         <Route exact path="/admin/dashboard/users" component={AdminUsers} />
         <Route exact path="/admin/dashboard/users/view/:user_id" component={AdminUsersView} />
 
-        <Route path="/admin/dashboard/settings" component={AdminSettings} />
+        <Route exact path="/admin/dashboard/settings" component={AdminSettings} />
       </div>
     )
   }

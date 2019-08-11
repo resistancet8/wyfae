@@ -2,41 +2,69 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Card from "./../Public/Main/Card";
+import InfiniteScroll from 'react-infinite-scroller';
+import Loader from './../Loader';
 
 class FollowersRoute extends Component {
-  state = {
-    posts: [],
-    followers: []
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inview: [],
+      hasMore: true,
+      followers: [],
+      showLoading: false
+    };
+
+    this.loadFunc = this.loadFunc.bind(this);
+  }
+
+  loadFunc() {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_circle_content`, { skip_count: this.state.inview.length, limit_count: 10 })
+      .then(response => {
+        this.setState((prev) => {
+          return {
+            inview: [...this.state.inview, ...response.data.circle_content],
+            hasMore: response.data.circle_content.length <= 0 ? false : true
+          }
+        })
+      })
+      .catch(err => {
+      });
+  }
 
   componentDidMount() {
+    this.setState({
+      showLoading: true
+    });
+
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/get_circle_content", {
-        skip_count: 0
+        skip_count: 0,
+        limit_count: 10
       })
-      .then(data => {
-        let followers =
-          data.data && data.data.followed.length > 0
-            ? data.data.followed
-            : [];
-        this.setState({
-          posts: data.data.circle_content || [],
-          followers: followers
-        });
+      .then(response => {
+        let followers = response.data.followed || [];
+
+        this.setState((prev) => {
+          return {
+            inview: [...this.state.inview, ...response.data.circle_content],
+            followers,
+            showLoading: response.data.length == 0 ? false : true
+          }
+        })
       })
       .catch(err => {
         console.log(err.response.data);
       });
   }
 
-  changeURL(username) {
-    this.props.history.push("/profile/" + username);
-  }
 
   render() {
-    let Posts = [];
-
-    Posts = this.state.posts.map(post => {
+    let items = [];
+    items = this.state.inview.map(post => {
       return <Card post={post} />;
     });
 
@@ -48,7 +76,7 @@ class FollowersRoute extends Component {
             <div
               className="each-following row px-3"
               onClick={() => {
-                this.changeURL.call(this, user.username);
+                this.props.history.push("/profile/" + user.username);
               }}
             >
               <div className="col-2">
@@ -64,30 +92,47 @@ class FollowersRoute extends Component {
           );
         })
       ) : (
-        <div className="each-following row px-3">
-          <div className="col-12">
-            <span>No Followers</span>
-          </div>
-        </div>
-      );
-
-
-    return Posts.length > 0 ? (
-      <div style={{padding: "40px"}}>
-        <div {...this.props} class="row">
-          <div className="col-md-4">
-            <div className="sticky-top">
-              {ListOfUsers}
+          <div className="each-following row px-3">
+            <div className="col-12">
+              <span>Followers List</span>
             </div>
           </div>
-          <div className="col-md-6">
-            {Posts}
+        );
+
+
+    return <div style={{ padding: "40px" }}>
+      <div {...this.props} class="row">
+        <div className="col-md-4">
+          <div className="sticky-top">
+            {ListOfUsers}
           </div>
         </div>
+        <div className="col-md-6">
+          {items.length > 0 ? (
+            <div style={{ padding: '1px' }}>
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.loadFunc}
+                hasMore={this.state.hasMore}
+                useWindow={true}
+                threshold={10}
+                loader={<div className="text-center py-2"> <Loader /></div>}
+              >
+                {items}
+              </InfiniteScroll>
+            </div>
+          ) : <div>
+              {this.state.showLoading && <div className="text-center py-2"> <Loader /></div>}
+              {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2">
+                <div className="container p-5">
+                  <h1>No posts yet.</h1>
+                </div>
+              </div>}
+            </div>}
+        </div>
       </div>
-    ) : (
-      <div {...this.props}>No Posts</div>
-    );
+    </div>
+
   }
 }
 

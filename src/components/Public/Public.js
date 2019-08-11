@@ -5,7 +5,6 @@ import Main from "./Main/Main";
 import Competition from "./Competition/Competition";
 import Trending from "./Trending/Trending";
 import { connect } from "react-redux";
-import { getPosts, getMore } from "./../../actions/homepage_actions";
 import PropTypes from "prop-types";
 import { Route, withRouter, Link } from "react-router-dom";
 import navigationHome from "./../../helpers/navigation";
@@ -36,39 +35,18 @@ const styles = theme => ({
 });
 
 class Public extends Component {
-  state = {
-    len: 0,
-    clicked: 0
-  };
-
-  componentDidMount() {
-    this.props.getPosts();
-  }
-
-  componentWillReceiveProps(props) {
-    if (this.state.len == props.posts.length && this.state.clicked) {
-      this.setState({
-        hideShowMore: 1
-      });
-    } else {
-      this.setState({
-        len: props.posts.length,
-        clicked: 0
-      });
-    }
-  }
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className="public-page" style={{backgroundImage:`url(${BackgroundDots})`}}>
+      <div className="public-page" style={{ backgroundImage: `url(${BackgroundDots})` }}>
         <Grid container className={classes.root} spacing={8}>
           <Grid item xs={12} md={3}>
             <div className="comp-holder sticky-top">
               <div className="sticky-top">
                 <Competition className={classes.comp + " border p-3 rounded"} />
-                <div style={{margin: "10px 0"}}></div>
+                <div style={{ margin: "10px 0" }}></div>
                 <div className="border rounded" style={{
                   width: "100%",
                   border: "#fff",
@@ -81,51 +59,26 @@ class Public extends Component {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            {this.props.posts.length ? (
-              navigationHome.map(route => {
-                return (
-                  <Route
-                    path={route.path}
-                    exact
-                    render={() => {
-                      return (
-                        <div className="main-section" style={{padding: "0 100px"}}>
-                          <Main
-                            posts={this.props.posts}
-                            className={classes.public}
-                            posts_tr={route.key}
-                          /> 
-                          {!this.state.hideShowMore ? (
-                            <Button
-                              onClick={() => {
-                                this.setState({
-                                  clicked: 1
-                                })
-                                this.props.getMore(this.props.posts.length);
-                              }}
-                              style={{
-                                width: "100%"
-                              }}
-                            >
-                              View more
-                            </Button>
-                          ) : (
-                            <div
-                              style={{ textAlign: "center", margin: "10px 0" }}
-                            >
-                              <span class="lead">No more posts</span>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    }}
-                    key={route.key}
-                  />
-                );
-              })
-            ) : (
-              <div className={classes.public}>No Posts</div>
-            )}
+            {navigationHome.map(route => {
+              return (
+                <Route
+                  path={route.path}
+                  exact
+                  render={() => {
+                    return (
+                      <div className="main-section" style={{ padding: "0 100px" }}>
+                        <Main
+                          posts={this.props.posts}
+                          className={classes.public}
+                          posts_tr={route.key}
+                        />
+                      </div>
+                    );
+                  }}
+                  key={route.key}
+                />
+              );
+            })}
             {/* competetion routes */}
             <Route exact path="/trending/upcoming" component={Upcoming} />
             <Route exact path="/trending/completed" component={Completed} />
@@ -155,7 +108,6 @@ function mapStateToProps(state) {
 
 export default withRouter(
   connect(
-    mapStateToProps,
-    { getPosts, getMore }
+    mapStateToProps, null
   )(withStyles(styles)(Public))
 );

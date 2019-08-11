@@ -1,18 +1,58 @@
 import React, { Component } from "react";
 import Card from "./Card";
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroller';
+import Loader from './../../Loader';
 
 class Main extends Component {
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inview: [],
+      hasMore: true,
+      showLoading: false
+    };
+
+    this.loadFunc = this.loadFunc.bind(this);
+  }
+
+  loadFunc() {
+    let url = this.props.posts_tr === "/trending/" ? "get_all_trending" : "get_trending";
+
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/get_trending`, {
-        trending_type: 'poem', //rap, poem, story, quotes, gazal, singing, comedy, dance
-        skip_count: 0
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/${url}`, { trending_type: this.props.posts_tr, skip_count: this.state.inview.length, limit_count: 10 })
+      .then(response => {
+        this.setState((prev) => {
+          return {
+            inview: [...this.state.inview, ...response.data.all_content],
+            hasMore: response.data.all_content.length <= 0 ? false : true
+          }
+        })
+      })
+      .catch(err => {
+      });
+  }
+
+  componentDidMount() {
+    let url = this.props.posts_tr === "/trending/" ? "get_all_trending" : "get_trending";
+    this.setState({
+      showLoading: true
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/user/${url}`, {
+        trending_type: this.props.posts_tr, //rap, poem, story, quotes, gazal, singing, comedy, dance
+        skip_count: 0,
+        limit_count: 10
       })
       .then(response => {
-        let posts = response.data.all_content || [];
-        console.log("+++", posts)
+        let data = response.data.all_content || [];
+        this.setState({
+          inview: [...data],
+          showLoading: data.length == 0 ? false : true
+        });
       })
       .catch(err => {
         console.log(err);
@@ -21,34 +61,32 @@ class Main extends Component {
 
 
   render() {
-    let Posts = [];
-    if (this.props.posts_tr === "/trending/") {
-      Posts = this.props.posts.map(post => {
-        return (
-          post.shared_type !== "compete" &&
-          post.shared_type !== "save" && <Card post={post} />
-        );
-      }).filter(o => o !== false);
-    } else {
-      Posts = this.props.posts
-        .map(post => {
-          if (
-            post.post_type !== "memory_book" &&
-            (post.art_type || "").toLowerCase() === this.props.posts_tr &&
-            post.shared_type !== "compete" &&
-            post.shared_type !== "save"
-          ) {
-            return <Card post={post} />;
-          } else return false;
-        })
-        .filter(o => o !== false);
-    }
+    let items = [];
+    items = this.state.inview.map(post => {
+      return <Card post={post} />;
+    });
 
-    return Posts.length > 0 ? (
-      <div {...this.props}>{Posts}</div>
-    ) : (
-        <div {...this.props}>No Posts</div>
-      );
+    return items.length > 0 ? (
+      <div style={{ padding: '1px' }}>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadFunc}
+          hasMore={this.state.hasMore}
+          useWindow={true}
+          threshold={10}
+          loader={<div className="text-center py-2"> <Loader /></div>}
+        >
+          {items}
+        </InfiniteScroll>
+      </div>
+    ) : <div>
+        {this.state.showLoading && <div className="text-center py-2"> <Loader /></div>}
+        {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2">
+          <div className="container p-5">
+            <h1>No posts yet.</h1>
+          </div>
+        </div>}
+      </div>
   }
 }
 
