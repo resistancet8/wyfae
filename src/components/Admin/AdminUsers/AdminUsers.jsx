@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
-import { Table } from 'reactstrap';
+import { Table, Popover, PopoverHeader, PopoverBody, Button} from 'reactstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect} from 'react-redux';
 
 class AdminUsers extends Component {
 
-  state = {
-    users: []
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      popoverOpen: false,
   };
+  }
 
   componentDidMount() {
-
     let axiosConfig = {
       headers: {
           'Content-Type': 'application/json;charset=UTF-8',
-          "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Ind5ZmFlX2FkbWluX2Fua2l0IiwiZXhwIjoxNTY1MzQ2MDE4fQ.7mCVsCunKIDl9R4pA8oLeYLq5c4Z3kQZA6DJPpZsevBdlcIhvjO_CbOT__i6kbFEA6VIHScgkRa-Wx5tDPxsbg",
+          "Authorization": this.props.admin.admin_token || "",
       }
     };
 
@@ -38,6 +43,12 @@ class AdminUsers extends Component {
     });
   }
 
+  toggle() {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +65,8 @@ class AdminUsers extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.users.map((user, index) => {
+            {this.state.users && this.state.users.length > 0 ?
+            this.state.users.map((user, index) => {
               return <tr>
                 <th scope="row">{index+1}</th>
                 <td>{user.fullname}</td>
@@ -63,12 +75,29 @@ class AdminUsers extends Component {
                 <td>{user.total_followers}</td>
                 <td><Link to={`/profile/${user._id}`}>@{user._id}</Link></td>
                 <td>
-                  <button title="view" class="btn"><i class="fa fa-eye"></i></button>
-                  <button title="edit" class="btn"><i class="fa fa-edit"></i></button>
-                  <button title="delete" class="btn"><i class="fa fa-trash"></i></button>
+                  <Link to={`/admin/dashboard/users/view/${user._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
+                  <Link to={`/admin/dashboard/users/edit/${user._id}`}><button title="edit" class="btn"><i class="fa fa-edit"></i></button></Link>
+                  <button title="delete"  type="button" class="btn" id="Popover-1"><i class="fa fa-trash"></i></button>
+                  <Button id="Popover1" type="button">
+          Launch Popover
+        </Button>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+        </Popover>
                 </td>
               </tr>
-            })}
+            }) :
+              <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></td>
+                <td></td>
+                <td></td>
+                <td>
+                </td>
+              </tr>}
           </tbody>
         </Table>
       </div>
@@ -76,4 +105,10 @@ class AdminUsers extends Component {
   }
 }
 
-export default AdminUsers;
+function mapStateToProps(state) {
+  return {
+    admin: state.admin
+  }
+};
+
+export default connect(mapStateToProps)(AdminUsers);
