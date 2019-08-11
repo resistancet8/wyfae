@@ -23,7 +23,7 @@ class Dashboard extends Component {
         <Route exact path="/admin/dashboard/overview" component={AdminOverview} />
 
         <Route exact path="/admin/dashboard/posts" component={AdminPosts} />
-        <Route exactpath="/admin/dashboard/competitions" component={AdminCompetitions} />
+        <Route exact path="/admin/dashboard/competitions" component={AdminCompetitions} />
         <Route exact path="/admin/dashboard/reports" component={AdminReports} />
 
         <Route exact path="/admin/dashboard/users" component={AdminUsers} />
