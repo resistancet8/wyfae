@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col } from 'reactstrap';
 import Loader from './../../Loader';
 import InfiniteScroll from 'react-infinite-scroller';
+import moment from 'moment';
 
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
@@ -18,7 +19,7 @@ class AdminCompetition extends Component {
       showLoading: false
     };
 
-    this.deleteUser = this.deleteUser.bind(this);
+    this.deleteCompetition = this.deleteCompetition.bind(this);
     this.loadFunc = this.loadFunc.bind(this);
   }
 
@@ -34,9 +35,9 @@ class AdminCompetition extends Component {
       .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get_contest`, { compete_status: "all", skip_count: this.state.inview.length, limit_count: 10 }, axiosConfig)
       .then(response => {
         let data = response.data.all_content;
-        let allPosts = [...data.upcoming];
-        allPosts = [...data, ...data.ongoing];
-        allPosts = [...data, ...data.finished];
+        let allPosts = data.upcoming;
+        allPosts = [...allPosts, ...data.ongoing];
+        allPosts = [...allPosts, ...data.finshed];
 
         this.setState((prev) => {
           return {
@@ -49,7 +50,7 @@ class AdminCompetition extends Component {
       });
   }
 
-  deleteUser(username) {
+  deleteCompetition(post_id) {
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -58,13 +59,13 @@ class AdminCompetition extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/delete_user`, { username }, axiosConfig)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/delete_post`, { post_id }, axiosConfig)
       .then(response => {
-        alert("Deleted " + username);
+        alert("Deleted");
         window.location.reload();
       })
       .catch(err => {
-        alert("error deleting user: " + username)
+        alert("error deleting post: ")
       });
   }
 
@@ -99,20 +100,20 @@ class AdminCompetition extends Component {
   }
 
   render() {
-    let items = this.state.inview.map((user, index) => {
+    let items = this.state.inview.map((competition, index) => {
       return <Row className="my-4 border-bottom">
         <Col md="1">{index + 1}</Col>
-        <Col md="2">{user.fullname}</Col>
-        <Col md="2">{user.email}</Col>
-        <Col md="2">{user.memory_book_privacy}</Col>
-        <Col md="2">{user.total_followers}</Col>
-        <Col md="2"><Link to={`/profile/${user._id}`}>@{user._id}</Link></Col>
+        <Col md="2"><div className="text-capitalize">{competition.post_title.substr(0, 20)}</div></Col>
+        <Col md="2">{moment(competition.creation_time).format("DD-MM-YYYY HH:mm")}</Col>
+        <Col md="2">{moment(competition.start_time).format("DD-MM-YYYY HH:mm")}</Col>
+        <Col md="2">{moment(competition.end_time).format("DD-MM-YYYY HH:mm")}</Col>
+        <Col md="2">{competition.winner}</Col>
         <Col md="1">
-          <Link to={`/admin/dashboard/users/view/${user._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
+          <Link to={`/admin/dashboard/competitions/view/${competition._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
           <button title="delete" onClick={() => {
             let confirm_delete = window.confirm("Sure you want to delete?");
             if (confirm_delete) {
-              this.deleteUser(user._id);
+              this.deleteCompetition(competition._id);
             }
           }} type="button" class="btn" id="Popover-1"><i class="fa fa-trash"></i></button>
         </Col>
@@ -125,11 +126,11 @@ class AdminCompetition extends Component {
         <h2 className="my-1">List of Competitions</h2>
         <Row className="border py-3">
           <Col md="1"> <strong>#</strong></Col>
-          <Col md="2"> <strong>Name</strong></Col>
-          <Col md="2"> <strong>Email</strong></Col>
-          <Col md="2"> <strong>M/B Privacy</strong></Col>
-          <Col md="2"> <strong>Followers</strong></Col>
-          <Col md="2"> <strong>Username</strong></Col>
+          <Col md="2"> <strong>Title</strong></Col>
+          <Col md="2"> <strong>Created</strong></Col>
+          <Col md="2"> <strong>Start</strong></Col>
+          <Col md="2"> <strong>End</strong></Col>
+          <Col md="2"> <strong>Winner</strong></Col>
           <Col md="1"></Col>
         </Row>
         {this.state.inview && this.state.inview.length > 0 ?
