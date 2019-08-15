@@ -108,7 +108,7 @@ class PublicCard extends React.Component {
     if (type == "checkplag") {
       window.open(
         "https://www.google.com/search?q=" +
-          encodeURIComponent(this.state.body),
+        encodeURIComponent(this.state.body),
         "_blank"
       );
       return;
@@ -156,7 +156,7 @@ class PublicCard extends React.Component {
         post_id: id,
         signal_type: "like"
       })
-      .then(response => {})
+      .then(response => { })
       .catch(err => {
         this.props.dispatch({
           type: "SHOW_TOAST",
@@ -191,22 +191,42 @@ class PublicCard extends React.Component {
         this.setState({
           newComment: [
             ...this.state.newComment,
-            <ListItem className="border-bottom">
-              <ListItemText
-                primary={response.data.comment_content.name}
-                secondary={response.data.comment_content.comment_text}
-              />
-            </ListItem>
+            <Comments comment={response.data.comment_content} post_id={post_id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />
           ],
           comment: ""
         });
       })
       .catch(err => {
-        console.log(err);
-        // this.props.dispatch({
-        //   type: "SHOW_TOAST",
-        //   payload: err.response.data.msg
-        // });
+      });
+  }
+
+  handleNestedComment(post_id, comment_id, comment, callback) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_nested_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        comment_text: comment
+      })
+      .then(response => {
+        callback(response.data.comment_content);
+      })
+      .catch(err => {
+      });
+  }
+
+  deleteComment(post_id, comment_id, type) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/delete_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        nested: type
+      })
+      .then(response => {
+        var elem = type == "no" ? document.getElementById(`comment-id-${comment_id}`): document.getElementById(`nested-comment-id-${comment_id}`);
+        console.log("+++el", elem)
+        elem.parentElement.removeChild(elem);
+      })
+      .catch(err => {
       });
   }
 
@@ -232,8 +252,8 @@ class PublicCard extends React.Component {
             {post.shared_type !== "anonymous" ? (
               <Link to={`/profile/${post.username}`}>By: {post.author}</Link>
             ) : (
-              "Anonymous"
-            )}
+                "Anonymous"
+              )}
           </span>
         </Typography>
         {post.url && post.image_or_text == "true" && (
@@ -288,13 +308,13 @@ class PublicCard extends React.Component {
             </div>
           </div>
           {post.url && <Button
-                  className="ml-2"
-                  onClick={() => {
-                    this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`)
-                  }}
-                >
-                  <i className="fas fa-download mx-1" />
-          </Button> }
+            className="ml-2"
+            onClick={() => {
+              this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`)
+            }}
+          >
+            <i className="fas fa-download mx-1" />
+          </Button>}
         </CardActions>
         <div className={classes.root}>
           <ExpansionPanel
@@ -329,7 +349,7 @@ class PublicCard extends React.Component {
                   </li>
                   {post.comments &&
                     post.comments.map(comment => {
-                      return <Comments comment={comment} />;
+                      return <Comments comment={comment} post_id={post._id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />;
                     })}
                   {this.state.newComment}
                 </ul>
