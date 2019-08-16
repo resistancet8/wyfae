@@ -52,7 +52,8 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
         type: "FETCH_USER_DETAILS",
         payload: Object.assign({}, profile_data.profile_data, {
           journal: {},
-          following: response.data.just_user || []
+          following: response.data.just_user || [],
+          followers: response.data.ufm_just_user || []
         })
       });
 

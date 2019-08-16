@@ -17,6 +17,10 @@
   left: 0px;
 }
 
+.share-icons:hover {
+  cursor: pointer !important;
+}
+
 .animate {
   transform: scale(1.4);
   animation-name: pop;

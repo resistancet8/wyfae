@@ -5,9 +5,9 @@ import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 
-class Following extends Component {
+class Followers extends Component {
   state = {
-    following: []
+    followers: []
   };
 
   componentDidMount() {
@@ -16,12 +16,12 @@ class Following extends Component {
         skip_count: 0
       })
       .then(data => {
-        let following =
-          data.data.content && data.data.content.followed.length > 0
-            ? data.data.content.followed
+        let followers =
+          data.data.content && data.data.content.user_following_me.length > 0
+            ? data.data.content.user_following_me
             : [];
         this.setState({
-          following: following
+          followers: followers
         });
       })
       .catch(err => {
@@ -38,11 +38,11 @@ class Following extends Component {
   }
 
   render() {
-    let following = this.state.following;
+    let followers = this.state.followers;
 
     let ListOfUsers =
-      following.length > 0 ? (
-        following.map(user => {
+      followers.length > 0 ? (
+        followers.map(user => {
           return (
             <div
               className="each-following row px-3"
@@ -65,7 +65,7 @@ class Following extends Component {
       ) : (
         <div className="each-following row px-3">
           <div className="col-12">
-            <span>No Following</span>
+            <span>No Followers</span>
           </div>
         </div>
       );
@@ -86,4 +86,4 @@ class Following extends Component {
   }
 }
 
-export default withRouter(connect()(Following));
+export default withRouter(connect()(Followers));

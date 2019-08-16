@@ -168,7 +168,7 @@ class Participants extends Component {
           padding: "10px",
           margin: "10px 0",
           position: "relative"
-        }}
+        }} 
       >
         {true && (
           <div>

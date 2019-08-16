@@ -20,9 +20,8 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Comments from "./Comments";
-import ListItem from "@material-ui/core/ListItem";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Button } from "@material-ui/core";
-import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
 
 const styles = theme => ({
@@ -68,13 +67,15 @@ const styles = theme => ({
 });
 
 class PublicCard extends React.Component {
+
   state = {
     expanded: null,
     anchorEl: null,
     comment: "",
     newComment: [],
     id: "",
-    body: ""
+    body: "",
+    dropdownOpen: false
   };
 
   handleClick = (event, id, body) => {
@@ -146,9 +147,11 @@ class PublicCard extends React.Component {
     if (event.target.src.indexOf("unliked") !== -1) {
       event.target.src = like;
       event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-"+id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-"+id)[0].innerHTML) + 1;
     } else {
       event.target.src = unlike;
       event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-"+id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-"+id)[0].innerHTML) - 1;
     }
 
     axios
@@ -163,6 +166,12 @@ class PublicCard extends React.Component {
           payload: err.response.data.msg
         });
       });
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
 
   handleChange = panel => (event, expanded) => {
@@ -194,6 +203,8 @@ class PublicCard extends React.Component {
             <Comments comment={response.data.comment_content} post_id={post_id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />
           ],
           comment: ""
+        }, () => {
+          document.getElementsByClassName("total-no-comments-got-"+post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-"+post_id)[0].innerHTML) + 1;
         });
       })
       .catch(err => {
@@ -222,8 +233,8 @@ class PublicCard extends React.Component {
         nested: type
       })
       .then(response => {
-        var elem = type == "no" ? document.getElementById(`comment-id-${comment_id}`): document.getElementById(`nested-comment-id-${comment_id}`);
-        console.log("+++el", elem)
+        var elem = type == "no" ? document.getElementById(`comment-id-${comment_id}`) : document.getElementById(`nested-comment-id-${comment_id}`);
+        document.getElementsByClassName("total-no-comments-got-"+post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-"+post_id)[0].innerHTML) - 1;
         elem.parentElement.removeChild(elem);
       })
       .catch(err => {
@@ -231,9 +242,11 @@ class PublicCard extends React.Component {
   }
 
   render() {
-    const { classes, post } = this.props;
+    const { classes, post, auth } = this.props;
     const { expanded, anchorEl } = this.state;
+    const { isAuthenticated } = auth;
 
+    let sharable_url = window.location.host + `/view/` + post._id;
     return (
       <Card className={classes.card + " mb-2"}>
         <CardHeader
@@ -273,12 +286,12 @@ class PublicCard extends React.Component {
           )}
 
           <Typography component="p" gutterBottom variant="caption">
-            {post.user_liked && post.user_liked.length ? post.user_liked.length : 0} Likes
+            <span className={"no-of-likes-got-"+post._id}>{post.user_liked && post.user_liked.length ? post.user_liked.length : 0}</span> Likes
           </Typography>
         </CardContent>
         <CardActions>
           <div className="d-flex justify-content-between cart-actions-main">
-            {post.user_liked && (
+            {post.user_liked && isAuthenticated && (
               <img
                 src={
                   !!post.user_liked.filter(
@@ -294,36 +307,70 @@ class PublicCard extends React.Component {
                 }}
               />
             )}
-            <div>
-              <span>
-                <a
-                  onClick={e => {
-                    this.handleClick(e, post._id, post.text);
-                  }}
-                  href=""
-                >
-                  <i className="fas fa-flag mx-1" />
-                </a>
-              </span>
-            </div>
           </div>
-          {post.url && <Button
+          <Dropdown direction="left" isOpen={this.state.dropdownOpen} toggle={this.toggle.bind(this)}>
+            <DropdownToggle tag="span">
+              <i class="fas fa-share-alt share-icons"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem className="py-0 px-1 d-flex justify-content-around"><a
+                target="_blank"
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  sharable_url
+                )}&amp;src=sdkpreparse`}
+                class="fb-xfbml-parse-ignore share-icons"
+                style={{fontSize: '18px'}}
+              >
+                <i class="fab fa-facebook" />
+              </a><a
+              target="_blank"
+              class="wa-share-button share-icons"
+              style={{fontSize: '18px'}}
+              href={`https://wa.me/?text=${encodeURIComponent(sharable_url)}`}
+            >
+              <i class="fab fa-whatsapp" aria-hidden="true" />
+            </a> <a
+              target="_blank"
+              class="twitter-share-button share-icons"
+              style={{fontSize: '18px'}}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                sharable_url
+              )}`}
+            >
+              <i class="fab fa-twitter" />
+            </a></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <div className="ml-2">
+            <span>
+              <a
+                onClick={e => {
+                  this.handleClick(e, post._id, post.text);
+                }}
+                href=""
+              >
+                <i style={{color: 'red'}} className="fas fa-flag mx-1" />
+              </a>
+            </span>
+          </div>
+          {post.url && <span
             className="ml-2"
             onClick={() => {
               this.handleDownload(`${process.env.REACT_APP_API_ENDPOINT}/${post.url}`)
             }}
           >
-            <i className="fas fa-download mx-1" />
-          </Button>}
+            <i className="fas fa-download mx-1 share-icons" />
+          </span>}
+
         </CardActions>
         <div className={classes.root}>
-          <ExpansionPanel
+          {isAuthenticated && <ExpansionPanel
             expanded={expanded === "panel1"}
             onChange={this.handleChange("panel1")}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>
-                Comments ({post.comments && post.comments.length || 0})
+                Comments (<span className={"total-no-comments-got-"+post._id}>{post.comments && (post.comments.length) || 0}</span>)
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -355,7 +402,7 @@ class PublicCard extends React.Component {
                 </ul>
               </div>
             </ExpansionPanelDetails>
-          </ExpansionPanel>
+          </ExpansionPanel>}
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -395,7 +442,8 @@ class PublicCard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    auth: state.auth
   };
 }
 

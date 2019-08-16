@@ -24,6 +24,9 @@ import Usage from "./Public/Usage";
 import MetaTags from 'react-meta-tags';
 import AdminRoot from './Admin/AdminRoot';
 import AdminDasboard from './Admin/DashboardLayout/DashboardLayout';
+
+import PostView from './Public/PostView';
+
 let dontIncludeHeader = [/login/, /register/, /admin*/];
 
 class App extends Component {
@@ -62,7 +65,7 @@ class App extends Component {
     let showHeader = true;
 
     let path = this.props.location.pathname;
-    if(dontIncludeHeader.indexOf(path) >= 0 || dontIncludeHeader.some(function(rx) { return rx.test(path); })) {
+    if (dontIncludeHeader.indexOf(path) >= 0 || dontIncludeHeader.some(function (rx) { return rx.test(path); })) {
       showHeader = false;
     } else {
       showHeader = true;
@@ -72,10 +75,10 @@ class App extends Component {
       <div className="App">
         <MetaTags>
           <meta name="title" content="Wyfae - Write your feelings and Experiences." />
-          <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions."/>
-          <meta name="description" content="A social network where everyone communicates by writing their true emotions and thoughts. Write your quotes, poems, stories and letters . Create your memory book and Share your post, participate in the vote based competitions.Collect the famous quotes, inspirational quotes, motivational quotes, romantic quotes, book quotes, writer’s quotes, funny quotes and all other quotes that lift you. Write your goals, maintain your To do list and maintain a completely private online journal."/>
+          <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions." />
+          <meta name="description" content="A social network where everyone communicates by writing their true emotions and thoughts. Write your quotes, poems, stories and letters . Create your memory book and Share your post, participate in the vote based competitions.Collect the famous quotes, inspirational quotes, motivational quotes, romantic quotes, book quotes, writer’s quotes, funny quotes and all other quotes that lift you. Write your goals, maintain your To do list and maintain a completely private online journal." />
         </MetaTags>
-        { showHeader && <Navbar /> }
+        {showHeader && <Navbar />}
         <Route exact path="/admin" component={AdminRoot} />
         <Route path="/admin/dashboard" component={AdminDasboard} />
         <Route path="/privacy" exact component={Privacy} />
@@ -90,8 +93,13 @@ class App extends Component {
         <Route
           path="/trending"
           render={() => {
-            if (isAuth) return <Public />;
-            else return <Redirect to="/login" />;
+            return <Public />;
+          }}
+        />
+        <Route
+          path="/view/:post_id"
+          render={() => {
+            return <PostView />;
           }}
         />
         <Route
@@ -128,20 +136,20 @@ class App extends Component {
             }}
           />
         </Switch>
-          <Route
-            path="/following"
-            render={() => {
-              if (isAuth) return <FollowingRoute />;
-              else return <Redirect to="/login" />;
-            }}
-          />
-          <Route
-            path="/followers"
-            render={() => {
-              if (isAuth) return <FollowersRoute />;
-              else return <Redirect to="/login" />;
-            }}
-          />
+        <Route
+          path="/following"
+          render={() => {
+            if (isAuth) return <FollowingRoute />;
+            else return <Redirect to="/login" />;
+          }}
+        />
+        <Route
+          path="/followers"
+          render={() => {
+            if (isAuth) return <FollowersRoute />;
+            else return <Redirect to="/login" />;
+          }}
+        />
         <div className="container">
           <Route
             exact={true}
@@ -179,7 +187,7 @@ class App extends Component {
             </IconButton>
           ]}
         />
-        <ScrollToTop showUnder={160} style={{zIndex: "9999"}}>
+        <ScrollToTop showUnder={160} style={{ zIndex: "9999" }}>
           <i class="fas fa-chevron-circle-up" />
         </ScrollToTop>
       </div>
