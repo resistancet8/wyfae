@@ -42,7 +42,7 @@ class Public extends Component {
     return (
       <div className="public-page" style={{ backgroundImage: `url(${BackgroundDots})` }}>
         <Grid container className={classes.root} spacing={8}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={3} className="d-none d-lg-block">
             <div className="comp-holder sticky-top">
               <div className="sticky-top">
                 <Competition className={classes.comp + " border p-3 rounded"} />

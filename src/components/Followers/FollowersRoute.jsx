@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "./../Public/Main/Card";
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from './../Loader';
+import StickyBar from './../StickyBar/StickyBar';
 
 class FollowersRoute extends Component {
 

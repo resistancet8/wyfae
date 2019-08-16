@@ -6,7 +6,7 @@ class Competition extends Component {
 
   render() {
     return (
-      <div {...this.props}>
+      <div className={ this.props.className + " d-none d-lg-block"}>
         <h3 className="font-weight-bold">COMPETITIONS</h3>
         <div
           style={{

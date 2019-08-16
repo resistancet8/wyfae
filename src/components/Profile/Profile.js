@@ -15,6 +15,7 @@ import Following from "./Following";
 import Followers from "./Followers";
 import axios from "axios";
 import SliderMemory from "./SliderMemory";
+import StickyBar from './../StickyBar/StickyBar';
 
 class Profile extends Component {
   state = {
@@ -62,6 +63,7 @@ class Profile extends Component {
     return (
       <div>
         <div className="home-wrapper">
+          <StickyBar />
           {/* user avatar,details and statistics */}
           <div className="row">
             <div className="col-md-3 bg-white">
