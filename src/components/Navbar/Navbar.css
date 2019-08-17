@@ -96,3 +96,37 @@
   width: 23px;
   border-radius: 15px;
 }
+
+.notifications-holder {
+  position: absolute;
+  top: 50px;
+  height: 600px;
+  width: 400px;
+  z-index: 9998;
+  right: 75px;
+  display: grid;
+  grid-template-rows: 50px auto;
+}
+
+.notifications-holder .notifications-header {
+  background: #eee;
+  display: flex;
+  align-items: center;
+}
+
+.notifications-holder .notifications {
+  background: gold;
+}
+
+.each-notification {
+  cursor: pointer;
+}
+
+.each-notification:hover {
+  background: #eee;
+  text-decoration: none !important;
+}
+
+.notifications-parent a:hover {
+  text-decoration: none !important;
+}
