@@ -20,7 +20,6 @@ class Main extends Component {
 
   loadFunc() {
     let url = this.props.posts_tr === "/trending/" ? "get_all_trending" : "get_trending";
-
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT}/user/${url}`, { trending_type: this.props.posts_tr, skip_count: this.state.inview.length, limit_count: 10 })
       .then(response => {
@@ -33,6 +32,14 @@ class Main extends Component {
       })
       .catch(err => {
       });
+  }
+
+  componentWillUnmount() {
+    this.setState((prev) => {
+      return {
+        hasMore: false
+      }
+    })
   }
 
   componentDidMount() {
@@ -73,7 +80,7 @@ class Main extends Component {
           loadMore={this.loadFunc}
           hasMore={this.state.hasMore}
           useWindow={true}
-          threshold={10}
+          threshold={2}
           loader={<div className="text-center py-2"> <Loader /></div>}
         >
           {items}
