@@ -50,7 +50,7 @@ export function getUserProfile(dispatch, history, redirect, decodedUser) {
 
       dispatch({
         type: "FETCH_USER_DETAILS",
-        payload: Object.assign({}, profile_data.profile_data, {
+        payload: Object.assign({}, { ...profile_data.profile_data, star: profile_data.star }, {
           journal: {},
           following: response.data.just_user || [],
           followers: response.data.ufm_just_user || []
