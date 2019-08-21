@@ -8,6 +8,7 @@ import Preview from "./Preview";
 import defaultPic from "./../../../assets/img/default.jpg";
 import $ from "jquery";
 import "./../Feelings/text.js";
+import Switch from "react-switch";
 import classnames from "classnames";
 import axios from "axios";
 let fontsize = 20;
@@ -173,10 +174,9 @@ class Memory extends Component {
   }
 
   handleShowImage(e) {
-    e.persist();
     this.setState(() => {
       return {
-        imageVisibility: e.target.checked
+        imageVisibility: e
       }
     })
   }
@@ -315,49 +315,47 @@ class Memory extends Component {
               <div className="invalid-feedback"> {this.state.errors.text} </div>
             )}
 
-            
-            <div className="show-img-holder mt-5"> 
+
+            <div className="show-img-holder mt-5">
               <label>Show default background image:</label>
               <div className="custom-input-checkbox d-inline">
-                <input
-                  type="checkbox"
-                  id="switch-show-bg-mem"
+                <Switch height={25} width={50}
                   checked={this.state.imageVisibility}
-                  onChange={e => this.handleShowImage(e)}
+                  onChange={c => this.handleShowImage(c)}
                 />
-                <label for="switch-show-bg-mem" />
+
               </div>
-              <label>{this.state.imageVisibility ? "On": "Off"}</label>
+              <label>{this.state.imageVisibility ? "On" : "Off"}</label>
             </div>
             <div className="select-image-holder my-3">
               <label>Select background image:</label>
               <input
                 type="file"
-                style={{display: "none"}}
+                style={{ display: "none" }}
                 accept="image/*"
                 id="memory-file"
                 onChange={e => this.handleChange(e)}
               />
               <label id="label-file" htmlFor="memory-file">Choose</label>
-              <label style={{width: "30%", overflow: "hidden"}}>{this.state.filename ? this.state.filename: "No image chosen"}</label>
+              <label style={{ width: "30%", overflow: "hidden" }}>{this.state.filename ? this.state.filename : "No image chosen"}</label>
             </div>
 
             <Button
-                variant="outlined"
-                onClick={e => {
-                  e.preventDefault();
-                  this.previewImage();
-                  this.handleFontSize("plus");
-                  this.toggle();
-                }}
-                style={{background: "#0085f3", color: "white"}}
+              variant="outlined"
+              onClick={e => {
+                e.preventDefault();
+                this.previewImage();
+                this.handleFontSize("plus");
+                this.toggle();
+              }}
+              style={{ background: "#0085f3", color: "white" }}
             >
-              {this.state.modal ? "Hide Preview": "Show Preview"}
+              {this.state.modal ? "Hide Preview" : "Show Preview"}
             </Button>
 
             <div className="controls mr-auto mt-2">
               <Button
-              disabled={!this.state.previewed}
+                disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {
@@ -375,7 +373,7 @@ class Memory extends Component {
                 Share
               </Button>
               <Button
-              disabled={!this.state.previewed}
+                disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {
@@ -393,7 +391,7 @@ class Memory extends Component {
                 Share Anonymously
               </Button>
               <Button
-              disabled={!this.state.previewed}
+                disabled={!this.state.previewed}
                 variant="outlined"
                 className="mr-2 mb-2 font-weight-normal"
                 onClick={() => {

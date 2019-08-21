@@ -134,7 +134,7 @@ class NavbarComponent extends Component {
     const { url: profile_img } = this.props.user;
 
     let Results =
-      this.state.results.length > 0 ? (
+    this.state.results && this.state.results.length > 0 ? (
         this.state.results.map(o => {
           return (
             <SearchItem
@@ -213,7 +213,7 @@ class NavbarComponent extends Component {
             </div>
           )}
           <nav style={{ position: 'relative' }} className="my-2 my-md-0 mr-md-3 nav-links-h">
-            <div style={{ position: 'absolute' }} className={`${this.state.showNotification ? 'd-grid' : 'd-none'} notifications-holder`}>
+            <div className={`${this.state.showNotification ? 'd-grid' : 'd-none'} notifications-holder`}>
               <div className="notifications-header pl-3">
                 <span>Notifications</span>
               </div>

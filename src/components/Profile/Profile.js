@@ -16,6 +16,7 @@ import Followers from "./Followers";
 import axios from "axios";
 import SliderMemory from "./SliderMemory";
 import StickyBar from './../StickyBar/StickyBar';
+import Switch from "react-switch";
 
 class Profile extends Component {
   state = {
@@ -85,22 +86,14 @@ class Profile extends Component {
                             )}
                             <div className="book-privacy">
                               <label className="m-0">Memory book privacy</label>
-                              <div className="custom-input-checkbox">
-                                <input
-                                  type="checkbox"
-                                  id="switch"
-                                  checked={
-                                    this.state.memory_book_privacy == "private"
-                                      ? 1
-                                      : 0
-                                  }
-                                  onChange={() => {
+                              <div>
+                                <Switch height={25} width={50} onChange={() => {
                                     this.changeMemoryPrivacy(
                                       this.state.memory_book_privacy
                                     );
-                                  }}
-                                />
-                                <label for="switch" className="m-0"/>
+                                  }} checked={
+                                    this.state.memory_book_privacy == "private" ? 1 : 0
+                                  } />
                               </div>
                             </div>
                             <div className="followers d-flex justify-content-center align-items-center">

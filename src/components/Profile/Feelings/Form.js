@@ -8,6 +8,7 @@ import defaultPic from "./../../../assets/img/default.jpg";
 import Canvas from './Canvas'
 import validateFeelingsinput from "./../../../helpers/feelings_validator";
 import classnames from "classnames";
+import Switch from "react-switch";
 import "./text.js";
 let textLimit = 100;
 let fontList = ['Arial', 'Tahoma', 'Impact', 'Arial Black', 'Trebuchet MS', 'Comic Sans MS', 'Bookman', 'Garamond', 'Palatino', 'Georgia', 'Verdana', 'Courier New', 'Times New Roman', 'Helvetica'];
@@ -45,7 +46,7 @@ class Form extends Component {
   };
 
   updateCanvas(canvas) {
-    if(canvas != this.state.canvasFinalImage) {
+    if (canvas != this.state.canvasFinalImage) {
       this.setState({
         canvasFinalImage: canvas
       })
@@ -54,9 +55,9 @@ class Form extends Component {
 
   handleTextChange(e) {
     let text = e.target.value;
-    if(text.trim().length < 1)
+    if (text.trim().length < 1)
       return;
-    if(text.trim().split(/\s+/).length > textLimit) {
+    if (text.trim().split(/\s+/).length > textLimit) {
       this.setState({
         forceTurnOffImage: true,
         imageVisibility: false
@@ -70,15 +71,14 @@ class Form extends Component {
   }
 
   handleImageChange(e) {
-    e.persist();
     var file = e.target.files[0];
     var reader = new FileReader();
     reader.onload = (f) => {
-        var data = f.target.result;
-        this.setState({
-          canvasBackgroundImage: data,
-          filename: e.target.files[0].name
-        })
+      var data = f.target.result;
+      this.setState({
+        canvasBackgroundImage: data,
+        filename: e.target.files[0].name
+      })
     };
     reader.readAsDataURL(file);
   }
@@ -101,29 +101,29 @@ class Form extends Component {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
     var byteString = atob(dataURI.split(',')[1]);
-  
+
     // separate out the mime component
     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
+
     // write the bytes of the string to an ArrayBuffer
     var ab = new ArrayBuffer(byteString.length);
-  
+
     // create a view into the buffer
     var ia = new Uint8Array(ab);
-  
+
     // set the bytes of the buffer to the correct values
     for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
+      ia[i] = byteString.charCodeAt(i);
     }
-  
+
     // write the ArrayBuffer to a blob, and you're done
-    var blob = new Blob([ab], {type: mimeString});
+    var blob = new Blob([ab], { type: mimeString });
     return blob;
-  
+
   }
 
   getData(formData) {
-    let { isValid, errors } = validateFeelingsinput({text: this.state.text, ...formData});
+    let { isValid, errors } = validateFeelingsinput({ text: this.state.text, ...formData });
 
     if (!isValid) {
       this.setState({ errors: errors });
@@ -154,11 +154,10 @@ class Form extends Component {
     });
   }
 
-  handleShowImage(e) {
-    e.persist();
+  handleShowImage(checked) {
     this.setState(() => {
       return {
-        imageVisibility: e.target.checked
+        imageVisibility: checked
       }
     })
   }
@@ -167,36 +166,36 @@ class Form extends Component {
     const { handleSubmit } = this.props;
     let showButtons = true;
 
-    if(this.state.imageVisibility && this.state.previewed || !this.state.imageVisibility){
+    if (this.state.imageVisibility && this.state.previewed || !this.state.imageVisibility) {
       showButtons = false;
     }
 
     return (
       <div>
         <form>
-        <button type="button" class="btn btn-primary d-none open-preview-modal" data-toggle="modal" data-target="#exampleModal">
-        </button>
+          <button type="button" class="btn btn-primary d-none open-preview-modal" data-toggle="modal" data-target="#exampleModal">
+          </button>
           <div className="data-holder">
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog xyz" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title font-weight-normal" id="exampleModalLabel">Share Your Feelings/ Experience</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row preview-container" style={{padding: '10px' }}>
-                      <div class="col-lg-5 col-md-12" style={{background: '#fefefe'}}>
+              <div class="modal-dialog xyz" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title font-weight-normal" id="exampleModalLabel">Share Your Feelings/ Experience</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row preview-container" style={{ padding: '10px' }}>
+                      <div class="col-lg-5 col-md-12" style={{ background: '#fefefe' }}>
                         <h5>Controls:</h5>
-                        <div className="controls-holder" style={{ padding: '10px 20px'}}>
+                        <div className="controls-holder" style={{ padding: '10px 20px' }}>
                           <form>
                             <div class="form-group">
                               <div className="row">
                                 <div className="col">
                                   <label>Font Size:</label>
-                                  <input type="number" class="form-control" id="fontSize" placeholder="Font Size" value={this.state.fontSize} onChange={this.handleControlsChange}/>
+                                  <input type="number" class="form-control" id="fontSize" placeholder="Font Size" value={this.state.fontSize} onChange={this.handleControlsChange} />
                                 </div>
                                 <div className="col">
                                   <label>Font Weight:</label>
@@ -215,7 +214,7 @@ class Form extends Component {
                               <div className="row">
                                 <div className="col">
                                   <label>Text Colour:</label>
-                                  <input type="color" class="form-control" id="textFill" placeholder="Color" value={this.state.textFill} onChange={this.handleControlsChange}/>
+                                  <input type="color" class="form-control" id="textFill" placeholder="Color" value={this.state.textFill} onChange={this.handleControlsChange} />
                                 </div>
                                 <div className="col">
                                   <label for="text-align">Alignment:</label>
@@ -239,22 +238,22 @@ class Form extends Component {
                             </div>
                             <div class="form-group">
                               <label>Background Colour:</label>
-                              <input type="color" class="form-control w-25" id="canvasBackground" placeholder="Color" value={this.state.canvasBackground} onChange={this.handleControlsChange}/>
+                              <input type="color" class="form-control w-25" id="canvasBackground" placeholder="Color" value={this.state.canvasBackground} onChange={this.handleControlsChange} />
                             </div>
                             <div class="form-group">
                               <label>Choose Different Image:</label>
-                              <input type="file" class="form-control" accept="image/*" id="image" onChange={this.handleImageChange}/>
+                              <input type="file" class="form-control" accept="image/*" id="image" onChange={this.handleImageChange} />
                               <small className="text-muted">(500x500)</small>
                             </div>
                           </form>
                         </div>
                       </div>
-                      <div class="col-lg-7 col-md-12" style={{background: '#f1f1f1', padding: '10px'}}>
-                        {this.state.text.trim().length > 0 && 
-                          <Canvas 
-                            text={this.state.text} 
-                            textAlign={this.state.textAlign} 
-                            fontSize={this.state.fontSize} 
+                      <div class="col-lg-7 col-md-12" style={{ background: '#f1f1f1', padding: '10px' }}>
+                        {this.state.text.trim().length > 0 &&
+                          <Canvas
+                            text={this.state.text}
+                            textAlign={this.state.textAlign}
+                            fontSize={this.state.fontSize}
                             fontWeight={this.state.fontWeight}
                             textFill={this.state.textFill}
                             fontFamily={this.state.fontFamily}
@@ -265,13 +264,13 @@ class Form extends Component {
                         }
                       </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
             <div className="form-group">
               <label>Title:</label>
               <Field
@@ -311,43 +310,43 @@ class Form extends Component {
             {this.state.forceTurnOffImage && <div class="text-right">
               <small className="text-muted red">You can only post as text</small>
             </div>}
-            
-            <div className="show-img-holder mt-5"> 
+
+            <div className="show-img-holder mt-5">
               <label>Show default background image:</label>
-              <div className="custom-input-checkbox d-inline">
-                <input
-                  type="checkbox"
-                  id="switch-show-bg"
-                  disabled={this.state.forceTurnOffImage}
+              <div className="d-inline">
+
+                <Switch height={25} width={50} disabled={this.state.forceTurnOffImage}
                   checked={this.state.imageVisibility}
-                  onChange={e => this.handleShowImage(e)}
-                />
+                  onChange={(c, e) => {
+                    this.handleShowImage(c);
+                  }} />
+
                 <label for="switch-show-bg" />
               </div>
-              <label>{this.state.imageVisibility ? "On": "Off"}</label>
+              <label>{this.state.imageVisibility ? "On" : "Off"}</label>
             </div>
             {!this.state.forceTurnOffImage && this.state.imageVisibility && <div> <div className="select-image-holder my-3">
               <label>Select background image:</label>
-              <input type="file" style={{display: "none"}} class="form-control" accept="image/*" id="file-selector" onChange={this.handleImageChange}/>
+              <input type="file" style={{ display: "none" }} class="form-control" accept="image/*" id="file-selector" onChange={this.handleImageChange} />
               <label id="label-file" htmlFor="file-selector">Choose</label>
-              <label style={{maxWidth: "30%", overflow: "hidden"}}>{this.state.filename ? this.state.filename: "No image chosen"}</label>
+              <label style={{ maxWidth: "30%", overflow: "hidden" }}>{this.state.filename ? this.state.filename : "No image chosen"}</label>
             </div>
-            <Button
+              <Button
                 onClick={e => {
-                e.preventDefault();
-                this.toggle();
-              }}
-              style={{background: "#0085f3", color: "white"}}
-            >
-              Show Preview
+                  e.preventDefault();
+                  this.toggle();
+                }}
+                style={{ background: "#0085f3", color: "white" }}
+              >
+                Show Preview
             </Button>
-            </div> }
+            </div>}
             <div className="controls mr-auto mt-3">
               {!this.props.part_id && (
                 <div>
                   <Button
                     disabled={showButtons}
-                    variant="outlined" 
+                    variant="outlined"
                     className="mr-2 mb-2 font-weight-normal"
                     onClick={() => {
                       this.setState(

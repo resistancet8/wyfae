@@ -7,7 +7,11 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
+import { connect } from "react-redux";
 import moment from "moment";
+import like from "./../../../assets/img/liked feel icon.svg";
+import unlike from "./../../../assets/img/unliked feel icon.svg";
+import axios from "axios";
 import Comments from '../../Public/Main/Comments';
 import { withStyles } from "@material-ui/core";
 
@@ -52,7 +56,9 @@ const styles = theme => ({
 
 class Memory extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
+    comment: "",
+    newComment: []
   };
 
   handleClick = event => {
@@ -87,9 +93,101 @@ class Memory extends Component {
       })
   }
 
+  handleComment = event => {
+    this.setState({
+      comment: event.target.value
+    });
+  };
+
+  addComment(id, post_id) {
+    if (this.state.comment.length < 1) {
+      return;
+    }
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
+        post_id: post_id,
+        signal_type: "comment",
+        comment_text: this.state.comment
+      })
+      .then(response => {
+        this.setState({
+          newComment: [
+            ...this.state.newComment,
+            <Comments comment={response.data.comment_content} post_id={post_id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />
+          ],
+          comment: ""
+        }, () => {
+          document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML) + 1;
+        });
+      })
+      .catch(err => {
+      });
+  }
+
+  handleNestedComment(post_id, comment_id, comment, callback) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_nested_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        comment_text: comment
+      })
+      .then(response => {
+        callback(response.data.comment_content);
+      })
+      .catch(err => {
+      });
+  }
+
+  deleteComment(post_id, comment_id, type) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/delete_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        nested: type
+      })
+      .then(response => {
+        var elem = type == "no" ? document.getElementById(`comment-id-${comment_id}`) : document.getElementById(`nested-comment-id-${comment_id}`);
+        document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML) - 1;
+        elem.parentElement.removeChild(elem);
+      })
+      .catch(err => {
+      });
+  }
+
+  handleLikeClick(event, id) {
+    if (document.querySelector(".animate")) {
+      document.querySelector(".animate").classList.remove("animate");
+    }
+
+    if (event.target.src.indexOf("unliked") !== -1) {
+      event.target.src = like;
+      event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML) + 1;
+    } else {
+      event.target.src = unlike;
+      event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML) - 1;
+    }
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
+        post_id: id,
+        signal_type: "like"
+      })
+      .then(response => { })
+      .catch(err => {
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg
+        });
+      });
+  }
+
   render() {
     const { classes, memories } = this.props;
     const { expanded } = this.state;
+    const { auth } = this.props;
+    const { isAuthenticated } = auth;
 
     let type = "";
 
@@ -109,9 +207,9 @@ class Memory extends Component {
           <span class="float-right badge badge-primary rounded font-weight-bold mr-3 p-1 px-3">
             {type}
           </span>
-          <p  
+          <p
             className="text-uppercase px-3"
-            style={{ width: "80%", fontSize: "1.2rem"}}
+            style={{ width: "80%", fontSize: "1.2rem" }}
           >
             {memory.post_title}
           </p>
@@ -121,7 +219,7 @@ class Memory extends Component {
                 src={`${process.env.REACT_APP_API_ENDPOINT}/${memory.url}`}
                 alt="Image"
                 class="img-fluid"
-                style={{minWidth: "100%"}}
+                style={{ minWidth: "100%" }}
               />
             </div>
           )}
@@ -166,28 +264,67 @@ class Memory extends Component {
                 </Button>
               )}
             </div>
-            <p className="my-2" style={{cursor: "pointer"}} onClick={() => {
+
+            <div className="my-2" style={{ cursor: "pointer" }} onClick={() => {
               this.props.handleLikesClick(memory.user_liked)
-            }}>{memory.likes} Likes</p>
+            }} ><span className={"my-2 no-of-likes-got-" + memory._id} >{memory.likes}</span> Likes </div>
+
+            <div className="d-flex justify-content-between cart-actions-main my-2">
+              {memory.user_liked && isAuthenticated && (
+                <img
+                  src={
+                    !!memory.user_liked.filter(
+                      o => o.username === this.props.user.username
+                    ).length
+                      ? like
+                      : unlike
+                  }
+                  alt=""
+                  id="like-unlike-button"
+                  onClick={e => {
+                    this.handleLikeClick(e, memory._id);
+                  }}
+                />
+              )}
+            </div>
+
             <ExpansionPanel
               expanded={expanded === memory._id}
               onChange={this.handleChange(memory._id)}
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
             >
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{padding: "0px !important;"}}>
-                <Typography className={classes.heading} style={{padding: "0px !important;"}}>
-                  Comments ({memory.comments.length})
-                </Typography>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{ padding: "0px !important;" }}>
+                <Typography className={classes.heading}>
+                  Comments (<span className={"total-no-comments-got-" + memory._id}>{memory.comments && (memory.comments.length) || 0}</span>)
+                  </Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <div classes={classes.root}>
-                  <List id={`comment-list-${memory._id}`}>
+                <div class="comments-hold-parent">
+                  <ul id={`comment-list-${memory._id}`}>
+                    <li className="comment-holder">
+                      <textarea
+                        placeholder="Enter comment"
+                        value={this.state.comment}
+                        onChange={this.handleComment}
+                        className="comment-box"
+                      />
+                      <div>
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            this.addComment(`comment-list-${memory._id}`, memory._id);
+                          }}
+                        >
+                          Submit
+                          </Button>
+                      </div>
+                    </li>
                     {memory.comments &&
                       memory.comments.map(comment => {
-                        return <Comments comment={comment} />;
+                        return <Comments comment={comment} post_id={memory._id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />;
                       })}
                     {this.state.newComment}
-                  </List> 
+                  </ul>
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
@@ -199,4 +336,11 @@ class Memory extends Component {
   }
 }
 
-export default withStyles(styles)(Memory)
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user,
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Memory));

@@ -98,12 +98,12 @@
 }
 
 .notifications-holder {
-  position: absolute;
-  top: 50px;
-  height: 600px;
+  position: absolute !important;
+  top: 50px !important;
+  height: 600px !important;
   width: 400px;
   z-index: 9998;
-  right: 75px;
+  right: 75px !important;
   display: grid;
   grid-template-rows: 50px auto;
 }
@@ -129,4 +129,15 @@
 
 .notifications-parent a:hover {
   text-decoration: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .notifications-holder {
+    position: fixed !important;
+    left: 5px !important;
+    top: 175px !important;
+    height: 500px !important;
+    width: 95% !important;
+    border: 1px solid #bbb;
+  }
 }

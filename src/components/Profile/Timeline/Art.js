@@ -6,8 +6,11 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
+import { connect } from "react-redux";
 import moment from "moment";
+import like from "./../../../assets/img/liked feel icon.svg";
+import unlike from "./../../../assets/img/unliked feel icon.svg";
+import axios from "axios";
 import Comments from "../../Public/Main/Comments";
 import { withStyles } from "@material-ui/core";
 import { Link } from 'react-router-dom';
@@ -53,12 +56,104 @@ const styles = theme => ({
 
 class Art extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
+    comment: "",
+    newComment: [],
   };
 
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
+
+  handleComment = event => {
+    this.setState({
+      comment: event.target.value
+    });
+  };
+
+  addComment(id, post_id) {
+    if (this.state.comment.length < 1) {
+      return;
+    }
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
+        post_id: post_id,
+        signal_type: "comment",
+        comment_text: this.state.comment
+      })
+      .then(response => {
+        this.setState({
+          newComment: [
+            ...this.state.newComment,
+            <Comments comment={response.data.comment_content} post_id={post_id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />
+          ],
+          comment: ""
+        }, () => {
+          document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML) + 1;
+        });
+      })
+      .catch(err => {
+      });
+  }
+
+  handleNestedComment(post_id, comment_id, comment, callback) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_nested_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        comment_text: comment
+      })
+      .then(response => {
+        callback(response.data.comment_content);
+      })
+      .catch(err => {
+      });
+  }
+
+  deleteComment(post_id, comment_id, type) {
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/delete_comment", {
+        post_id: post_id,
+        comment_id: comment_id,
+        nested: type
+      })
+      .then(response => {
+        var elem = type == "no" ? document.getElementById(`comment-id-${comment_id}`) : document.getElementById(`nested-comment-id-${comment_id}`);
+        document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML = parseInt(document.getElementsByClassName("total-no-comments-got-" + post_id)[0].innerHTML) - 1;
+        elem.parentElement.removeChild(elem);
+      })
+      .catch(err => {
+      });
+  }
+
+  handleLikeClick(event, id) {
+    if (document.querySelector(".animate")) {
+      document.querySelector(".animate").classList.remove("animate");
+    }
+
+    if (event.target.src.indexOf("unliked") !== -1) {
+      event.target.src = like;
+      event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML) + 1;
+    } else {
+      event.target.src = unlike;
+      event.target.classList.add("animate");
+      document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML = parseInt(document.getElementsByClassName("no-of-likes-got-" + id)[0].innerHTML) - 1;
+    }
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/update_signal", {
+        post_id: id,
+        signal_type: "like"
+      })
+      .then(response => { })
+      .catch(err => {
+        this.props.dispatch({
+          type: "SHOW_TOAST",
+          payload: err.response.data.msg
+        });
+      });
+  }
 
   handleDownload(url) {
     fetch(url, {
@@ -88,9 +183,12 @@ class Art extends Component {
     });
   };
 
+
   render() {
     const { classes, arts } = this.props;
     const { expanded } = this.state;
+    const { auth } = this.props;
+    const { isAuthenticated } = auth;
 
     let type = "";
 
@@ -175,9 +273,28 @@ class Art extends Component {
                 </Button>
               )}
             </div>
-            <p className="my-2" style={{ cursor: "pointer" }} onClick={() => {
+            <div className="my-2" style={{ cursor: "pointer" }} onClick={() => {
               this.props.handleLikesClick(art.user_liked)
-            }}>{likes} Likes</p>
+            }} ><span className={"my-2 no-of-likes-got-" + art._id} >{likes}</span> Likes </div>
+
+            <div className="d-flex justify-content-between cart-actions-main my-2">
+              {art.user_liked && isAuthenticated && (
+                <img
+                  src={
+                    !!art.user_liked.filter(
+                      o => o.username === this.props.user.username
+                    ).length
+                      ? like
+                      : unlike
+                  }
+                  alt=""
+                  id="like-unlike-button"
+                  onClick={e => {
+                    this.handleLikeClick(e, art._id);
+                  }}
+                />
+              )}
+            </div>
 
             {art.comments && (
               <ExpansionPanel
@@ -185,19 +302,37 @@ class Art extends Component {
                 onChange={this.handleChange(art._id)}
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} style={{ padding: "0px !important;" }}>
-                  <Typography className={classes.heading} style={{ padding: "0px !important;" }}>
-                    Comments ({art.comments.length})
+                  <Typography className={classes.heading}>
+                    Comments (<span className={"total-no-comments-got-" + art._id}>{art.comments && (art.comments.length) || 0}</span>)
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                  <div classes={classes.root}>
-                    <List id={`comment-list-${art._id}`}>
+                  <div class="comments-hold-parent">
+                    <ul id={`comment-list-${art._id}`}>
+                      <li className="comment-holder">
+                        <textarea
+                          placeholder="Enter comment"
+                          value={this.state.comment}
+                          onChange={this.handleComment}
+                          className="comment-box"
+                        />
+                        <div>
+                          <Button
+                            variant="outlined"
+                            onClick={() => {
+                              this.addComment(`comment-list-${art._id}`, art._id);
+                            }}
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                      </li>
                       {art.comments &&
                         art.comments.map(comment => {
-                          return <Comments comment={comment} />;
+                          return <Comments comment={comment} post_id={art._id} deleteComment={this.deleteComment.bind(this)} handleNestedComment={this.handleNestedComment.bind(this)} />;
                         })}
                       {this.state.newComment}
-                    </List>
+                    </ul>
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
@@ -210,4 +345,11 @@ class Art extends Component {
   }
 }
 
-export default withStyles(styles)(Art);
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user,
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Art));
