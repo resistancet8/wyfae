@@ -20,7 +20,7 @@ class Sidebar extends Component {
     return (
       <div>
         <ListGroup className="admin-sidebar-ul">
-          <Link className="text-decoration-none font-weight-bold" to="/admin/dashboard/overview"><ListGroupItem>Overview</ListGroupItem></Link>
+          <Link className="text-decoration-none font-weight-bold" to="/admin/dashboard/"><ListGroupItem>Overview</ListGroupItem></Link>
           <Link className="text-decoration-none font-weight-bold" to="/admin/dashboard/users"><ListGroupItem>Users</ListGroupItem></Link>
           <Link className="text-decoration-none font-weight-bold" to="/admin/dashboard/posts"><ListGroupItem>Posts</ListGroupItem></Link>
           <Link className="text-decoration-none font-weight-bold" to="/admin/dashboard/competitions"><ListGroupItem>Competitions</ListGroupItem></Link>
