@@ -34,12 +34,12 @@ class NavbarComponent extends Component {
   componentDidMount() {
     if(this.props.auth.isAuthenticated)
       this.getNotifications();
-    window.addEventListener("click", e => {
-      e.preventDefault();
-      this.setState({
-        showNotification: false
-      })
-    });
+    // window.addEventListener("click", e => {
+    //   e.preventDefault();
+    //   this.setState({
+    //     showNotification: false
+    //   })
+    // });
 
     window.addEventListener("scroll", e => {
       e.preventDefault();
