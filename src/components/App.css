@@ -30,6 +30,10 @@ a.profile {
   background: #f1f1f1;
 }
 
+.legend {
+  cursor: pointer !important;
+}
+
 .fa-chevron-circle-up {
   font-size: 3em;
   transition: .3s;

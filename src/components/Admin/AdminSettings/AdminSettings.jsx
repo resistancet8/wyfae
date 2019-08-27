@@ -15,8 +15,8 @@ class AdminCompetition extends Component {
 			notification_message: '',
 			saving: false,
 			showLoader: false,
-      defaultImages: [],
-      showLoaderImages: false
+			defaultImages: [],
+			showLoaderImages: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -59,7 +59,7 @@ class AdminCompetition extends Component {
 	}
 
 	getDefaultImages() {
-    this.setState({ showLoaderImages: true });
+		this.setState({ showLoaderImages: true });
 		let axiosConfig = {
 			headers: {
 				'Content-Type': 'application/json;charset=UTF-8',
@@ -71,7 +71,7 @@ class AdminCompetition extends Component {
 			.post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get_image`, {}, axiosConfig)
 			.then((response) => {
 				let images = response.data.image_list.map((i) => i.replace('images', 'image'));
-        this.setState({ defaultImages: images, showLoaderImages: false });
+				this.setState({ defaultImages: images, showLoaderImages: false });
 			})
 			.catch((err) => {});
 	}
@@ -90,8 +90,8 @@ class AdminCompetition extends Component {
 		axios
 			.post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/upload_image`, bodyFormData, axiosConfig)
 			.then((response) => {
-        this.setState({ defaultImages: response.data.image_list });
-        window.location.reload();
+				this.setState({ defaultImages: response.data.image_list });
+				window.location.reload();
 			})
 			.catch((err) => {});
 	}
@@ -140,7 +140,7 @@ class AdminCompetition extends Component {
 		axios
 			.post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/delete_image`, { image_name: image }, axiosConfig)
 			.then((response) => {
-        this.setState({
+				this.setState({
 					image_list: []
 				});
 				alert('Deleted!');
@@ -196,9 +196,9 @@ class AdminCompetition extends Component {
 						</div>
 						{this.state.showLoaderImages ? (
 							<Loader />
-						) : (
-              this.state.defaultImages && this.state.defaultImages.length > 0 ? <Carousel dynamicHeight={false}>
-								{ this.state.defaultImages.map((img) => {
+						) : this.state.defaultImages && this.state.defaultImages.length > 0 ? (
+							<Carousel dynamicHeight={false}>
+								{this.state.defaultImages.map((img) => {
 									return (
 										<div>
 											<img src={`${process.env.REACT_APP_API_ENDPOINT}${img}`} />
@@ -215,8 +215,10 @@ class AdminCompetition extends Component {
 											</button>
 										</div>
 									);
-								}) }
-							</Carousel> : <p> No images. </p>
+								})}
+							</Carousel>
+						) : (
+							<p> No images. </p>
 						)}
 					</Col>
 				</Row>

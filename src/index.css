@@ -11,3 +11,11 @@ pre {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.01em;
 }
+
+.control-prev::before{
+  border-right: 8px solid #000 !important;
+}
+
+.control-next::before {
+  border-left: 8px solid #000 !important;
+}
