@@ -108,7 +108,7 @@ class FollowingRoute extends Component {
             {ListOfUsers}
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-5">
           {items.length > 0 ? (
             <div style={{ padding: '1px' }}>
               <InfiniteScroll

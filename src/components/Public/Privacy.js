@@ -6,8 +6,8 @@ class Privacy extends Component {
     return (
       <div className="container">
         <h1>Privacy Policy</h1>
-        <p>WYFAE ("us", "we", or "our") operates the www.wyfae.com (the "Service").</p>
-        <p>Please read the following to learn more about your privacy policy, we are engaged in giving you transparency of our privacy practices and control over your data. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data. We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms of Service, accessible from www.wyfae.com</p>
+        <p>WYFAE ("us", "we", or "our") operates the <a href="//www.wyfae.com" target="_blank" rel="noopener noreferrer">https://www.wyfae.com</a> (the "Service").</p>
+        <p>Please read the following to learn more about your privacy policy, we are engaged in giving you transparency of our privacy practices and control over your data. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data. We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms of Service, accessible from <a href="//www.wyfae.com" target="_blank" rel="noopener noreferrer">https://www.wyfae.com</a></p>
 
         <h2>Information Collection And Use</h2>
         <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
@@ -92,7 +92,7 @@ class Privacy extends Component {
 
         <p>You can opt-out of having made your activity on the Service available to Google Analytics by installing the Google Analytics opt-out browser add-on. The add-on prevents the Google Analytics JavaScript (ga.js, analytics.js, and dc.js) from sharing information with Google Analytics about visits activity.</p>
 
-        <p>For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page: https://policies.google.com/privacy?hl=en</p>
+        <p>For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page: <a href="https://policies.google.com/privacy?hl=en" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy?hl=en</a> </p>
 
 
         <h2>Links To Other Sites</h2>
@@ -115,7 +115,7 @@ class Privacy extends Component {
         <h4>If you have any questions about this Privacy Policy, please contact us:</h4>
         <ul>
           <li>
-            By email: supportyou@wyfae.com
+            By email: <a href="mailto:supportyou@wyfae.com">supportyou@wyfae.com</a>
           </li>
         </ul>
         <StickyBar />

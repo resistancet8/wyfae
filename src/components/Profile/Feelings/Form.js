@@ -279,7 +279,7 @@ class Form extends Component {
 										<h3 class="modal-title font-weight-normal" id="exampleModalLabel">
 											Share Your Feelings/ Experience
 										</h3>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close" style={{fontSize: '40px', color: 'red'}}>
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>

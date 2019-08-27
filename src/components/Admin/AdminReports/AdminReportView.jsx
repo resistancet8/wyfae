@@ -71,8 +71,8 @@ class AdminUsersView extends Component {
             <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
-                  <p class="card-category">Spam Count</p>
-                  <h3 class="card-title text-capitalize">{this.state.post.spam_count}</h3>
+                  <p class="card-category">{this.state.post.hasOwnProperty('plagarised_count') ? 'Plagarised': 'Spam'} Count</p>
+                  <h3 class="card-title text-capitalize">{this.state.post.hasOwnProperty('plagarised_count') ? this.state.post.plagarised_count : this.state.post.spam_count}</h3>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@ class AdminUsersView extends Component {
           <hr/>
           <h2>Users Reported</h2>
           <div className="users-reported" style={{ width: "300px", height: "300px"}}>
-              {this.state.post.user_reported_spam.map(spam => {
+              {(this.state.post.user_reported_spam || this.state.post.user_reported_plagarised).map(spam => {
                   return <div className="each-spammed-user mb-1" style={{ padding: '10px', background: '#eee'}}>
                       <Link to={`/profile/${spam.username}`}>@{spam.name}</Link>
                   </div>
