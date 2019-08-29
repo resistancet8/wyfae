@@ -29,7 +29,23 @@ let fontList = [
 	'Verdana',
 	'Courier New',
 	'Times New Roman',
-	'Helvetica'
+	'Helvetica',
+	'Caveat',
+	'Chilanka',
+	'Dancing Script',
+	'Economica',
+	'Fjalla One',
+	'Indie Flower',
+	'Lato',
+	'Lobster',
+	'Nova Round',
+	'Open Sans',
+	'Oswald',
+	'Playfair Display',
+	'Quicksand',
+	'Raleway',
+	'Roboto',
+	'Saira Stencil One'
 ];
 
 function convertFileToDataURLviaFileReader(url, callback) {
@@ -78,7 +94,7 @@ class Form extends Component {
 		text: '',
 		textAlign: 'left',
 		fontSize: 35,
-		fontWeight: 'bold',
+		fontWeight: 'normal',
 		textFill: '#444444',
 		fontFamily: fontList[0],
 		canvasBackground: '#ffffff',
@@ -480,7 +496,10 @@ class Form extends Component {
 												)}
 											</div>
 											<div className="col-lg-7 col-md-12 controls-holder-col mobile d-lg-none">
-											<div className="controls-holder mobile" style={{ padding: '10px 20px' }}>
+												<div
+													className="controls-holder mobile"
+													style={{ padding: '10px 20px' }}
+												>
 													<form>
 														<div class="form-group">
 															<div className="row">
@@ -574,12 +593,10 @@ class Form extends Component {
 																			onChange={this.handleControlsChange}
 																		/>
 																	</div>
-															</div>
-														</div>
-														<div class="form-group">
-															<div className="row">
-
 																</div>
+															</div>
+															<div class="form-group">
+																<div className="row" />
 															</div>
 														</div>
 														<div class="form-group">
