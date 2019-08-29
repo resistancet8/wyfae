@@ -266,12 +266,13 @@ class Form extends Component {
 					/>
 					<div className="data-holder">
 						<div
-							class="modal fade"
+							class="modal fade pr-0 pb-5"
 							id="exampleModal"
 							tabindex="-1"
 							role="dialog"
 							aria-labelledby="exampleModalLabel"
 							aria-hidden="true"
+							style={{ zIndex: '10000' }}
 						>
 							<div class="modal-dialog xyz" role="document">
 								<div class="modal-content">
@@ -279,14 +280,22 @@ class Form extends Component {
 										<h3 class="modal-title font-weight-normal" id="exampleModalLabel">
 											Share Your Feelings/ Experience
 										</h3>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close" style={{fontSize: '40px', color: 'red'}}>
+										<button
+											type="button"
+											class="close"
+											data-dismiss="modal"
+											aria-label="Close"
+											style={{ fontSize: '40px', color: 'red' }}
+										>
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-body">
 										<div class="row preview-container" style={{ padding: '10px' }}>
-											<div class="col-lg-5 col-md-12" style={{ background: '#fefefe' }}>
-												<h5>Controls:</h5>
+											<div
+												class="col-lg-5 col-md-12 d-none d-lg-block"
+												style={{ background: '#fefefe' }}
+											>
 												<div className="controls-holder" style={{ padding: '10px 20px' }}>
 													<form>
 														<div class="form-group">
@@ -359,26 +368,34 @@ class Form extends Component {
 															</div>
 														</div>
 														<div class="form-group">
-															<label for="text-align">Choose Font:</label>
-															<select
-																class="form-control"
-																id="fontFamily"
-																onChange={this.handleControlsChange}
-																value={this.state.fontFamily}
-															>
-																{fontList.map((f) => <option value={f}>{f}</option>)}
-															</select>
-														</div>
-														<div class="form-group">
-															<label>Background Colour:</label>
-															<input
-																type="color"
-																class="form-control w-25"
-																id="canvasBackground"
-																placeholder="Color"
-																value={this.state.canvasBackground}
-																onChange={this.handleControlsChange}
-															/>
+															<div className="row">
+																<div className="col">
+																	<label for="text-align">Choose Font:</label>
+																	<select
+																		class="form-control"
+																		id="fontFamily"
+																		onChange={this.handleControlsChange}
+																		value={this.state.fontFamily}
+																	>
+																		{fontList.map((f) => (
+																			<option value={f}>{f}</option>
+																		))}
+																	</select>
+																</div>
+																<div className="col">
+																	<div class="form-group">
+																		<label>BG Colour:</label>
+																		<input
+																			type="color"
+																			class="form-control"
+																			id="canvasBackground"
+																			placeholder="Color"
+																			value={this.state.canvasBackground}
+																			onChange={this.handleControlsChange}
+																		/>
+																	</div>
+																</div>
+															</div>
 														</div>
 														<div class="form-group">
 															<label>Choose Different Image:</label>
@@ -411,8 +428,9 @@ class Form extends Component {
 																				this.selectImage(
 																					`${process.env
 																						.REACT_APP_API_ENDPOINT}${this
-																						.state.defaultImages[e]}`
-																				, e);
+																						.state.defaultImages[e]}`,
+																					e
+																				);
 																			}}
 																		>
 																			{this.state.defaultImages.map((img) => {
@@ -444,10 +462,11 @@ class Form extends Component {
 											</div>
 											<div
 												class="col-lg-7 col-md-12"
-												style={{ background: '#f1f1f1', padding: '10px' }}
+												style={{ height: '420px', background: '#f1f1f1', padding: '10px' }}
 											>
 												{this.state.text.trim().length > 0 && (
 													<Canvas
+														height={400}
 														text={this.state.text}
 														textAlign={this.state.textAlign}
 														fontSize={this.state.fontSize}
@@ -460,12 +479,173 @@ class Form extends Component {
 													/>
 												)}
 											</div>
+											<div className="col-lg-7 col-md-12 controls-holder-col mobile d-lg-none">
+											<div className="controls-holder mobile" style={{ padding: '10px 20px' }}>
+													<form>
+														<div class="form-group">
+															<div className="row">
+																<div className="col">
+																	<label>Font Size:</label>
+																	<input
+																		type="number"
+																		class="form-control"
+																		id="fontSize"
+																		placeholder="Font Size"
+																		value={this.state.fontSize}
+																		onChange={this.handleControlsChange}
+																	/>
+																</div>
+																<div className="col">
+																	<label>Font Weight:</label>
+																	<select
+																		class="form-control"
+																		id="fontWeight"
+																		onChange={this.handleControlsChange}
+																		value={this.state.fontWeight}
+																	>
+																		<option value="normal">Normal</option>
+																		<option value="bold">Bold</option>
+																		<option value="400">400</option>
+																		<option value="600">600</option>
+																		<option value="800">800</option>
+																		<option value="900">900</option>
+																	</select>
+																</div>
+																<div className="col">
+																	<label>Text Colour:</label>
+																	<input
+																		type="color"
+																		class="form-control"
+																		id="textFill"
+																		placeholder="Color"
+																		value={this.state.textFill}
+																		onChange={this.handleControlsChange}
+																	/>
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<div className="row">
+																<div className="col">
+																	<label for="text-align">Alignment:</label>
+																	<select
+																		class="form-control"
+																		id="textAlign"
+																		onChange={this.handleControlsChange}
+																		value={this.state.textAlign}
+																	>
+																		<option value="left">Left</option>
+																		<option value="center">Center</option>
+																		<option value="right">Right</option>
+																		<option value="justify">Justify</option>
+																		<option value="justify-left">
+																			Justify Left
+																		</option>
+																		<option value="justify-center">
+																			Justify Center
+																		</option>
+																		<option value="justify-right">
+																			Justify Right
+																		</option>
+																	</select>
+																</div>
+																<div className="col">
+																	<label for="text-align">Font:</label>
+																	<select
+																		class="form-control"
+																		id="fontFamily"
+																		onChange={this.handleControlsChange}
+																		value={this.state.fontFamily}
+																	>
+																		{fontList.map((f) => (
+																			<option value={f}>{f}</option>
+																		))}
+																	</select>
+																</div>
+																<div className="col">
+																	<div class="form-group">
+																		<label>BG Colour:</label>
+																		<input
+																			type="color"
+																			class="form-control"
+																			id="canvasBackground"
+																			placeholder="Color"
+																			value={this.state.canvasBackground}
+																			onChange={this.handleControlsChange}
+																		/>
+																	</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<div className="row">
+
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<label>Choose Different Image:</label>
+															<input
+																type="file"
+																class="form-control"
+																accept="image/*"
+																id="image"
+																onChange={(e) => this.handleImageChange(e)}
+															/>
+															<small className="text-muted">(500x500)</small>
+														</div>
+														<div class="form-group">
+															{this.state.showLoaderImages ? (
+																<Loader />
+															) : (
+																this.state.defaultImages &&
+																this.state.defaultImages.length > 0 && (
+																	<div>
+																		<label>Choose Default Image:</label>
+																		<img
+																			src=""
+																			crossOrigin="anonymous"
+																			id="newimagetoadd"
+																			alt=""
+																		/>
+																		<Carousel
+																			selectedItem={this.state.selectedItem}
+																			onClickItem={(e) => {
+																				this.selectImage(
+																					`${process.env
+																						.REACT_APP_API_ENDPOINT}${this
+																						.state.defaultImages[e]}`,
+																					e
+																				);
+																			}}
+																		>
+																			{this.state.defaultImages.map((img) => {
+																				return (
+																					<div>
+																						<img
+																							src={`${process.env
+																								.REACT_APP_API_ENDPOINT}${img}`}
+																						/>
+																						<p
+																							className="legend"
+																							style={{
+																								color: 'white',
+																								background: 'red'
+																							}}
+																						>
+																							Select
+																						</p>
+																					</div>
+																				);
+																			})}
+																		</Carousel>
+																	</div>
+																)
+															)}
+														</div>
+													</form>
+												</div>
+											</div>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">
-											Close
-										</button>
 									</div>
 								</div>
 							</div>

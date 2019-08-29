@@ -399,6 +399,19 @@ button#plus, button#minus {
 }
 
 
+.controls-holder.mobile .form-group {
+  margin-bottom: 5px;
+}
+
+.controls-holder.mobile label {
+  margin-bottom: 2px;
+  font-size: 10px;
+}
+
+.controls-holder-col.mobile, .controls-holder.mobile{
+  padding: 0 !important;
+}
+
 /* desktop */
 
 @media screen and (min-width: 800px) {
