@@ -142,28 +142,15 @@ class Form extends Component {
 	}
 
 	selectImage(image, item) {
-		fetch(image, {
-			method: 'GET',
-			mode: 'cors',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			}
-		})
-			.then((response) => {
-				return response.blob();
-			})
-			.then((blob) => {
-				var reader = new FileReader();
-				reader.readAsDataURL(blob);
-				reader.onloadend = () => {
-					var base64data = reader.result;
-					this.setState({
-						canvasBackgroundImage: base64data,
-						selectedItem: item
-					});
-				};
-			});
+		axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/download_image", {
+      image_path: image.match(/(\/)(static)(.*)/g)[0]
+    })
+    .then(e => {
+        this.setState({
+					canvasBackgroundImage: "data:application/octet-stream;base64," + e.data.image,
+					selectedItem: item
+				});
+    })
 	}
 
 	handleImageChange(e) {

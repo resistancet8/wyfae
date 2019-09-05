@@ -323,7 +323,6 @@ class Memory extends Component {
                   checked={this.state.imageVisibility}
                   onChange={c => this.handleShowImage(c)}
                 />
-
               </div>
               <label>{this.state.imageVisibility ? "On" : "Off"}</label>
             </div>

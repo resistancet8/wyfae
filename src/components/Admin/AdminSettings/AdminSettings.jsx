@@ -6,6 +6,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loader from './../../Loader';
+import Switch from 'react-switch';
 
 class AdminCompetition extends Component {
 	constructor(props) {
@@ -16,7 +17,8 @@ class AdminCompetition extends Component {
 			saving: false,
 			showLoader: false,
 			defaultImages: [],
-			showLoaderImages: false
+			showLoaderImages: false,
+			showHideMessage: true
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -25,6 +27,7 @@ class AdminCompetition extends Component {
 		this.uploadNewDefaultImage = this.uploadNewDefaultImage.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.deleteImage = this.deleteImage.bind(this);
+		this.handelShowHideMessage = this.handelShowHideMessage.bind(this);
 	}
 
 	handleChange(e) {
@@ -94,6 +97,14 @@ class AdminCompetition extends Component {
 				window.location.reload();
 			})
 			.catch((err) => {});
+	}
+
+	handelShowHideMessage() {
+		this.setState(() => {
+			return {
+				showHideMessage: !this.state.showHideMessage
+			};
+		});
 	}
 
 	componentDidMount() {
@@ -175,6 +186,15 @@ class AdminCompetition extends Component {
 									)
 								)}
 							</FormGroup>
+							<label>Show Message: </label>
+							<div>
+								<Switch
+									height={25}
+									width={50}
+									checked={this.state.showHideMessage}
+									onChange={(c) => this.handelShowHideMessage()}
+								/>
+							</div>
 						</Form>
 						{this.state.saving ? (
 							<Loader />

@@ -76,21 +76,17 @@ class Memory extends Component {
   };
 
   handleDownload(url) {
-    fetch(url, {
-      headers: {
-        "Accept": "application/octet-stream"
-      }
+    axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/download_image", {
+      image_path: url.match(/(\/)(static)(.*)/g)[0]
     })
-      .then(e => e.blob())
-      .then(s => {
+    .then(e => {
         var tag = document.createElement('a');
-        tag.href = URL.createObjectURL(s);
-
+        tag.href = "data:application/octet-stream;base64," + e.data.image;
         tag.download = "image.jpg";
         document.body.appendChild(tag);
         tag.click();
         document.body.removeChild(tag);
-      })
+    })
   }
 
   handleComment = event => {
