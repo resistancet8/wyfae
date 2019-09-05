@@ -3,6 +3,27 @@ textarea {
   box-shadow: none !important;
 }
 
+.admin-message-global {
+  background: red; 
+  color: white; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  position: relative;
+  font-weight: bold;
+}
+
+.admin-message-global .close {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 input:focus,
 textarea:focus {
   border: 1px solid #444 !important;

@@ -88,7 +88,7 @@ class Form extends Component {
 		modal: 1,
 		previewUrl: '',
 		color: '#333333',
-		imageVisibility: false,
+		imageVisibility: true,
 		forceTurnOffImage: false,
 		previewed: false,
 		text: '',

@@ -100,11 +100,12 @@ class AdminUsers extends Component {
 					<Col md="1">{index + 1}</Col>
 					<Col md="2">{user.fullname}</Col>
 					<Col md="2">{user.email}</Col>
+					<Col md="1">{user.contact || 'nil'}</Col>
 					<Col md="1">{user.total_followers}</Col>
 					<Col md="1">{user.stats.no_of_wins}</Col>
 					<Col md="1">{user.stats.content_shared}</Col>
 					<Col md="1">{user.stats.anonymous_shared}</Col>
-					<Col md="2">
+					<Col md="1">
 						<Link to={`/profile/${user._id}`}>@{user._id}</Link>
 					</Col>
 					<Col md="1">
@@ -150,6 +151,10 @@ class AdminUsers extends Component {
 					</Col>
 					<Col md="1">
 						{' '}
+						<strong>Contact</strong>
+					</Col>
+					<Col md="1">
+						{' '}
 						<strong>Followers</strong>
 					</Col>
 					<Col md="1">
@@ -164,7 +169,7 @@ class AdminUsers extends Component {
 						{' '}
 						<strong>Anonymous</strong>
 					</Col>
-					<Col md="2">
+					<Col md="1">
 						{' '}
 						<strong>Username</strong>
 					</Col>

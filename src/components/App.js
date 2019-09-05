@@ -54,6 +54,11 @@ class App extends Component {
     this.props.dispatch({ type: "CLOSE_TOAST", payload: null });
   };
 
+  closeGlobalMessage() {
+    localStorage.setItem('shown_message', 1);
+    this.setState({})
+  }
+
   render() {
     let isAuth = false;
     if (
@@ -71,6 +76,20 @@ class App extends Component {
       showHeader = true;
     }
 
+    const { admin_message } = this.props.user;
+    let adminMessageHTML;
+
+    if(admin_message && admin_message.display == 'yes') {
+      if( localStorage.getItem('shown_message') != 1 ) {
+        localStorage.setItem('admin_message', admin_message.text);
+        adminMessageHTML = <div className="admin-message-global">{admin_message.text} <span className="close" onClick={this.closeGlobalMessage.bind(this)}><i className="far fa-times-circle"></i></span> </div>;
+      } else if(localStorage.getItem('admin_message') != admin_message.text && localStorage.getItem('shown_message') == 1) {
+        localStorage.setItem('admin_message', admin_message.text);
+        adminMessageHTML = <div className="admin-message-global">{admin_message.text} <span className="close" onClick={this.closeGlobalMessage.bind(this)}><i className="far fa-times-circle"></i></span> </div>;
+        localStorage.setItem('shown_message', 0);
+      }
+    }
+
     return (
       <div className="App">
         <MetaTags>
@@ -78,6 +97,7 @@ class App extends Component {
           <meta name="keywords" content="yourquote, your quote, share poems, share stories, share letters, write feelings and emotions." />
           <meta name="description" content="A social network where everyone communicates by writing their true emotions and thoughts. Write your quotes, poems, stories and letters . Create your memory book and Share your post, participate in the vote based competitions.Collect the famous quotes, inspirational quotes, motivational quotes, romantic quotes, book quotes, writer’s quotes, funny quotes and all other quotes that lift you. Write your goals, maintain your To do list and maintain a completely private online journal." />
         </MetaTags>
+        {admin_message && admin_message.display == 'yes' && adminMessageHTML}
         {showHeader && <Navbar />}
         <Route exact path="/admin" component={AdminRoot} />
         <Route path="/admin/dashboard" component={AdminDasboard} />
@@ -203,6 +223,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    user: state.user.user,
     toast: state.general.general.toast
   };
 }

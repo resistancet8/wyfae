@@ -67,7 +67,7 @@ class Login extends Component {
                     )}
                     <div className="form-group">
                     <InputGroup className="ip-group">
-                      <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+                      <InputGroupAddon addonType="prepend"><i class="fas fa-user-check"></i></InputGroupAddon>
                       <Field
                         component="input"
                         type="text"
@@ -87,7 +87,7 @@ class Login extends Component {
                     </div>
                     <div className="form-group">
                     <InputGroup className="ip-group">
-                      <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+                      <InputGroupAddon addonType="prepend"><i class="fas fa-lock"></i></InputGroupAddon>
                       <Field
                         component="input"
                         type="password"
@@ -125,14 +125,15 @@ class Login extends Component {
               <div className="right-side">
                 <div className="navigation">
                   <ul>
-                    <li><NavLink to="/trending">Trending</NavLink></li>
+                    <li><NavLink to="/trending">Trending Feel</NavLink></li>
                     <li><NavLink to="/trending">Competetions</NavLink></li>
                     <li><NavLink to="/trending">Trending Weekly</NavLink></li>
                   </ul>
                 </div>
                 <div className="signup">
                   <h1 className="font-weight-bold">New Here?</h1>
-                  <p>You can create a new account and start posting your experiences.</p>
+                  <p>Create a new account and start writing your experiences, memories and emotions.</p>
+                  <p className="text-center">Let's Ink your life.</p>
                   <NavLink className="btn" to="/register">Sign up</NavLink>
                 </div>
               </div>
