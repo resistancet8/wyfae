@@ -424,8 +424,8 @@ function mapStoP(state) {
 export default reduxForm({
   form: "memory-form"
 })(
-  connect(
+  withRouter(connect(
     mapStoP,
     {}
-  )(withRouter(Memory))
+  )(Memory))
 );

@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import Spinner from "../Spinner/Spinner";
 import { Button, Row, Col, Container, InputGroup, InputGroupAddon} from 'reactstrap';
 import Brand from "./../../assets/img/wyfae_main logo.svg";
+import LockPNG from './../../assets/img/locked@3x.png';
+import MailPNG from './../../assets/img/mail@3x.png';
 import './Auth.css';
 
 class Login extends Component {
@@ -67,7 +69,7 @@ class Login extends Component {
                     )}
                     <div className="form-group">
                     <InputGroup className="ip-group">
-                      <InputGroupAddon addonType="prepend"><i class="fas fa-user-check"></i></InputGroupAddon>
+                      <InputGroupAddon addonType="prepend"><img style={{objectFit: 'contain'}} src={MailPNG} /></InputGroupAddon>
                       <Field
                         component="input"
                         type="text"
@@ -76,6 +78,7 @@ class Login extends Component {
                           "is-invalid": errors.email
                         })}
                         id="username"
+                        autoComplete={"email"}
                         placeholder="Username"
                         required
                       />
@@ -87,11 +90,12 @@ class Login extends Component {
                     </div>
                     <div className="form-group">
                     <InputGroup className="ip-group">
-                      <InputGroupAddon addonType="prepend"><i class="fas fa-lock"></i></InputGroupAddon>
+                      <InputGroupAddon addonType="prepend"><img style={{objectFit: 'contain'}} src={LockPNG} /></InputGroupAddon>
                       <Field
                         component="input"
                         type="password"
                         name="password"
+                        autoComplete={"new-password"}
                         className={classnames("form-control", {
                           "is-invalid": errors.password
                         })}

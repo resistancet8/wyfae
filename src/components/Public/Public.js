@@ -109,5 +109,5 @@ function mapStateToProps(state) {
 export default withRouter(
   connect(
     mapStateToProps, null
-  )(withStyles(styles)(Public))
+  )(Public)
 );

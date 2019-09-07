@@ -164,19 +164,28 @@ h1#sub-title {
     max-width: 100% !important;
   }
 
-  .login-page-holder .navigation, .login-page-holder .brand-holder {
+  .login-page-holder .navigation, .login-page-holder .brand-holder, .register_holder_self .navigation, .register_holder_self .brand-holder {
     padding: 50px !important;
     margin-bottom: 40px !important;
     top: 0 !important;
     left: 0 !important;
   }
 
-  .login-page-holder .ip-group {
+  .login-page-holder .navigation, .register_holder_self .navigation {
+    padding: 50px 0 !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .register_holder_self .left-side {
+    padding-right: 0 !important;
+  }
+
+  .login-page-holder .ip-group,  .register_holder_self .ip-group {
     padding: 20px !important;
     width: 95% !important;
   }
   
-  .login-page-holder .signin-form h1 {
+  .login-page-holder .signin-form h1, .register_holder_self .signin-form h1 {
     font-size: 1.6em;
   }
 

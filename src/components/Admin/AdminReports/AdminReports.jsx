@@ -151,7 +151,6 @@ class Adminpost extends Component {
 	}
 
 	render() {
-		console.log('+++', this.state);
 		let items = this.state.inview.map((post, index) => {
 			return (
 				<Row className="my-4 border-bottom">

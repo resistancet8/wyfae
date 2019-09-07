@@ -447,4 +447,4 @@ PublicCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(PublicCard));
+export default connect(mapStateToProps)(PublicCard);

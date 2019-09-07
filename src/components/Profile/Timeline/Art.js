@@ -348,4 +348,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Art));
+export default connect(mapStateToProps)(Art);

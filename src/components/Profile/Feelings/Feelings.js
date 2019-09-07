@@ -106,4 +106,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Feelings));
+export default connect(mapStateToProps)(Feelings);
