@@ -313,4 +313,4 @@ ParticipantCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(ParticipantCard);
+export default withStyles(styles)(connect(mapStateToProps)(ParticipantCard));

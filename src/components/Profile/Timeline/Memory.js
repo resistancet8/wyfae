@@ -339,4 +339,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Memory);
+export default withStyles(styles)(connect(mapStateToProps)(Memory));

@@ -41,11 +41,11 @@ class Public extends Component {
 
     return (
       <div className="public-page" style={{ backgroundImage: `url(${BackgroundDots})` }}>
-        <Grid container className={classes.root} spacing={8}>
+        <Grid container spacing={8}>
           <Grid item xs={12} md={3} className="d-none d-lg-block">
             <div className="comp-holder sticky-top">
               <div className="sticky-top">
-                <Competition className={classes.comp + " border p-3 rounded"} />
+                <Competition className={"w-100 border p-3 rounded"} />
                 <div style={{ margin: "10px 0" }}></div>
                 <div className="border rounded" style={{
                   width: "100%",
@@ -69,7 +69,7 @@ class Public extends Component {
                       <div className="main-section" style={{ padding: "0 100px" }}>
                         <Main
                           posts={this.props.posts}
-                          className={classes.public}
+                          className={'w-100'}
                           posts_tr={route.key}
                         />
                       </div>
@@ -87,7 +87,7 @@ class Public extends Component {
           </Grid>
           <Grid item xs={12} md={3}>
             <div className="trend-links sticky-top">
-              <Trending className={classes.trend + " p-3 border rounded"} />
+              <Trending className={ "w-100 p-3 border rounded"} />
             </div>
           </Grid>
         </Grid>

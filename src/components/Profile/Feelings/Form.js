@@ -14,6 +14,7 @@ import Loader from './../../Loader';
 import Switch from 'react-switch';
 import axios from 'axios';
 import './text.js';
+
 let textLimit = 100;
 let fontList = [
 	'Arial',
@@ -99,9 +100,10 @@ class Form extends Component {
 		fontFamily: fontList[0],
 		canvasBackground: '#ffffff',
 		canvasBackgroundImage: null,
-		canvasFinalImage: null,
+		canvas: null,
 		showLoaderImages: '',
 		defaultImages: [],
+		textBuffer: "",
 		selectedItem: 0
 	};
 
@@ -118,9 +120,9 @@ class Form extends Component {
 	}
 
 	updateCanvas(canvas) {
-		if (canvas != this.state.canvasFinalImage) {
+		if (canvas != this.state.canvas) {
 			this.setState({
-				canvasFinalImage: canvas
+				canvas
 			});
 		}
 	}
@@ -216,7 +218,12 @@ class Form extends Component {
 			return;
 		}
 
-		let blob = this.dataURItoBlob(this.state.canvasFinalImage);
+		let blob = this.dataURItoBlob(this.state.canvas.toDataURL({
+      format: 'jpeg',
+      quality: 1,
+      multiplier: 2
+		}));
+		
 		let bodyFormData = new FormData();
 		bodyFormData.append('text', this.state.text);
 		bodyFormData.append('post_type', formData.post_type);
@@ -236,7 +243,6 @@ class Form extends Component {
 
 	componentDidMount() {
 		this.getDefaultImages();
-
 		this.props.initialize({
 			post_type: 'art'
 		});
@@ -248,6 +254,12 @@ class Form extends Component {
 				imageVisibility: checked
 			};
 		});
+	}
+
+	toggled() {
+		this.setState({
+			clickToPreview: false
+		})
 	}
 
 	render() {
@@ -269,12 +281,12 @@ class Form extends Component {
 					/>
 					<div className="data-holder">
 						<div
-							class="modal fade pr-0 pb-5"
+							class="modal fade pr-0 pb-5 preview-modal"
 							id="exampleModal"
 							tabindex="-1"
+							data-backdrop="static"
+							data-keyboard="false"
 							role="dialog"
-							aria-labelledby="exampleModalLabel"
-							aria-hidden="true"
 							style={{ zIndex: '10000' }}
 						>
 							<div class="modal-dialog xyz" role="document">
@@ -285,9 +297,12 @@ class Form extends Component {
 										</h3>
 										<button
 											type="button"
+											onClick={(e) => {
+												e.preventDefault();
+												this.toggled.bind(this)();
+												document.querySelector('.open-preview-modal').click();
+											}}
 											class="close"
-											data-dismiss="modal"
-											aria-label="Close"
 											style={{ fontSize: '40px', color: 'red' }}
 										>
 											<span aria-hidden="true">&times;</span>
@@ -467,7 +482,7 @@ class Form extends Component {
 												class="col-lg-7 col-md-12"
 												style={{ height: '420px', background: '#f1f1f1', padding: '10px' }}
 											>
-												{this.state.text.trim().length > 0 && (
+												{this.state.text.trim().length > 0  && (
 													<Canvas
 														height={400}
 														text={this.state.text}

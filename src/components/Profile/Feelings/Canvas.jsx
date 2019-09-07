@@ -76,12 +76,7 @@ class DesignCanvas extends React.Component {
   }
 
   updateCanvas() {
-    let image = this.state.canvas.toDataURL({
-      format: 'jpeg',
-      quality: 1,
-      multiplier: 2
-    });
-    this.props.updateCanvas(image)
+    this.props.updateCanvas(this.state.canvas)
   }
 
   componentDidMount() {
