@@ -126,6 +126,18 @@ class NavbarComponent extends Component {
 			.catch((e) => {});
 	}
 
+	updateNotification(notification_id) {
+		Axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + '/user/update_notification', {
+			notification_id,
+			read: "yes"
+		})
+			.then((d) => {
+				document.getElementsByClassName('notification-' + notification_id)[0].classList.remove('read');
+				document.getElementsByClassName('notification-' + notification_id)[0].classList.add('unread');
+			})
+			.catch((e) => {});
+	}
+
 	render() {
 		const { anchorEl } = this.state;
 		const { isAuthenticated: isAuth } = this.props.auth;
@@ -150,10 +162,11 @@ class NavbarComponent extends Component {
 						<Link
 							onClick={(e) => {
 								this.setState({ showNotification: false });
+								this.updateNotification.bind(this)(notification._id);
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className="each-notification p-3">
+							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
 								<i class="fas fa-thumbs-up" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -172,10 +185,11 @@ class NavbarComponent extends Component {
 						<Link
 							onClick={(e) => {
 								this.setState({ showNotification: false });
+								this.updateNotification.bind(this)(notification._id);
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className="each-notification p-3">
+							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
 								<i class="fas fa-thumbs-down" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -195,10 +209,11 @@ class NavbarComponent extends Component {
 						<Link
 							onClick={(e) => {
 								this.setState({ showNotification: false });
+								this.updateNotification.bind(this)(notification._id);
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className="each-notification p-3">
+							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
 								<i class="fas fa-comments" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -219,10 +234,11 @@ class NavbarComponent extends Component {
 						<Link
 							onClick={(e) => {
 								this.setState({ showNotification: false });
+								this.updateNotification.bind(this)(notification._id);
 							}}
 							to={`/profile/${notification.followed_by}`}
 						>
-							<ListGroupItem className="each-notification p-3">
+							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
 								<i class="fas fa-user-plus" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.followed_by}`}
 								>
@@ -245,7 +261,7 @@ class NavbarComponent extends Component {
 							}}
 							to={`/profile/${notification.followed_by}`}
 						>
-							<ListGroupItem className="each-notification p-3">
+							<ListGroupItem className={`each-notification p-3 ${notification.read == 'yes' ? 'unread': 'read'}`}>
 								<i class="fas fa-user-minus" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.followed_by}`}
 								>
@@ -386,10 +402,11 @@ class NavbarComponent extends Component {
 										<img src={TrendingFeel} alt="" />
 									</IconButton>
 								</NavLink>
-								<span className="p-2 text-dark" onClick={this.handleShowNotification.bind(this)}>
+								<span className="p-2 text-dark notification-span" onClick={this.handleShowNotification.bind(this)}>
 									<IconButton color="default" className="icon-holder2">
 										<i className="fas fa-bell" />
 									</IconButton>
+									<i className="dot-notification fas fa-circle" />
 								</span>
 								<Button onClick={this.handleClick} style={{ color: 'white' }}>
 									<img

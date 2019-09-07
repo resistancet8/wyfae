@@ -119,16 +119,32 @@
 }
 
 .each-notification {
+  text-decoration: none !important;
   cursor: pointer;
 }
 
-.each-notification:hover {
+.each-notification.unread {
+  background: #fff;
+}
+
+.each-notification.read {
   background: #eee;
-  text-decoration: none !important;
 }
 
 .notifications-parent a:hover {
   text-decoration: none !important;
+}
+
+.notification-span {
+  position: relative;
+}
+
+.dot-notification {
+  position: absolute;
+  color: red;
+  font-size: 10px;
+  right: 15px;
+  top: 5%;
 }
 
 @media screen and (max-width: 600px) {
