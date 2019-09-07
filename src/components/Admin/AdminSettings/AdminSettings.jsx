@@ -18,7 +18,7 @@ class AdminCompetition extends Component {
 			showLoader: false,
 			defaultImages: [],
 			showLoaderImages: false,
-			showHideMessage: true
+			showHideMessage: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -48,7 +48,7 @@ class AdminCompetition extends Component {
 		axios
 			.post(
 				`${process.env.REACT_APP_API_ENDPOINT}/dashboard/push_message`,
-				{ text: this.state.notification_message },
+				{ text: this.state.notification_message, display: this.state.showHideMessage ? 'yes': 'no' },
 				axiosConfig
 			)
 			.then((response) => {
@@ -128,7 +128,8 @@ class AdminCompetition extends Component {
 				let data = response.data.admin_message.text;
 				this.setState({
 					notification_message: data,
-					showLoader: false
+					showLoader: false,
+					showHideMessage: response.data.admin_message && response.data.admin_message.display == 'yes' ? true: false
 				});
 			})
 			.catch((err) => {
