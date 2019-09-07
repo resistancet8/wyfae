@@ -21,6 +21,11 @@
   cursor: pointer !important;
 }
 
+.dropdown-item:focus, .dropdown-item:active, .dropdown-item:hover {
+  background: none !important;
+  outline: none !important;
+}
+
 .animate {
   transform: scale(1.4);
   animation-name: pop;
