@@ -16,6 +16,15 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import moment from 'moment';
+import anime from 'animejs/lib/anime.es.js';
+import RectanglePNG from './../../assets/img/Rectangle 50@3x.png';
+import GroupPNG from './../../assets/img/Group 124@3x.png';
+import Group2PNG from './../../assets/img/Group 122@3x.png';
+import PathPNG from './../../assets/img/Path 186@3x.png';
+import MaskPNG from './../../assets/img/Mask Group 1@3x.png';
+import Mask2PNG from './../../assets/img/Mask Group 2@3x.png';
+import Mask3PNG from './../../assets/img/Mask Group 3@3x.png';
+import Path2PNG from './../../assets/img/Path 184@3x.png';
 
 class Register extends Component {
 	state = {
@@ -26,6 +35,53 @@ class Register extends Component {
 		}
 	};
 
+	componentDidMount() {
+
+    var randomMovement = function() {
+        return anime.random(0, 10) + 'rem'
+    };
+  
+    anime({
+      targets: '#first',
+      loop: true,
+      scale: .1,
+      easing: 'linear',
+      duration: 3000,
+      direction: 'alternate',
+      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
+    });
+
+    anime({
+      targets: '#second',
+      loop: true,
+      duration: 3000,
+      easing: 'linear',
+      direction: 'alternate',
+      translateX: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ],
+      translateY: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ],
+    });
+
+    anime({
+      targets: '#third',
+      loop: true,
+      scale: .1,
+      easing: 'linear',
+      duration: 3000,
+      direction: 'alternate',
+      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
+    });
+
+    anime({
+      targets: '#seventh',
+      loop: true,
+      scale: .1,
+      easing: 'linear',
+      duration: 3000,
+      direction: 'alternate',
+      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
+    });
+	}
+	
 	getData(e) {
 		e.preventDefault();
 		this.setState(
@@ -74,6 +130,48 @@ class Register extends Component {
 					<Row>
 						<Col md="7" style={{ background: 'white' }}>
 							<div className="left-side">
+							<div className="animation">
+                  <img
+                    id="first"
+                    className="floating-blob"
+                    src={RectanglePNG}
+                  />
+                  <img
+                    id="second"
+                    className="floating-blob"
+                    src={GroupPNG}
+                  />
+                  <img
+                    id="third"
+                    className="floating-blob"
+                    src={Path2PNG}
+                  />
+                  <img
+                    id="fourth"
+                    className="floating-blob"
+                    src={Group2PNG}
+                  />
+                  <img
+                    id="fifth"
+                    className="floating-blob"
+                    src={Mask2PNG}
+                  />
+                  <img
+                    id="sixth"
+                    className="floating-blob"
+                    src={Mask3PNG}
+                  />
+                  <img
+                    id="seventh"
+                    className="floating-blob"
+                    src={PathPNG}
+                  />
+                  <img
+                    id="eighth"
+                    className="floating-blob"
+                    src={MaskPNG}
+                  />
+                </div>
 								<div className="brand-holder">
 									<img src={Brand} alt="Wyfae Brand" style={{ width: '140px' }} />
 								</div>

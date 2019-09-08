@@ -54,8 +54,8 @@ class Login extends Component {
 	componentDidMount() {
 
     var randomMovement = function() {
-      return anime.random(0, 10) + 'rem'
-  };
+        return anime.random(0, 10) + 'rem'
+    };
   
     anime({
       targets: '#first',
