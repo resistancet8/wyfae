@@ -21,7 +21,7 @@ let fontList = [
 	'Tahoma',
 	'Impact',
 	'Arial Black',
-	'Trebuchet MS',
+	'Trebuchet MS', 
 	'Comic Sans MS',
 	'Bookman',
 	'Garamond',
@@ -221,7 +221,7 @@ class Form extends Component {
 		let blob = this.dataURItoBlob(this.state.canvas.toDataURL({
       format: 'jpeg',
       quality: 1,
-      multiplier: 2
+      multiplier: 1
 		}));
 		
 		let bodyFormData = new FormData();
@@ -480,11 +480,11 @@ class Form extends Component {
 											</div>
 											<div
 												class="col-lg-7 col-md-12"
-												style={{ height: '420px', background: '#f1f1f1', padding: '10px' }}
+												style={{ height: '520px', background: '#f1f1f1', padding: '10px' }}
 											>
 												{this.state.text.trim().length > 0  && (
 													<Canvas
-														height={400}
+														height={500}
 														text={this.state.text}
 														textAlign={this.state.textAlign}
 														fontSize={this.state.fontSize}

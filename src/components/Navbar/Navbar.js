@@ -28,7 +28,8 @@ class NavbarComponent extends Component {
 		notifications: [],
 		hasMore: true,
 		showLoading: false,
-		showNotification: false
+		showNotification: false,
+		notificationCount: 0
 	};
 
 	componentDidMount() {
@@ -73,7 +74,7 @@ class NavbarComponent extends Component {
 		})
 			.then((d) => {
 				this.setState({
-					results: d.data.all_content
+					results: d.data.content
 				});
 			})
 			.catch((e) => {});
@@ -106,6 +107,13 @@ class NavbarComponent extends Component {
 		this.setState({
 			showNotification: !this.state.showNotification
 		});
+		Axios.post(`${process.env.REACT_APP_API_ENDPOINT}/user/update_notification_count`, {
+			read: 'yes'
+		})
+			.then((response) => {
+				
+			})
+			.catch((err) => {});
 	}
 
 	getNotifications() {
@@ -120,7 +128,8 @@ class NavbarComponent extends Component {
 			.then((d) => {
 				this.setState({
 					notifications: [ ...d.data.all_content ],
-					showLoading: d.data.all_content.length == 0 ? false : true
+					showLoading: d.data.all_content.length == 0 ? false : true,
+					notificationCount: d.data.notification_count
 				});
 			})
 			.catch((e) => {});
@@ -129,7 +138,7 @@ class NavbarComponent extends Component {
 	updateNotification(notification_id) {
 		Axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + '/user/update_notification', {
 			notification_id,
-			read: "yes"
+			read: 'yes'
 		})
 			.then((d) => {
 				document.getElementsByClassName('notification-' + notification_id)[0].classList.remove('read');
@@ -144,6 +153,7 @@ class NavbarComponent extends Component {
 		const { first_name } = this.props.user;
 		const { url: profile_img } = this.props.user;
 
+		console.log("+++", this.state.results)
 		let Results =
 			this.state.results && this.state.results.length > 0 ? (
 				this.state.results.map((o) => {
@@ -166,7 +176,12 @@ class NavbarComponent extends Component {
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
+							<ListGroupItem
+								className={`each-notification p-3 notification-${notification._id} ${notification.read ==
+								'yes'
+									? 'unread'
+									: 'read'}`}
+							>
 								<i class="fas fa-thumbs-up" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -189,7 +204,12 @@ class NavbarComponent extends Component {
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
+							<ListGroupItem
+								className={`each-notification p-3 notification-${notification._id} ${notification.read ==
+								'yes'
+									? 'unread'
+									: 'read'}`}
+							>
 								<i class="fas fa-thumbs-down" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -213,7 +233,12 @@ class NavbarComponent extends Component {
 							}}
 							to={`/view/${notification.post_id}`}
 						>
-							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
+							<ListGroupItem
+								className={`each-notification p-3 notification-${notification._id} ${notification.read ==
+								'yes'
+									? 'unread'
+									: 'read'}`}
+							>
 								<i class="fas fa-comments" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.username}`}
 								>
@@ -238,7 +263,12 @@ class NavbarComponent extends Component {
 							}}
 							to={`/profile/${notification.followed_by}`}
 						>
-							<ListGroupItem className={`each-notification p-3 notification-${notification._id} ${notification.read == 'yes' ? 'unread': 'read'}`}>
+							<ListGroupItem
+								className={`each-notification p-3 notification-${notification._id} ${notification.read ==
+								'yes'
+									? 'unread'
+									: 'read'}`}
+							>
 								<i class="fas fa-user-plus" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.followed_by}`}
 								>
@@ -261,7 +291,9 @@ class NavbarComponent extends Component {
 							}}
 							to={`/profile/${notification.followed_by}`}
 						>
-							<ListGroupItem className={`each-notification p-3 ${notification.read == 'yes' ? 'unread': 'read'}`}>
+							<ListGroupItem
+								className={`each-notification p-3 ${notification.read == 'yes' ? 'unread' : 'read'}`}
+							>
 								<i class="fas fa-user-minus" />&nbsp;&nbsp;&nbsp;<Link
 									to={`/profile/${notification.followed_by}`}
 								>
@@ -402,11 +434,14 @@ class NavbarComponent extends Component {
 										<img src={TrendingFeel} alt="" />
 									</IconButton>
 								</NavLink>
-								<span className="p-2 text-dark notification-span" onClick={this.handleShowNotification.bind(this)}>
+								<span
+									className="p-2 text-dark notification-span"
+									onClick={this.handleShowNotification.bind(this)}
+								>
 									<IconButton color="default" className="icon-holder2">
 										<i className="fas fa-bell" />
 									</IconButton>
-									<i className="dot-notification fas fa-circle" />
+									<span className="dot-notification">{this.state.notificationCount}</span>
 								</span>
 								<Button onClick={this.handleClick} style={{ color: 'white' }}>
 									<img

@@ -73,8 +73,6 @@ export function loginAdminUser(userData, history) {
         const { token } = response.data;
         dispatch({ type: "GET_ERRORS", payload: {} });
 
-        setAuthHeader(token);
-
         localStorage.setItem("admin_token", token);
         
         if(localStorage.getItem('jToken')) {
@@ -86,10 +84,9 @@ export function loginAdminUser(userData, history) {
         dispatch({
           type: "SET_ADMIN_USER",
           payload: decodedUser
-        });
+        })
 
         history.push("/admin/dashboard");
-        
       })
       .catch(err => {
         if (err.response && err.response.data) {

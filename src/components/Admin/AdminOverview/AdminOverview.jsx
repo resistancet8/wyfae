@@ -11,6 +11,10 @@ class AdminOverview extends Component {
   };
 
   componentDidMount() {
+
+    if(!this.props.admin.admin_token)
+      window.location.reload();
+
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
