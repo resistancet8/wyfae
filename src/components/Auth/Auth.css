@@ -19,8 +19,9 @@
     height: 100%;
 }
 
-.login-page-holder .left-side, .register_holder_self .left-side {
+.login-page-holder .left-side, .register_holder_self .left-side, .login-page-holder .right-side, .register_holder_self .right-side {
     color: black;
+    z-index: 1;
 }
 
 .register_holder_self .left-side {
@@ -41,7 +42,7 @@
     font-weight: 600;
 }
 
-.login-page-holder, .register_holder_self {
+.login-page-holder .navigation, .register_holder_self .navigation, .login-page-holder .btn, .register_holder_self .btn, .register_holder_self input, .login-page-holder input{
     z-index: 2;
 }
 
@@ -147,34 +148,33 @@
 
 .floating-blob {
     position: fixed !important;
-    z-index: 0;
 }
 
 #first {
     right: 42%;
     top: 50%;
-    z-index: 2;
+    z-index: 1;
 }
 
 #second {
     left: 30%;
-    top: 100px;
+    top: 100px; z-index: 1;
 }
 
 #fourth {
     right: 15%;
     top: 50%;
-    z-index: 2;
+    z-index: 1;
 }
 
 #seventh { 
     left: 10%;
-    top: 300px;
+    top: 300px; z-index: 1;
 }
 
 #eighth {
     left:10%;
-    bottom: 50px; 
+    bottom: 50px;  z-index: 1;
 }
 
 #fifth {
@@ -185,14 +185,13 @@
 
 #third {
     right: 32%;
-    bottom: 200px;
-    z-index: 10;
+    bottom: 200px; z-index: 1;
 }
 
 #sixth {
     right: 10%;
     bottom: 0px;
-    z-index: 10;
+    z-index: 1;
 }
 
 /* @keyframes pound {
