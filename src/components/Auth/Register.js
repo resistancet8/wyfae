@@ -184,6 +184,7 @@ class Register extends Component {
 												fullWidth
 												label="Username"
 												id="username"
+												autoComplete="email"
 												error={errors.username}
   											helperText={errors.username ? errors.username : ' '}
 												onChange={this.handleFormData.bind(this)}
@@ -215,9 +216,10 @@ class Register extends Component {
 									<Grid container spacing={24}>
 										<Grid item xs={12}>
 											<TextField
-											fullWidth
+												fullWidth
 												label="Email"
 												id="email"
+												autoComplete="email"
 												error={errors.email}
   											helperText={errors.email ? errors.email : ' '}
 												onChange={this.handleFormData.bind(this)}
@@ -230,6 +232,8 @@ class Register extends Component {
 												fullWidth
 												label="Password"
 												id="password"
+												type="password"
+												autoComplete="new-password"
 												error={errors.password}
   											helperText={errors.password ? errors.password : ' '}
 												onChange={this.handleFormData.bind(this)}
@@ -240,6 +244,7 @@ class Register extends Component {
 												fullWidth
 												label="Confirm Password"
 												id="password2"
+												type="password"
 												error={errors.password2}
   											helperText={errors.password2 ? errors.password2 : ' '}
 												onChange={this.handleFormData.bind(this)}
