@@ -20,7 +20,6 @@
 }
 
 .login-page-holder .left-side, .register_holder_self .left-side, .login-page-holder .right-side, .register_holder_self .right-side {
-    color: black;
     z-index: 1;
 }
 
