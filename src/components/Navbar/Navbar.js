@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from './../../actions/auth_actions';
-import Brand from './../../assets/img/wyfae_main logo.svg';
+import Brand from './../../assets/img/newlogo.svg';
 import TrendingFeel from './../../assets/img/trending feel icon.svg';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
@@ -409,10 +409,10 @@ class NavbarComponent extends Component {
 						</div>
 						{!isAuth && (
 							<React.Fragment>
-								<NavLink className="p-2 text-dark" to="/register">
+								<NavLink className="p-2" to="/register">
 									Register
 								</NavLink>
-								<NavLink className="p-2 text-dark" to="/login">
+								<NavLink className="p-2" to="/login">
 									Login
 								</NavLink>
 							</React.Fragment>

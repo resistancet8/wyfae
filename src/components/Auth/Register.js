@@ -6,9 +6,7 @@ import { registerUser } from './../../actions/auth_actions';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Spinner from '../Spinner/Spinner';
-import Login_BG from './../../assets/img/login_bg.png';
-import BrandLogo from './../../assets/img/login/logo_new.png';
-import Brand from './../../assets/img/wyfae_main logo.svg';
+import Brand from './../../assets/img/newlogo.svg';
 import { Button, Row, Col, Container, InputGroup, InputGroupAddon } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -25,15 +23,23 @@ import MaskPNG from './../../assets/img/Mask Group 1@3x.png';
 import Mask2PNG from './../../assets/img/Mask Group 2@3x.png';
 import Mask3PNG from './../../assets/img/Mask Group 3@3x.png';
 import Path2PNG from './../../assets/img/Path 184@3x.png';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Register extends Component {
 	state = {
 		errors: {},
 		loading: false,
+		registerChecked: false,
 		form: {
 			dob: moment().format("DD/MM/YYYY")
 		}
 	};
+
+	toggleRegisterCheck() {
+		this.setState({
+			registerChecked: !this.state.registerChecked
+		})
+	}
 
 	componentDidMount() {
 
@@ -84,13 +90,17 @@ class Register extends Component {
 	
 	getData(e) {
 		e.preventDefault();
+		if(!this.state.registerChecked) {
+			return;
+		}
+		
 		this.setState(
 			{
 				loading: true
 			},
 			() => {
 				setTimeout(() => {
-				this.props.registerUser(this.state.form, this.props.history);
+					this.props.registerUser(this.state.form, this.props.history);
 				}, 300);
 			}
 		);
@@ -131,49 +141,20 @@ class Register extends Component {
 						<Col md="7" style={{ background: 'white' }}>
 							<div className="left-side">
 							<div className="animation">
-                  <img
-                    id="first"
-                    className="floating-blob"
-                    src={RectanglePNG}
-                  />
-                  <img
-                    id="second"
-                    className="floating-blob"
-                    src={GroupPNG}
-                  />
-                  <img
-                    id="third"
-                    className="floating-blob"
-                    src={Path2PNG}
-                  />
-                  <img
-                    id="fourth"
-                    className="floating-blob"
-                    src={Group2PNG}
-                  />
-                  <img
-                    id="fifth"
-                    className="floating-blob"
-                    src={Mask2PNG}
-                  />
-                  <img
-                    id="sixth"
-                    className="floating-blob"
-                    src={Mask3PNG}
-                  />
-                  <img
-                    id="seventh"
-                    className="floating-blob"
-                    src={PathPNG}
-                  />
-                  <img
-                    id="eighth"
-                    className="floating-blob"
-                    src={MaskPNG}
-                  />
+									<img id="firstM" className="floating-blob d-block d-md-none" src={RectanglePNG} />
+									<img id="first" className="floating-blob d-none d-md-block" src={RectanglePNG} />
+									<img id="secondM" className="floating-blob d-block d-md-none" src={GroupPNG} />
+									<img id="second" className="floating-blob d-none d-md-block" src={GroupPNG} />
+									<img id="third" className="floating-blob d-none d-md-block" src={Path2PNG} />
+									<img id="fourth" className="floating-blob d-none d-md-block" src={Group2PNG} />
+									<img id="fifth" className="floating-blob d-none d-md-block" src={Mask2PNG} />
+									<img id="sixth" className="floating-blob d-none d-md-block" src={Mask3PNG} />
+									<img id="seventhM" className="floating-blob d-block d-md-none" src={PathPNG} />
+									<img id="seventh" className="floating-blob d-none d-md-block" src={PathPNG} />
+									<img id="eighth" className="floating-blob d-none d-md-block" src={MaskPNG} />
                 </div>
 								<div className="brand-holder">
-									<img src={Brand} alt="Wyfae Brand" style={{ width: '140px' }} />
+									<img src={Brand} alt="Wyfae Brand" style={{ width: '80px' }} />
 								</div>
 								<h1 className="font-weight-bold">Sign up for free</h1>
 								<form className="text-center">
@@ -275,7 +256,7 @@ class Register extends Component {
 									</Grid>
 
 									<p className="mt-5 d-block">
-										By continuing, you agree to Wyfae's{' '}
+										<Checkbox color="primary" checked={this.state.registerChecked} onChange={this.toggleRegisterCheck.bind(this)}/> By continuing, you agree to Wyfae's{' '}
 										<b>
 											<Link to="/usage">Terms of Service </Link>
 										</b>{' '}
@@ -312,7 +293,7 @@ class Register extends Component {
 											<NavLink to="/trending">Trending Feel</NavLink>
 										</li>
 										<li>
-											<NavLink to="/trending">Competetions</NavLink>
+											<NavLink to="/trending">Competitions</NavLink>
 										</li>
 										<li>
 											<NavLink to="/trending">Trending Weekly</NavLink>
@@ -320,7 +301,7 @@ class Register extends Component {
 									</ul>
 								</div>
 								<div className="signup">
-									<h1 className="font-weight-bold">Already have an Account?</h1>
+									<h1 style={{fontSize: '25px'}} className="font-weight-bold">Already have an Account?</h1>
 									<p>Login and start writing your experiences, memories and emotions.</p>
 									<p className="text-center">Let's Ink your life.</p>
 									<NavLink className="btn" to="/login">

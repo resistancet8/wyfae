@@ -55,7 +55,7 @@ class Adminpost extends Component {
 
 						this.setState({
 							inview: data,
-							showLoading: data.length == 0 ? false : true
+							showLoading: data && data.length == 0 ? false : true
 						});
 					})
 					.catch((err) => {
@@ -79,7 +79,7 @@ class Adminpost extends Component {
 					? 'filter_report'
 					: 'get_flag_post'}`,
 				{
-					skip_count: this.state.inview.length,
+					skip_count: this.state.inview && this.state.inview.length,
 					limit_count: 10,
 					report_type: this.state.sort ? this.state.sortBy : ''
 				},
@@ -91,7 +91,7 @@ class Adminpost extends Component {
 				this.setState((prev) => {
 					return {
 						inview: [ ...this.state.inview, ...data ],
-						hasMore: data.length <= 0 ? false : true
+						hasMore: data && data.length <= 0 ? false : true
 					};
 				});
 			})
@@ -142,7 +142,7 @@ class Adminpost extends Component {
 
 				this.setState({
 					inview: data,
-					showLoading: data.length == 0 ? false : true
+					showLoading: data && data.length == 0 ? false : true
 				});
 			})
 			.catch((err) => {

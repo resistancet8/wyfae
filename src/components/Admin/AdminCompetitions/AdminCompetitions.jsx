@@ -32,7 +32,7 @@ class AdminCompetition extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get_contest`, { compete_status: "all", skip_count: this.state.inview.length, limit_count: 10 }, axiosConfig)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/dashboard/get_contest`, { compete_status: "all", skip_count: this.state.inview && this.state.inview.length, limit_count: 10 }, axiosConfig)
       .then(response => {
         let data = response.data.all_content;
         let allPosts = data.upcoming;
@@ -91,7 +91,7 @@ class AdminCompetition extends Component {
 
         this.setState({
           inview: [...allPosts],
-          showLoading: allPosts.length == 0 ? false: true
+          showLoading: allPosts && allPosts.length == 0 ? false: true
         });
       })
       .catch(err => {

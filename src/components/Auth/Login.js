@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Spinner from '../Spinner/Spinner';
 import { Button, Row, Col, Container, InputGroup, InputGroupAddon } from 'reactstrap';
-import Brand from './../../assets/img/wyfae_main logo.svg';
+import Brand from './../../assets/img/newlogo.svg';
 import LockPNG from './../../assets/img/locked@3x.png';
 import MailPNG from './../../assets/img/mail@3x.png';
 import './Auth.css';
@@ -52,50 +52,49 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
+		var randomMovement = function() {
+			return anime.random(0, 10) + 'rem';
+		};
 
-    var randomMovement = function() {
-        return anime.random(0, 10) + 'rem'
-    };
-  
-    anime({
-      targets: '#first',
-      loop: true,
-      scale: .1,
-      easing: 'linear',
-      duration: 3000,
-      direction: 'alternate',
-      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
-    });
+		anime({
+			targets: '#first',
+			loop: true,
+			scale: 0.1,
+			easing: 'linear',
+			duration: 3000,
+			direction: 'alternate',
+			rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ]
+		});
 
-    anime({
-      targets: '#second',
-      loop: true,
-      duration: 3000,
-      easing: 'linear',
-      direction: 'alternate',
-      translateX: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ],
-      translateY: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ],
-    });
+		anime({
+			targets: '#second',
+			loop: true,
+			duration: 3000,
+			easing: 'linear',
+			direction: 'alternate',
+			translateX: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ],
+			translateY: [ { value: randomMovement }, { value: randomMovement }, { value: randomMovement } ]
+		});
 
-    anime({
-      targets: '#third',
-      loop: true,
-      scale: .1,
-      easing: 'linear',
-      duration: 3000,
-      direction: 'alternate',
-      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
-    });
+		anime({
+			targets: '#third',
+			loop: true,
+			scale: 0.1,
+			easing: 'linear',
+			duration: 3000,
+			direction: 'alternate',
+			rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ]
+		});
 
-    anime({
-      targets: '#seventh',
-      loop: true,
-      scale: .1,
-      easing: 'linear',
-      duration: 3000,
-      direction: 'alternate',
-      rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ],
-    });
+		anime({
+			targets: '#seventh',
+			loop: true,
+			scale: 0.1,
+			easing: 'linear',
+			duration: 3000,
+			direction: 'alternate',
+			rotate: [ { value: 0 }, { value: 180 }, { value: 0 } ]
+		});
 	}
 
 	render() {
@@ -114,51 +113,22 @@ class Login extends Component {
 					<Row>
 						<Col md="7" style={{ background: 'white' }}>
 							<div className="left-side">
-								<div className="animation">
-                  <img
-                    id="first"
-                    className="floating-blob"
-                    src={RectanglePNG}
-                  />
-                  <img
-                    id="second"
-                    className="floating-blob"
-                    src={GroupPNG}
-                  />
-                  <img
-                    id="third"
-                    className="floating-blob"
-                    src={Path2PNG}
-                  />
-                  <img
-                    id="fourth"
-                    className="floating-blob"
-                    src={Group2PNG}
-                  />
-                  <img
-                    id="fifth"
-                    className="floating-blob"
-                    src={Mask2PNG}
-                  />
-                  <img
-                    id="sixth"
-                    className="floating-blob"
-                    src={Mask3PNG}
-                  />
-                  <img
-                    id="seventh"
-                    className="floating-blob"
-                    src={PathPNG}
-                  />
-                  <img
-                    id="eighth"
-                    className="floating-blob"
-                    src={MaskPNG}
-                  />
-                </div>
+								<div className="animation ">
+									<img id="firstM" className="floating-blob d-block d-md-none" src={RectanglePNG} />
+									<img id="first" className="floating-blob d-none d-md-block" src={RectanglePNG} />
+									<img id="secondM" className="floating-blob d-block d-md-none" src={GroupPNG} />
+									<img id="second" className="floating-blob d-none d-md-block" src={GroupPNG} />
+									<img id="third" className="floating-blob d-none d-md-block" src={Path2PNG} />
+									<img id="fourth" className="floating-blob d-none d-md-block" src={Group2PNG} />
+									<img id="fifth" className="floating-blob d-none d-md-block" src={Mask2PNG} />
+									<img id="sixth" className="floating-blob d-none d-md-block" src={Mask3PNG} />
+									<img id="seventhM" className="floating-blob d-block d-md-none" src={PathPNG} />
+									<img id="seventh" className="floating-blob d-none d-md-block" src={PathPNG} />
+									<img id="eighth" className="floating-blob d-none d-md-block" src={MaskPNG} />
+								</div>
 
 								<div className="brand-holder">
-									<img src={Brand} alt="Wyfae Brand" style={{ width: '140px' }} />
+									<img src={Brand} alt="Wyfae Brand" style={{ width: '80px' }} />
 								</div>
 								<div className="signin-form">
 									<h1 className="font-weight-bold">Sign in to Wyfae</h1>
@@ -230,7 +200,7 @@ class Login extends Component {
 											<NavLink to="/trending">Trending Feel</NavLink>
 										</li>
 										<li>
-											<NavLink to="/trending">Competetions</NavLink>
+											<NavLink to="/trending">Competitions</NavLink>
 										</li>
 										<li>
 											<NavLink to="/trending">Trending Weekly</NavLink>
@@ -238,7 +208,7 @@ class Login extends Component {
 									</ul>
 								</div>
 								<div className="signup">
-									<h1 className="font-weight-bold">New Here?</h1>
+									<h1 style={{fontSize: '25px'}} className="font-weight-bold">New Here?</h1>
 									<p>
 										Create a new account and start writing your experiences, memories and emotions.
 									</p>

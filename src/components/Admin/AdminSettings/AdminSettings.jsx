@@ -174,7 +174,7 @@ class AdminCompetition extends Component {
 								{this.state.showLoader ? (
 									<Loader />
 								) : (
-									this.state.notification_message.length >= 0 && (
+									this.state.notification_message && this.state.notification_message.length >= 0 && (
 										<Input
 											style={{ height: '300px' }}
 											type="textarea"

@@ -82,14 +82,15 @@
 }
 
 .navbar-holder-design {
+  padding-left: 75px !important;
 }
 
 .navbar-holder-design a, .navbar-holder-design input{
-  color: #333 !important;
+  color: #fff !important;
 }
 
 .add-gradient { 
-  background-image: linear-gradient(to right, #4a6ecb, #3cc1a7);
+  background-image: linear-gradient(to right,#3cc1a7 , #4a6ecb);
 }
 
 #profile-img-header {
