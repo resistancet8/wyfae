@@ -3,6 +3,15 @@ import Card from "./Card";
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from './../../Loader';
+import NoData from './../../../assets/img/no_data.svg'
+
+let keyToValue = {
+  poem: "Oops! Looks like we have no top Poems this week.",
+  story: "Oops! Looks like we have no top Stories this week.",
+  ganaz: "Oops! Looks like we have no top Gazals Or Nazm this week.",
+  letter: "Oops! Looks like we have no top Letters this week.",
+  quotes: "Oops! Looks like we have no top Quotes this week.",
+};
 
 class Main extends Component {
 
@@ -68,6 +77,8 @@ class Main extends Component {
 
 
   render() {
+
+    console.log("+++", this.props.posts_tr)
     let items = [];
     items = this.state.inview.map(post => {
       return <Card post={post} />;
@@ -90,7 +101,8 @@ class Main extends Component {
         {this.state.showLoading && <div className="text-center py-2"> <Loader /></div>}
         {this.state.inview.length == 0 && !this.state.showLoading && <div className="text-center py-2">
           <div className="container p-5">
-            <h1>No posts yet.</h1>
+            <h1 style={{marginBottom: '80px'}}>{keyToValue[this.props.posts_tr] || "Oops! Looks like we have no top Posts this week."}</h1>
+            <img src={NoData} style={{width: '100%'}} alt=""/>
           </div>
         </div>}
       </div>

@@ -279,7 +279,7 @@ class Register extends Component {
 											target="_blank"
 											style={{ color: '#4881EC' }}
 										>
-											Codingzap
+											Codingzap Technologies
 										</a>{' '}
 									</p>
 								</center>
@@ -290,14 +290,14 @@ class Register extends Component {
 								<div className="navigation">
 									<ul>
 										<li>
-											<NavLink to="/trending">Trending Feel</NavLink>
-										</li>
-										<li>
-											<NavLink to="/trending">Competitions</NavLink>
-										</li>
-										<li>
-											<NavLink to="/trending">Trending Weekly</NavLink>
-										</li>
+												<NavLink to="/trending">Trending Feel</NavLink>
+											</li>
+											<li>
+												<NavLink to="/trending/upcoming">Competitions</NavLink>
+											</li>
+											<li>
+												<NavLink to="/trending/poems">Trending Weekly</NavLink>
+											</li>
 									</ul>
 								</div>
 								<div className="signup">

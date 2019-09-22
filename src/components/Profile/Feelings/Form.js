@@ -194,7 +194,7 @@ class Form extends Component {
 			this.state.canvas.toDataURL({
 				format: 'jpeg',
 				quality: 1,
-				multiplier: 1
+				multiplier: 2
 			})
 		);
 
@@ -245,7 +245,6 @@ class Form extends Component {
 	};
 
 	handleColorChange(e) {
-		console.log(e, '+++');
 		this.setState({
 			textFill: '#' + rgbHex(e.rgb.r, e.rgb.g, e.rgb.b, e.rgb.a)
 		});

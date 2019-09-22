@@ -189,6 +189,18 @@ class Login extends Component {
 											</Button>
 										</div>
 									</form>
+									<center>
+									<p className="copy-right mt-5" style={{ color: '#000' }}>
+										&copy; All rights reserved 2019 | Powered by{' '}
+										<a
+											href="https://www.codingzap.com"
+											target="_blank"
+											style={{ color: '#4881EC' }}
+										>
+											Codingzap Technologies
+										</a>{' '}
+									</p>
+								</center>
 								</div>
 							</div>
 						</Col>
@@ -200,10 +212,10 @@ class Login extends Component {
 											<NavLink to="/trending">Trending Feel</NavLink>
 										</li>
 										<li>
-											<NavLink to="/trending">Competitions</NavLink>
+											<NavLink to="/trending/upcoming">Competitions</NavLink>
 										</li>
 										<li>
-											<NavLink to="/trending">Trending Weekly</NavLink>
+											<NavLink to="/trending/poems">Trending Weekly</NavLink>
 										</li>
 									</ul>
 								</div>
