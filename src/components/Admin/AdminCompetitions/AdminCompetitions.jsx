@@ -101,13 +101,14 @@ class AdminCompetition extends Component {
 
   render() {
     let items = this.state.inview.map((competition, index) => {
+      console.log("+++", competition)
       return <Row className="my-4 border-bottom">
         <Col md="1">{index + 1}</Col>
         <Col md="2"><div className="text-capitalize">{competition.post_title.substr(0, 20)}</div></Col>
         <Col md="2">{moment(competition.creation_time).format("DD-MM-YYYY HH:mm")}</Col>
         <Col md="2">{moment(competition.start_time).format("DD-MM-YYYY HH:mm")}</Col>
         <Col md="2">{moment(competition.end_time).format("DD-MM-YYYY HH:mm")}</Col>
-        <Col md="2">{competition.winner}</Col>
+        <Col md="2">{competition.winner.msg}</Col>
         <Col md="1">
           <Link to={`/admin/dashboard/competitions/view/${competition._id}`}><button title="view" class="btn"><i class="fa fa-eye"></i></button></Link>
           <button title="delete" onClick={() => {

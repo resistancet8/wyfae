@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import reactCSS from 'reactcss';
 import defaultPic from './../../../assets/img/default.jpg';
 import Canvas from './Canvas';
 import validateFeelingsinput from './../../../helpers/feelings_validator';
@@ -13,62 +14,30 @@ import { Carousel } from 'react-responsive-carousel';
 import Loader from './../../Loader';
 import Switch from 'react-switch';
 import axios from 'axios';
+import { SketchPicker } from 'react-color';
+
 import './text.js';
+const rgbHex = require('rgb-hex');
 
 let textLimit = 100;
 let fontList = [
-	'Arial',
-	'Tahoma',
-	'Impact',
-	'Arial Black',
-	'Trebuchet MS', 
-	'Comic Sans MS',
-	'Bookman',
-	'Garamond',
-	'Palatino',
-	'Georgia',
-	'Verdana',
-	'Courier New',
-	'Times New Roman',
-	'Helvetica',
-	'Caveat',
-	'Chilanka',
-	'Dancing Script',
-	'Economica',
-	'Fjalla One',
 	'Indie Flower',
+	'Chilanka',
+	'Abril Fatface',
+	'Courgette',
+	'Great Vibes',
+	'Special Elite',
 	'Lato',
 	'Lobster',
-	'Nova Round',
 	'Open Sans',
-	'Oswald',
+	'Yellowtail',
 	'Playfair Display',
-	'Quicksand',
-	'Raleway',
-	'Roboto',
-	'Saira Stencil One'
+	'Cedarville Cursive',
+	'Faster One',
+	'Finger Paint',
+	'Kranky',
+	'Black And White Picture'
 ];
-
-function convertFileToDataURLviaFileReader(url, callback) {
-	var image = new Image();
-	image.crossOrigin = 'anonymous';
-
-	image.onload = function() {
-		var canvas = document.createElement('canvas');
-		canvas.width = 500; // or 'width' if you want a special/scaled size
-		canvas.height = 500; // or 'height' if you want a special/scaled size
-
-		canvas.getContext('2d').drawImage(this, 0, 0);
-
-		// Get raw image data
-		// callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
-
-		// ... or get as Data URI
-		callback(canvas.toDataURL('image/png'));
-	};
-
-	image.src = url;
-}
 
 class Form extends Component {
 	constructor(props) {
@@ -83,12 +52,14 @@ class Form extends Component {
 	}
 
 	state = {
+		displayColorPicker: false,
+		displayColorPicker2: false,
 		errors: {},
 		loading: false,
 		shared_type: '',
 		modal: 1,
 		previewUrl: '',
-		color: '#333333',
+		color: '#333333FF',
 		imageVisibility: true,
 		forceTurnOffImage: false,
 		previewed: false,
@@ -96,14 +67,14 @@ class Form extends Component {
 		textAlign: 'left',
 		fontSize: 35,
 		fontWeight: 'normal',
-		textFill: '#444444',
+		textFill: '#444444ff',
 		fontFamily: fontList[0],
-		canvasBackground: '#ffffff',
+		canvasBackground: '#ffffffff',
 		canvasBackgroundImage: null,
 		canvas: null,
 		showLoaderImages: '',
 		defaultImages: [],
-		textBuffer: "",
+		textBuffer: '',
 		selectedItem: 0
 	};
 
@@ -144,15 +115,16 @@ class Form extends Component {
 	}
 
 	selectImage(image, item) {
-		axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/user/download_image", {
-      image_path: image.match(/(\/)(static)(.*)/g)[0]
-    })
-    .then(e => {
-        this.setState({
-					canvasBackgroundImage: "data:application/octet-stream;base64," + e.data.image,
+		axios
+			.post(`${process.env.REACT_APP_API_ENDPOINT}` + '/user/download_image', {
+				image_path: image.match(/(\/)(static)(.*)/g)[0]
+			})
+			.then((e) => {
+				this.setState({
+					canvasBackgroundImage: 'data:application/octet-stream;base64,' + e.data.image,
 					selectedItem: item
 				});
-    })
+			});
 	}
 
 	handleImageChange(e) {
@@ -218,12 +190,14 @@ class Form extends Component {
 			return;
 		}
 
-		let blob = this.dataURItoBlob(this.state.canvas.toDataURL({
-      format: 'jpeg',
-      quality: 1,
-      multiplier: 1
-		}));
-		
+		let blob = this.dataURItoBlob(
+			this.state.canvas.toDataURL({
+				format: 'jpeg',
+				quality: 1,
+				multiplier: 1
+			})
+		);
+
 		let bodyFormData = new FormData();
 		bodyFormData.append('text', this.state.text);
 		bodyFormData.append('post_type', formData.post_type);
@@ -259,7 +233,36 @@ class Form extends Component {
 	toggled() {
 		this.setState({
 			clickToPreview: false
-		})
+		});
+	}
+
+	handleClose = () => {
+		this.setState({ displayColorPicker: false });
+	};
+
+	handleClose2 = () => {
+		this.setState({ displayColorPicker2: false });
+	};
+
+	handleColorChange(e) {
+		console.log(e, '+++');
+		this.setState({
+			textFill: '#' + rgbHex(e.rgb.r, e.rgb.g, e.rgb.b, e.rgb.a)
+		});
+	}
+
+	handleColorChange2(e) {
+		this.setState({
+			canvasBackground: '#' + rgbHex(e.rgb.r, e.rgb.g, e.rgb.b, e.rgb.a)
+		});
+	}
+
+	handleShowColorPicker() {
+		this.setState({ displayColorPicker: !this.state.displayColorPicker });
+	}
+
+	handleShowColorPicker2() {
+		this.setState({ displayColorPicker2: !this.state.displayColorPicker2 });
 	}
 
 	render() {
@@ -269,6 +272,80 @@ class Form extends Component {
 		if ((this.state.imageVisibility && this.state.previewed) || !this.state.imageVisibility) {
 			showButtons = false;
 		}
+
+		const styles1 = reactCSS({
+			default: {
+				color: {
+					width: '36px',
+					height: '14px',
+					borderRadius: '2px',
+					background: `${this.state.textFill}`
+				},
+				swatch: {
+					padding: '5px',
+					background: '#fff',
+					borderRadius: '1px',
+					boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+					display: 'inline-block',
+					cursor: 'pointer'
+				},
+				popover: {
+					position: 'absolute',
+					zIndex: '2',
+					bottom: '0px',
+					right: '60px'
+				},
+				popoverDesktop: {
+					position: 'absolute',
+					zIndex: '2',
+					left: '15px'
+				},
+				cover: {
+					position: 'fixed',
+					top: '0px',
+					right: '0px',
+					bottom: '0px',
+					left: '0px'
+				}
+			}
+		});
+
+		const styles2 = reactCSS({
+			default: {
+				color: {
+					width: '36px',
+					height: '14px',
+					borderRadius: '2px',
+					background: `${this.state.canvasBackground}`
+				},
+				swatch: {
+					padding: '5px',
+					background: '#fff',
+					borderRadius: '1px',
+					boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+					display: 'inline-block',
+					cursor: 'pointer'
+				},
+				popover: {
+					position: 'absolute',
+					zIndex: '2',
+					bottom: '0px',
+					right: '60px'
+				},
+				popoverDesktop: {
+					position: 'absolute',
+					zIndex: '2',
+					left: '15px'
+				},
+				cover: {
+					position: 'fixed',
+					top: '0px',
+					right: '0px',
+					bottom: '0px',
+					left: '0px'
+				}
+			}
+		});
 
 		return (
 			<div>
@@ -351,14 +428,30 @@ class Form extends Component {
 															<div className="row">
 																<div className="col">
 																	<label>Text Colour:</label>
-																	<input
-																		type="color"
-																		class="form-control"
-																		id="textFill"
-																		placeholder="Color"
-																		value={this.state.textFill}
-																		onChange={this.handleControlsChange}
-																	/>
+																	<div>
+																		<div
+																			style={styles1.swatch}
+																			onClick={this.handleShowColorPicker.bind(
+																				this
+																			)}
+																		>
+																			<div style={styles1.color} />
+																		</div>
+																	</div>
+																	{this.state.displayColorPicker ? (
+																		<div style={styles1.popoverDesktop}>
+																			<div
+																				style={styles1.cover}
+																				onClick={this.handleClose}
+																			/>
+																			<SketchPicker
+																				color={this.state.textFill}
+																				onChange={this.handleColorChange.bind(
+																					this
+																				)}
+																			/>
+																		</div>
+																	) : null}
 																</div>
 																<div className="col">
 																	<label for="text-align">Alignment:</label>
@@ -400,19 +493,40 @@ class Form extends Component {
 																		))}
 																	</select>
 																</div>
-																<div className="col">
-																	<div class="form-group">
-																		<label>BG Colour:</label>
-																		<input
-																			type="color"
-																			class="form-control"
-																			id="canvasBackground"
-																			placeholder="Color"
-																			value={this.state.canvasBackground}
-																			onChange={this.handleControlsChange}
-																		/>
+																{!this.state.canvasBackgroundImage && (
+																	<div className="col">
+																		<div class="form-group">
+																			<label>BG Colour:</label>
+																			<div>
+																				<div
+																					style={styles2.swatch}
+																					onClick={this.handleShowColorPicker2.bind(
+																						this
+																					)}
+																				>
+																					<div style={styles2.color} />
+																				</div>
+																			</div>
+																			{this.state.displayColorPicker2 ? (
+																				<div style={styles2.popoverDesktop}>
+																					<div
+																						style={styles2.cover}
+																						onClick={this.handleClose2}
+																					/>
+																					<SketchPicker
+																						style={{ zIndex: '3' }}
+																						color={
+																							this.state.canvasBackground
+																						}
+																						onChange={this.handleColorChange2.bind(
+																							this
+																						)}
+																					/>
+																				</div>
+																			) : null}
+																		</div>
 																	</div>
-																</div>
+																)}
 															</div>
 														</div>
 														<div class="form-group">
@@ -478,11 +592,8 @@ class Form extends Component {
 													</form>
 												</div>
 											</div>
-											<div
-												class="col-lg-7 col-md-12"
-												style={{ height: '520px', background: '#f1f1f1', padding: '10px' }}
-											>
-												{this.state.text.trim().length > 0  && (
+											<div class="col-lg-7 col-md-12 canvas-holder-inner">
+												{this.state.text.trim().length > 0 && (
 													<Canvas
 														height={500}
 														text={this.state.text}
@@ -534,14 +645,30 @@ class Form extends Component {
 																</div>
 																<div className="col">
 																	<label>Text Colour:</label>
-																	<input
-																		type="color"
-																		class="form-control"
-																		id="textFill"
-																		placeholder="Color"
-																		value={this.state.textFill}
-																		onChange={this.handleControlsChange}
-																	/>
+																	<div>
+																		<div
+																			style={styles1.swatch}
+																			onClick={this.handleShowColorPicker.bind(
+																				this
+																			)}
+																		>
+																			<div style={styles1.color} />
+																		</div>
+																	</div>
+																	{this.state.displayColorPicker ? (
+																		<div style={styles1.popover}>
+																			<div
+																				style={styles1.cover}
+																				onClick={this.handleClose}
+																			/>
+																			<SketchPicker
+																				color={this.state.textFill}
+																				onChange={this.handleColorChange.bind(
+																					this
+																				)}
+																			/>
+																		</div>
+																	) : null}
 																</div>
 															</div>
 														</div>
@@ -583,19 +710,40 @@ class Form extends Component {
 																		))}
 																	</select>
 																</div>
-																<div className="col">
-																	<div class="form-group">
-																		<label>BG Colour:</label>
-																		<input
-																			type="color"
-																			class="form-control"
-																			id="canvasBackground"
-																			placeholder="Color"
-																			value={this.state.canvasBackground}
-																			onChange={this.handleControlsChange}
-																		/>
+																{!this.state.canvasBackgroundImage && (
+																	<div className="col">
+																		<div class="form-group">
+																			<label>BG Colour:</label>
+																			<div>
+																				<div
+																					style={styles2.swatch}
+																					onClick={this.handleShowColorPicker2.bind(
+																						this
+																					)}
+																				>
+																					<div style={styles2.color} />
+																				</div>
+																			</div>
+																			{this.state.displayColorPicker2 ? (
+																				<div style={styles2.popover}>
+																					<div
+																						style={styles2.cover}
+																						onClick={this.handleClose2}
+																					/>
+																					<SketchPicker
+																						style={{ zIndex: '3' }}
+																						color={
+																							this.state.canvasBackground
+																						}
+																						onChange={this.handleColorChange2.bind(
+																							this
+																						)}
+																					/>
+																				</div>
+																			) : null}
+																		</div>
 																	</div>
-																</div>
+																)}
 															</div>
 															<div class="form-group">
 																<div className="row" />

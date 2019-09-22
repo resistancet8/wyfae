@@ -41,9 +41,9 @@
   transition: 0.3s;
 }
 
-.avatar img {
+.control-arrow {
+  z-index: 1 !important;
 }
-
 .rounded {
   border-radius: 10px !important;
 }
@@ -378,6 +378,14 @@ img.img-fluid + label {
   #canvas, #canvas1 {
     width: 100% !important;
   }
+
+    .canvas-holder-inner, .canvas-container {
+      height: 360px !important;
+    }
+  
+    .canvas-container canvas {
+        height: 340px !important;
+    }
 
   .home-wrapper {
     padding: 50px 10px;

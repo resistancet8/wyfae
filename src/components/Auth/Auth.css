@@ -66,6 +66,7 @@
     flex-direction: column;
     text-align: center;
     height: 50%;
+    z-index: 10;
 }
 
 .login-page-holder .signin-form h1, .register_holder_self .signin-form h1{

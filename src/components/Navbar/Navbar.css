@@ -122,6 +122,12 @@
 .each-notification {
   text-decoration: none !important;
   cursor: pointer;
+  color: #333 !important;
+  text-align: left !important;
+}
+
+.each-notification a {
+  color: #333 !important;
 }
 
 .each-notification.unread {
@@ -163,5 +169,9 @@
     height: 500px !important;
     width: 95% !important;
     border: 1px solid #bbb;
+  }
+
+  .navbar-holder-design {
+    padding-left: 1rem !important;
   }
 }

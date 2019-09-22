@@ -51,7 +51,10 @@ class DesignCanvas extends React.Component {
     }
     
     if(props.fontFamily != this.state.textObject.fontFamily) {
-      this.state.textObject.set('fontFamily', props.fontFamily);
+      // setTimeout(() => {
+        this.state.textObject.set('fontFamily', props.fontFamily);
+        // this.state.canvas.renderAll();
+      // }, 100);
       changed = true;
     }
 
@@ -103,6 +106,9 @@ class DesignCanvas extends React.Component {
 
     this.setState({ canvas }, () => {
       const textObject = new fabric.Textbox(this.props.text, { left: 10, top: 10, width: 480, height: 480, textAlign: this.props.textAlign, fontFamily: 'Courier New'});
+      textObject.lockScalingX  = true;
+      textObject.hasControls = false;
+      textObject.lockScalingY  = true;
       this.state.canvas.add(textObject);
       this.setState({
         textObject

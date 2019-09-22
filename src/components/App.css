@@ -120,6 +120,16 @@ h1#sub-title {
   font-size: 14px;
 }
 
+.canvas-holder-inner {
+  height: 520px;
+  background: #f1f1f1;
+  padding: 10px;
+}
+
+input::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
 @media screen and (min-width: 900px) {
   #label-dob {
     display: none !important;
@@ -129,6 +139,14 @@ h1#sub-title {
 @media screen and (max-width: 900px) {
   #label-dob {
     display: inline-block;
+  }
+
+  .canvas-holder-inner {
+    height: 400px;
+  }
+
+  #canvas-container canvas#lower-canvas {
+    height: 400px !important;
   }
 
   .auth-holder-login, .auth-holder-register {

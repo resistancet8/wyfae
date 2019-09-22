@@ -174,17 +174,15 @@ class AdminCompetition extends Component {
 								{this.state.showLoader ? (
 									<Loader />
 								) : (
-									this.state.notification_message && this.state.notification_message.length >= 0 && (
-										<Input
-											style={{ height: '300px' }}
-											type="textarea"
-											name="text"
-											onChange={this.handleChange}
-											id="notification_message"
-											placeholder="Enter Message"
-											value={this.state.notification_message}
-										/>
-									)
+									<Input
+										style={{ height: '300px' }}
+										type="textarea"
+										name="text"
+										onChange={this.handleChange}
+										id="notification_message"
+										placeholder="Enter Message"
+										value={this.state.notification_message}
+									/>
 								)}
 							</FormGroup>
 							<label>Show Message: </label>
