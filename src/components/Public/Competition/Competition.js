@@ -14,13 +14,13 @@ class Competition extends Component {
           }}
         >
           <div className={`comp-link upcoming ${this.props.location.pathname.indexOf('upcoming') > 0 ? "active": ""}`}>
-            <Link to="/trending/upcoming">Upcoming</Link>
+            <Link to="/trending/upcoming">Join a Competition</Link>
           </div>
           <div className={`comp-link ongoing ${this.props.location.pathname.indexOf('ongoing') > 0 ? "active": ""}`}>
-            <Link to="/trending/ongoing">Ongoing</Link>
+            <Link to="/trending/ongoing">Vote your favorite author</Link>
           </div>
           <div className={`comp-link completed ${this.props.location.pathname.indexOf('completed') > 0 ? "active": ""}`}>
-            <Link to="/trending/completed">Completed</Link>
+            <Link to="/trending/completed">Winners</Link>
           </div>
         </div>
       </div>
