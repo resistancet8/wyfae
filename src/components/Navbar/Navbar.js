@@ -108,7 +108,7 @@ class NavbarComponent extends Component {
 			showNotification: !this.state.showNotification
 		});
 		Axios.post(`${process.env.REACT_APP_API_ENDPOINT}/user/update_notification_count`, {
-			read: 'yes'
+			viewed: 'yes'
 		})
 			.then((response) => {
 				

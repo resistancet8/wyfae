@@ -437,3 +437,21 @@ button#plus, button#minus {
     border-bottom-right-radius: 6px !important;
   }
 }
+
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, .5);
+}

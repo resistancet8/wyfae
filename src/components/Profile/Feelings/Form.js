@@ -381,7 +381,7 @@ class Form extends Component {
 											class="close"
 											style={{ fontSize: '40px', color: 'red' }}
 										>
-											<span aria-hidden="true">&times;</span>
+											<span aria-hidden="true" style={{color: "green", fontSize: '18px', marginRight: '10px'}}><i class="fa fa-check" aria-hidden="true"></i></span>
 										</button>
 									</div>
 									<div class="modal-body">

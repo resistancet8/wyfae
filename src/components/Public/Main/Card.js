@@ -242,7 +242,7 @@ class PublicCard extends React.Component {
     const { expanded, anchorEl } = this.state;
     const { isAuthenticated } = auth;
 
-    let sharable_url = window.location.host + `/view/` + post._id;
+    let sharable_url = window.location.origin + `/view/` + post._id;
     return (
       <Card className={classes.card + " mb-2"}>
         <CardHeader

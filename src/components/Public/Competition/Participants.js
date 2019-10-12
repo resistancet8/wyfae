@@ -159,7 +159,7 @@ class Participants extends Component {
       }
     }
 
-    let sharable_url = window.location.host + `/shared/` + this.props.data._id;
+    let sharable_url = window.location.origin + `/shared/` + this.props.data._id;
 
     return (
       <div
@@ -191,8 +191,9 @@ class Participants extends Component {
             </div>
             <a
               target="_blank"
+              data-action="share/whatsapp/share"
               class="wa-share-button  float-right"
-              href={`https://wa.me/?text=${encodeURIComponent(sharable_url)}`}
+              href={`whatsapp://send?text=${encodeURIComponent(sharable_url)}`}
             >
               <i class="fab fa-whatsapp" aria-hidden="true" />
             </a>
