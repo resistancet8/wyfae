@@ -207,6 +207,10 @@ input::-webkit-inner-spin-button {
     font-size: 1.6em;
   }
 
+  #exampleModal > div > div > div.modal-body > div > div.col-lg-5.col-md-12.d-none.d-lg-block > div > form > div:nth-child(5) > div > div > div:nth-child(2) {
+    width: 100% !important;
+  }
+
 }
 
 .text-muted.red {
@@ -215,4 +219,12 @@ input::-webkit-inner-spin-button {
 
 .canvas-container {
   margin: 0 auto;
+}
+
+.carousel.carousel-slider .control-arrow {
+  background: #fff3 !important;
+}
+
+#exampleModal > div > div > div.modal-body > div > div.col-lg-5.col-md-12.d-none.d-lg-block > div > form > div:nth-child(5) > div > div > div:nth-child(2) {
+  width: 500px !important;
 }

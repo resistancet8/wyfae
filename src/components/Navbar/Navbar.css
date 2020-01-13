@@ -32,6 +32,11 @@
   border-radius: 30px;
 }
 
+.navbar-holder-design .search-bar input {
+  color: #444 !important;
+  font-weight: bold;
+}
+
 .search-results .row {
   padding: 0;
   margin: 0;
