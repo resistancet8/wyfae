@@ -556,10 +556,6 @@ class Form extends Component {
 																		<Carousel
 																			selectedItem={this.state.selectedItem}
 																			showIndicators={false}
-																			swipeable={true}
-																			infiniteLoop={true}
-																			dynamicHeight={true}
-																			thumbWidth={500}
 																			onClickItem={(e) => {
 																				this.selectImage(
 																					`${process.env
