@@ -39,7 +39,7 @@
     "rgb-hex": "^3.0.0",
     "semantic-ui-react": "^0.84.0",
     "truncate": "^2.0.1",
-    "validator": "^10.7.1"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
